@@ -1,0 +1,6 @@
+@WsRest_UpWay_HostAddress = http://localhost:5194
+
+GET {{WsRest_UpWay_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
