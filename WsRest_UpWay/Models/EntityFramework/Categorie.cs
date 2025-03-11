@@ -11,8 +11,9 @@ namespace WsRest_UpWay.Models.EntityFramework
         [Column("cat_id")]
         public int IdCategorie { get; set; }
 
+        [Required]
         [Column("cat_libelle")]
         [StringLength(100)]
-        public string LibelleCategorie { get; set; }
+        public string LibelleCategorie { get; set; } = null!;
     }
 }
