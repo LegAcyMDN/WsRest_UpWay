@@ -16,7 +16,7 @@ public partial class Utilite
     public int Idutilite { get; set; }
 
     [Key]
-    [Column("uti_id")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
     [Column("uti_valeur")]
