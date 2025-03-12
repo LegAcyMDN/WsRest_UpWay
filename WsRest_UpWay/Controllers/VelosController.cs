@@ -41,7 +41,7 @@ public class VelosController : ControllerBase
 
     [HttpGet]
     [Route("[action]/{nom}")]
-    [ActionName("GetByMode")]
+    [ActionName("GetByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Velo>> GetInformationMode(string nom)
