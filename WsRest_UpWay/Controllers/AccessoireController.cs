@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,95 +14,92 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class AccessoireController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<Accessoire> dataRepository;
 
-        public AccessoireController(S215UpWayContext context)
+        public AccessoireController(IDataRepository<Accessoire> dataRepo)
         {
-            _context = context;
+            dataRepository = dataRepo;
         }
 
-        // GET: api/Accessoire
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoire()
+        public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoires()
         {
-            return await _context.Accessoires.ToListAsync();
+            return await dataRepository.GetAllAsync();
         }
 
-        // GET: api/Accessoire/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
+        [ActionName("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Accessoire>> GetAccessoire(int id)
         {
-            var accessoire = await _context.Accessoires.FindAsync(id);
+            var accessoire = await dataRepository.GetByIdAsync(id);
 
             if (accessoire == null)
-            {
                 return NotFound();
-            }
 
             return accessoire;
         }
 
-        // PUT: api/Accessoire/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpGet]
+        [Route("[action]/{mode}")]
+        [ActionName("GetByMode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Accessoire>> GetAccessoireByNom(string nom)
+        {
+            var accessoire = await dataRepository.GetByStringAsync(nom);
+            if (accessoire == null)
+                return NotFound();
+
+            return accessoire;
+        }
+
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutAccessoire(int id, Accessoire accessoire)
         {
             if (id != accessoire.Idaccessoire)
-            {
                 return BadRequest();
-            }
 
-            _context.Entry(accessoire).State = EntityState.Modified;
+            var accToUpdate = await dataRepository.GetByIdAsync(id);
 
-            try
+            if (accToUpdate == null)
+                return NotFound();
+            else
             {
-                await _context.SaveChangesAsync();
+                await dataRepository.UpdateAsync(accToUpdate.Value, accessoire);
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AccessoireExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
-        // POST: api/Accessoire
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Accessoire>> PostAccessoire(Accessoire accessoire)
         {
-            _context.Accessoires.Add(accessoire);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetAccessoire", new { id = accessoire.Idaccessoire }, accessoire);
+            await dataRepository.AddAsync(accessoire);
+
+            return CreatedAtAction("GetById", new { id = accessoire.Idaccessoire }, accessoire);
         }
 
-        // DELETE: api/Accessoire/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAccessoire(int id)
         {
-            var accessoire = await _context.Accessoires.FindAsync(id);
+            var accessoire = await dataRepository.GetByIdAsync(id);
             if (accessoire == null)
-            {
                 return NotFound();
-            }
 
-            _context.Accessoires.Remove(accessoire);
-            await _context.SaveChangesAsync();
-
+            await dataRepository.DeleteAsync(accessoire.Value);
             return NoContent();
-        }
-
-        private bool AccessoireExists(int id)
-        {
-            return _context.Accessoires.Any(e => e.Idaccessoire == id);
         }
     }
 }

@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class DetailCommandeManager : IDatarepository<Detailcommande>
+    public class DetailCommandeManager : IDataRepository<Detailcommande>
     {
         readonly S215UpWayContext? upwaysDbContext;
 
