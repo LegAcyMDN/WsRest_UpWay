@@ -1,25 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-public partial class Estrealise
+[Table("t_j_estrealise_ere")]
+public class Estrealise
 {
-    public int Idvelo { get; set; }
+    [Key] [Column("ere_velo_id")] public int BicycleId { get; set; }
 
-    public int Idinspection { get; set; }
+    [Key] [Column("ere_inspection_id")] public int InspectionId { get; set; }
 
-    public int Idreparation { get; set; }
+    [Key] [Column("ere_reparation_id")] public int RepairId { get; set; }
 
-    public string? Dateinspection { get; set; }
+    [Column] public DateTime? InspectionDate { get; set; }
 
-    public string? Commentaireinspection { get; set; }
+    [Column("ere_commentaire_inspection")]
+    [StringLength(4096)]
+    public string? InspectionComment { get; set; }
 
-    public string? Historiqueinspection { get; set; }
+    [Column("ere_historique_inspection")]
+    [StringLength(100)]
+    public string? InspectionHistory { get; set; }
 
-    public virtual Rapportinspection IdinspectionNavigation { get; set; } = null!;
+    public virtual Rapportinspection InspectionReport { get; set; } = null!;
 
-    public virtual Reparationvelo IdreparationNavigation { get; set; } = null!;
+    public virtual Reparationvelo BicyleRepair { get; set; } = null!;
 
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo Bicycle { get; set; } = null!;
 }
