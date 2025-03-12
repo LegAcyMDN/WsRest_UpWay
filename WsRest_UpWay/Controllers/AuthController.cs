@@ -1,6 +1,8 @@
+using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OtpNet;
 using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
@@ -61,6 +63,32 @@ public class AuthController : ControllerBase
         var res = passwordHasher.VerifyHashedPassword(user, user.Motdepasseclient, body.Password);
 
         if (res != PasswordVerificationResult.Success) return BadRequest(UserAuthResponse.Error("Wrong password!"));
+
+        if (!string.IsNullOrEmpty(user.TwoFactorSecret)) return Ok(UserAuthResponse.OTPRequired());
+
+        var jwt = user.GenerateJwtToken(_config);
+
+        return Ok(UserAuthResponse.Success(jwt));
+    }
+
+    [HttpPost("confirm-otp")]
+    [AllowAnonymous]
+    // Register
+    public async Task<ActionResult<UserAuthResponse>> ConfirmOtp([FromBody] UserLoginOTPRequest body)
+    {
+        var user = (await userManager.GetByStringAsync(body.Login)).Value;
+        if (user == null) return BadRequest(UserAuthResponse.Error("Email Does not exist!"));
+
+        var res = passwordHasher.VerifyHashedPassword(user, user.Motdepasseclient, body.Password);
+
+        if (res != PasswordVerificationResult.Success) return BadRequest(UserAuthResponse.Error("Wrong password!"));
+
+        if (string.IsNullOrEmpty(user.TwoFactorSecret)) return Ok(UserAuthResponse.Error("OTP not required."));
+
+        var totp = new Totp(Encoding.Default.GetBytes(user.TwoFactorSecret));
+        var code = totp.ComputeTotp();
+
+        if (!code.Equals(body.Code)) return BadRequest(UserAuthResponse.Error("OTP code doesn't match!"));
 
         var jwt = user.GenerateJwtToken(_config);
 
