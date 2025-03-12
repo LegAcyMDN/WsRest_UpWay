@@ -6,22 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("rapportinspection", Schema = "upways")]
+[Table("t_e_rapportinspection_ras", Schema = "upways")]
 public partial class Rapportinspection
 {
     [Key]
-    [Column("idinspection")]
+    [Column("ras_id")]
     public int Idinspection { get; set; }
 
-    [Column("typeinspection")]
+    [Column("ras_type")]
     [StringLength(200)]
     public string? Typeinspection { get; set; }
 
-    [Column("soustypeinspection")]
+    [Column("ras_sousType")]
     [StringLength(200)]
     public string? Soustypeinspection { get; set; }
 
-    [Column("pointdinspection")]
+    [Column("ras_pointdInspection")]
     [StringLength(200)]
     public string? Pointdinspection { get; set; }
 

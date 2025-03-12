@@ -1,27 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
-namespace WsRest_UpWay.Controllers
+namespace WsRest_UpWay.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class VelosController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class VelosController : ControllerBase
+    private readonly IDataRepository<Velo> dataRepository;
+
+    public VelosController(IDataRepository<Velo> dataRepo)
     {
-        private readonly IDataRepository<Velo> dataRepository;
+        dataRepository = dataRepo;
+    }
 
-        public VelosController(IDataRepository<Velo> dataRepo)
-        {
-            dataRepository = dataRepo;
-        }
-
-        // GET: api/Velos
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
-        {
-            return await dataRepository.GetAllAsync();
-        }
+    // GET: api/Velos
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
+    {
+        return await dataRepository.GetAllAsync();
+    }
 
         // GET: api/Velos/5
         [HttpGet]
@@ -58,6 +59,7 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = Policies.Admin)]
         public async Task<IActionResult> PutVelo(int id, Velo velo)
         {
             if (id != velo.Idvelo)
@@ -67,11 +69,8 @@ namespace WsRest_UpWay.Controllers
 
             if (comToUpdate == null)
                 return NotFound();
-            else
-            {
-                await dataRepository.UpdateAsync(comToUpdate.Value, velo);
-                return NoContent();
-            }
+            await dataRepository.UpdateAsync(comToUpdate.Value, velo);
+            return NoContent();
         }
 
         // POST: api/Velos
@@ -79,6 +78,7 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = Policies.Admin)]
         public async Task<ActionResult<Velo>> PostVelo(Velo velo)
         {
             if (!ModelState.IsValid)
@@ -93,6 +93,7 @@ namespace WsRest_UpWay.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Policy = Policies.Admin)]
         public async Task<IActionResult> DeleteVelo(int id)
         {
             var velo = await dataRepository.GetByIdAsync(id);

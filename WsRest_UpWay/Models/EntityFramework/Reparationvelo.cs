@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("reparationvelo", Schema = "upways")]
+[Table("t_e_reparationvelo_rev", Schema = "upways")]
 public partial class Reparationvelo
 {
     [Key]
-    [Column("idreparation")]
+    [Column("rev_id")]
     public int Idreparation { get; set; }
 
-    [Column("checkreparation")]
+    [Column("rev_check")]
     public bool? Checkreparation { get; set; }
 
-    [Column("checkvalidation")]
+    [Column("rev_checkValidation")]
     public bool? Checkvalidation { get; set; }
 
     [InverseProperty("IdreparationNavigation")]
