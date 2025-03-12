@@ -6,21 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("dpo", Schema = "upways")]
+[Table("t_e_dpo_dpo", Schema = "upways")]
 [Index("Idclient", Name = "idx_dpo_idclient")]
 public partial class Dpo
 {
     [Key]
-    [Column("iddpo")]
+    [Column("dpo_id")]
     public int Iddpo { get; set; }
 
-    [Column("idclient")]
+    [Column("clt_id")]
     public int? Idclient { get; set; }
 
-    [Column("typeoperation")]
+    [Column("dpo_typope")]
     [StringLength(20)]
     public string? Typeoperation { get; set; }
 
-    [Column("daterequetedpo")]
+    [Column("dpo_datreqdpo")]
     public DateOnly? Daterequetedpo { get; set; }
 }
