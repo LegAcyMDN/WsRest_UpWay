@@ -747,42 +747,26 @@ public partial class S215UpWayContext : DbContext
 
         modelBuilder.Entity<Estrealise>(entity =>
         {
-            entity.HasKey(e => new { e.Idvelo, e.Idinspection, e.Idreparation }).HasName("pk_estrealise");
+            entity.HasKey(e => new { e.BicycleId, e.InspectionId, e.RepairId }).HasName("pk_estrealise");
 
-            entity.ToTable("estrealise", "upways");
+            entity.HasIndex(e => e.InspectionId, "idx_estrealise_idinspection");
 
-            entity.HasIndex(e => e.Idinspection, "idx_estrealise_idinspection");
+            entity.HasIndex(e => e.RepairId, "idx_estrealise_idreparation");
 
-            entity.HasIndex(e => e.Idreparation, "idx_estrealise_idreparation");
+            entity.HasIndex(e => e.BicycleId, "idx_estrealise_idvelo");
 
-            entity.HasIndex(e => e.Idvelo, "idx_estrealise_idvelo");
-
-            entity.Property(e => e.Idvelo).HasColumnName("idvelo");
-            entity.Property(e => e.Idinspection).HasColumnName("idinspection");
-            entity.Property(e => e.Idreparation).HasColumnName("idreparation");
-            entity.Property(e => e.Commentaireinspection)
-                .HasMaxLength(4096)
-                .HasColumnName("commentaireinspection");
-            entity.Property(e => e.Dateinspection)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("dateinspection");
-            entity.Property(e => e.Historiqueinspection)
-                .HasMaxLength(100)
-                .HasColumnName("historiqueinspection");
-
-            entity.HasOne(d => d.IdinspectionNavigation).WithMany(p => p.Estrealises)
-                .HasForeignKey(d => d.Idinspection)
+            entity.HasOne(d => d.InspectionReport).WithMany(p => p.Estrealises)
+                .HasForeignKey(d => d.InspectionId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_rapporti");
 
-            entity.HasOne(d => d.IdreparationNavigation).WithMany(p => p.Estrealises)
-                .HasForeignKey(d => d.Idreparation)
+            entity.HasOne(d => d.BicyleRepair).WithMany(p => p.Estrealises)
+                .HasForeignKey(d => d.RepairId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_reparati");
 
-            entity.HasOne(d => d.IdveloNavigation).WithMany(p => p.Estrealises)
-                .HasForeignKey(d => d.Idvelo)
+            entity.HasOne(d => d.Bicycle).WithMany(p => p.Estrealises)
+                .HasForeignKey(d => d.BicycleId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_velo");
         });
