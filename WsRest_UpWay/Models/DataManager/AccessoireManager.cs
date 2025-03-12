@@ -4,7 +4,7 @@ using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class AccessoireManager : IDatarepository<Accessoire>
+    public class AccessoireManager : IDataRepository<Accessoire>
     {
         readonly S215UpWayContext? upwaysDbContext;
         
