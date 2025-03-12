@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -58,6 +60,7 @@ public class InformationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutInformation(int id, Information information)
     {
         if (id != information.Idinformations)
@@ -76,6 +79,7 @@ public class InformationsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = Policies.Admin)]
     public async Task<ActionResult<Information>> PostInformation(Information information)
     {
         if (!ModelState.IsValid)
@@ -90,6 +94,7 @@ public class InformationsController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> DeleteInformation(int id)
     {
         var information = await _context.GetByIdAsync(id);
