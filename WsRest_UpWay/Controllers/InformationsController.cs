@@ -17,13 +17,13 @@ public class InformationsController : ControllerBase
 
     // GET: api/Information
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Information>>> GetInformation()
+    public async Task<ActionResult<IEnumerable<Information>>> GetInformations()
     {
         return await _context.GetAllAsync();
     }
 
     // GET: api/Information/5
-    [HttpGet("{id}")]
+    [HttpGet]
     [Route("[action]/{id}")]
     [ActionName("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,7 +38,7 @@ public class InformationsController : ControllerBase
         return information;
     }
 
-    [HttpGet("{mode}")]
+    [HttpGet]
     [Route("[action]/{mode}")]
     [ActionName("GetByMode")]
     [ProducesResponseType(StatusCodes.Status200OK)]
