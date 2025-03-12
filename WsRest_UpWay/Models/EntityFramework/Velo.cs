@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("velo", Schema = "upways")]
+[Table("t_e_velo_vel", Schema = "upways")]
 [Index("Idcaracteristiquevelo", Name = "idx_velo_idcaracteristiquevelo")]
 [Index("Idcategorie", Name = "idx_velo_idcategorie")]
 [Index("Idmarque", Name = "idx_velo_idmarque")]
@@ -14,66 +14,66 @@ namespace WsRest_UpWay.Models.EntityFramework;
 public partial class Velo
 {
     [Key]
-    [Column("idvelo")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
-    [Column("idmarque")]
+    [Column("mar_id")]
     public int? Idmarque { get; set; }
 
-    [Column("idcategorie")]
+    [Column("cat_id")]
     public int Idcategorie { get; set; }
 
-    [Column("idmoteur")]
+    [Column("mot_id")]
     public int? Idmoteur { get; set; }
 
-    [Column("idcaracteristiquevelo")]
+    [Column("car_id")]
     public int? Idcaracteristiquevelo { get; set; }
 
-    [Column("nomvelo")]
+    [Column("vel_nom")]
     [StringLength(200)]
     public string? Nomvelo { get; set; }
 
-    [Column("anneevelo")]
+    [Column("vel_annee")]
     [Precision(4, 0)]
     public decimal? Anneevelo { get; set; }
 
-    [Column("taillemin")]
+    [Column("vel_taillemin")]
     [StringLength(15)]
     public string? Taillemin { get; set; }
 
-    [Column("taillemax")]
+    [Column("vel_taillemax")]
     [StringLength(15)]
     public string? Taillemax { get; set; }
 
-    [Column("nombrekms")]
+    [Column("vel_kms")]
     [StringLength(15)]
     public string? Nombrekms { get; set; }
 
-    [Column("prixremise")]
+    [Column("vel_prixremise")]
     [Precision(5, 0)]
     public decimal? Prixremise { get; set; }
 
-    [Column("prixneuf")]
+    [Column("vel_prixneuf")]
     [Precision(5, 0)]
     public decimal? Prixneuf { get; set; }
 
-    [Column("pourcentagereduction")]
+    [Column("vel_pourcentagereduction")]
     [Precision(3, 0)]
     public decimal? Pourcentagereduction { get; set; }
 
-    [Column("descriptifvelo")]
+    [Column("vel_descriptif")]
     [StringLength(5000)]
     public string? Descriptifvelo { get; set; }
 
-    [Column("quantitevelo")]
+    [Column("vel_quantite")]
     [Precision(3, 0)]
     public decimal? Quantitevelo { get; set; }
 
-    [Column("positionmoteur")]
+    [Column("vel_positionmoteur")]
     [StringLength(20)]
     public string? Positionmoteur { get; set; }
 
-    [Column("capacitebatterie")]
+    [Column("vel_capacitebatterie")]
     [StringLength(10)]
     public string? Capacitebatterie { get; set; }
 
