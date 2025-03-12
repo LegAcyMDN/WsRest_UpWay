@@ -39,11 +39,6 @@ namespace WsRest_UpWay.Models.DataManager
             Accessoire.Nomaccessoire = entity.Nomaccessoire;
             Accessoire.Prixaccessoire = entity.Prixaccessoire;
             Accessoire.Descriptionaccessoire = entity.Descriptionaccessoire;
-            Accessoire.Ajouteraccessoires = entity.Ajouteraccessoires;
-            Accessoire.IdcategorieNavigation = entity.IdcategorieNavigation;
-            Accessoire.IdmarqueNavigation = entity.IdmarqueNavigation;
-            Accessoire.Photoaccessoires = entity.Photoaccessoires;
-            Accessoire.Idvelos = entity.Idvelos;
             upwaysDbContext.SaveChangesAsync();
         }
         public async Task DeleteAsync(Accessoire accessoire)
