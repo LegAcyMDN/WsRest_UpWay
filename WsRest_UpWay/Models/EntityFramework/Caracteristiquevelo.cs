@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -44,6 +45,7 @@ public partial class Caracteristiquevelo
     public bool? Selletelescopique { get; set; }
 
     public virtual ICollection<Velomodifier> Velomodifiers { get; set; } = new List<Velomodifier>();
+
 
     public virtual ICollection<Velo> Velos { get; set; } = new List<Velo>();
 }
