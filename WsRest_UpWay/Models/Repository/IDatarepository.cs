@@ -11,7 +11,5 @@ namespace WsRest_UpWay.Models.Repository
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entityToUpdate, TEntity entity);
         Task DeleteAsync(TEntity entity);
-        Task<ActionResult<IEnumerable<Velo>>> ToListAsync();
-        Task<ActionResult<Velo>> FindAsync(int id);
     }
 }

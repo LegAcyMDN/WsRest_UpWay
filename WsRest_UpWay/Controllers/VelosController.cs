@@ -25,14 +25,14 @@ namespace WsRest_UpWay.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
         {
-            return await dataRepository.ToListAsync();
+            return await dataRepository.GetAllAsync();
         }
 
         // GET: api/Velos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Velo>> GetVelo(int id)
         {
-            var velo = await dataRepository.FindAsync(id);
+            var velo = await dataRepository.GetByIdAsync(id);
 
             if (velo == null)
             {
