@@ -47,6 +47,14 @@ builder.Services.AddAuthorization(config =>
 builder.Services.AddScoped<IDataRepository<Detailcommande>, DetailCommandeManager>();
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    // ensure database is up to date with latest migrations
+    var db = scope.ServiceProvider.GetRequiredService<S215UpWayContext>();
+    if (db.Database.GetPendingMigrations().Any()) db.Database.Migrate();
+}
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 

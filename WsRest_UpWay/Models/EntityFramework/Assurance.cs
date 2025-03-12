@@ -6,23 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("assurance", Schema = "upways")]
+[Table("t_e_assurance_ass", Schema = "upways")]
 public partial class Assurance
 {
     [Key]
-    [Column("idassurance")]
+    [Column("ass_id")]
     public int Idassurance { get; set; }
 
-    [Column("titreassurance")]
+    [Column("ass_titre")]
     [StringLength(50)]
     public string? Titreassurance { get; set; }
 
-    [Column("descriptionassurance")]
+    [Column("ass_description", TypeName = "text")]
     [StringLength(4096)]
     public string? Descriptionassurance { get; set; }
 
-    [Column("prixassurance")]
-    [Precision(4, 2)]
+    [Column("ass_prix", TypeName = "numeric(4, 2)")]
     public decimal? Prixassurance { get; set; }
 
     [InverseProperty("IdassuranceNavigation")]

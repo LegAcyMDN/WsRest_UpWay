@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("caracteristique", Schema = "upways")]
+[Table("t_e_caracteristique_car", Schema = "upways")]
 public partial class Caracteristique
 {
     [Key]
-    [Column("idcaracteristique")]
+    [Column("car_id")]
     public int Idcaracteristique { get; set; }
 
-    [Column("libellecaracteristique")]
+    [Column("car_libelle")]
     [StringLength(100)]
     public string? Libellecaracteristique { get; set; }
 
-    [Column("imagecaracteristique")]
+    [Column("car_image")]
     [StringLength(200)]
     public string? Imagecaracteristique { get; set; }
 
