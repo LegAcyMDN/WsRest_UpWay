@@ -6,25 +6,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("testvelo", Schema = "upways")]
+[Table("t_e_testvelo_tev", Schema = "upways")]
 [Index("Idmagasin", Name = "idx_testvelo_idmagasin")]
 [Index("Idvelo", Name = "idx_testvelo_idvelo")]
 public partial class Testvelo
 {
     [Key]
-    [Column("idtest")]
+    [Column("tev_id")]
     public int Idtest { get; set; }
 
-    [Column("idvelo")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
-    [Column("idmagasin")]
+    [Column("mag_id")]
     public int Idmagasin { get; set; }
 
-    [Column("datetest")]
+    [Column("tev_date")]
     public DateOnly? Datetest { get; set; }
 
-    [Column("heuretest")]
+    [Column("tev_heure")]
     public TimeOnly? Heuretest { get; set; }
 
     [ForeignKey("Idmagasin")]
