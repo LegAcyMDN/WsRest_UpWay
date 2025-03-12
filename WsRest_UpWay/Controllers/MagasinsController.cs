@@ -11,11 +11,11 @@ namespace WsRest_UpWay.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MagasinController : ControllerBase
+    public class MagasinsController : ControllerBase
     {
         private readonly S215UpWayContext _context;
 
-        public MagasinController(S215UpWayContext context)
+        public MagasinsController(S215UpWayContext context)
         {
             _context = context;
         }

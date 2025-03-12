@@ -8,11 +8,11 @@ namespace WsRest_UpWay.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InformationController : ControllerBase
+    public class InformationsController : ControllerBase
     {
         private readonly IDataRepository<ReInformation> _context;
 
-        public InformationController(IDataRepository<ReInformation> context)
+        public InformationsController(IDataRepository<ReInformation> context)
         {
             _context = context;
         }

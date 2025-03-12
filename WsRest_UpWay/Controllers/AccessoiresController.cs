@@ -12,11 +12,11 @@ namespace WsRest_UpWay.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccessoireController : ControllerBase
+    public class AccessoiresController : ControllerBase
     {
         private readonly IDataRepository<Accessoire> dataRepository;
 
-        public AccessoireController(IDataRepository<Accessoire> dataRepo)
+        public AccessoiresController(IDataRepository<Accessoire> dataRepo)
         {
             dataRepository = dataRepo;
         }

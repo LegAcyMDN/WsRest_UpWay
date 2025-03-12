@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -7,17 +6,17 @@ namespace WsRest_UpWay.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DetailcommandeController : ControllerBase
+    public class MarquesController : ControllerBase
     {
-        private readonly IDataRepository<Detailcommande> dataRepository;
+        private readonly IDataRepository<Marque> dataRepository;
 
-        public DetailcommandeController(IDataRepository<Detailcommande> dataRepo)
+        public MarquesController(IDataRepository<Marque> dataRepo)
         {
             dataRepository = dataRepo;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Detailcommande>>> GetDetailCommandes()
+        public async Task<ActionResult<IEnumerable<Marque>>> GetMarques()
         {
             return await dataRepository.GetAllAsync();
         }
@@ -27,46 +26,46 @@ namespace WsRest_UpWay.Controllers
         [ActionName("GetById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Detailcommande>> GetDetailCommande(int id)
+        public async Task<ActionResult<Marque>> GetMarque(int id)
         {
-            var commande = await dataRepository.GetByIdAsync(id);
+            var marque = await dataRepository.GetByIdAsync(id);
 
-            if (commande == null)
+            if (marque == null)
                 return NotFound();
 
-            return commande;
+            return marque;
         }
 
         [HttpGet]
-        [Route("[action]/{mode}")]
-        [ActionName("GetByMode")]
+        [Route("[action]/{nom}")]
+        [ActionName("GetByNom")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Detailcommande>> GetDetailCommandeByModeLivraison(string mode)
+        public async Task<ActionResult<Marque>> GetMarqueByNom(string nom)
         {
-            var commande = await dataRepository.GetByStringAsync(mode);
-            if (commande == null)
+            var marque = await dataRepository.GetByStringAsync(nom);
+            if (marque == null)
                 return NotFound();
 
-            return commande;
+            return marque;
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutDetailCommande(int id, Detailcommande detailCommande)
+        public async Task<IActionResult> PutMarque(int id, Marque marque)
         {
-            if (id != detailCommande.Idcommande)
+            if (id != marque.Idmarque)
                 return BadRequest();
 
-            var comToUpdate = await dataRepository.GetByIdAsync(id);
+            var accToUpdate = await dataRepository.GetByIdAsync(id);
 
-            if (comToUpdate == null)
+            if (accToUpdate == null)
                 return NotFound();
             else
             {
-                await dataRepository.UpdateAsync(comToUpdate.Value, detailCommande);
+                await dataRepository.UpdateAsync(accToUpdate.Value, marque);
                 return NoContent();
             }
         }
@@ -74,26 +73,26 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Detailcommande>> PostDetailCommande(Detailcommande detailCommande)
+        public async Task<ActionResult<Marque>> PostMarque(Marque marque)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await dataRepository.AddAsync(detailCommande);
+            await dataRepository.AddAsync(marque);
 
-            return CreatedAtAction("GetById", new { id = detailCommande.Idcommande }, detailCommande);
+            return CreatedAtAction("GetById", new { id = marque.Idmarque }, marque);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteDetailCommande(int id)
+        public async Task<IActionResult> DeleteMarque(int id)
         {
-            var commande = await dataRepository.GetByIdAsync(id);
-            if (commande == null)
+            var accessoire = await dataRepository.GetByIdAsync(id);
+            if (accessoire == null)
                 return NotFound();
 
-            await dataRepository.DeleteAsync(commande.Value);
+            await dataRepository.DeleteAsync(accessoire.Value);
             return NoContent();
         }
     }
