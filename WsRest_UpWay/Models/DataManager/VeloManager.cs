@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class VeloManager : IDatarepository<Velo>
+    public class VeloManager : IDataRepository<Velo>
     {
         readonly S215UpWayContext _upWayContext;
 
