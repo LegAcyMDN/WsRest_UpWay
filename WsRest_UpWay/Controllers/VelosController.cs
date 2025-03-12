@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
@@ -29,15 +24,30 @@ namespace WsRest_UpWay.Controllers
         }
 
         // GET: api/Velos/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
+        [ActionName("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Velo>> GetVelo(int id)
         {
             var velo = await dataRepository.GetByIdAsync(id);
-
             if (velo == null)
-            {
                 return NotFound();
-            }
+
+            return velo;
+        }
+
+        [HttpGet]
+        [Route("[action]/{nom}")]
+        [ActionName("GetByMode")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Velo>> GetInformationMode(string nom)
+        {
+            var velo = await dataRepository.GetByStringAsync(nom);
+            if (velo == null)
+                return NotFound();
 
             return velo;
         }
@@ -45,6 +55,9 @@ namespace WsRest_UpWay.Controllers
         // PUT: api/Velos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutVelo(int id, Velo velo)
         {
             if (id != velo.Idvelo)
@@ -64,6 +77,8 @@ namespace WsRest_UpWay.Controllers
         // POST: api/Velos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Velo>> PostVelo(Velo velo)
         {
             if (!ModelState.IsValid)
@@ -76,6 +91,8 @@ namespace WsRest_UpWay.Controllers
 
         // DELETE: api/Velos/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteVelo(int id)
         {
             var velo = await dataRepository.GetByIdAsync(id);
