@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsRest_UpWay", "WsRest_UpWay\WsRest_UpWay.csproj", "{1972FE77-0670-4488-A569-219F169DDB6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsRest_UpWay.Tests", "WsRest_UpWay.Tests\WsRest_UpWay.Tests.csproj", "{9B5A5783-2E43-4131-A6F9-26F8DCDAB099}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1972FE77-0670-4488-A569-219F169DDB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1972FE77-0670-4488-A569-219F169DDB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1972FE77-0670-4488-A569-219F169DDB6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5A5783-2E43-4131-A6F9-26F8DCDAB099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5A5783-2E43-4131-A6F9-26F8DCDAB099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5A5783-2E43-4131-A6F9-26F8DCDAB099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5A5783-2E43-4131-A6F9-26F8DCDAB099}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
