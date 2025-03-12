@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +44,7 @@ builder.Services.AddAuthorization(config =>
     config.AddPolicy(Policies.User, Policies.UserPolicy());
 });
 
+builder.Services.AddScoped<IDataRepository<Detailcommande>, DetailCommandeManager>();
 var app = builder.Build();
 
 app.UseAuthentication();
