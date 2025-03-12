@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WsRest_UpWay.Models.EntityFramework;
 
 namespace WsRest_UpWay.Models.Repository
 {
@@ -10,5 +11,7 @@ namespace WsRest_UpWay.Models.Repository
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entityToUpdate, TEntity entity);
         Task DeleteAsync(TEntity entity);
+        Task<ActionResult<IEnumerable<Velo>>> ToListAsync();
+        Task<ActionResult<Velo>> FindAsync(int id);
     }
 }
