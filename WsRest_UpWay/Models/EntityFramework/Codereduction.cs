@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("codereduction", Schema = "upways")]
+[Table("t_e_codereduction_cor", Schema = "upways")]
 public partial class Codereduction
 {
     [Key]
-    [Column("idreduction")]
+    [Column("cor_id")]
     [StringLength(20)]
     public string Idreduction { get; set; } = null!;
 
-    [Column("actifreduction")]
+    [Column("cor_actifreduction")]
     public bool? Actifreduction { get; set; }
 
-    [Column("reduction")]
+    [Column("cor_reduction")]
     public int? Reduction { get; set; }
 
     [InverseProperty("IdreductionNavigation")]

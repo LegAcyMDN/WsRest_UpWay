@@ -6,62 +6,62 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("compteclient", Schema = "upways")]
+[Table("t_e_compteclient_coc", Schema = "upways")]
 [Index("Emailclient", Name = "email_unq", IsUnique = true)]
 [Index("Loginclient", Name = "pseudo_unq", IsUnique = true)]
 public partial class Compteclient
 {
     [Key]
-    [Column("idclient")]
+    [Column("coc_id")]
     public int Idclient { get; set; }
 
-    [Column("loginclient")]
+    [Column("coc_login")]
     [StringLength(20)]
     public string? Loginclient { get; set; }
 
-    [Column("motdepasseclient")]
+    [Column("coc_MPD")]
     [StringLength(64)]
     public string? Motdepasseclient { get; set; }
 
-    [Column("emailclient")]
+    [Column("coc_email")]
     [StringLength(200)]
     public string? Emailclient { get; set; }
 
-    [Column("prenomclient")]
+    [Column("coc_prenom")]
     [StringLength(20)]
     public string? Prenomclient { get; set; }
 
-    [Column("nomclient")]
+    [Column("coc_nom")]
     [StringLength(30)]
     public string? Nomclient { get; set; }
 
-    [Column("datecreation")]
+    [Column("coc_dateCreation", TypeName = "date")]
     public DateOnly? Datecreation { get; set; }
 
-    [Column("remember_token")]
+    [Column("coc_remember_token")]
     [StringLength(100)]
     public string? RememberToken { get; set; }
 
-    [Column("two_factor_secret")]
+    [Column("coc_two_factor_secret", TypeName = "text")]
     [StringLength(4096)]
     public string? TwoFactorSecret { get; set; }
 
-    [Column("two_factor_recovery_codes")]
+    [Column("coc_two_factor_recovery_codes", TypeName = "text")]
     [StringLength(4096)]
     public string? TwoFactorRecoveryCodes { get; set; }
 
-    [Column("two_factor_confirmed_at")]
+    [Column("coc_two_factor_confirmed_at", TypeName = "text")]
     [StringLength(4096)]
     public string? TwoFactorConfirmedAt { get; set; }
 
-    [Column("usertype")]
+    [Column("coc_usertype")]
     [StringLength(20)]
     public string? Usertype { get; set; }
 
-    [Column("email_verified_at")]
+    [Column("coc_email_verified_at", TypeName ="date")]
     public DateOnly? EmailVerifiedAt { get; set; }
 
-    [Column("is_from_google")]
+    [Column("coc_is_from_google")]
     public bool? IsFromGoogle { get; set; }
 
     [InverseProperty("IdclientNavigation")]

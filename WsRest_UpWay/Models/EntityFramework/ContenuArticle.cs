@@ -6,24 +6,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("contenu_article", Schema = "upways")]
+[Table("t_e_contenu_article_coa", Schema = "upways")]
 public partial class ContenuArticle
 {
     [Key]
-    [Column("idcontenue")]
+    [Column("coa_id")]
     public int Idcontenue { get; set; }
 
     [Column("idarticle")]
     public int Idarticle { get; set; }
 
-    [Column("prioritecontenu")]
+    [Column("coa_prioritecontenu")]
     public int? Prioritecontenu { get; set; }
 
-    [Column("typecontenu")]
+    [Column("coa_typecontenu")]
     [StringLength(64)]
     public string? Typecontenu { get; set; }
 
-    [Column("contenu")]
+    [Column("coa_contenu", TypeName = "text")]
     [StringLength(4096)]
     public string? Contenu { get; set; }
 
