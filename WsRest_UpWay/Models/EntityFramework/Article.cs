@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("article", Schema = "upways")]
+[Table("t_e_article_art", Schema = "upways")]
 public partial class Article
 {
     [Key]
-    [Column("idarticle")]
+    [Column("art_id")]
     public int Idarticle { get; set; }
 
-    [Column("idcategorie_article")]
+    [Column("caa_id")]
     public int? IdcategorieArticle { get; set; }
 
     [InverseProperty("IdarticleNavigation")]
