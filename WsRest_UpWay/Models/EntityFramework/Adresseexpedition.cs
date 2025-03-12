@@ -6,50 +6,50 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("adresseexpedition", Schema = "upways")]
+[Table("t_e_adresseexpedition_ade", Schema = "upways")]
 [Index("Idadressefact", Name = "idx_adresseexp_idadressefact")]
 [Index("Idclient", Name = "idx_adresseexp_idclient")]
 public partial class Adresseexpedition
 {
     [Key]
-    [Column("idadresseexp")]
+    [Column("ade_id")]
     public int Idadresseexp { get; set; }
 
-    [Column("idclient")]
+    [Column("cli_id")]
     public int Idclient { get; set; }
 
-    [Column("idadressefact")]
+    [Column("adf_id")]
     public int? Idadressefact { get; set; }
 
-    [Column("paysexpe")]
+    [Column("ade_pays")]
     [StringLength(50)]
     public string? Paysexpe { get; set; }
 
-    [Column("batimentexpeoption")]
+    [Column("ade_batopt")]
     [StringLength(100)]
     public string? Batimentexpeoption { get; set; }
 
-    [Column("rueexpe")]
+    [Column("ade_rue")]
     [StringLength(200)]
     public string? Rueexpe { get; set; }
 
-    [Column("cpexpe")]
-    [StringLength(10)]
+    [Column("ade_cp", TypeName = "char(5)")]
+    [StringLength(5)]
     public string? Cpexpe { get; set; }
 
-    [Column("regionexpe")]
+    [Column("ade_region")]
     [StringLength(20)]
     public string? Regionexpe { get; set; }
 
-    [Column("villeexpe")]
+    [Column("ade_ville")]
     [StringLength(100)]
     public string? Villeexpe { get; set; }
 
-    [Column("telephoneexpe")]
-    [StringLength(14)]
+    [Column("ade_telephone", TypeName = "char(10)")]
+    [StringLength(10)]
     public string? Telephoneexpe { get; set; }
 
-    [Column("donneessauvegardees")]
+    [Column("ade_donneessauv")]
     public bool? Donneessauvegardees { get; set; }
 
     [InverseProperty("IdadresseexpNavigation")]

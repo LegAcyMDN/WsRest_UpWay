@@ -6,47 +6,47 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("adressefacturation", Schema = "upways")]
+[Table("t_e_adressefacturation_adf", Schema = "upways")]
 [Index("Idadresseexp", Name = "idx_adressefact_idadresseexp")]
 [Index("Idclient", Name = "idx_adressefact_idclient")]
 public partial class Adressefacturation
 {
     [Key]
-    [Column("idadressefact")]
+    [Column("adf_id")]
     public int Idadressefact { get; set; }
 
-    [Column("idclient")]
+    [Column("cli_id")]
     public int Idclient { get; set; }
 
-    [Column("idadresseexp")]
+    [Column("ade_id")]
     public int? Idadresseexp { get; set; }
 
-    [Column("paysfact")]
+    [Column("adf_pays")]
     [StringLength(50)]
     public string? Paysfact { get; set; }
 
-    [Column("appartementfact")]
+    [Column("adf_batopt")]
     [StringLength(100)]
     public string? Appartementfact { get; set; }
 
-    [Column("ruefact")]
+    [Column("adf_rue")]
     [StringLength(200)]
     public string? Ruefact { get; set; }
 
-    [Column("cpfact")]
-    [StringLength(10)]
+    [Column("adf_cp", TypeName = "char(5)")]
+    [StringLength(5)]
     public string? Cpfact { get; set; }
 
-    [Column("regionfact")]
+    [Column("adf_region")]
     [StringLength(20)]
     public string? Regionfact { get; set; }
 
-    [Column("villefact")]
+    [Column("adf_ville")]
     [StringLength(100)]
     public string? Villefact { get; set; }
 
-    [Column("telephonefact")]
-    [StringLength(14)]
+    [Column("adf_telephone", TypeName = "char(10)")]
+    [StringLength(10)]
     public string? Telephonefact { get; set; }
 
     [InverseProperty("IdadressefactNavigation")]

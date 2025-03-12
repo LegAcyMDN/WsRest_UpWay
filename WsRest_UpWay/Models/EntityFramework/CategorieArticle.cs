@@ -6,22 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("categorie_article", Schema = "upways")]
+[Table("t_e_categorie_article_caa", Schema = "upways")]
 public partial class CategorieArticle
 {
     [Key]
-    [Column("idcategorie_article")]
+    [Column("caa_id")]
     public int IdcategorieArticle { get; set; }
 
-    [Column("titrecategorie_article")]
+    [Column("caa_titre")]
     [StringLength(100)]
     public string? TitrecategorieArticle { get; set; }
 
-    [Column("contenuecategorie_article")]
+    [Column("caa_contenue", TypeName = "text")]
     [StringLength(4096)]
     public string? ContenuecategorieArticle { get; set; }
 
-    [Column("imagecategorie")]
+    [Column("caa_image", TypeName = "text")]
     [StringLength(4096)]
     public string? Imagecategorie { get; set; }
 

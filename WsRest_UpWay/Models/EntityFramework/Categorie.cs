@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("categorie", Schema = "upways")]
+[Table("t_e_categorie_cat", Schema = "upways")]
 [Index("Libellecategorie", Name = "idx_catgegorie_libellecategorie")]
 public partial class Categorie
 {
     [Key]
-    [Column("idcategorie")]
+    [Column("cat_id")]
     public int Idcategorie { get; set; }
 
-    [Column("libellecategorie")]
+    [Column("cat_libelle")]
     [StringLength(100)]
     public string? Libellecategorie { get; set; }
 
