@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("photoaccessoire", Schema = "upways")]
+[Table("t_e_photoaccessoire_pha", Schema = "upways")]
 [Index("Idaccessoire", Name = "idx_photoaccessoire_idaccessoire")]
 public partial class Photoaccessoire
 {
     [Key]
-    [Column("idphotoaccessoire")]
+    [Column("pha_id")]
     public int Idphotoaccessoire { get; set; }
 
-    [Column("idaccessoire")]
+    [Column("acs_id")]
     public int Idaccessoire { get; set; }
 
-    [Column("urlphotoaccessoire")]
+    [Column("pha_url")]
     public byte[]? Urlphotoaccessoire { get; set; }
 
     [ForeignKey("Idaccessoire")]
