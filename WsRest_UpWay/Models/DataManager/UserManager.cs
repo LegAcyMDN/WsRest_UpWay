@@ -57,8 +57,9 @@ public class UserManager : IDataRepository<Compteclient>
         _context.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(Compteclient entity)
+    public async Task DeleteAsync(Compteclient entity)
     {
-        throw new NotImplementedException();
+        _context.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 }
