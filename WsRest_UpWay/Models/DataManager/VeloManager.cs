@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -6,34 +7,63 @@ namespace WsRest_UpWay.Models.DataManager
 {
     public class VeloManager : IDatarepository<Velo>
     {
-        public Task AddAsync(Velo entity)
+        readonly S215UpWayContext _upWayContext;
+
+        public VeloManager() { }
+
+        public VeloManager(S215UpWayContext context)
         {
-            throw new NotImplementedException();
+            _upWayContext = context;
         }
 
-        public Task DeleteAsync(Velo entity)
+        public async Task AddAsync(Velo entity)
         {
-            throw new NotImplementedException();
+            await _upWayContext.Velos.AddAsync(entity);
+            await _upWayContext.SaveChangesAsync();
         }
 
-        public Task<ActionResult<IEnumerable<Velo>>> GetAllAsync()
+        public async Task DeleteAsync(Velo vel)
         {
-            throw new NotImplementedException();
+            _upWayContext.Velos.Remove(vel);
+            await _upWayContext.SaveChangesAsync();
         }
 
-        public Task<ActionResult<Velo>> GetByIdAsync(int id)
+        public async Task<ActionResult<IEnumerable<Velo>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _upWayContext.Velos.ToListAsync();
         }
 
-        public Task<ActionResult<Velo>> GetByStringAsync(string str)
+        public async Task<ActionResult<Velo>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.Idvelo == id);
         }
 
-        public Task UpdateAsync(Velo entityToUpdate, Velo entity)
+        public async Task<ActionResult<Velo>> GetByStringAsync(string str)
         {
-            throw new NotImplementedException();
+            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.Nomvelo.ToUpper() == str.ToLower());
+        }
+
+        public async Task UpdateAsync(Velo vel, Velo entity)
+        {
+            _upWayContext.Entry(vel).State = EntityState.Modified;
+            vel.Idvelo = entity.Idvelo;
+            vel.Idmarque = entity.Idmarque;
+            vel.Idcategorie = entity.Idcategorie;
+            vel.Idmoteur = entity.Idmoteur;
+            vel.Idcaracteristiquevelo = entity.Idcaracteristiquevelo;
+            vel.Nomvelo = entity.Nomvelo;
+            vel.Anneevelo = entity.Anneevelo;
+            vel.Taillemin = entity.Taillemax;
+            vel.Taillemax = entity.Taillemax;
+            vel.Nombrekms = entity.Nombrekms;
+            vel.Prixremise = entity.Prixremise;
+            vel.Prixneuf = entity.Prixneuf;
+            vel.Pourcentagereduction = entity.Pourcentagereduction;
+            vel.Descriptifvelo = entity.Descriptifvelo;
+            vel.Quantitevelo = entity.Quantitevelo;
+            vel.Positionmoteur = entity.Positionmoteur;
+            vel.Capacitebatterie = entity.Capacitebatterie;
+            await _upWayContext.SaveChangesAsync();
         }
     }
 }
