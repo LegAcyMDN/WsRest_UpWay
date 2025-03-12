@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,25 +14,29 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class MagasinsController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<Magasin> dataRepository;
 
-        public MagasinsController(S215UpWayContext context)
+        public MagasinsController(IDataRepository<Magasin> dataRepo)
         {
-            _context = context;
+            dataRepository = dataRepo;
         }
 
         // GET: api/Magasin
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasin()
+        public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasins()
         {
-            return await _context.Magasins.ToListAsync();
+            return await dataRepository.GetAllAsync();
         }
 
         // GET: api/Magasin/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("[action]/{id}")]
+        [ActionName("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Magasin>> GetMagasin(int id)
         {
-            var magasin = await _context.Magasins.FindAsync(id);
+            var magasin = await dataRepository.GetByIdAsync(id);
 
             if (magasin == null)
             {
@@ -51,57 +56,53 @@ namespace WsRest_UpWay.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(magasin).State = EntityState.Modified;
+           var comtoUpdate = await dataRepository.GetByIdAsync(id);
 
-            try
+            if(comtoUpdate == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else 
             {
-                if (!MagasinExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                await dataRepository.UpdateAsync(comtoUpdate.Value, magasin);
+                return NoContent();
             }
-
-            return NoContent();
         }
 
         // POST: api/Magasin
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Magasin>> PostMagasin (Magasin magasin)
         {
-            _context.Magasins.Add(magasin);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetAccessoire", new { id = magasin.Idmagasin }, magasin);
+            await dataRepository.AddAsync(magasin);
+
+            return CreatedAtAction("GetByIdAsync", new { id = magasin.Idmagasin }, magasin);
         }
 
         // DELETE: api/Magasin/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMagasin(int id)
         {
-            var magasin = await _context.Magasins.FindAsync(id);
+            var magasin = await dataRepository.GetByIdAsync(id);
             if (magasin == null)
             {
                 return NotFound();
             }
 
-            _context.Magasins.Remove(magasin);
-            await _context.SaveChangesAsync();
-
+             await dataRepository.DeleteAsync(magasin.Value);
             return NoContent();
         }
 
-        private bool MagasinExists(int id)
-        {
-            return _context.Magasins.Any(e => e.Idmagasin == id);
-        }
+        //private bool MagasinExists(int id)
+        //{
+        //    return _context.Magasins.Any(e => e.Idmagasin == id);
+        //}
     }
 }
