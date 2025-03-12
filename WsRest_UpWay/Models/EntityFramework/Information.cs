@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-public partial class Information
+public partial class ReInformation
 {
     public int Idinformations { get; set; }
 
