@@ -23,7 +23,7 @@ public class InformationsController : ControllerBase
     }
 
     // GET: api/Information/5
-    [HttpGet("{id}")]
+    [HttpGet]
     [Route("[action]/{id}")]
     [ActionName("GetById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,7 +38,7 @@ public class InformationsController : ControllerBase
         return information;
     }
 
-    [HttpGet("{mode}")]
+    [HttpGet]
     [Route("[action]/{mode}")]
     [ActionName("GetByMode")]
     [ProducesResponseType(StatusCodes.Status200OK)]
