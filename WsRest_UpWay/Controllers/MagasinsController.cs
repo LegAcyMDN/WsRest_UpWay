@@ -3,32 +3,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
-namespace WsRest_UpWay.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-public class MagasinsController : ControllerBase
+namespace WsRest_UpWay.Controllers
 {
-    private readonly S215UpWayContext _context;
-
-    public MagasinsController(S215UpWayContext context)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MagasinsController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly IDataRepository<Magasin> dataRepository;
 
-    // GET: api/Magasin
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasin()
-    {
-        return await _context.Magasins.ToListAsync();
-    }
+        public MagasinsController(IDataRepository<Magasin> dataRepo)
+        {
+            dataRepository = dataRepo;
+        }
 
-    // GET: api/Magasin/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Magasin>> GetMagasin(int id)
-    {
-        var magasin = await _context.Magasins.FindAsync(id);
+        // GET: api/Magasin
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasins()
+        {
+            return await dataRepository.GetAllAsync();
+        }
+
+        // GET: api/Magasin/5
+        [HttpGet]
+        [Route("[action]/{id}")]
+        [ActionName("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Magasin>> GetMagasin(int id)
+        {
+            var magasin = await dataRepository.GetByIdAsync(id);
 
         if (magasin == null) return NotFound();
 
@@ -43,50 +48,53 @@ public class MagasinsController : ControllerBase
     {
         if (id != magasin.Idmagasin) return BadRequest();
 
-        _context.Entry(magasin).State = EntityState.Modified;
+           var comtoUpdate = await dataRepository.GetByIdAsync(id);
 
-        try
-        {
-            await _context.SaveChangesAsync();
+            if(comtoUpdate == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                await dataRepository.UpdateAsync(comtoUpdate.Value, magasin);
+                return NoContent();
+            }
         }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!MagasinExists(id)) return NotFound();
 
-            throw;
+        // POST: api/Magasin
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Magasin>> PostMagasin (Magasin magasin)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await dataRepository.AddAsync(magasin);
+
+            return CreatedAtAction("GetByIdAsync", new { id = magasin.Idmagasin }, magasin);
         }
 
-        return NoContent();
-    }
+        // DELETE: api/Magasin/5
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteMagasin(int id)
+        {
+            var magasin = await dataRepository.GetByIdAsync(id);
+            if (magasin == null)
+            {
+                return NotFound();
+            }
 
-    // POST: api/Magasin
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
-    [Authorize(Policy = Policies.Admin)]
-    public async Task<ActionResult<Magasin>> PostMagasin(Magasin magasin)
-    {
-        _context.Magasins.Add(magasin);
-        await _context.SaveChangesAsync();
+             await dataRepository.DeleteAsync(magasin.Value);
+            return NoContent();
+        }
 
-        return CreatedAtAction("GetAccessoire", new { id = magasin.Idmagasin }, magasin);
-    }
-
-    // DELETE: api/Magasin/5
-    [HttpDelete("{id}")]
-    [Authorize(Policy = Policies.Admin)]
-    public async Task<IActionResult> DeleteMagasin(int id)
-    {
-        var magasin = await _context.Magasins.FindAsync(id);
-        if (magasin == null) return NotFound();
-
-        _context.Magasins.Remove(magasin);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
-    }
-
-    private bool MagasinExists(int id)
-    {
-        return _context.Magasins.Any(e => e.Idmagasin == id);
+        //private bool MagasinExists(int id)
+        //{
+        //    return _context.Magasins.Any(e => e.Idmagasin == id);
+        //}
     }
 }
