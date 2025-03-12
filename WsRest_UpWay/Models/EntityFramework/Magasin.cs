@@ -6,30 +6,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("magasin", Schema = "upways")]
+[Table("t_a_magasin_mag", Schema = "upways")]
 public partial class Magasin
 {
     [Key]
-    [Column("idmagasin")]
+    [Column("mag_id")]
     public int Idmagasin { get; set; }
 
-    [Column("nommagasin")]
+    [Column("mag_nom")]
     [StringLength(50)]
     public string? Nommagasin { get; set; }
 
-    [Column("horairemagasin")]
+    [Column("mag_horaire")]
     [StringLength(200)]
     public string? Horairemagasin { get; set; }
 
-    [Column("ruemagasin")]
+    [Column("mag_rue")]
     [StringLength(100)]
     public string? Ruemagasin { get; set; }
 
-    [Column("cpmagasin")]
+    [Column("mag_cp", TypeName = "char(5)")]
     [StringLength(5)]
     public string? Cpmagasin { get; set; }
 
-    [Column("villemagasin")]
+    [Column("mag_ville")]
     [StringLength(50)]
     public string? Villemagasin { get; set; }
 

@@ -7,28 +7,28 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [PrimaryKey("Idpanier", "Idvelo")]
-[Table("lignepanier", Schema = "upways")]
+[Table("t_e_lignepanier_lignpan", Schema = "upways")]
 [Index("Idassurance", Name = "idx_linepanier_idassurance")]
 [Index("Idpanier", Name = "idx_linepanier_idpanier")]
 [Index("Idvelo", Name = "idx_linepanier_idvelo")]
 public partial class Lignepanier
 {
     [Key]
-    [Column("idpanier")]
+    [Column("lignpan_id")]
     public int Idpanier { get; set; }
 
     [Key]
-    [Column("idvelo")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
-    [Column("idassurance")]
+    [Column("ass_id")]
     public int Idassurance { get; set; }
 
-    [Column("quantitepanier")]
+    [Column("lignpan_quantpan")]
     [Precision(2, 0)]
     public decimal? Quantitepanier { get; set; }
 
-    [Column("prixquantite")]
+    [Column("lignpan_priquant")]
     [Precision(11, 2)]
     public decimal? Prixquantite { get; set; }
 

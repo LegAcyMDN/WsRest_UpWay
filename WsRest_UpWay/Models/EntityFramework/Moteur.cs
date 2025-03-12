@@ -6,26 +6,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("moteur", Schema = "upways")]
+[Table("t_emoteur_mot", Schema = "upways")]
 [Index("Idmarque", Name = "idx_moteur_idmarque")]
 public partial class Moteur
 {
     [Key]
-    [Column("idmoteur")]
+    [Column("mot_id")]
     public int Idmoteur { get; set; }
 
-    [Column("idmarque")]
+    [Column("mar_id")]
     public int Idmarque { get; set; }
 
-    [Column("modelemoteur")]
+    [Column("mot_modele")]
     [StringLength(50)]
     public string? Modelemoteur { get; set; }
 
-    [Column("couplemoteur")]
+    [Column("mot_couple")]
     [StringLength(10)]
     public string? Couplemoteur { get; set; }
 
-    [Column("vitessemaximal")]
+    [Column("mot_vitessemax")]
     [StringLength(10)]
     public string? Vitessemaximal { get; set; }
 
