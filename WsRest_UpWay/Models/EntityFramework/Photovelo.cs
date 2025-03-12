@@ -6,22 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("photovelo", Schema = "upways")]
+[Table("t_e_photovelo_phv", Schema = "upways")]
 [Index("Idvelo", Name = "idx_photovelo_idvelo")]
 public partial class Photovelo
 {
     [Key]
-    [Column("idphotovelo")]
+    [Column("phv_id")]
     public int Idphotovelo { get; set; }
 
-    [Column("idvelo")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
-    [Column("urlphotovelo")]
+    [Column("phv_url")]
     [StringLength(4096)]
     public string? Urlphotovelo { get; set; }
 
-    [Column("photobytea")]
+    [Column("phv_bytea")]
     public byte[]? Photobytea { get; set; }
 
     [ForeignKey("Idvelo")]
