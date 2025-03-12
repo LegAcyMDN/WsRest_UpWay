@@ -10,39 +10,47 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_detailcommande_detcom")]
 public partial class Detailcommande
 {
+    public Detailcommande()
+    {
+        RetraitmagasinsCommande = new HashSet<Retraitmagasin>();
+        PaniersCommande = new HashSet<Panier>();
+    }
+
     [Key]
     [Column("detcom_id")]
     public int CommandeId { get; set; }
 
-    [Key]
+
     [Column("retmag_id")]
     public int? RetraitmagasinId { get; set; }
 
-    [Key]
+
     [Column("adfact_id")]
     public int? AdressefactId { get; set; }
 
-    [Key]
+
     [Column("etacom_id")]
     public int? EtatcommandeId { get; set; }
 
-    [Key]
+
     [Column("clt_id")]
     public int ClientId { get; set; }
 
-    [Key]
+
     [Column("pan_id")]
     public int? PanierId { get; set; }
 
-    [Key]
+
     [Column("detcom_moypai")]
+    [StringLength(100)]
     public string? Moyenpaiement { get; set; }
 
-    [Key]
+
     [Column("detcom_modexp")]
+    [StringLength(100)]
     public string? Modeexpedition { get; set; }
 
-    [Key]
+
     [Column("detcom_datacht")]
     public DateOnly? Dateachat { get; set; }
 
@@ -68,6 +76,7 @@ public partial class Detailcommande
 
     [InverseProperty(nameof(Panier.CommandePanier))]
     public virtual ICollection<Panier> PaniersCommande { get; set; } = new List<Panier>();
+
     [InverseProperty(nameof(Retraitmagasin.CommandeRetraitmagasins))]
     public virtual ICollection<Retraitmagasin> RetraitmagasinsCommande { get; set; } = new List<Retraitmagasin>();
 }
