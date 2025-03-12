@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace WsRest_UpWay.Models.EntityFramework;
 
-namespace WsRest_UpWay.Models.EntityFramework;
-
-public partial class ReInformation
+public class Information
 {
     public int Idinformations { get; set; }
 
