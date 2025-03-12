@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class CompteClientManager : IDatarepository<Compteclient>
+    public class CompteClientManager : IDataRepository<Compteclient>
     {
         readonly S215UpWayContext? s215DbContext;
         public CompteClientManager() { }
