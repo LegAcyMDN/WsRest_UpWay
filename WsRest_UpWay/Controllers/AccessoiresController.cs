@@ -52,15 +52,15 @@ public class AccessoiresController : ControllerBase
         return accessoire;
     }
 
-    [HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutAccessoire(int id, Accessoire accessoire)
-    {
-        if (id != accessoire.Idaccessoire)
-            return BadRequest();
+        {
+            if (id != accessoire.AccessoireId)
+                return BadRequest();
 
         var accToUpdate = await dataRepository.GetByIdAsync(id);
 
@@ -81,8 +81,8 @@ public class AccessoiresController : ControllerBase
 
         await dataRepository.AddAsync(accessoire);
 
-        return CreatedAtAction("GetById", new { id = accessoire.Idaccessoire }, accessoire);
-    }
+            return CreatedAtAction("GetById", new { id = accessoire.AccessoireId }, accessoire);
+        }
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

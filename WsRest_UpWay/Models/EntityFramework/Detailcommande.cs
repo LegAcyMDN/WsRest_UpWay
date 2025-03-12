@@ -16,33 +16,33 @@ public partial class Detailcommande
 {
     [Key]
     [Column("detcom_id")]
-    public int Idcommande { get; set; }
+    public int CommandeId { get; set; }
 
     [Column("retmag_id")]
-    public int? Idretraitmagasin { get; set; }
+    public int? RetraitMagasinId { get; set; }
 
     [Column("adfact_id")]
-    public int? Idadressefact { get; set; }
+    public int? AdresseFactId { get; set; }
 
     [Column("etacom_id")]
-    public int? Idetatcommande { get; set; }
+    public int? EtatCommandeId { get; set; }
 
     [Column("clt_id")]
-    public int Idclient { get; set; }
+    public int ClientId { get; set; }
 
     [Column("pan_id")]
-    public int? Idpanier { get; set; }
+    public int? PanierId { get; set; }
 
     [Column("detcom_moypai")]
     [StringLength(10)]
-    public string? Moyenpaiement { get; set; }
+    public string? MoyenPaiement { get; set; }
 
     [Column("detcom_modexp")]
     [StringLength(20)]
-    public string? Modeexpedition { get; set; }
+    public string? ModeExpedition { get; set; }
 
-    [Column("detcom_datach")]
-    public DateOnly? Dateachat { get; set; }
+    [Column("detcom_datach", TypeName = "date")]
+    public DateTime? DateAchat { get; set; }
 
     [ForeignKey("Idadressefact")]
     [InverseProperty("Detailcommandes")]

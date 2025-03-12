@@ -35,34 +35,34 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<Velo>> GetByIdAsync(int id)
         {
-            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.Idvelo == id);
+            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.VeloId == id);
         }
 
         public async Task<ActionResult<Velo>> GetByStringAsync(string str)
         {
-            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.Nomvelo.ToUpper() == str.ToLower());
+            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.NomVelo.ToUpper() == str.ToLower());
         }
 
         public async Task UpdateAsync(Velo vel, Velo entity)
         {
             _upWayContext.Entry(vel).State = EntityState.Modified;
-            vel.Idvelo = entity.Idvelo;
-            vel.Idmarque = entity.Idmarque;
-            vel.Idcategorie = entity.Idcategorie;
-            vel.Idmoteur = entity.Idmoteur;
-            vel.Idcaracteristiquevelo = entity.Idcaracteristiquevelo;
-            vel.Nomvelo = entity.Nomvelo;
-            vel.Anneevelo = entity.Anneevelo;
-            vel.Taillemin = entity.Taillemax;
-            vel.Taillemax = entity.Taillemax;
-            vel.Nombrekms = entity.Nombrekms;
-            vel.Prixremise = entity.Prixremise;
-            vel.Prixneuf = entity.Prixneuf;
-            vel.Pourcentagereduction = entity.Pourcentagereduction;
-            vel.Descriptifvelo = entity.Descriptifvelo;
-            vel.Quantitevelo = entity.Quantitevelo;
-            vel.Positionmoteur = entity.Positionmoteur;
-            vel.Capacitebatterie = entity.Capacitebatterie;
+            vel.VeloId = entity.VeloId;
+            vel.MarqueId = entity.MarqueId;
+            vel.CategorieId = entity.CategorieId;
+            vel.MoteurId = entity.MoteurId;
+            vel.CaracteristiqueVeloId = entity.CaracteristiqueVeloId;
+            vel.NomVelo = entity.NomVelo;
+            vel.AnneeVelo = entity.AnneeVelo;
+            vel.TailleMin = entity.TailleMax;
+            vel.TailleMax = entity.TailleMax;
+            vel.NombreKms = entity.NombreKms;
+            vel.PrixRemise = entity.PrixRemise;
+            vel.PrixNeuf = entity.PrixNeuf;
+            vel.PourcentageReduction = entity.PourcentageReduction;
+            vel.DescriptifVelo = entity.DescriptifVelo;
+            vel.QuantiteVelo = entity.QuantiteVelo;
+            vel.PositionMoteur = entity.PositionMoteur;
+            vel.CapaciteBatterie = entity.CapaciteBatterie;
             await _upWayContext.SaveChangesAsync();
         }
     }

@@ -15,26 +15,26 @@ public partial class Estrealise
 {
     [Key]
     [Column("esr_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Key]
     [Column("esr_idInspection")]
-    public int Idinspection { get; set; }
+    public int InspectionId { get; set; }
 
     [Key]
     [Column("esr_idReparation")]
-    public int Idreparation { get; set; }
+    public int ReparationId { get; set; }
 
     [Column("esr_dateinspection", TypeName = "date")]
-    public DateTime Dateinspection { get; set; }
+    public DateTime DateInspection { get; set; }
 
     [Column("esr_commentaireInspection", TypeName = "text")]
     [StringLength(4096)]
-    public string? Commentaireinspection { get; set; }
+    public string? CommentaireInspection { get; set; }
 
     [Column("esr_historiqueInspection")]
     [StringLength(100)]
-    public string? Historiqueinspection { get; set; }
+    public string? HistoriqueInspection { get; set; }
 
     [ForeignKey("Idinspection")]
     [InverseProperty("Estrealises")]

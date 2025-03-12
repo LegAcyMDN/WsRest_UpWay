@@ -14,18 +14,18 @@ public partial class Alertevelo
 {
     [Key]
     [Column("alv_id")]
-    public int Idalerte { get; set; }
+    public int AlerteId { get; set; }
 
     [Key]
     [Column("cli_id")]
-    public int Idclient { get; set; }
+    public int ClientId { get; set; }
 
     [Key]
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("alv_modification", TypeName = "date")]
-    public DateTime? Modifalerte { get; set; }
+    public DateTime? ModificationAlerte { get; set; }
 
     [ForeignKey("Idclient")]
     [InverseProperty("Alertevelos")]

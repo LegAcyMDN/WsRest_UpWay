@@ -37,11 +37,11 @@ public class AuthController : ControllerBase
 
         var user = new Compteclient
         {
-            Loginclient = body.Login,
-            Motdepasseclient = hashed,
-            Prenomclient = body.FirstName,
-            Nomclient = body.LastName,
-            Emailclient = body.Email,
+            LoginClient = body.Login,
+            MotDePasseClient = hashed,
+            PrenomClient = body.FirstName,
+            NomClient = body.LastName,
+            EmailClient = body.Email,
             Usertype = Policies.User
         };
 
@@ -60,7 +60,7 @@ public class AuthController : ControllerBase
         var user = (await userManager.GetByStringAsync(body.Login)).Value;
         if (user == null) return BadRequest(UserAuthResponse.Error("Email Does not exist!"));
 
-        var res = passwordHasher.VerifyHashedPassword(user, user.Motdepasseclient, body.Password);
+        var res = passwordHasher.VerifyHashedPassword(user, user.MotDePasseClient, body.Password);
 
         if (res != PasswordVerificationResult.Success) return BadRequest(UserAuthResponse.Error("Wrong password!"));
 

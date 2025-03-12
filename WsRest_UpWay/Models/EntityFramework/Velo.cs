@@ -15,67 +15,67 @@ public partial class Velo
 {
     [Key]
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("mar_id")]
-    public int? Idmarque { get; set; }
+    public int? MarqueId { get; set; }
 
     [Column("cat_id")]
-    public int Idcategorie { get; set; }
+    public int CategorieId { get; set; }
 
     [Column("mot_id")]
-    public int? Idmoteur { get; set; }
+    public int? MoteurId { get; set; }
 
     [Column("car_id")]
-    public int? Idcaracteristiquevelo { get; set; }
+    public int? CaracteristiqueVeloId { get; set; }
 
     [Column("vel_nom")]
     [StringLength(200)]
-    public string? Nomvelo { get; set; }
+    public string? NomVelo { get; set; }
 
     [Column("vel_annee")]
     [Precision(4, 0)]
-    public decimal? Anneevelo { get; set; }
+    public decimal? AnneeVelo { get; set; }
 
     [Column("vel_taillemin")]
     [StringLength(15)]
-    public string? Taillemin { get; set; }
+    public string? TailleMin { get; set; }
 
     [Column("vel_taillemax")]
     [StringLength(15)]
-    public string? Taillemax { get; set; }
+    public string? TailleMax { get; set; }
 
     [Column("vel_kms")]
     [StringLength(15)]
-    public string? Nombrekms { get; set; }
+    public string? NombreKms { get; set; }
 
     [Column("vel_prixremise")]
     [Precision(5, 0)]
-    public decimal? Prixremise { get; set; }
+    public decimal? PrixRemise { get; set; }
 
     [Column("vel_prixneuf")]
     [Precision(5, 0)]
-    public decimal? Prixneuf { get; set; }
+    public decimal? PrixNeuf { get; set; }
 
     [Column("vel_pourcentagereduction")]
     [Precision(3, 0)]
-    public decimal? Pourcentagereduction { get; set; }
+    public decimal? PourcentageReduction { get; set; }
 
     [Column("vel_descriptif")]
     [StringLength(5000)]
-    public string? Descriptifvelo { get; set; }
+    public string? DescriptifVelo { get; set; }
 
     [Column("vel_quantite")]
     [Precision(3, 0)]
-    public decimal? Quantitevelo { get; set; }
+    public decimal? QuantiteVelo { get; set; }
 
     [Column("vel_positionmoteur")]
     [StringLength(20)]
-    public string? Positionmoteur { get; set; }
+    public string? PositionMoteur { get; set; }
 
     [Column("vel_capacitebatterie")]
     [StringLength(10)]
-    public string? Capacitebatterie { get; set; }
+    public string? CapaciteBatterie { get; set; }
 
     [InverseProperty("IdveloNavigation")]
     public virtual ICollection<Alertevelo> Alertevelos { get; set; } = new List<Alertevelo>();

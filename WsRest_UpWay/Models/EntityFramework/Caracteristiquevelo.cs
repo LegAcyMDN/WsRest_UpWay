@@ -11,18 +11,18 @@ public partial class Caracteristiquevelo
 {
     [Key]
     [Column("cav_id")]
-    public int Idcaracteristiquevelo { get; set; }
+    public int CaracteristiqueVeloId { get; set; }
 
     [Column("cav_poids")]
     [Precision(5, 2)]
     public decimal Poids { get; set; }
 
     [Column("cav_tubeSelle")]
-    public int Tubeselle { get; set; }
+    public int TubeSelle { get; set; }
 
     [Column("cav_typeSuspension")]
     [StringLength(20)]
-    public string? Typesuspension { get; set; }
+    public string? TypeSuspension { get; set; }
 
     [Column("cav_couleur")]
     [StringLength(10)]
@@ -30,14 +30,14 @@ public partial class Caracteristiquevelo
 
     [Column("cav_typeCargo")]
     [StringLength(20)]
-    public string? Typecargo { get; set; }
+    public string? TypeCargo { get; set; }
 
     [Column("cav_etatBatterie")]
     [StringLength(10)]
-    public string? Etatbatterie { get; set; }
+    public string? EtatBatterie { get; set; }
 
     [Column("cav_nombreCycle")]
-    public int? Nombrecycle { get; set; }
+    public int? NombreCycle { get; set; }
 
     [Column("cav_materiau")]
     [StringLength(20)]
@@ -55,28 +55,28 @@ public partial class Caracteristiquevelo
     public string? Amortisseur { get; set; }
 
     [Column("cav_debattementAmortisseur")]
-    public int? Debattementamortisseur { get; set; }
+    public int? DebattementAmortisseur { get; set; }
 
     [Column("cav_modelTransmission")]
     [StringLength(50)]
-    public string? Modeltransmission { get; set; }
+    public string? ModelTransmission { get; set; }
 
     [Column("cav_nombreVitesse")]
-    public int? Nombrevitesse { get; set; }
+    public int? NombreVitesse { get; set; }
 
     [Column("cav_freins")]
     [StringLength(30)]
     public string? Freins { get; set; }
 
     [Column("cav_taillesRoues")]
-    public int? Taillesroues { get; set; }
+    public int? TaillesRoues { get; set; }
 
     [Column("cav_pneus")]
     [StringLength(100)]
     public string? Pneus { get; set; }
 
     [Column("cav_selleTelescopique")]
-    public bool? Selletelescopique { get; set; }
+    public bool? SelleTelescopique { get; set; }
 
     [InverseProperty("IdcaracteristiqueveloNavigation")]
     public virtual ICollection<Velomodifier> Velomodifiers { get; set; } = new List<Velomodifier>();

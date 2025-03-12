@@ -13,24 +13,24 @@ public partial class Accessoire
 {
     [Key]
     [Column("acs_id")]
-    public int Idaccessoire { get; set; }
+    public int AccessoireId { get; set; }
 
     [Column("mar_id")]
-    public int Idmarque { get; set; }
+    public int MarqueId { get; set; }
 
     [Column("cat_id")]
-    public int Idcategorie { get; set; }
+    public int CategorieId { get; set; }
 
     [Column("acs_nom")]
     [StringLength(100)]
-    public string? Nomaccessoire { get; set; }
+    public string? NomAccessoire { get; set; }
 
     [Column("acs_prix", TypeName = "numeric(3, 2)")]
-    public decimal? Prixaccessoire { get; set; }
+    public decimal? PrixAccessoire { get; set; }
 
     [Column("acs_description")]
     [StringLength(4096)]
-    public string? Descriptionaccessoire { get; set; }
+    public string? DescriptionAccessoire { get; set; }
 
     [InverseProperty("IdaccessoireNavigation")]
     public virtual ICollection<Ajouteraccessoire> Ajouteraccessoires { get; set; } = new List<Ajouteraccessoire>();

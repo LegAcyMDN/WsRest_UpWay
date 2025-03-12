@@ -15,39 +15,39 @@ public partial class Information
 {
     [Key]
     [Column("inf_id")]
-    public int Idinformations { get; set; }
+    public int InformationId { get; set; }
 
     [Column("red_id")]
     [StringLength(20)]
-    public string? Idreduction { get; set; }
+    public string? reductionid { get; set; }
 
     [Column("retmag_id")]
-    public int? Idretraitmagasin { get; set; }
+    public int? RetraitMagasinId { get; set; }
 
     [Column("adexp_id")]
-    public int Idadresseexp { get; set; }
+    public int AdresseExpeId { get; set; }
 
     [Column("pan_id")]
-    public int Idpanier { get; set; }
+    public int PanierId { get; set; }
 
     [Column("inf_continf")]
     [StringLength(100)]
-    public string? Contactinformations { get; set; }
+    public string? ContactInformations { get; set; }
 
     [Column("inf_offmail")]
-    public bool? Offreemail { get; set; }
+    public bool? OffreEmail { get; set; }
 
     [Column("inf_moodliv")]
     [StringLength(30)]
-    public string? Modelivraison { get; set; }
+    public string? ModeLivraison { get; set; }
 
     [Column("inf_payinf")]
     [StringLength(20)]
-    public string? Informationpays { get; set; }
+    public string? InformationPays { get; set; }
 
     [Column("inf_rueinf")]
     [StringLength(200)]
-    public string? Informationrue { get; set; }
+    public string? InformationRue { get; set; }
 
     [ForeignKey("Idadresseexp")]
     [InverseProperty("Information")]

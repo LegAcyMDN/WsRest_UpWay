@@ -30,7 +30,7 @@ public class UserManager : IDataRepository<Compteclient>
 
     public async Task<ActionResult<Compteclient>> GetByStringAsync(string str)
     {
-        return _context.Compteclients.FirstOrDefault(c => c.Emailclient.ToLower() == str.ToLower());
+        return _context.Compteclients.FirstOrDefault(c => c.EmailClient.ToLower() == str.ToLower());
     }
 
     public async Task AddAsync(Compteclient entity)
@@ -43,9 +43,9 @@ public class UserManager : IDataRepository<Compteclient>
     {
         _context.Entry(entityToUpdate).State = EntityState.Modified;
 
-        entityToUpdate.Loginclient = entity.Loginclient;
-        entityToUpdate.Motdepasseclient = entity.Motdepasseclient;
-        entityToUpdate.Emailclient = entity.Emailclient;
+        entityToUpdate.LoginClient = entity.LoginClient;
+        entityToUpdate.MotDePasseClient = entity.MotDePasseClient;
+        entityToUpdate.EmailClient = entity.EmailClient;
         entityToUpdate.RememberToken = entity.RememberToken;
         entityToUpdate.TwoFactorSecret = entity.TwoFactorSecret;
         entityToUpdate.TwoFactorRecoveryCodes = entity.TwoFactorRecoveryCodes;

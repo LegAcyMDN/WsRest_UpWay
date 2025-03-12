@@ -19,11 +19,11 @@ namespace WsRest_UpWay.Models.DataManager
         }
         public async Task<ActionResult<Compteclient>> GetByIdAsync(int id)
         {
-            return await s215DbContext.Compteclients.FirstOrDefaultAsync(u => u.Idclient == id);
+            return await s215DbContext.Compteclients.FirstOrDefaultAsync(u => u.ClientId == id);
         }
         public async Task<ActionResult<Compteclient>> GetByStringAsync(string mail)
         {
-            return await s215DbContext.Compteclients.FirstOrDefaultAsync(u => u.Emailclient.ToUpper() == mail.ToUpper());
+            return await s215DbContext.Compteclients.FirstOrDefaultAsync(u => u.EmailClient.ToUpper() == mail.ToUpper());
         }
         public async Task AddAsync(Compteclient entity)
         {
@@ -33,13 +33,13 @@ namespace WsRest_UpWay.Models.DataManager
         public async Task UpdateAsync(Compteclient Compteclient, Compteclient entity)
         {
             s215DbContext.Entry(Compteclient).State = EntityState.Modified;
-            Compteclient.Idclient = entity.Idclient;
-            Compteclient.Loginclient = entity.Loginclient;
-            Compteclient.Motdepasseclient = entity.Motdepasseclient;
-            Compteclient.Emailclient = entity.Emailclient;
-            Compteclient.Prenomclient = entity.Prenomclient;
-            Compteclient.Nomclient = entity.Nomclient;
-            Compteclient.Datecreation = entity.Datecreation;
+            Compteclient.ClientId = entity.ClientId;
+            Compteclient.LoginClient = entity.LoginClient;
+            Compteclient.MotDePasseClient = entity.MotDePasseClient;
+            Compteclient.EmailClient = entity.EmailClient;
+            Compteclient.PrenomClient = entity.PrenomClient;
+            Compteclient.NomClient = entity.NomClient;
+            Compteclient.DateCreation = entity.DateCreation;
             Compteclient.RememberToken = entity.RememberToken;
             Compteclient.TwoFactorRecoveryCodes = entity.TwoFactorRecoveryCodes;
             Compteclient.TwoFactorConfirmedAt = entity.TwoFactorConfirmedAt;

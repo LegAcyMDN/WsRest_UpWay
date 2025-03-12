@@ -13,14 +13,14 @@ public partial class Utilite
 {
     [Key]
     [Column("uti_id")]
-    public int Idutilite { get; set; }
+    public int UtiliteId { get; set; }
 
     [Key]
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("uti_valeur")]
-    public decimal? Valeurutilite { get; set; }
+    public decimal? ValeurUtilite { get; set; }
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Utilites")]

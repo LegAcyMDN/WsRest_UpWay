@@ -12,17 +12,17 @@ public partial class Photovelo
 {
     [Key]
     [Column("phv_id")]
-    public int Idphotovelo { get; set; }
+    public int PhotoVeloId { get; set; }
 
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("phv_url")]
     [StringLength(4096)]
-    public string? Urlphotovelo { get; set; }
+    public string? UrlPhotoVelo { get; set; }
 
     [Column("phv_bytea")]
-    public byte[]? Photobytea { get; set; }
+    public byte[]? PhotoBytea { get; set; }
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Photovelos")]

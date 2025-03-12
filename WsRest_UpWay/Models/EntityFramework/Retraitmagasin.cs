@@ -14,22 +14,22 @@ public partial class Retraitmagasin
 {
     [Key]
     [Column("rem_id")]
-    public int Idretraitmagasin { get; set; }
+    public int RetraitMagasinId { get; set; }
 
     [Column("rem_idinformations")]
-    public int? Idinformations { get; set; }
+    public int?InformationId { get; set; }
 
     [Column("rem_idcommande")]
-    public int? Idcommande { get; set; }
+    public int? CommandeId { get; set; }
 
     [Column("rem_idmagasin")]
-    public int Idmagasin { get; set; }
+    public int MagasinId { get; set; }
 
     [Column("rem_date", TypeName = "date")]
-    public DateOnly? Dateretrait { get; set; }
+    public DateOnly? DateRetrait { get; set; }
 
     [Column("rem_heure", TypeName = "heure")]
-    public TimeOnly? Heureretrait { get; set; }
+    public TimeOnly? HeureRetrait { get; set; }
 
     [InverseProperty("IdretraitmagasinNavigation")]
     public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();

@@ -11,17 +11,17 @@ public partial class ContenuArticle
 {
     [Key]
     [Column("coa_id")]
-    public int Idcontenue { get; set; }
+    public int ContenueId { get; set; }
 
     [Column("idarticle")]
-    public int Idarticle { get; set; }
+    public int ArticleId { get; set; }
 
     [Column("coa_prioritecontenu")]
-    public int? Prioritecontenu { get; set; }
+    public int? PrioriteContenu { get; set; }
 
     [Column("coa_typecontenu")]
     [StringLength(64)]
-    public string? Typecontenu { get; set; }
+    public string? TypeContenu { get; set; }
 
     [Column("coa_contenu", TypeName = "text")]
     [StringLength(4096)]

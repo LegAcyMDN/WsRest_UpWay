@@ -12,13 +12,13 @@ public partial class Photoaccessoire
 {
     [Key]
     [Column("pha_id")]
-    public int Idphotoaccessoire { get; set; }
+    public int PhotoAcessoireId { get; set; }
 
     [Column("acs_id")]
-    public int Idaccessoire { get; set; }
+    public int AccessoireId { get; set; }
 
     [Column("pha_url")]
-    public byte[]? Urlphotoaccessoire { get; set; }
+    public byte[]? UrlPhotoAccessoire { get; set; }
 
     [ForeignKey("Idaccessoire")]
     [InverseProperty("Photoaccessoires")]

@@ -12,18 +12,18 @@ public partial class Mentionvelo
 {
     [Key]
     [Column("mev_id")]
-    public int Idmention { get; set; }
+    public int MentionId { get; set; }
 
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("mev_libelle")]
     [StringLength(50)]
-    public string? Libellemention { get; set; }
+    public string? LibelleMention { get; set; }
 
     [Column("mev_valeur", TypeName = "text")]
     [StringLength(4096)]
-    public string? Valeurmention { get; set; }
+    public string? ValeurMention { get; set; }
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Mentionvelos")]

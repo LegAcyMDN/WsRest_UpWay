@@ -12,10 +12,10 @@ public partial class Codereduction
     [Key]
     [Column("cor_id")]
     [StringLength(20)]
-    public string Idreduction { get; set; } = null!;
+    public string ReductionId { get; set; } = null!;
 
     [Column("cor_actifreduction")]
-    public bool? Actifreduction { get; set; }
+    public bool? ActifReduction { get; set; }
 
     [Column("cor_reduction")]
     public int? Reduction { get; set; }

@@ -11,19 +11,19 @@ public partial class CategorieArticle
 {
     [Key]
     [Column("caa_id")]
-    public int IdcategorieArticle { get; set; }
+    public int CategorieArticleId { get; set; }
 
     [Column("caa_titre")]
     [StringLength(100)]
-    public string? TitrecategorieArticle { get; set; }
+    public string? TitreCategorieArticle { get; set; }
 
     [Column("caa_contenue", TypeName = "text")]
     [StringLength(4096)]
-    public string? ContenuecategorieArticle { get; set; }
+    public string? ContenuCategorieArticle { get; set; }
 
     [Column("caa_image", TypeName = "text")]
     [StringLength(4096)]
-    public string? Imagecategorie { get; set; }
+    public string? ImageCategorie { get; set; }
 
     [InverseProperty("IdcategorieArticleNavigation")]
     public virtual ICollection<Article> Articles { get; set; } = new List<Article>();

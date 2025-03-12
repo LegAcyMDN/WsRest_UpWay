@@ -14,17 +14,17 @@ public partial class Marquagevelo
     [Key]
     [Column("mal_code")]
     [StringLength(10)]
-    public string Codemarquage { get; set; } = null!;
+    public string CodeMarquage { get; set; } = null!;
 
     [Column("pan_id")]
-    public int Idpanier { get; set; }
+    public int PanierId { get; set; }
 
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("mal_prix", TypeName = "numeric(2, 2)")]
     [Precision(2, 2)]
-    public decimal? Prixmarquage { get; set; }
+    public decimal? PrixMarquage { get; set; }
 
     [ForeignKey("Idpanier, Idvelo")]
     [InverseProperty("Marquagevelos")]

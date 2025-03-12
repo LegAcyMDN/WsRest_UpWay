@@ -7,7 +7,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 
 public partial class Compteclient
 {
-    public string FullName => Nomclient + " " + Prenomclient;
+    public string FullName => NomClient + " " + PrenomClient;
     
     public string GenerateJwtToken(IConfiguration config)
     {
@@ -15,7 +15,7 @@ public partial class Compteclient
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, this.Loginclient),
+            new Claim(JwtRegisteredClaimNames.Sub, this.LoginClient),
             new Claim("fullName", this.FullName),
             new Claim("role", this.Usertype),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

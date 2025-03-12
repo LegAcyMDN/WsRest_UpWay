@@ -12,11 +12,11 @@ public partial class Categorie
 {
     [Key]
     [Column("cat_id")]
-    public int Idcategorie { get; set; }
+    public int CategorieId { get; set; }
 
     [Column("cat_libelle")]
     [StringLength(100)]
-    public string? Libellecategorie { get; set; }
+    public string? LibelleCategorie { get; set; }
 
     [InverseProperty("IdcategorieNavigation")]
     public virtual ICollection<Accessoire> Accessoires { get; set; } = new List<Accessoire>();

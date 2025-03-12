@@ -11,10 +11,10 @@ public partial class Article
 {
     [Key]
     [Column("art_id")]
-    public int Idarticle { get; set; }
+    public int ArticleId { get; set; }
 
     [Column("caa_id")]
-    public int? IdcategorieArticle { get; set; }
+    public int? CategorieArticleId { get; set; }
 
     [InverseProperty("IdarticleNavigation")]
     public virtual ICollection<ContenuArticle> ContenuArticles { get; set; } = new List<ContenuArticle>();

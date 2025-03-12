@@ -15,15 +15,15 @@ public partial class Rapportinspection
 
     [Column("ras_type")]
     [StringLength(200)]
-    public string? Typeinspection { get; set; }
+    public string? TypeInspection { get; set; }
 
     [Column("ras_sousType")]
     [StringLength(200)]
-    public string? Soustypeinspection { get; set; }
+    public string? SousTypeInspection { get; set; }
 
     [Column("ras_pointdInspection")]
     [StringLength(200)]
-    public string? Pointdinspection { get; set; }
+    public string? PointDInspection { get; set; }
 
     [InverseProperty("IdinspectionNavigation")]
     public virtual ICollection<Estrealise> Estrealises { get; set; } = new List<Estrealise>();

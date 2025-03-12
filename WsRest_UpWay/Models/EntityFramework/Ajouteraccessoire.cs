@@ -14,15 +14,15 @@ public partial class Ajouteraccessoire
 {
     [Key]
     [Column("acs_id")]
-    public int Idaccessoire { get; set; }
+    public int AccessoireId { get; set; }
 
     [Key]
     [Column("pan_id")]
-    public int Idpanier { get; set; }
+    public int PanierId { get; set; }
 
     [Column("aja_quantite")]
     [Precision(2, 0)]
-    public int? Quantiteaccessoire { get; set; }
+    public int? QuantiteAccessoire { get; set; }
 
     [ForeignKey("Idaccessoire")]
     [InverseProperty("Ajouteraccessoires")]

@@ -11,27 +11,27 @@ public partial class Magasin
 {
     [Key]
     [Column("mag_id")]
-    public int Idmagasin { get; set; }
+    public int MagasinId { get; set; }
 
     [Column("mag_nom")]
     [StringLength(50)]
-    public string? Nommagasin { get; set; }
+    public string? NomMagasin { get; set; }
 
     [Column("mag_horaire")]
     [StringLength(200)]
-    public string? Horairemagasin { get; set; }
+    public string? HoraireMagasin { get; set; }
 
     [Column("mag_rue")]
     [StringLength(100)]
-    public string? Ruemagasin { get; set; }
+    public string? RueMagasin { get; set; }
 
     [Column("mag_cp", TypeName = "char(5)")]
     [StringLength(5)]
-    public string? Cpmagasin { get; set; }
+    public string? CPMagasin { get; set; }
 
     [Column("mag_ville")]
     [StringLength(50)]
-    public string? Villemagasin { get; set; }
+    public string? VilleMagasin { get; set; }
 
     [InverseProperty("IdmagasinNavigation")]
     public virtual ICollection<Retraitmagasin> Retraitmagasins { get; set; } = new List<Retraitmagasin>();

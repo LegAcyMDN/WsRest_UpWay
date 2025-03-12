@@ -20,11 +20,11 @@ namespace WsRest_UpWay.Models.DataManager
         }
         public async Task<ActionResult<Detailcommande>> GetByIdAsync(int id)
         {
-            return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.Idcommande == id);
+            return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.CommandeId == id);
         }
         public async Task<ActionResult<Detailcommande>> GetByStringAsync(string nom)
         {
-            return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.Modeexpedition.ToUpper() == nom.ToUpper());
+            return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.ModeExpedition.ToUpper() == nom.ToUpper());
         }
         public async Task AddAsync(Detailcommande entity)
         {
@@ -34,15 +34,15 @@ namespace WsRest_UpWay.Models.DataManager
         public async Task UpdateAsync(Detailcommande detailcommande, Detailcommande entity)
         {
             upwaysDbContext.Entry(detailcommande).State = EntityState.Modified;
-            detailcommande.Idcommande = entity.Idcommande;
-            detailcommande.Idretraitmagasin = entity.Idretraitmagasin;
-            detailcommande.Idadressefact = entity.Idadressefact;
-            detailcommande.Idetatcommande = entity.Idetatcommande;
-            detailcommande.Idclient = entity.Idclient;
-            detailcommande.Idpanier = entity.Idpanier;
-            detailcommande.Moyenpaiement = entity.Moyenpaiement;
-            detailcommande.Modeexpedition = entity.Modeexpedition;
-            detailcommande.Dateachat = entity.Dateachat;
+            detailcommande.CommandeId = entity.CommandeId;
+            detailcommande.RetraitMagasinId = entity.RetraitMagasinId;
+            detailcommande.AdresseFactId = entity.AdresseFactId;
+            detailcommande.EtatCommandeId = entity.EtatCommandeId;
+            detailcommande.ClientId = entity.ClientId;
+            detailcommande.PanierId = entity.PanierId;
+            detailcommande.MoyenPaiement = entity.MoyenPaiement;
+            detailcommande.ModeExpedition = entity.ModeExpedition;
+            detailcommande.DateAchat = entity.DateAchat;
             upwaysDbContext.SaveChangesAsync();
 
         }

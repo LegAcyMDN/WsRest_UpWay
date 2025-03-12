@@ -46,7 +46,7 @@ namespace WsRest_UpWay.Controllers
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutMagasin(int id, Magasin magasin)
     {
-        if (id != magasin.Idmagasin) return BadRequest();
+        if (id != magasin.MagasinId) return BadRequest();
 
            var comtoUpdate = await dataRepository.GetByIdAsync(id);
 
@@ -73,7 +73,7 @@ namespace WsRest_UpWay.Controllers
 
             await dataRepository.AddAsync(magasin);
 
-            return CreatedAtAction("GetByIdAsync", new { id = magasin.Idmagasin }, magasin);
+            return CreatedAtAction("GetByIdAsync", new { id = magasin.MagasinId }, magasin);
         }
 
         // DELETE: api/Magasin/5
@@ -92,9 +92,9 @@ namespace WsRest_UpWay.Controllers
             return NoContent();
         }
 
-        //private bool MagasinExists(int id)
-        //{
-        //    return _context.Magasins.Any(e => e.Idmagasin == id);
-        //}
+        private bool MagasinExists(int id)
+        {
+            return _context.Magasins.Any(e => e.Idmagasin == id);
+        }
     }
 }

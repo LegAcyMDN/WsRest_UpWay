@@ -11,13 +11,13 @@ public partial class Reparationvelo
 {
     [Key]
     [Column("rev_id")]
-    public int Idreparation { get; set; }
+    public int ReparationId { get; set; }
 
     [Column("rev_check")]
-    public bool? Checkreparation { get; set; }
+    public bool? CheckReparation { get; set; }
 
     [Column("rev_checkValidation")]
-    public bool? Checkvalidation { get; set; }
+    public bool? CheckValidation { get; set; }
 
     [InverseProperty("IdreparationNavigation")]
     public virtual ICollection<Estrealise> Estrealises { get; set; } = new List<Estrealise>();

@@ -62,7 +62,7 @@ public class VelosController : ControllerBase
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutVelo(int id, Velo velo)
     {
-        if (id != velo.Idvelo)
+        if (id != velo.VeloId)
             return BadRequest();
 
         var comToUpdate = await dataRepository.GetByIdAsync(id);
@@ -86,7 +86,7 @@ public class VelosController : ControllerBase
 
         await dataRepository.AddAsync(velo);
 
-        return CreatedAtAction("GetById", new { id = velo.Idvelo }, velo);
+        return CreatedAtAction("GetById", new { id = velo.VeloId }, velo);
     }
 
     // DELETE: api/Velos/5

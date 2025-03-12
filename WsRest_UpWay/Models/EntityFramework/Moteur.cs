@@ -12,22 +12,22 @@ public partial class Moteur
 {
     [Key]
     [Column("mot_id")]
-    public int Idmoteur { get; set; }
+    public int MoteurId { get; set; }
 
     [Column("mar_id")]
-    public int Idmarque { get; set; }
+    public int MarqueId { get; set; }
 
     [Column("mot_modele")]
     [StringLength(50)]
-    public string? Modelemoteur { get; set; }
+    public string? ModeleMoteur { get; set; }
 
     [Column("mot_couple")]
     [StringLength(10)]
-    public string? Couplemoteur { get; set; }
+    public string? CoupleMoteur { get; set; }
 
-    [Column("mot_vitessemax")]
+    [Column("mot_vitesseMax")]
     [StringLength(10)]
-    public string? Vitessemaximal { get; set; }
+    public string? VitesseMaximal { get; set; }
 
     [ForeignKey("Idmarque")]
     [InverseProperty("Moteurs")]

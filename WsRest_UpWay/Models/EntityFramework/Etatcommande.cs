@@ -11,11 +11,11 @@ public partial class Etatcommande
 {
     [Key]
     [Column("etc_id")]
-    public int Idetatcommande { get; set; }
+    public int EtatCommandeId { get; set; }
 
     [Column("etc_libelle")]
     [StringLength(20)]
-    public string? Libelleetat { get; set; }
+    public string? LibelleEtat { get; set; }
 
     [InverseProperty("IdetatcommandeNavigation")]
     public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();

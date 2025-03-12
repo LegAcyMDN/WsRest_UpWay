@@ -13,44 +13,44 @@ public partial class Adresseexpedition
 {
     [Key]
     [Column("ade_id")]
-    public int Idadresseexp { get; set; }
+    public int AdresseExpeId { get; set; }
 
     [Column("cli_id")]
-    public int Idclient { get; set; }
+    public int ClientId { get; set; }
 
     [Column("adf_id")]
-    public int? Idadressefact { get; set; }
+    public int? AdresseFactId { get; set; }
 
     [Column("ade_pays")]
     [StringLength(50)]
-    public string? Paysexpe { get; set; }
+    public string? PaysExpedition { get; set; }
 
     [Column("ade_batopt")]
     [StringLength(100)]
-    public string? Batimentexpeoption { get; set; }
+    public string? BatimentExpeditionOpt { get; set; }
 
     [Column("ade_rue")]
     [StringLength(200)]
-    public string? Rueexpe { get; set; }
+    public string? RueExpedition { get; set; }
 
     [Column("ade_cp", TypeName = "char(5)")]
     [StringLength(5)]
-    public string? Cpexpe { get; set; }
+    public string? CPExpedition { get; set; }
 
     [Column("ade_region")]
     [StringLength(20)]
-    public string? Regionexpe { get; set; }
+    public string? RegionExpedition { get; set; }
 
     [Column("ade_ville")]
     [StringLength(100)]
-    public string? Villeexpe { get; set; }
+    public string? VilleExpedition { get; set; }
 
     [Column("ade_telephone", TypeName = "char(10)")]
     [StringLength(10)]
-    public string? Telephoneexpe { get; set; }
+    public string? TelephoneExpedition { get; set; }
 
     [Column("ade_donneessauv")]
-    public bool? Donneessauvegardees { get; set; }
+    public bool? DonneesSauvegardees { get; set; }
 
     [InverseProperty("IdadresseexpNavigation")]
     public virtual ICollection<Adressefacturation> Adressefacturations { get; set; } = new List<Adressefacturation>();

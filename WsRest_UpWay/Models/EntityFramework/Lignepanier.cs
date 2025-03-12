@@ -15,22 +15,22 @@ public partial class Lignepanier
 {
     [Key]
     [Column("lignpan_id")]
-    public int Idpanier { get; set; }
+    public int PanierId { get; set; }
 
     [Key]
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("ass_id")]
-    public int Idassurance { get; set; }
+    public int AssuranceId { get; set; }
 
     [Column("lignpan_quantpan")]
     [Precision(2, 0)]
-    public decimal? Quantitepanier { get; set; }
+    public decimal? QuantitePanier { get; set; }
 
     [Column("lignpan_priquant")]
     [Precision(11, 2)]
-    public decimal? Prixquantite { get; set; }
+    public decimal? PrixQuantite { get; set; }
 
     [ForeignKey("Idassurance")]
     [InverseProperty("Lignepaniers")]

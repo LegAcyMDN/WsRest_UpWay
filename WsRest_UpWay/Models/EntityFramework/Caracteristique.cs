@@ -11,15 +11,15 @@ public partial class Caracteristique
 {
     [Key]
     [Column("car_id")]
-    public int Idcaracteristique { get; set; }
+    public int CaracteristiqueId { get; set; }
 
     [Column("car_libelle")]
     [StringLength(100)]
-    public string? Libellecaracteristique { get; set; }
+    public string? LibelleCaracteristique { get; set; }
 
     [Column("car_image")]
     [StringLength(200)]
-    public string? Imagecaracteristique { get; set; }
+    public string? ImageCaracteristique { get; set; }
 
     [ForeignKey("Idcaracteristique")]
     [InverseProperty("Idcaracteristiques")]

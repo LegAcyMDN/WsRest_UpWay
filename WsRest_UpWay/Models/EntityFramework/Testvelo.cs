@@ -13,19 +13,19 @@ public partial class Testvelo
 {
     [Key]
     [Column("tev_id")]
-    public int Idtest { get; set; }
+    public int TestId { get; set; }
 
     [Column("vel_id")]
-    public int Idvelo { get; set; }
+    public int VeloId { get; set; }
 
     [Column("mag_id")]
-    public int Idmagasin { get; set; }
+    public int MagasinId { get; set; }
 
     [Column("tev_date")]
-    public DateOnly? Datetest { get; set; }
+    public DateOnly? DateTest { get; set; }
 
     [Column("tev_heure")]
-    public TimeOnly? Heuretest { get; set; }
+    public TimeOnly? HeureTest { get; set; }
 
     [ForeignKey("Idmagasin")]
     [InverseProperty("Testvelos")]

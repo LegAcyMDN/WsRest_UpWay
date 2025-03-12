@@ -12,13 +12,13 @@ public partial class Panier
 {
     [Key]
     [Column("pan_id")]
-    public int Idpanier { get; set; }
+    public int PanierId { get; set; }
 
     [Column("cli_id")]
-    public int? Idclient { get; set; }
+    public int? ClientId { get; set; }
 
     [Column("com_id")]
-    public int? Idcommande { get; set; }
+    public int? CommandeId { get; set; }
 
     [Column("pan_cookie")]
     [StringLength(255)]
@@ -26,7 +26,7 @@ public partial class Panier
 
     [Column("pan_prix")]
     [Precision(11, 2)]
-    public decimal? Prixpanier { get; set; }
+    public decimal? PrixPanier { get; set; }
 
     [InverseProperty("IdpanierNavigation")]
     public virtual ICollection<Ajouteraccessoire> Ajouteraccessoires { get; set; } = new List<Ajouteraccessoire>();

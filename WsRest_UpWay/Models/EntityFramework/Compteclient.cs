@@ -13,30 +13,30 @@ public partial class Compteclient
 {
     [Key]
     [Column("coc_id")]
-    public int Idclient { get; set; }
+    public int ClientId { get; set; }
 
     [Column("coc_login")]
     [StringLength(20)]
-    public string? Loginclient { get; set; }
+    public string? LoginClient { get; set; }
 
     [Column("coc_MPD")]
     [StringLength(64)]
-    public string? Motdepasseclient { get; set; }
+    public string? MotDePasseClient { get; set; }
 
     [Column("coc_email")]
     [StringLength(200)]
-    public string? Emailclient { get; set; }
+    public string? EmailClient { get; set; }
 
     [Column("coc_prenom")]
     [StringLength(20)]
-    public string? Prenomclient { get; set; }
+    public string? PrenomClient { get; set; }
 
     [Column("coc_nom")]
     [StringLength(30)]
-    public string? Nomclient { get; set; }
+    public string? NomClient { get; set; }
 
     [Column("coc_dateCreation", TypeName = "date")]
-    public DateOnly? Datecreation { get; set; }
+    public DateOnly? DateCreation { get; set; }
 
     [Column("coc_remember_token")]
     [StringLength(100)]

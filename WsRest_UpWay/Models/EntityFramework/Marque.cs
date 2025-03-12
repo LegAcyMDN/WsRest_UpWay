@@ -12,11 +12,11 @@ public partial class Marque
 {
     [Key]
     [Column("mar_id")]
-    public int Idmarque { get; set; }
+    public int MarqueId { get; set; }
 
     [Column("mar_nom")]
     [StringLength(100)]
-    public string? Nommarque { get; set; }
+    public string? NomMarque { get; set; }
 
     [InverseProperty("IdmarqueNavigation")]
     public virtual ICollection<Accessoire> Accessoires { get; set; } = new List<Accessoire>();

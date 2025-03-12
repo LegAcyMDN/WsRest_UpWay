@@ -63,7 +63,7 @@ public class InformationsController : ControllerBase
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutInformation(int id, Information information)
     {
-        if (id != information.Idinformations)
+        if (id != information.InformationId)
             return BadRequest();
 
         var comToUpdate = await _context.GetByIdAsync(id);
@@ -87,7 +87,7 @@ public class InformationsController : ControllerBase
 
         await _context.AddAsync(information);
 
-        return CreatedAtAction("GetById", new { id = information.Idinformations }, information);
+        return CreatedAtAction("GetById", new { id = information.InformationId }, information);
     }
 
     // DELETE: api/Information/5

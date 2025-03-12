@@ -57,7 +57,7 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutDetailCommande(int id, Detailcommande detailCommande)
         {
-            if (id != detailCommande.Idcommande)
+            if (id != detailCommande.CommandeId)
                 return BadRequest();
 
             var comToUpdate = await dataRepository.GetByIdAsync(id);
@@ -81,7 +81,7 @@ namespace WsRest_UpWay.Controllers
 
             await dataRepository.AddAsync(detailCommande);
 
-            return CreatedAtAction("GetById", new { id = detailCommande.Idcommande }, detailCommande);
+            return CreatedAtAction("GetById", new { id = detailCommande.CommandeId }, detailCommande);
         }
 
         [HttpDelete("{id}")]

@@ -59,7 +59,7 @@ public class MarquesController : ControllerBase
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutMarque(int id, Marque marque)
     {
-        if (id != marque.Idmarque)
+        if (id != marque.MarqueId)
             return BadRequest();
 
         var accToUpdate = await dataRepository.GetByIdAsync(id);
@@ -81,7 +81,7 @@ public class MarquesController : ControllerBase
 
         await dataRepository.AddAsync(marque);
 
-        return CreatedAtAction("GetById", new { id = marque.Idmarque }, marque);
+        return CreatedAtAction("GetById", new { id = marque.MarqueId }, marque);
     }
 
     [HttpDelete("{id}")]

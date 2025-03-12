@@ -13,41 +13,41 @@ public partial class Adressefacturation
 {
     [Key]
     [Column("adf_id")]
-    public int Idadressefact { get; set; }
+    public int AdresseFactId { get; set; }
 
     [Column("cli_id")]
-    public int Idclient { get; set; }
+    public int ClientId { get; set; }
 
     [Column("ade_id")]
-    public int? Idadresseexp { get; set; }
+    public int? AdresseExpId { get; set; }
 
     [Column("adf_pays")]
     [StringLength(50)]
-    public string? Paysfact { get; set; }
+    public string? PaysFacturation { get; set; }
 
     [Column("adf_batopt")]
     [StringLength(100)]
-    public string? Appartementfact { get; set; }
+    public string? BatimentFacturationOpt { get; set; }
 
     [Column("adf_rue")]
     [StringLength(200)]
-    public string? Ruefact { get; set; }
+    public string? RueFacturation { get; set; }
 
     [Column("adf_cp", TypeName = "char(5)")]
     [StringLength(5)]
-    public string? Cpfact { get; set; }
+    public string? CPFacturation { get; set; }
 
     [Column("adf_region")]
     [StringLength(20)]
-    public string? Regionfact { get; set; }
+    public string? RegionFacturation { get; set; }
 
     [Column("adf_ville")]
     [StringLength(100)]
-    public string? Villefact { get; set; }
+    public string? VilleFacturation { get; set; }
 
     [Column("adf_telephone", TypeName = "char(10)")]
     [StringLength(10)]
-    public string? Telephonefact { get; set; }
+    public string? TelephoneFacturation { get; set; }
 
     [InverseProperty("IdadressefactNavigation")]
     public virtual ICollection<Adresseexpedition> Adresseexpeditions { get; set; } = new List<Adresseexpedition>();

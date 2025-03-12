@@ -12,15 +12,15 @@ public partial class Dpo
 {
     [Key]
     [Column("dpo_id")]
-    public int Iddpo { get; set; }
+    public int DpoId { get; set; }
 
     [Column("clt_id")]
-    public int? Idclient { get; set; }
+    public int? ClientId { get; set; }
 
     [Column("dpo_typope")]
     [StringLength(20)]
-    public string? Typeoperation { get; set; }
+    public string? TypeOperation { get; set; }
 
-    [Column("dpo_datreqdpo")]
-    public DateOnly? Daterequetedpo { get; set; }
+    [Column("dpo_datreqdpo", TypeName = "char")]
+    public DateTime? DateRequeteDpo { get; set; }
 }
