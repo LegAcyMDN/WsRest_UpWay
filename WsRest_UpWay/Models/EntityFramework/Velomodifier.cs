@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("velomodifier", Schema = "upways")]
+[Table("t_e_velomodofier_vlm", Schema = "upways")]
 [Index("Idcaracteristiquevelo", Name = "idx_velomodifier_idcaracteristiquevelomodifier")]
 [Index("Idcategorie", Name = "idx_velomodifier_idcategorie")]
 [Index("Idmarque", Name = "idx_velomodifier_idmarque")]
@@ -14,73 +14,73 @@ namespace WsRest_UpWay.Models.EntityFramework;
 public partial class Velomodifier
 {
     [Key]
-    [Column("idvelom")]
+    [Column("vlm_id")]
     public int Idvelom { get; set; }
 
-    [Column("idvelomodif")]
+    [Column("vlm_idm")]
     public int Idvelomodif { get; set; }
 
-    [Column("idmarque")]
+    [Column("mar_id")]
     public int? Idmarque { get; set; }
 
-    [Column("idcategorie")]
+    [Column("cat_id")]
     public int Idcategorie { get; set; }
 
-    [Column("idmoteur")]
+    [Column("mot_id")]
     public int? Idmoteur { get; set; }
 
-    [Column("idcaracteristiquevelo")]
+    [Column("car_id")]
     public int? Idcaracteristiquevelo { get; set; }
 
-    [Column("nomvelo")]
+    [Column("vlm_nom")]
     [StringLength(200)]
     public string? Nomvelo { get; set; }
 
-    [Column("anneevelo")]
+    [Column("vlm_annee")]
     [Precision(4, 0)]
     public decimal? Anneevelo { get; set; }
 
-    [Column("taillemin")]
+    [Column("vlm_taillemin")]
     [StringLength(15)]
     public string? Taillemin { get; set; }
 
-    [Column("taillemax")]
+    [Column("vlm_taillemax")]
     [StringLength(15)]
     public string? Taillemax { get; set; }
 
-    [Column("nombrekms")]
+    [Column("vlm_kms")]
     [StringLength(15)]
     public string? Nombrekms { get; set; }
 
-    [Column("prixremise")]
+    [Column("vlm_prixremise")]
     [Precision(5, 0)]
     public decimal? Prixremise { get; set; }
 
-    [Column("prixneuf")]
+    [Column("vlm_prixneuf")]
     [Precision(5, 0)]
     public decimal? Prixneuf { get; set; }
 
-    [Column("pourcentagereduction")]
+    [Column("vlm_pourcentagereduction")]
     [Precision(3, 0)]
     public decimal? Pourcentagereduction { get; set; }
 
-    [Column("descriptifvelo")]
+    [Column("vlm_descriptif")]
     [StringLength(5000)]
     public string? Descriptifvelo { get; set; }
 
-    [Column("quantitevelo")]
+    [Column("vlm_quantite")]
     [Precision(3, 0)]
     public decimal? Quantitevelo { get; set; }
 
-    [Column("positionmoteur")]
+    [Column("vlm_positionmoteur")]
     [StringLength(20)]
     public string? Positionmoteur { get; set; }
 
-    [Column("capacitebatterie")]
+    [Column("vlm_capacitebatterie")]
     [StringLength(10)]
     public string? Capacitebatterie { get; set; }
 
-    [Column("ancienprix")]
+    [Column("vlm_ancienprix")]
     [Precision(5, 0)]
     public decimal? Ancienprix { get; set; }
 

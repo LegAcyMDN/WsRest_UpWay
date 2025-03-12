@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("informations", Schema = "upways")]
+[Table("t_e_informations_inf", Schema = "upways")]
 [Index("Idadresseexp", Name = "idx_informations_idadresseexp")]
 [Index("Idpanier", Name = "idx_informations_idpanier")]
 [Index("Idreduction", Name = "idx_informations_idreduction")]
@@ -14,38 +14,38 @@ namespace WsRest_UpWay.Models.EntityFramework;
 public partial class Information
 {
     [Key]
-    [Column("idinformations")]
+    [Column("inf_id")]
     public int Idinformations { get; set; }
 
-    [Column("idreduction")]
+    [Column("red_id")]
     [StringLength(20)]
     public string? Idreduction { get; set; }
 
-    [Column("idretraitmagasin")]
+    [Column("retmag_id")]
     public int? Idretraitmagasin { get; set; }
 
-    [Column("idadresseexp")]
+    [Column("adexp_id")]
     public int Idadresseexp { get; set; }
 
-    [Column("idpanier")]
+    [Column("pan_id")]
     public int Idpanier { get; set; }
 
-    [Column("contactinformations")]
+    [Column("inf_continf")]
     [StringLength(100)]
     public string? Contactinformations { get; set; }
 
-    [Column("offreemail")]
+    [Column("inf_offmail")]
     public bool? Offreemail { get; set; }
 
-    [Column("modelivraison")]
+    [Column("inf_moodliv")]
     [StringLength(30)]
     public string? Modelivraison { get; set; }
 
-    [Column("informationpays")]
+    [Column("inf_payinf")]
     [StringLength(20)]
     public string? Informationpays { get; set; }
 
-    [Column("informationrue")]
+    [Column("inf_rueinf")]
     [StringLength(200)]
     public string? Informationrue { get; set; }
 

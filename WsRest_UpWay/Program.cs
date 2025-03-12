@@ -50,7 +50,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     // ensure database is up to date with latest migrations
-    scope.ServiceProvider.GetService<S215UpWayContext>().Database.Migrate();
+    var db = scope.ServiceProvider.GetRequiredService<S215UpWayContext>();
+    if (db.Database.GetPendingMigrations().Any()) db.Database.Migrate();
 }
 
 

@@ -7,24 +7,24 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [PrimaryKey("Idalerte", "Idclient", "Idvelo")]
-[Table("alertevelo", Schema = "upways")]
+[Table("t_e_alertevelo_alv", Schema = "upways")]
 [Index("Idclient", Name = "idx_alerte_idclient")]
 [Index("Idvelo", Name = "idx_alerte_idvelo")]
 public partial class Alertevelo
 {
     [Key]
-    [Column("idalerte")]
+    [Column("alv_id")]
     public int Idalerte { get; set; }
 
     [Key]
-    [Column("idclient")]
+    [Column("cli_id")]
     public int Idclient { get; set; }
 
     [Key]
-    [Column("idvelo")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
-    [Column("modifalerte", TypeName = "timestamp without time zone")]
+    [Column("alv_modification", TypeName = "date")]
     public DateTime? Modifalerte { get; set; }
 
     [ForeignKey("Idclient")]
