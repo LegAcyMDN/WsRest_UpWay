@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,25 +14,25 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class VelosController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<Velo> dataRepository;
 
-        public VelosController(S215UpWayContext context)
+        public VelosController(IDataRepository<Velo> dataRepo)
         {
-            _context = context;
+            dataRepository = dataRepo;
         }
 
         // GET: api/Velos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
         {
-            return await _context.Velos.ToListAsync();
+            return await dataRepository.ToListAsync();
         }
 
         // GET: api/Velos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Velo>> GetVelo(int id)
         {
-            var velo = await _context.Velos.FindAsync(id);
+            var velo = await dataRepository.FindAsync(id);
 
             if (velo == null)
             {
@@ -47,29 +48,17 @@ namespace WsRest_UpWay.Controllers
         public async Task<IActionResult> PutVelo(int id, Velo velo)
         {
             if (id != velo.Idvelo)
-            {
                 return BadRequest();
-            }
 
-            _context.Entry(velo).State = EntityState.Modified;
+            var comToUpdate = await dataRepository.GetByIdAsync(id);
 
-            try
+            if (comToUpdate == null)
+                return NotFound();
+            else
             {
-                await _context.SaveChangesAsync();
+                await dataRepository.UpdateAsync(comToUpdate.Value, velo);
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VeloExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Velos
@@ -77,31 +66,24 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<Velo>> PostVelo(Velo velo)
         {
-            _context.Velos.Add(velo);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetVelo", new { id = velo.Idvelo }, velo);
+            await dataRepository.AddAsync(velo);
+
+            return CreatedAtAction("GetById", new { id = velo.Idvelo }, velo);
         }
 
         // DELETE: api/Velos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVelo(int id)
         {
-            var velo = await _context.Velos.FindAsync(id);
+            var velo = await dataRepository.GetByIdAsync(id);
             if (velo == null)
-            {
                 return NotFound();
-            }
 
-            _context.Velos.Remove(velo);
-            await _context.SaveChangesAsync();
-
+            await dataRepository.DeleteAsync(velo.Value);
             return NoContent();
-        }
-
-        private bool VeloExists(int id)
-        {
-            return _context.Velos.Any(e => e.Idvelo == id);
         }
     }
 }
