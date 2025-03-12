@@ -6,22 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("mentionvelo", Schema = "upways")]
+[Table("t_e_mentionvelo_mev", Schema = "upways")]
 [Index("Idvelo", Name = "idx_mentionvelo_idvelo")]
 public partial class Mentionvelo
 {
     [Key]
-    [Column("idmention")]
+    [Column("mev_id")]
     public int Idmention { get; set; }
 
-    [Column("idvelo")]
+    [Column("vel_id")]
     public int Idvelo { get; set; }
 
-    [Column("libellemention")]
+    [Column("mev_libelle")]
     [StringLength(50)]
     public string? Libellemention { get; set; }
 
-    [Column("valeurmention")]
+    [Column("mev_valeur", TypeName = "text")]
     [StringLength(4096)]
     public string? Valeurmention { get; set; }
 

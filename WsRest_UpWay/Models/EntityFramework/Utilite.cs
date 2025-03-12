@@ -7,19 +7,19 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [PrimaryKey("Idutilite", "Idvelo")]
-[Table("utilite", Schema = "upways")]
+[Table("t_j_utilite_uti", Schema = "upways")]
 [Index("Idvelo", Name = "idx_utilite_idvelo")]
 public partial class Utilite
 {
     [Key]
-    [Column("idutilite")]
+    [Column("uti_id")]
     public int Idutilite { get; set; }
 
     [Key]
-    [Column("idvelo")]
+    [Column("uti_id")]
     public int Idvelo { get; set; }
 
-    [Column("valeurutilite")]
+    [Column("uti_valeur")]
     public decimal? Valeurutilite { get; set; }
 
     [ForeignKey("Idvelo")]

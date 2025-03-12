@@ -7,33 +7,32 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [PrimaryKey("Idvelo", "Idinspection", "Idreparation")]
-[Table("estrealise", Schema = "upways")]
+[Table("t_j_estrealise_esr", Schema = "upways")]
 [Index("Idinspection", Name = "idx_estrealise_idinspection")]
 [Index("Idreparation", Name = "idx_estrealise_idreparation")]
 [Index("Idvelo", Name = "idx_estrealise_idvelo")]
 public partial class Estrealise
 {
     [Key]
-    [Column("idvelo")]
+    [Column("esr_id")]
     public int Idvelo { get; set; }
 
     [Key]
-    [Column("idinspection")]
+    [Column("esr_idInspection")]
     public int Idinspection { get; set; }
 
     [Key]
-    [Column("idreparation")]
+    [Column("esr_idReparation")]
     public int Idreparation { get; set; }
 
-    [Column("dateinspection")]
-    [StringLength(10)]
-    public string? Dateinspection { get; set; }
+    [Column("esr_dateinspection", TypeName = "date")]
+    public DateTime Dateinspection { get; set; }
 
-    [Column("commentaireinspection")]
+    [Column("esr_commentaireInspection", TypeName = "text")]
     [StringLength(4096)]
     public string? Commentaireinspection { get; set; }
 
-    [Column("historiqueinspection")]
+    [Column("esr_historiqueInspection")]
     [StringLength(100)]
     public string? Historiqueinspection { get; set; }
 

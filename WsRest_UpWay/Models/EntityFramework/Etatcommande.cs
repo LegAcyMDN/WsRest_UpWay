@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("etatcommande", Schema = "upways")]
+[Table("t_e_etatcommande_etc", Schema = "upways")]
 public partial class Etatcommande
 {
     [Key]
-    [Column("idetatcommande")]
+    [Column("etc_id")]
     public int Idetatcommande { get; set; }
 
-    [Column("libelleetat")]
+    [Column("etc_libelle")]
     [StringLength(20)]
     public string? Libelleetat { get; set; }
 
