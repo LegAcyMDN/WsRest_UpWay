@@ -43,8 +43,8 @@ namespace WsRest_UpWay.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/{mode}")]
-        [ActionName("GetByMode")]
+        [Route("[action]/{nom}")]
+        [ActionName("GetByNom")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Accessoire>> GetAccessoireByNom(string nom)
