@@ -6,29 +6,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("accessoire", Schema = "upways")]
+[Table("t_e_accessoire_acs", Schema = "upways")]
 [Index("Idcategorie", Name = "idx_accessoire_idcategorie")]
 [Index("Idmarque", Name = "idx_accessoire_idmarque")]
 public partial class Accessoire
 {
     [Key]
-    [Column("idaccessoire")]
+    [Column("acs_id")]
     public int Idaccessoire { get; set; }
 
-    [Column("idmarque")]
+    [Column("mar_id")]
     public int Idmarque { get; set; }
 
-    [Column("idcategorie")]
+    [Column("cat_id")]
     public int Idcategorie { get; set; }
 
-    [Column("nomaccessoire")]
+    [Column("acs_nom")]
     [StringLength(100)]
     public string? Nomaccessoire { get; set; }
 
-    [Column("prixaccessoire")]
-    public int? Prixaccessoire { get; set; }
+    [Column("acs_prix", TypeName = "numeric(3, 2)")]
+    public decimal? Prixaccessoire { get; set; }
 
-    [Column("descriptionaccessoire")]
+    [Column("acs_description")]
     [StringLength(4096)]
     public string? Descriptionaccessoire { get; set; }
 

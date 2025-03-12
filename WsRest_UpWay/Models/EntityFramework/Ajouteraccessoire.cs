@@ -7,22 +7,22 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [PrimaryKey("Idaccessoire", "Idpanier")]
-[Table("ajouteraccessoire", Schema = "upways")]
+[Table("t_j_ajouteraccessoire_aja", Schema = "upways")]
 [Index("Idaccessoire", Name = "idx_ajouteracessoire_idaccessoire")]
 [Index("Idpanier", Name = "idx_ajouteracessoire_idpanier")]
 public partial class Ajouteraccessoire
 {
     [Key]
-    [Column("idaccessoire")]
+    [Column("acs_id")]
     public int Idaccessoire { get; set; }
 
     [Key]
-    [Column("idpanier")]
+    [Column("pan_id")]
     public int Idpanier { get; set; }
 
-    [Column("quantiteaccessoire")]
+    [Column("aja_quantite")]
     [Precision(2, 0)]
-    public decimal Quantiteaccessoire { get; set; }
+    public int? Quantiteaccessoire { get; set; }
 
     [ForeignKey("Idaccessoire")]
     [InverseProperty("Ajouteraccessoires")]
