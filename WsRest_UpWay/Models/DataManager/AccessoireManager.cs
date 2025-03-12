@@ -30,15 +30,15 @@ namespace WsRest_UpWay.Models.DataManager
             upwaysDbContext.Accessoires.AddAsync(entity);
             upwaysDbContext.SaveChangesAsync();
         }
-        public async Task UpdateAsync(Accessoire Accessoire, Accessoire entity)
+        public async Task UpdateAsync(Accessoire accessoire, Accessoire entity)
         {
-            upwaysDbContext.Entry(Accessoire).State = EntityState.Modified;
-            Accessoire.Idaccessoire = entity.Idaccessoire;
-            Accessoire.Idmarque = entity.Idmarque;
-            Accessoire.Idcategorie = entity.Idcategorie;
-            Accessoire.Nomaccessoire = entity.Nomaccessoire;
-            Accessoire.Prixaccessoire = entity.Prixaccessoire;
-            Accessoire.Descriptionaccessoire = entity.Descriptionaccessoire;
+            upwaysDbContext.Entry(accessoire).State = EntityState.Modified;
+            accessoire.Idaccessoire = entity.Idaccessoire;
+            accessoire.Idmarque = entity.Idmarque;
+            accessoire.Idcategorie = entity.Idcategorie;
+            accessoire.Nomaccessoire = entity.Nomaccessoire;
+            accessoire.Prixaccessoire = entity.Prixaccessoire;
+            accessoire.Descriptionaccessoire = entity.Descriptionaccessoire;
             upwaysDbContext.SaveChangesAsync();
         }
         public async Task DeleteAsync(Accessoire accessoire)
