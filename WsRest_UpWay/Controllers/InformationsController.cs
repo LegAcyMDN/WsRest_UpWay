@@ -17,7 +17,7 @@ public class InformationsController : ControllerBase
 
     // GET: api/Information
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Information>>> GetInformation()
+    public async Task<ActionResult<IEnumerable<Information>>> GetInformations()
     {
         return await _context.GetAllAsync();
     }
