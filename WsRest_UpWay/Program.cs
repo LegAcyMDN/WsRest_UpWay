@@ -1,4 +1,9 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using WsRest_UpWay.Models;
+using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.Repository;
@@ -6,14 +11,44 @@ using WsRest_UpWay.Models.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<S215UpWayContext>(options => 
-options.UseNpgsql(builder.Configuration.GetConnectionString("UpwayDBContext")));
+builder.Services.AddDbContext<S215UpWayContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("UpwayDBContext")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IDataRepository<Compteclient>, UserManager>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization(config =>
+{
+    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+    config.AddPolicy(Policies.User, Policies.UserPolicy());
+});
+
 builder.Services.AddScoped<IDataRepository<Detailcommande>, DetailCommandeManager>();
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
