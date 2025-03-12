@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("detailcommande", Schema = "upways")]
+[Table("t_e_detailcommande_detcom", Schema = "upways")]
 [Index("Idadressefact", Name = "idx_detailcommande_idadressefact")]
 [Index("Idclient", Name = "idx_detailcommande_idclient")]
 [Index("Idetatcommande", Name = "idx_detailcommande_idetatcommande")]
@@ -15,33 +15,33 @@ namespace WsRest_UpWay.Models.EntityFramework;
 public partial class Detailcommande
 {
     [Key]
-    [Column("idcommande")]
+    [Column("detcom_id")]
     public int Idcommande { get; set; }
 
-    [Column("idretraitmagasin")]
+    [Column("retmag_id")]
     public int? Idretraitmagasin { get; set; }
 
-    [Column("idadressefact")]
+    [Column("adfact_id")]
     public int? Idadressefact { get; set; }
 
-    [Column("idetatcommande")]
+    [Column("etacom_id")]
     public int? Idetatcommande { get; set; }
 
-    [Column("idclient")]
+    [Column("clt_id")]
     public int Idclient { get; set; }
 
-    [Column("idpanier")]
+    [Column("pan_id")]
     public int? Idpanier { get; set; }
 
-    [Column("moyenpaiement")]
+    [Column("detcom_moypai")]
     [StringLength(10)]
     public string? Moyenpaiement { get; set; }
 
-    [Column("modeexpedition")]
+    [Column("detcom_modexp")]
     [StringLength(20)]
     public string? Modeexpedition { get; set; }
 
-    [Column("dateachat")]
+    [Column("detcom_datach")]
     public DateOnly? Dateachat { get; set; }
 
     [ForeignKey("Idadressefact")]

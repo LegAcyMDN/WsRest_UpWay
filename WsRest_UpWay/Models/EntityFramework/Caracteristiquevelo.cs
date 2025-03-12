@@ -6,76 +6,76 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("caracteristiquevelo", Schema = "upways")]
+[Table("t_e_caracteristiquevelo_cav", Schema = "upways")]
 public partial class Caracteristiquevelo
 {
     [Key]
-    [Column("idcaracteristiquevelo")]
+    [Column("cav_id")]
     public int Idcaracteristiquevelo { get; set; }
 
-    [Column("poids")]
+    [Column("cav_poids")]
     [Precision(5, 2)]
     public decimal Poids { get; set; }
 
-    [Column("tubeselle")]
+    [Column("cav_tubeSelle")]
     public int Tubeselle { get; set; }
 
-    [Column("typesuspension")]
+    [Column("cav_typeSuspension")]
     [StringLength(20)]
     public string? Typesuspension { get; set; }
 
-    [Column("couleur")]
+    [Column("cav_couleur")]
     [StringLength(10)]
     public string? Couleur { get; set; }
 
-    [Column("typecargo")]
+    [Column("cav_typeCargo")]
     [StringLength(20)]
     public string? Typecargo { get; set; }
 
-    [Column("etatbatterie")]
+    [Column("cav_etatBatterie")]
     [StringLength(10)]
     public string? Etatbatterie { get; set; }
 
-    [Column("nombrecycle")]
+    [Column("cav_nombreCycle")]
     public int? Nombrecycle { get; set; }
 
-    [Column("materiau")]
+    [Column("cav_materiau")]
     [StringLength(20)]
     public string? Materiau { get; set; }
 
-    [Column("fourche")]
+    [Column("cav_fourche")]
     [StringLength(50)]
     public string? Fourche { get; set; }
 
-    [Column("debattement")]
+    [Column("cav_debattement")]
     public int? Debattement { get; set; }
 
-    [Column("amortisseur")]
+    [Column("cav_amortisseur")]
     [StringLength(50)]
     public string? Amortisseur { get; set; }
 
-    [Column("debattementamortisseur")]
+    [Column("cav_debattementAmortisseur")]
     public int? Debattementamortisseur { get; set; }
 
-    [Column("modeltransmission")]
+    [Column("cav_modelTransmission")]
     [StringLength(50)]
     public string? Modeltransmission { get; set; }
 
-    [Column("nombrevitesse")]
+    [Column("cav_nombreVitesse")]
     public int? Nombrevitesse { get; set; }
 
-    [Column("freins")]
+    [Column("cav_freins")]
     [StringLength(30)]
     public string? Freins { get; set; }
 
-    [Column("taillesroues")]
+    [Column("cav_taillesRoues")]
     public int? Taillesroues { get; set; }
 
-    [Column("pneus")]
+    [Column("cav_pneus")]
     [StringLength(100)]
     public string? Pneus { get; set; }
 
-    [Column("selletelescopique")]
+    [Column("cav_selleTelescopique")]
     public bool? Selletelescopique { get; set; }
 
     [InverseProperty("IdcaracteristiqueveloNavigation")]
