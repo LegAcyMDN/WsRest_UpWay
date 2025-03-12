@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -98,10 +96,6 @@ public partial class S215UpWayContext : DbContext
     public virtual DbSet<Vventenombreacessoire> Vventenombreacessoires { get; set; }
 
     public virtual DbSet<Vventenombrevelo> Vventenombrevelos { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Server=51.83.36.122;port=5432;Database=s215_UpWay;uid=s215;password=e932ef57-561f-40cb-bbe6-e4952926895253769175fbbafe508f4cd113d35cb1976e371119952198f3a26478d6b7d1b61e;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -626,7 +620,7 @@ public partial class S215UpWayContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("loginclient");
             entity.Property(e => e.Motdepasseclient)
-                .HasMaxLength(64)
+                .HasMaxLength(128)
                 .HasColumnName("motdepasseclient");
             entity.Property(e => e.Nomclient)
                 .HasMaxLength(30)
