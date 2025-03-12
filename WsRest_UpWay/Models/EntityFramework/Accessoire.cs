@@ -1,29 +1,55 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
+[Table("t_e_accessoire_acs")]
 public partial class Accessoire
 {
-    public int Idaccessoire { get; set; }
+    public Accessoire()
+    {
+        ListeAccessoires = new HashSet<Ajouteraccessoire>();
+        ListePhotos = new HashSet<Photoaccessoire>();
+        ListeVelos = new HashSet<Velo>();
+    }
 
-    public int Idmarque { get; set; }
+    [Key]
+    [Column("acs_id")]
+    public int AccessoireId { get; set; }
 
-    public int Idcategorie { get; set; }
+    [Column("acs_nom")]
+    [StringLength(100)]
+    public string? NomAccessoire { get; set; }
 
-    public string? Nomaccessoire { get; set; }
+    [Column("acs_prix", TypeName = "numeric(4, 2)")]
+    public decimal? PrixAccessoire { get; set; }
 
-    public int? Prixaccessoire { get; set; }
+    [Column("acs_description", TypeName = "text(1000)")]
+    [StringLength(1000)]
+    public string? DescriptionAccessoire { get; set; }
 
-    public string? Descriptionaccessoire { get; set; }
+    [Key]
+    [Column("mar_id")]
+    public int MarqueId { get; set; }
 
-    public virtual ICollection<Ajouteraccessoire> Ajouteraccessoires { get; set; } = new List<Ajouteraccessoire>();
+    [Key]
+    [Column("cat_id")]
+    public int CategorieId { get; set; }
 
-    public virtual Categorie IdcategorieNavigation { get; set; } = null!;
+    [ForeignKey(nameof(CategorieId))]
+    [InverseProperty("")]
+    public virtual Categorie CategorieAccessoire { get; set; } = null!;
 
-    public virtual Marque IdmarqueNavigation { get; set; } = null!;
+    [ForeignKey(nameof(MarqueId))]
+    [InverseProperty("")]
+    public virtual Marque MarqueAccessoire { get; set; } = null!;
 
-    public virtual ICollection<Photoaccessoire> Photoaccessoires { get; set; } = new List<Photoaccessoire>();
+    public virtual ICollection<Ajouteraccessoire> ListeAccessoires { get; set; } = new List<Ajouteraccessoire>();
 
-    public virtual ICollection<Velo> Idvelos { get; set; } = new List<Velo>();
+    public virtual ICollection<Photoaccessoire> ListePhotos { get; set; } = new List<Photoaccessoire>();
+
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }
