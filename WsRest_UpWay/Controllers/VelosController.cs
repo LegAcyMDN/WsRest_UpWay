@@ -1,89 +1,106 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
-namespace WsRest_UpWay.Controllers
+namespace WsRest_UpWay.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class VelosController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class VelosController : ControllerBase
+    private readonly IDataRepository<Velo> dataRepository;
+
+    public VelosController(IDataRepository<Velo> dataRepo)
     {
-        private readonly IDataRepository<Velo> dataRepository;
+        dataRepository = dataRepo;
+    }
 
-        public VelosController(IDataRepository<Velo> dataRepo)
-        {
-            dataRepository = dataRepo;
-        }
+    // GET: api/Velos
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
+    {
+        return await dataRepository.GetAllAsync();
+    }
 
-        // GET: api/Velos
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
-        {
-            return await dataRepository.GetAllAsync();
-        }
+    // GET: api/Velos/5
+    [HttpGet]
+    [Route("[action]/{id}")]
+    [ActionName("GetById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Velo>> GetVelo(int id)
+    {
+        var velo = await dataRepository.GetByIdAsync(id);
+        if (velo == null)
+            return NotFound();
 
-        // GET: api/Velos/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Velo>> GetVelo(int id)
-        {
-            var velo = await dataRepository.GetByIdAsync(id);
+        return velo;
+    }
 
-            if (velo == null)
-            {
-                return NotFound();
-            }
+    [HttpGet]
+    [Route("[action]/{nom}")]
+    [ActionName("GetByName")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Velo>> GetInformationMode(string nom)
+    {
+        var velo = await dataRepository.GetByStringAsync(nom);
+        if (velo == null)
+            return NotFound();
 
-            return velo;
-        }
+        return velo;
+    }
 
-        // PUT: api/Velos/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVelo(int id, Velo velo)
-        {
-            if (id != velo.Idvelo)
-                return BadRequest();
+    // PUT: api/Velos/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = Policies.Admin)]
+    public async Task<IActionResult> PutVelo(int id, Velo velo)
+    {
+        if (id != velo.Idvelo)
+            return BadRequest();
 
-            var comToUpdate = await dataRepository.GetByIdAsync(id);
+        var comToUpdate = await dataRepository.GetByIdAsync(id);
 
-            if (comToUpdate == null)
-                return NotFound();
-            else
-            {
-                await dataRepository.UpdateAsync(comToUpdate.Value, velo);
-                return NoContent();
-            }
-        }
+        if (comToUpdate == null)
+            return NotFound();
+        await dataRepository.UpdateAsync(comToUpdate.Value, velo);
+        return NoContent();
+    }
 
-        // POST: api/Velos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Velo>> PostVelo(Velo velo)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+    // POST: api/Velos
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Authorize(Policy = Policies.Admin)]
+    public async Task<ActionResult<Velo>> PostVelo(Velo velo)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
 
-            await dataRepository.AddAsync(velo);
+        await dataRepository.AddAsync(velo);
 
-            return CreatedAtAction("GetById", new { id = velo.Idvelo }, velo);
-        }
+        return CreatedAtAction("GetById", new { id = velo.Idvelo }, velo);
+    }
 
-        // DELETE: api/Velos/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVelo(int id)
-        {
-            var velo = await dataRepository.GetByIdAsync(id);
-            if (velo == null)
-                return NotFound();
+    // DELETE: api/Velos/5
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = Policies.Admin)]
+    public async Task<IActionResult> DeleteVelo(int id)
+    {
+        var velo = await dataRepository.GetByIdAsync(id);
+        if (velo == null)
+            return NotFound();
 
-            await dataRepository.DeleteAsync(velo.Value);
-            return NoContent();
-        }
+        await dataRepository.DeleteAsync(velo.Value);
+        return NoContent();
     }
 }

@@ -6,29 +6,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("retraitmagasin", Schema = "upways")]
+[Table("t_e_retraitmagasin_rem", Schema = "upways")]
 [Index("Idcommande", Name = "idx_retraitmagasin_idcommande")]
 [Index("Idinformations", Name = "idx_retraitmagasin_idinformations")]
 [Index("Idmagasin", Name = "idx_retraitmagasin_idmagasin")]
 public partial class Retraitmagasin
 {
     [Key]
-    [Column("idretraitmagasin")]
+    [Column("rem_id")]
     public int Idretraitmagasin { get; set; }
 
-    [Column("idinformations")]
+    [Column("rem_idinformations")]
     public int? Idinformations { get; set; }
 
-    [Column("idcommande")]
+    [Column("rem_idcommande")]
     public int? Idcommande { get; set; }
 
-    [Column("idmagasin")]
+    [Column("rem_idmagasin")]
     public int Idmagasin { get; set; }
 
-    [Column("dateretrait")]
+    [Column("rem_date", TypeName = "date")]
     public DateOnly? Dateretrait { get; set; }
 
-    [Column("heureretrait")]
+    [Column("rem_heure", TypeName = "heure")]
     public TimeOnly? Heureretrait { get; set; }
 
     [InverseProperty("IdretraitmagasinNavigation")]

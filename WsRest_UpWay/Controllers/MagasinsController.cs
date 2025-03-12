@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -38,23 +35,18 @@ namespace WsRest_UpWay.Controllers
         {
             var magasin = await dataRepository.GetByIdAsync(id);
 
-            if (magasin == null)
-            {
-                return NotFound();
-            }
+        if (magasin == null) return NotFound();
 
-            return magasin;
-        }
+        return magasin;
+    }
 
-        // PUT: api/Magasin/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMagasin(int id, Magasin magasin)
-        {
-            if (id != magasin.Idmagasin)
-            {
-                return BadRequest();
-            }
+    // PUT: api/Magasin/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    [Authorize(Policy = Policies.Admin)]
+    public async Task<IActionResult> PutMagasin(int id, Magasin magasin)
+    {
+        if (id != magasin.Idmagasin) return BadRequest();
 
            var comtoUpdate = await dataRepository.GetByIdAsync(id);
 
