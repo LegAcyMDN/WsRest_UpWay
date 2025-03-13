@@ -11,7 +11,7 @@ public partial class Rapportinspection
 {
     [Key]
     [Column("ras_id")]
-    public int Idinspection { get; set; }
+    public int InspectionId { get; set; }
 
     [Column("ras_type")]
     [StringLength(200)]
@@ -26,5 +26,5 @@ public partial class Rapportinspection
     public string? PointDInspection { get; set; }
 
     [InverseProperty("IdinspectionNavigation")]
-    public virtual ICollection<Estrealise> Estrealises { get; set; } = new List<Estrealise>();
+    public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
 }

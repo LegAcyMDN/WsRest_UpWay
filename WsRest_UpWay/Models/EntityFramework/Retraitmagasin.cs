@@ -31,21 +31,21 @@ public partial class Retraitmagasin
     [Column("rem_heure", TypeName = "heure")]
     public TimeOnly? HeureRetrait { get; set; }
 
-    [InverseProperty("IdretraitmagasinNavigation")]
-    public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();
-
     [ForeignKey("Idcommande")]
     [InverseProperty("Retraitmagasins")]
-    public virtual Detailcommande? IdcommandeNavigation { get; set; }
+    public virtual Detailcommande? RetraitMagasinDetailCom { get; set; }
 
     [ForeignKey("Idinformations")]
     [InverseProperty("Retraitmagasins")]
-    public virtual Information? IdinformationsNavigation { get; set; }
+    public virtual Information? RetraitMagasinInformation { get; set; }
 
     [ForeignKey("Idmagasin")]
     [InverseProperty("Retraitmagasins")]
-    public virtual Magasin IdmagasinNavigation { get; set; } = null!;
+    public virtual Magasin RetraitMagasinMagasin { get; set; } = null!;
 
     [InverseProperty("IdretraitmagasinNavigation")]
-    public virtual ICollection<Information> Information { get; set; } = new List<Information>();
+    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
+
+    [InverseProperty("IdretraitmagasinNavigation")]
+    public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }

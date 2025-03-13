@@ -426,7 +426,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_estlie_panier");
 
-            entity.HasOne(d => d.DetailComRetraitMagasin).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.DetailComRetraitMagasin).WithMany(p => p.ListeDetailCommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_monter_retraitm");
         });
@@ -444,11 +444,11 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.DateInspection).IsFixedLength();
 
-            entity.HasOne(d => d.EstRealiseRapportInspection).WithMany(p => p.Estrealises)
+            entity.HasOne(d => d.EstRealiseRapportInspection).WithMany(p => p.ListeEstRealises)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_rapporti");
 
-            entity.HasOne(d => d.EstRealiseReparationVelo).WithMany(p => p.Estrealises)
+            entity.HasOne(d => d.EstRealiseReparationVelo).WithMany(p => p.ListeEstRealises)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_reparati");
 
@@ -482,7 +482,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_informat_utiliser_coderedu");
 
-            entity.HasOne(d => d.InformationRetraitMagasin).WithMany(p => p.Information)
+            entity.HasOne(d => d.InformationRetraitMagasin).WithMany(p => p.ListeInformations)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_informat_choisir2_retraitm");
         });
@@ -627,15 +627,15 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.RetraitMagasinId).HasDefaultValueSql("nextval('retraitmagasin_idretraitmagasin_seq'::regclass)");
 
-            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.ListeRetraitMagasins)
+            entity.HasOne(d => d.RetraitMagasinDetailCom).WithMany(p => p.ListeRetraitMagasins)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_retraitm_monter2_detailco");
 
-            entity.HasOne(d => d.IdinformationsNavigation).WithMany(p => p.ListeRetraitMagasins)
+            entity.HasOne(d => d.RetraitMagasinInformation).WithMany(p => p.ListeRetraitMagasins)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_retraitm_choisir_informat");
 
-            entity.HasOne(d => d.IdmagasinNavigation).WithMany(p => p.ListeRetraitMagasins)
+            entity.HasOne(d => d.RetraitMagasinMagasin).WithMany(p => p.ListeRetraitMagasins)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_retraitm_estfait_magasin");
         });
