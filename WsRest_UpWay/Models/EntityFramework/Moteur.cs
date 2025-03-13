@@ -31,11 +31,11 @@ public partial class Moteur
 
     [ForeignKey("Idmarque")]
     [InverseProperty("Moteurs")]
-    public virtual Marque IdmarqueNavigation { get; set; } = null!;
+    public virtual Marque MoteurMarque { get; set; } = null!;
 
     [InverseProperty("IdmoteurNavigation")]
-    public virtual ICollection<Velomodifier> Velomodifiers { get; set; } = new List<Velomodifier>();
+    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
     [InverseProperty("IdmoteurNavigation")]
-    public virtual ICollection<Velo> Velos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

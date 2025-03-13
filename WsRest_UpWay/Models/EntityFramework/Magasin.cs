@@ -34,12 +34,12 @@ public partial class Magasin
     public string? VilleMagasin { get; set; }
 
     [InverseProperty("IdmagasinNavigation")]
-    public virtual ICollection<Retraitmagasin> Retraitmagasins { get; set; } = new List<Retraitmagasin>();
+    public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
 
     [InverseProperty("IdmagasinNavigation")]
-    public virtual ICollection<Testvelo> Testvelos { get; set; } = new List<Testvelo>();
+    public virtual ICollection<Testvelo> ListeTestVelos { get; set; } = new List<Testvelo>();
 
     [ForeignKey("Idmagasin")]
     [InverseProperty("Idmagasins")]
-    public virtual ICollection<Velo> Idvelos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

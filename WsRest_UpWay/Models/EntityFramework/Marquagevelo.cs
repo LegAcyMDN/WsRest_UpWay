@@ -28,5 +28,5 @@ public partial class Marquagevelo
 
     [ForeignKey("Idpanier, Idvelo")]
     [InverseProperty("Marquagevelos")]
-    public virtual Lignepanier Lignepanier { get; set; } = null!;
+    public virtual Lignepanier MarquageVeloLignePanier { get; set; } = null!;
 }

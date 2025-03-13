@@ -115,7 +115,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_accessoi_classifie_categori");
 
-            entity.HasOne(d => d.AccessoireMarque).WithMany(p => p.Accessoires)
+            entity.HasOne(d => d.AccessoireMarque).WithMany(p => p.ListeAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_accessoi_distribue_marque");
 
@@ -511,7 +511,7 @@ public partial class S215UpWayContext : DbContext
             entity.Property(e => e.MagasinId).HasDefaultValueSql("nextval('magasin_idmagasin_seq'::regclass)");
             entity.Property(e => e.CPMagasin).IsFixedLength();
 
-            entity.HasMany(d => d.Idvelos).WithMany(p => p.Idmagasins)
+            entity.HasMany(d => d.ListeVelos).WithMany(p => p.Idmagasins)
                 .UsingEntity<Dictionary<string, object>>(
                     "Estdisponible",
                     r => r.HasOne<Velo>().WithMany()
@@ -536,7 +536,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.CodeMarquage).HasName("pk_marquagevelo");
 
-            entity.HasOne(d => d.Lignepanier).WithMany(p => p.ListeMarquageVelos)
+            entity.HasOne(d => d.MarquageVeloLignePanier).WithMany(p => p.ListeMarquageVelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_marquage_estobliga_lignepan");
         });
@@ -554,7 +554,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.MentionId).HasDefaultValueSql("nextval('mentionvelo_idmention_seq'::regclass)");
 
-            entity.HasOne(d => d.IdveloNavigation).WithMany(p => p.Mentionvelos)
+            entity.HasOne(d => d.MentionVeloVelo).WithMany(p => p.Mentionvelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_mentionv_mentionne_velo");
         });
@@ -565,7 +565,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.MoteurId).HasDefaultValueSql("nextval('moteur_idmoteur_seq'::regclass)");
 
-            entity.HasOne(d => d.IdmarqueNavigation).WithMany(p => p.Moteurs)
+            entity.HasOne(d => d.MoteurMarque).WithMany(p => p.ListeMoteurs)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_moteur_produire_marque");
         });
@@ -635,7 +635,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_retraitm_choisir_informat");
 
-            entity.HasOne(d => d.IdmagasinNavigation).WithMany(p => p.Retraitmagasins)
+            entity.HasOne(d => d.IdmagasinNavigation).WithMany(p => p.ListeRetraitMagasins)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_retraitm_estfait_magasin");
         });
@@ -646,7 +646,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.TestId).HasDefaultValueSql("nextval('testvelo_idtest_seq'::regclass)");
 
-            entity.HasOne(d => d.IdmagasinNavigation).WithMany(p => p.Testvelos)
+            entity.HasOne(d => d.IdmagasinNavigation).WithMany(p => p.ListeTestVelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_testvelo_sederoule_magasin");
 
@@ -721,11 +721,11 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_velo_apparteni_categori");
 
-            entity.HasOne(d => d.IdmarqueNavigation).WithMany(p => p.Velos)
+            entity.HasOne(d => d.IdmarqueNavigation).WithMany(p => p.ListeVelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_velo_fabriquer_marque");
 
-            entity.HasOne(d => d.IdmoteurNavigation).WithMany(p => p.Velos)
+            entity.HasOne(d => d.IdmoteurNavigation).WithMany(p => p.ListeVelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_moteur_integrer_velo");
         });
@@ -748,11 +748,11 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_velomodifier_apparteni_categori");
 
-            entity.HasOne(d => d.IdmarqueNavigation).WithMany(p => p.Velomodifiers)
+            entity.HasOne(d => d.IdmarqueNavigation).WithMany(p => p.ListeVeloModifiers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_velomodifier_fabriquer_marque");
 
-            entity.HasOne(d => d.IdmoteurNavigation).WithMany(p => p.Velomodifiers)
+            entity.HasOne(d => d.IdmoteurNavigation).WithMany(p => p.ListeVeloModifiers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_moteur_integrer_velomodifier");
         });

@@ -19,14 +19,14 @@ public partial class Marque
     public string? NomMarque { get; set; }
 
     [InverseProperty("IdmarqueNavigation")]
-    public virtual ICollection<Accessoire> Accessoires { get; set; } = new List<Accessoire>();
+    public virtual ICollection<Accessoire> ListeAccessoires { get; set; } = new List<Accessoire>();
 
     [InverseProperty("IdmarqueNavigation")]
-    public virtual ICollection<Moteur> Moteurs { get; set; } = new List<Moteur>();
+    public virtual ICollection<Moteur> ListeMoteurs { get; set; } = new List<Moteur>();
 
     [InverseProperty("IdmarqueNavigation")]
-    public virtual ICollection<Velomodifier> Velomodifiers { get; set; } = new List<Velomodifier>();
+    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
     [InverseProperty("IdmarqueNavigation")]
-    public virtual ICollection<Velo> Velos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }
