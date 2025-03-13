@@ -14,6 +14,7 @@ public partial class Photoaccessoire
     [Column("pha_id")]
     public int PhotoAcessoireId { get; set; }
 
+    [Key]
     [Column("acs_id")]
     public int AccessoireId { get; set; }
 

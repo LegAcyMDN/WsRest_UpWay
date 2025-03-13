@@ -9,6 +9,14 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_caracteristique_car", Schema = "upways")]
 public partial class Caracteristique
 {
+    public Caracteristique()
+    {
+        ListeSousCaracteristiques = new HashSet<Caracteristique>();
+        ListeCaracteristiques = new HashSet<Caracteristique>();
+        ListeCategories = new HashSet<Categorie>();
+        ListeVelos = new HashSet<Velo>();
+    }
+
     [Key]
     [Column("car_id")]
     public int CaracteristiqueId { get; set; }
@@ -21,19 +29,19 @@ public partial class Caracteristique
     [StringLength(200)]
     public string? ImageCaracteristique { get; set; }
 
-    [ForeignKey("Idcaracteristique")]
-    [InverseProperty("Idcaracteristiques")]
+    [ForeignKey(nameof(CaracteristiqueId))]
+    [InverseProperty(nameof(Caracteristique.ListeCaracteristiques))]
     public virtual ICollection<Caracteristique> ListeSousCaracteristiques { get; set; } = new List<Caracteristique>();
 
-    [ForeignKey("CarIdcaracteristique")]
-    [InverseProperty("CarIdcaracteristiques")]
+    [ForeignKey(nameof(CaracteristiqueId))]
+    [InverseProperty(nameof(Caracteristique.ListeSousCaracteristiques))]
     public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
 
-    [ForeignKey("Idcaracteristique")]
-    [InverseProperty("Idcaracteristiques")]
+    [ForeignKey(nameof(CaracteristiqueId))]
+    [InverseProperty(nameof(Categorie.ListeCaracteristiques))]
     public virtual ICollection<Categorie> ListeCategories { get; set; } = new List<Categorie>();
 
-    [ForeignKey("Idcaracteristique")]
-    [InverseProperty("Idcaracteristiques")]
+    [ForeignKey(nameof(CaracteristiqueId))]
+    [InverseProperty(nameof(Velo.ListeCaracteristiques))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

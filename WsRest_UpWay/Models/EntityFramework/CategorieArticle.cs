@@ -9,6 +9,13 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_categorie_article_caa", Schema = "upways")]
 public partial class CategorieArticle
 {
+    public CategorieArticle()
+    {
+        ListeArticles = new HashSet<Article>();
+        ListeSousCategorieArticles = new HashSet<CategorieArticle>();
+        ListeCategorieArticles = new HashSet<CategorieArticle>();
+    }
+
     [Key]
     [Column("caa_id")]
     public int CategorieArticleId { get; set; }
@@ -25,14 +32,14 @@ public partial class CategorieArticle
     [StringLength(4096)]
     public string? ImageCategorie { get; set; }
 
-    [InverseProperty("IdcategorieArticleNavigation")]
+    [InverseProperty(nameof(Article.ArticleCategorieArt))]
     public virtual ICollection<Article> ListeArticles { get; set; } = new List<Article>();
 
-    [ForeignKey("IdcategorieArticle")]
-    [InverseProperty("IdcategorieArticles")]
+    [ForeignKey(nameof(CategorieArticleId))]
+    [InverseProperty(nameof(CategorieArticle.ListeCategorieArticles))]
     public virtual ICollection<CategorieArticle> ListeSousCategorieArticles { get; set; } = new List<CategorieArticle>();
 
-    [ForeignKey("CatIdcategorieArticle")]
-    [InverseProperty("CatIdcategorieArticles")]
+    [ForeignKey(nameof(CategorieArticleId))]
+    [InverseProperty(nameof(CategorieArticle.ListeSousCategorieArticles))]
     public virtual ICollection<CategorieArticle> ListeCategorieArticles { get; set; } = new List<CategorieArticle>();
 }

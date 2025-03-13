@@ -9,6 +9,11 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_codereduction_cor", Schema = "upways")]
 public partial class Codereduction
 {
+    public Codereduction()
+    {
+        ListeInformations = new HashSet<Information>();
+    }
+
     [Key]
     [Column("cor_id")]
     [StringLength(20)]
@@ -20,6 +25,6 @@ public partial class Codereduction
     [Column("cor_reduction")]
     public int? Reduction { get; set; }
 
-    [InverseProperty("IdreductionNavigation")]
+    [InverseProperty(nameof(Information.InformationCodeReduction))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }

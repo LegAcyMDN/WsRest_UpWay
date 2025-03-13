@@ -13,7 +13,8 @@ public partial class ContenuArticle
     [Column("coa_id")]
     public int ContenueId { get; set; }
 
-    [Column("idarticle")]
+    [Key]
+    [Column("art_id")]
     public int ArticleId { get; set; }
 
     [Column("coa_prioritecontenu")]
@@ -27,7 +28,7 @@ public partial class ContenuArticle
     [StringLength(4096)]
     public string? Contenu { get; set; }
 
-    [ForeignKey("Idarticle")]
-    [InverseProperty("ContenuArticles")]
+    [ForeignKey(nameof(ArticleId))]
+    [InverseProperty(nameof(Article.ListeContenuArticles))]
     public virtual Article ContenuArticleArt { get; set; } = null!;
 }

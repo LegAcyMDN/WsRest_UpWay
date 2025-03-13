@@ -7,13 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_photovelo_phv", Schema = "upways")]
-[Index("Idvelo", Name = "idx_photovelo_idvelo")]
+[Index(nameof(VeloId), Name = "ix_t_e_photovelo_phv_veloid")]
 public partial class Photovelo
 {
     [Key]
     [Column("phv_id")]
     public int PhotoVeloId { get; set; }
 
+    [Key]
     [Column("vel_id")]
     public int VeloId { get; set; }
 
@@ -24,7 +25,7 @@ public partial class Photovelo
     [Column("phv_bytea")]
     public byte[]? PhotoBytea { get; set; }
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Photovelos")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Velo.ListePhotoVelos))]
     public virtual Velo PhotoVeloVelo { get; set; } = null!;
 }

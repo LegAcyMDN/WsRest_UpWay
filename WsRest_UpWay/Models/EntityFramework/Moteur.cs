@@ -6,10 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("t_emoteur_mot", Schema = "upways")]
-[Index("Idmarque", Name = "idx_moteur_idmarque")]
+[Table("t_e_moteur_mot", Schema = "upways")]
+[Index(nameof(MarqueId), Name = "ix_t_e_moteur_mot_marqueid")]
 public partial class Moteur
 {
+    public Moteur()
+    {
+        ListeVeloModifiers = new HashSet<Velomodifier>();
+        ListeVelos = new HashSet<Velo>();
+    }
+
     [Key]
     [Column("mot_id")]
     public int MoteurId { get; set; }
@@ -29,13 +35,13 @@ public partial class Moteur
     [StringLength(10)]
     public string? VitesseMaximal { get; set; }
 
-    [ForeignKey("Idmarque")]
-    [InverseProperty("Moteurs")]
+    [ForeignKey(nameof(MarqueId))]
+    [InverseProperty(nameof(Marque.ListeMoteurs))]
     public virtual Marque MoteurMarque { get; set; } = null!;
 
-    [InverseProperty("IdmoteurNavigation")]
+    [InverseProperty(nameof(Velomodifier.VeloModifierMoteur))]
     public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
-    [InverseProperty("IdmoteurNavigation")]
+    [InverseProperty(nameof(Velo.VeloMoteur))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }
