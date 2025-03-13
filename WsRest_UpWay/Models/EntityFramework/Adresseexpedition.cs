@@ -52,17 +52,17 @@ public partial class Adresseexpedition
     [Column("ade_donneessauv")]
     public bool? DonneesSauvegardees { get; set; }
 
-    [InverseProperty("IdadresseexpNavigation")]
-    public virtual ICollection<Adressefacturation> Adressefacturations { get; set; } = new List<Adressefacturation>();
-
     [ForeignKey("Idadressefact")]
     [InverseProperty("Adresseexpeditions")]
-    public virtual Adressefacturation? IdadressefactNavigation { get; set; }
+    public virtual Adressefacturation? AdresseExpeFact { get; set; }
 
     [ForeignKey("Idclient")]
     [InverseProperty("Adresseexpeditions")]
-    public virtual Compteclient IdclientNavigation { get; set; } = null!;
+    public virtual Compteclient AdresseExpeClient { get; set; } = null!;
 
     [InverseProperty("IdadresseexpNavigation")]
-    public virtual ICollection<Information> Information { get; set; } = new List<Information>();
+    public virtual ICollection<Adressefacturation> ListeAdresseFact { get; set; } = new List<Adressefacturation>();
+
+    [InverseProperty("IdadresseexpNavigation")]
+    public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }

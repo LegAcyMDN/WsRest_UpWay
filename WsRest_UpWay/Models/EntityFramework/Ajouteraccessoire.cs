@@ -26,9 +26,9 @@ public partial class Ajouteraccessoire
 
     [ForeignKey("Idaccessoire")]
     [InverseProperty("Ajouteraccessoires")]
-    public virtual Accessoire IdaccessoireNavigation { get; set; } = null!;
+    public virtual Accessoire AjoutDAccessoire { get; set; } = null!;
 
     [ForeignKey("Idpanier")]
     [InverseProperty("Ajouteraccessoires")]
-    public virtual Panier IdpanierNavigation { get; set; } = null!;
+    public virtual Panier AjoutDAccessoirePanier { get; set; } = null!;
 }

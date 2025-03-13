@@ -49,17 +49,17 @@ public partial class Adressefacturation
     [StringLength(10)]
     public string? TelephoneFacturation { get; set; }
 
-    [InverseProperty("IdadressefactNavigation")]
-    public virtual ICollection<Adresseexpedition> Adresseexpeditions { get; set; } = new List<Adresseexpedition>();
-
-    [InverseProperty("IdadressefactNavigation")]
-    public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();
-
     [ForeignKey("Idadresseexp")]
     [InverseProperty("Adressefacturations")]
-    public virtual Adresseexpedition? IdadresseexpNavigation { get; set; }
+    public virtual Adresseexpedition? AdresseFactExpe { get; set; }
 
     [ForeignKey("Idclient")]
     [InverseProperty("Adressefacturations")]
-    public virtual Compteclient IdclientNavigation { get; set; } = null!;
+    public virtual Compteclient AdresseFactClient { get; set; } = null!;
+
+    [InverseProperty("IdadressefactNavigation")]
+    public virtual ICollection<Adresseexpedition> ListeAdresseExpe { get; set; } = new List<Adresseexpedition>();
+
+    [InverseProperty("IdadressefactNavigation")]
+    public virtual ICollection<Detailcommande> ListeDetailCommande { get; set; } = new List<Detailcommande>();
 }

@@ -29,9 +29,9 @@ public partial class Alertevelo
 
     [ForeignKey("Idclient")]
     [InverseProperty("Alertevelos")]
-    public virtual Compteclient IdclientNavigation { get; set; } = null!;
+    public virtual Compteclient AlerteClient { get; set; } = null!;
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Alertevelos")]
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo AlerteVelo { get; set; } = null!;
 }

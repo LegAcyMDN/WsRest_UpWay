@@ -25,5 +25,5 @@ public partial class Assurance
     public decimal? PrixAssurance { get; set; }
 
     [InverseProperty("IdassuranceNavigation")]
-    public virtual ICollection<Lignepanier> Lignepaniers { get; set; } = new List<Lignepanier>();
+    public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
 }

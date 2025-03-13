@@ -111,15 +111,15 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.AccessoireId).HasDefaultValueSql("nextval('accessoire_idaccessoire_seq'::regclass)");
 
-            entity.HasOne(d => d.IdcategorieNavigation).WithMany(p => p.Accessoires)
+            entity.HasOne(d => d.AccessoireCategorie).WithMany(p => p.Accessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_accessoi_classifie_categori");
 
-            entity.HasOne(d => d.IdmarqueNavigation).WithMany(p => p.Accessoires)
+            entity.HasOne(d => d.AccessoireMarque).WithMany(p => p.Accessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_accessoi_distribue_marque");
 
-            entity.HasMany(d => d.Idvelos).WithMany(p => p.Idaccessoires)
+            entity.HasMany(d => d.ListeVelos).WithMany(p => p.Idaccessoires)
                 .UsingEntity<Dictionary<string, object>>(
                     "Equiper",
                     r => r.HasOne<Velo>().WithMany()
@@ -148,11 +148,11 @@ public partial class S215UpWayContext : DbContext
             entity.Property(e => e.AdresseExpeId).HasDefaultValueSql("nextval('adresseexpedition_idadresseexp_seq'::regclass)");
             entity.Property(e => e.RegionExpedition).IsFixedLength();
 
-            entity.HasOne(d => d.IdadressefactNavigation).WithMany(p => p.Adresseexpeditions)
+            entity.HasOne(d => d.AdresseExpeFact).WithMany(p => p.ListeAdresseExpe)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_adressee_assimiler_adressef");
 
-            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Adresseexpeditions)
+            entity.HasOne(d => d.AdresseExpeClient).WithMany(p => p.Adresseexpeditions)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_adressee_modifier_comptecl");
         });
@@ -164,11 +164,11 @@ public partial class S215UpWayContext : DbContext
             entity.Property(e => e.AdresseFactId).HasDefaultValueSql("nextval('adressefacturation_idadressefact_seq'::regclass)");
             entity.Property(e => e.RegionFacturation).IsFixedLength();
 
-            entity.HasOne(d => d.IdadresseexpNavigation).WithMany(p => p.Adressefacturations)
+            entity.HasOne(d => d.AdresseFactExpe).WithMany(p => p.ListeAdresseFact)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_adressef_assimiler_adressee");
 
-            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Adressefacturations)
+            entity.HasOne(d => d.AdresseFactClient).WithMany(p => p.Adressefacturations)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_adressef_rectifier_comptecl");
         });
@@ -179,11 +179,11 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.QuantiteAccessoire).HasDefaultValueSql("1");
 
-            entity.HasOne(d => d.IdaccessoireNavigation).WithMany(p => p.Ajouteraccessoires)
+            entity.HasOne(d => d.AjoutDAccessoire).WithMany(p => p.ListeAjoutAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ajoutera_ajouterac_accessoi");
 
-            entity.HasOne(d => d.IdpanierNavigation).WithMany(p => p.Ajouteraccessoires)
+            entity.HasOne(d => d.AjoutDAccessoirePanier).WithMany(p => p.Ajouteraccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ajoutera_ajouterac_panier");
         });
@@ -194,11 +194,11 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.AlerteId).HasDefaultValueSql("nextval('alertevelo_idalerte_seq'::regclass)");
 
-            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Alertevelos)
+            entity.HasOne(d => d.AlerteClient).WithMany(p => p.Alertevelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_alertevelo_client");
 
-            entity.HasOne(d => d.IdveloNavigation).WithMany(p => p.Alertevelos)
+            entity.HasOne(d => d.AlerteVelo).WithMany(p => p.Alertevelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_alertevelo_velo");
         });
@@ -209,7 +209,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.ArticleId).HasDefaultValueSql("nextval('article_idarticle_seq'::regclass)");
 
-            entity.HasOne(d => d.IdcategorieArticleNavigation).WithMany(p => p.Articles)
+            entity.HasOne(d => d.ArticleCategorieArt).WithMany(p => p.Articles)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_article");
         });
@@ -399,7 +399,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.ContenueId).HasDefaultValueSql("nextval('contenu_article_idcontenue_seq'::regclass)");
 
-            entity.HasOne(d => d.IdarticleNavigation).WithMany(p => p.ContenuArticles)
+            entity.HasOne(d => d.IdarticleNavigation).WithMany(p => p.ListeContenuArticles)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_contenu_article_article");
         });
@@ -410,7 +410,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.CommandeId).HasDefaultValueSql("nextval('detailcommande_idcommande_seq'::regclass)");
 
-            entity.HasOne(d => d.IdadressefactNavigation).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.IdadressefactNavigation).WithMany(p => p.ListeDetailCommande)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_afficher2_adressef");
 
@@ -470,7 +470,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.InformationId).HasDefaultValueSql("nextval('informations_idinformations_seq'::regclass)");
 
-            entity.HasOne(d => d.IdadresseexpNavigation).WithMany(p => p.Information)
+            entity.HasOne(d => d.IdadresseexpNavigation).WithMany(p => p.ListeInformations)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_informat_opter_adressee");
 
@@ -491,7 +491,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => new { e.PanierId, e.VeloId }).HasName("pk_lignepanier");
 
-            entity.HasOne(d => d.IdassuranceNavigation).WithMany(p => p.Lignepaniers)
+            entity.HasOne(d => d.IdassuranceNavigation).WithMany(p => p.ListeLignePaniers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_lignepan_estpresen_assuranc");
 
@@ -591,7 +591,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.PhotoAcessoireId).HasDefaultValueSql("nextval('photoaccessoire_idphotoaccessoire_seq'::regclass)");
 
-            entity.HasOne(d => d.IdaccessoireNavigation).WithMany(p => p.Photoaccessoires)
+            entity.HasOne(d => d.IdaccessoireNavigation).WithMany(p => p.ListePhotoAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_photoacc_comprendr_accessoi");
         });

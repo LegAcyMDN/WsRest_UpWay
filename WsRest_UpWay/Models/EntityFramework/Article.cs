@@ -16,10 +16,10 @@ public partial class Article
     [Column("caa_id")]
     public int? CategorieArticleId { get; set; }
 
-    [InverseProperty("IdarticleNavigation")]
-    public virtual ICollection<ContenuArticle> ContenuArticles { get; set; } = new List<ContenuArticle>();
-
     [ForeignKey("IdcategorieArticle")]
     [InverseProperty("Articles")]
-    public virtual CategorieArticle? IdcategorieArticleNavigation { get; set; }
+    public virtual CategorieArticle? ArticleCategorieArt { get; set; }
+
+    [InverseProperty("IdarticleNavigation")]
+    public virtual ICollection<ContenuArticle> ListeContenuArticles { get; set; } = new List<ContenuArticle>();
 }

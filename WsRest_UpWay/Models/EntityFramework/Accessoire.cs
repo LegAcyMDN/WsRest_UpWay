@@ -32,21 +32,21 @@ public partial class Accessoire
     [StringLength(4096)]
     public string? DescriptionAccessoire { get; set; }
 
-    [InverseProperty("IdaccessoireNavigation")]
-    public virtual ICollection<Ajouteraccessoire> Ajouteraccessoires { get; set; } = new List<Ajouteraccessoire>();
-
     [ForeignKey("Idcategorie")]
     [InverseProperty("Accessoires")]
-    public virtual Categorie IdcategorieNavigation { get; set; } = null!;
+    public virtual Categorie AccessoireCategorie { get; set; } = null!;
 
     [ForeignKey("Idmarque")]
     [InverseProperty("Accessoires")]
-    public virtual Marque IdmarqueNavigation { get; set; } = null!;
+    public virtual Marque AccessoireMarque { get; set; } = null!;
 
     [InverseProperty("IdaccessoireNavigation")]
-    public virtual ICollection<Photoaccessoire> Photoaccessoires { get; set; } = new List<Photoaccessoire>();
+    public virtual ICollection<Ajouteraccessoire> ListeAjoutAccessoires { get; set; } = new List<Ajouteraccessoire>();
+
+    [InverseProperty("IdaccessoireNavigation")]
+    public virtual ICollection<Photoaccessoire> ListePhotoAccessoires { get; set; } = new List<Photoaccessoire>();
 
     [ForeignKey("Idaccessoire")]
     [InverseProperty("Idaccessoires")]
-    public virtual ICollection<Velo> Idvelos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }
