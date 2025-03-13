@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[PrimaryKey("Idalerte", "Idclient", "Idvelo")]
+[PrimaryKey(nameof(AlerteId), nameof(ClientId), nameof(VeloId))]
 [Table("t_e_alertevelo_alv", Schema = "upways")]
-[Index("Idclient", Name = "idx_alerte_idclient")]
-[Index("Idvelo", Name = "idx_alerte_idvelo")]
+[Index(nameof(ClientId), Name = "ix_t_e_alertevelo_alv_clientid")]
+[Index(nameof(VeloId), Name = "ix_t_e_alertevelo_alv_veloid")]
 public partial class Alertevelo
 {
     [Key]
@@ -27,11 +27,11 @@ public partial class Alertevelo
     [Column("alv_modification", TypeName = "date")]
     public DateTime? ModificationAlerte { get; set; }
 
-    [ForeignKey("Idclient")]
-    [InverseProperty("Alertevelos")]
+    [ForeignKey(nameof(ClientId))]
+    [InverseProperty(nameof(Compteclient.ListeAlerteVelos))]
     public virtual Compteclient AlerteClient { get; set; } = null!;
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Alertevelos")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Velo.ListeAlerteVelos))]
     public virtual Velo AlerteVelo { get; set; } = null!;
 }

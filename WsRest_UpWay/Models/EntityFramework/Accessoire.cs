@@ -46,7 +46,7 @@ public partial class Accessoire
     public virtual Categorie AccessoireCategorie { get; set; } = null!;
 
     [ForeignKey(nameof(MarqueId))]
-    [InverseProperty("Accessoires")]
+    [InverseProperty(nameof(Marque.ListeAccessoires))]
     public virtual Marque AccessoireMarque { get; set; } = null!;
 
     [InverseProperty(nameof(Ajouteraccessoire.AjoutDAccessoire))]
@@ -56,6 +56,6 @@ public partial class Accessoire
     public virtual ICollection<Photoaccessoire> ListePhotoAccessoires { get; set; } = new List<Photoaccessoire>();
 
     [ForeignKey(nameof(AccessoireId))]
-    [InverseProperty("Idaccessoires")]
+    [InverseProperty(nameof(Velo.ListeAccessoires))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

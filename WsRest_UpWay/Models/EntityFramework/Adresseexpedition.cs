@@ -63,12 +63,12 @@ public partial class Adresseexpedition
     public virtual Adressefacturation? AdresseExpeFact { get; set; }
 
     [ForeignKey(nameof(ClientId))]
-    [InverseProperty("Adresseexpeditions")]
+    [InverseProperty(nameof(Compteclient.ListeAdresseExpe))]
     public virtual Compteclient AdresseExpeClient { get; set; } = null!;
 
     [InverseProperty(nameof(Adressefacturation.AdresseFactExpe))]
     public virtual ICollection<Adressefacturation> ListeAdresseFact { get; set; } = new List<Adressefacturation>();
 
-    [InverseProperty("IdadresseexpNavigation")]
+    [InverseProperty(nameof(Information.InformationAdresseExpe))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }
