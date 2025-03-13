@@ -78,9 +78,9 @@ public partial class Caracteristiquevelo
     [Column("cav_selleTelescopique")]
     public bool? SelleTelescopique { get; set; }
 
-    [InverseProperty("IdcaracteristiqueveloNavigation")]
+    [InverseProperty(nameof(Velomodifier.VeloModifCaracteristiqueVelo))]
     public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
-    [InverseProperty("IdcaracteristiqueveloNavigation")]
+    [InverseProperty(nameof(Velo.VeloCaracteristiqueVelo))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }
