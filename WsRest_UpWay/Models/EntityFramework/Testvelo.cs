@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -15,9 +16,11 @@ public partial class Testvelo
     [Column("tev_id")]
     public int TestId { get; set; }
 
+    [Key]
     [Column("vel_id")]
     public int VeloId { get; set; }
 
+    [Key]
     [Column("mag_id")]
     public int MagasinId { get; set; }
 

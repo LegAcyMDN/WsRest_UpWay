@@ -9,6 +9,14 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_caracteristique_car", Schema = "upways")]
 public partial class Caracteristique
 {
+    public Caracteristique()
+    {
+        ListeSousCaracteristiques = new HashSet<Caracteristique>();
+        ListeCaracteristiques = new HashSet<Caracteristique>();
+        ListeCategories = new HashSet<Categorie>();
+        ListeVelos = new HashSet<Velo>();
+    }
+
     [Key]
     [Column("car_id")]
     public int CaracteristiqueId { get; set; }

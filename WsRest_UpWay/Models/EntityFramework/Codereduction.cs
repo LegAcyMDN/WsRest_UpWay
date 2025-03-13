@@ -9,6 +9,11 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_codereduction_cor", Schema = "upways")]
 public partial class Codereduction
 {
+    public Codereduction()
+    {
+        ListeInformations = new HashSet<Information>();
+    }
+
     [Key]
     [Column("cor_id")]
     [StringLength(20)]

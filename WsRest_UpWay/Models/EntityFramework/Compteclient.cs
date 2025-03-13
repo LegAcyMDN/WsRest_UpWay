@@ -11,6 +11,15 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(LoginClient), Name = "ix_t_e_compteclient_coc_pseudo_unq", IsUnique = true)]
 public partial class Compteclient
 {
+    public Compteclient()
+    {
+        ListeAdresseExpe = new HashSet<Adresseexpedition>();
+        ListeAdresseFact = new HashSet<Adressefacturation>();
+        ListeAlerteVelos = new HashSet<Alertevelo>();
+        ListeDetailCommandes = new HashSet<Detailcommande>();
+        ListePaniers = new HashSet<Panier>();
+    }
+
     [Key]
     [Column("coc_id")]
     public int ClientId { get; set; }

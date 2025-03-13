@@ -13,7 +13,8 @@ public partial class ContenuArticle
     [Column("coa_id")]
     public int ContenueId { get; set; }
 
-    [Column("idarticle")]
+    [Key]
+    [Column("art_id")]
     public int ArticleId { get; set; }
 
     [Column("coa_prioritecontenu")]

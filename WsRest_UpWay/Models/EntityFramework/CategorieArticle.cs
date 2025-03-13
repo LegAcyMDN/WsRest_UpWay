@@ -9,6 +9,13 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_categorie_article_caa", Schema = "upways")]
 public partial class CategorieArticle
 {
+    public CategorieArticle()
+    {
+        ListeArticles = new HashSet<Article>();
+        ListeSousCategorieArticles = new HashSet<CategorieArticle>();
+        ListeCategorieArticles = new HashSet<CategorieArticle>();
+    }
+
     [Key]
     [Column("caa_id")]
     public int CategorieArticleId { get; set; }

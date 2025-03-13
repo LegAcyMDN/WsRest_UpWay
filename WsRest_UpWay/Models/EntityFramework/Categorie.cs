@@ -10,6 +10,14 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(LibelleCategorie), Name = "ix_t_e_categorie_cat_libellecategorie")]
 public partial class Categorie
 {
+    public Categorie()
+    {
+        ListeAccessoires = new HashSet<Accessoire>();
+        ListeVeloModifiers = new HashSet<Velomodifier>();
+        ListeVelos = new HashSet<Velo>();
+        ListeCaracteristiques = new HashSet<Caracteristique>();
+    }
+
     [Key]
     [Column("cat_id")]
     public int CategorieId { get; set; }
