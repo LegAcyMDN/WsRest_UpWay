@@ -22,5 +22,5 @@ public partial class Photoaccessoire
 
     [ForeignKey("Idaccessoire")]
     [InverseProperty("Photoaccessoires")]
-    public virtual Accessoire IdaccessoireNavigation { get; set; } = null!;
+    public virtual Accessoire PhotoAccessoireAccessoire { get; set; } = null!;
 }

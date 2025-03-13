@@ -183,7 +183,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ajoutera_ajouterac_accessoi");
 
-            entity.HasOne(d => d.AjoutDAccessoirePanier).WithMany(p => p.Ajouteraccessoires)
+            entity.HasOne(d => d.AjoutDAccessoirePanier).WithMany(p => p.ListeAjouterAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_ajoutera_ajouterac_panier");
         });
@@ -422,7 +422,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_indiquer_etatcomm");
 
-            entity.HasOne(d => d.DetailCommandePanier).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.DetailCommandePanier).WithMany(p => p.ListeDetailCommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_estlie_panier");
 
@@ -474,7 +474,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_informat_opter_adressee");
 
-            entity.HasOne(d => d.InformationPanier).WithMany(p => p.Information)
+            entity.HasOne(d => d.InformationPanier).WithMany(p => p.ListeInformations)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_informat_regler_panier");
 
@@ -495,7 +495,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_lignepan_estpresen_assuranc");
 
-            entity.HasOne(d => d.LignePanierPanier).WithMany(p => p.Lignepaniers)
+            entity.HasOne(d => d.LignePanierPanier).WithMany(p => p.ListeLignePaniers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_lignepan_contenir_panier");
 
@@ -576,11 +576,11 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.PanierId).HasDefaultValueSql("nextval('panier_idpanier_seq'::regclass)");
 
-            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.ListePaniers)
+            entity.HasOne(d => d.PanierClient).WithMany(p => p.ListePaniers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_panier_appartient_client");
 
-            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.ListePaniers)
+            entity.HasOne(d => d.PanierDetailCommande).WithMany(p => p.ListePaniers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_panier_estlie2_detailco");
         });
@@ -591,7 +591,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.PhotoAcessoireId).HasDefaultValueSql("nextval('photoaccessoire_idphotoaccessoire_seq'::regclass)");
 
-            entity.HasOne(d => d.IdaccessoireNavigation).WithMany(p => p.ListePhotoAccessoires)
+            entity.HasOne(d => d.PhotoAccessoireAccessoire).WithMany(p => p.ListePhotoAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_photoacc_comprendr_accessoi");
         });
@@ -602,7 +602,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.PhotoVeloId).HasDefaultValueSql("nextval('photovelo_idphotovelo_seq'::regclass)");
 
-            entity.HasOne(d => d.IdveloNavigation).WithMany(p => p.Photovelos)
+            entity.HasOne(d => d.PhotoVeloVelo).WithMany(p => p.Photovelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_photovel_represent_velo");
         });

@@ -26,5 +26,5 @@ public partial class Photovelo
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Photovelos")]
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo PhotoVeloVelo { get; set; } = null!;
 }

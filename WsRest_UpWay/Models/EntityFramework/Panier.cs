@@ -28,23 +28,23 @@ public partial class Panier
     [Precision(11, 2)]
     public decimal? PrixPanier { get; set; }
 
-    [InverseProperty("IdpanierNavigation")]
-    public virtual ICollection<Ajouteraccessoire> Ajouteraccessoires { get; set; } = new List<Ajouteraccessoire>();
-
-    [InverseProperty("IdpanierNavigation")]
-    public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();
-
     [ForeignKey("Idclient")]
     [InverseProperty("Paniers")]
-    public virtual Compteclient? IdclientNavigation { get; set; }
+    public virtual Compteclient? PanierClient { get; set; }
 
     [ForeignKey("Idcommande")]
     [InverseProperty("Paniers")]
-    public virtual Detailcommande? IdcommandeNavigation { get; set; }
+    public virtual Detailcommande? PanierDetailCommande { get; set; }
 
     [InverseProperty("IdpanierNavigation")]
-    public virtual ICollection<Information> Information { get; set; } = new List<Information>();
+    public virtual ICollection<Ajouteraccessoire> ListeAjouterAccessoires { get; set; } = new List<Ajouteraccessoire>();
 
     [InverseProperty("IdpanierNavigation")]
-    public virtual ICollection<Lignepanier> Lignepaniers { get; set; } = new List<Lignepanier>();
+    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
+
+    [InverseProperty("IdpanierNavigation")]
+    public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
+
+    [InverseProperty("IdpanierNavigation")]
+    public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
 }
