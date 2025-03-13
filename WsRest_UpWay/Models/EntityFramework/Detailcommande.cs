@@ -46,27 +46,27 @@ public partial class Detailcommande
 
     [ForeignKey("Idadressefact")]
     [InverseProperty("Detailcommandes")]
-    public virtual Adressefacturation? IdadressefactNavigation { get; set; }
+    public virtual Adressefacturation? DetailComAdresseFact { get; set; }
 
     [ForeignKey("Idclient")]
     [InverseProperty("Detailcommandes")]
-    public virtual Compteclient IdclientNavigation { get; set; } = null!;
+    public virtual Compteclient DetailCommandeClient { get; set; } = null!;
 
     [ForeignKey("Idetatcommande")]
     [InverseProperty("Detailcommandes")]
-    public virtual Etatcommande? IdetatcommandeNavigation { get; set; }
+    public virtual Etatcommande? DetailCommandeEtat { get; set; }
 
     [ForeignKey("Idpanier")]
     [InverseProperty("Detailcommandes")]
-    public virtual Panier? IdpanierNavigation { get; set; }
+    public virtual Panier? DetailCommandePanier { get; set; }
 
     [ForeignKey("Idretraitmagasin")]
     [InverseProperty("Detailcommandes")]
-    public virtual Retraitmagasin? IdretraitmagasinNavigation { get; set; }
+    public virtual Retraitmagasin? DetailComRetraitMagasin { get; set; }
 
     [InverseProperty("IdcommandeNavigation")]
-    public virtual ICollection<Panier> Paniers { get; set; } = new List<Panier>();
+    public virtual ICollection<Panier> ListePaniers { get; set; } = new List<Panier>();
 
     [InverseProperty("IdcommandeNavigation")]
-    public virtual ICollection<Retraitmagasin> Retraitmagasins { get; set; } = new List<Retraitmagasin>();
+    public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
 }

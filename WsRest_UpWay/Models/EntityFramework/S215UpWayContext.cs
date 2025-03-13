@@ -410,23 +410,23 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.CommandeId).HasDefaultValueSql("nextval('detailcommande_idcommande_seq'::regclass)");
 
-            entity.HasOne(d => d.IdadressefactNavigation).WithMany(p => p.ListeDetailCommande)
+            entity.HasOne(d => d.DetailComAdresseFact).WithMany(p => p.ListeDetailCommande)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_afficher2_adressef");
 
-            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.ListeDetailCommandes)
+            entity.HasOne(d => d.DetailCommandeClient).WithMany(p => p.ListeDetailCommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_visualise_comptecl");
 
-            entity.HasOne(d => d.IdetatcommandeNavigation).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.DetailCommandeEtat).WithMany(p => p.Detailcommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_indiquer_etatcomm");
 
-            entity.HasOne(d => d.IdpanierNavigation).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.DetailCommandePanier).WithMany(p => p.Detailcommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_estlie_panier");
 
-            entity.HasOne(d => d.IdretraitmagasinNavigation).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.DetailComRetraitMagasin).WithMany(p => p.Detailcommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_monter_retraitm");
         });
@@ -580,7 +580,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_panier_appartient_client");
 
-            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.Paniers)
+            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.ListePaniers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_panier_estlie2_detailco");
         });
@@ -627,7 +627,7 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.RetraitMagasinId).HasDefaultValueSql("nextval('retraitmagasin_idretraitmagasin_seq'::regclass)");
 
-            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.Retraitmagasins)
+            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.ListeRetraitMagasins)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_retraitm_monter2_detailco");
 
