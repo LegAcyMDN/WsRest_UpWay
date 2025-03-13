@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_mentionvelo_mev", Schema = "upways")]
-[Index("Idvelo", Name = "idx_mentionvelo_idvelo")]
+[Index(nameof(VeloId), Name = "ix_t_e_mentionvelo_mev_veloid")]
 public partial class Mentionvelo
 {
     [Key]
@@ -25,7 +25,7 @@ public partial class Mentionvelo
     [StringLength(4096)]
     public string? ValeurMention { get; set; }
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Mentionvelos")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Velo.ListeMentionVelos))]
     public virtual Velo MentionVeloVelo { get; set; } = null!;
 }
