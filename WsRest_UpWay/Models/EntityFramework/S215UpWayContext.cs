@@ -331,9 +331,9 @@ public partial class S215UpWayContext : DbContext
 
         modelBuilder.Entity<Categorie>(entity =>
         {
-            entity.HasKey(e => e.Idcategorie).HasName("pk_categorie");
+            entity.HasKey(e => e.CategorieId).HasName("pk_categorie");
 
-            entity.Property(e => e.Idcategorie).HasDefaultValueSql("nextval('categorie_idcategorie_seq'::regclass)");
+            entity.Property(e => e.CategorieId).HasDefaultValueSql("nextval('categorie_idcategorie_seq'::regclass)");
         });
 
         modelBuilder.Entity<CategorieArticle>(entity =>
