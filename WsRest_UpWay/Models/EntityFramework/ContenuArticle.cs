@@ -27,7 +27,7 @@ public partial class ContenuArticle
     [StringLength(4096)]
     public string? Contenu { get; set; }
 
-    [ForeignKey("Idarticle")]
-    [InverseProperty("ContenuArticles")]
+    [ForeignKey(nameof(ArticleId))]
+    [InverseProperty(nameof(Article.ListeContenuArticles))]
     public virtual Article ContenuArticleArt { get; set; } = null!;
 }

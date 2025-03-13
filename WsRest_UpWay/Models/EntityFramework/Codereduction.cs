@@ -20,6 +20,6 @@ public partial class Codereduction
     [Column("cor_reduction")]
     public int? Reduction { get; set; }
 
-    [InverseProperty("IdreductionNavigation")]
+    [InverseProperty(nameof(Information.InformationCodeReduction))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }
