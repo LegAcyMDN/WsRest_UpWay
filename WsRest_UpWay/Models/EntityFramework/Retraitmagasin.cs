@@ -12,6 +12,11 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index("Idmagasin", Name = "idx_retraitmagasin_idmagasin")]
 public partial class Retraitmagasin
 {
+    public Retraitmagasin()
+    {
+        ListeDetailCommandes = new HashSet<Detailcommande>();
+    }
+
     [Key]
     [Column("rem_id")]
     public int RetraitMagasinId { get; set; }
@@ -31,19 +36,19 @@ public partial class Retraitmagasin
     [Column("rem_heure", TypeName = "heure")]
     public TimeOnly? HeureRetrait { get; set; }
 
-    [ForeignKey("Idcommande")]
-    [InverseProperty("Retraitmagasins")]
+    [ForeignKey(nameof(CommandeId))]
+    [InverseProperty(nameof(Detailcommande.RetraitMagasinId))]
     public virtual Detailcommande? RetraitMagasinDetailCom { get; set; }
 
-    [ForeignKey("Idinformations")]
-    [InverseProperty("Retraitmagasins")]
+    [ForeignKey(nameof(InformationId))]
+    [InverseProperty(nameof(Information.InformationRetraitMagasin))]
     public virtual Information? RetraitMagasinInformation { get; set; }
 
-    [ForeignKey("Idmagasin")]
-    [InverseProperty("Retraitmagasins")]
+    [ForeignKey(nameof(MagasinId))]
+    [InverseProperty(nameof(Magasin.ListeRetraitMagasins))]
     public virtual Magasin RetraitMagasinMagasin { get; set; } = null!;
 
-    [InverseProperty("IdretraitmagasinNavigation")]
+    [InverseProperty(nameof(Detailcommande))]
     public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
 
     [InverseProperty("IdretraitmagasinNavigation")]
