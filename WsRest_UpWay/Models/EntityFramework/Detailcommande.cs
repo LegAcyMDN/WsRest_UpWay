@@ -14,6 +14,12 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index("Idretraitmagasin", Name = "idx_detailcommande_idretraitmagasin")]
 public partial class Detailcommande
 {
+    public Detailcommande()
+    {
+        ListePaniers = new HashSet<Panier>();
+        ListeRetraitMagasins = new HashSet<Retraitmagasin>();
+    }
+
     [Key]
     [Column("detcom_id")]
     public int CommandeId { get; set; }
@@ -44,29 +50,29 @@ public partial class Detailcommande
     [Column("detcom_datach", TypeName = "date")]
     public DateTime? DateAchat { get; set; }
 
-    [ForeignKey("Idadressefact")]
-    [InverseProperty("Detailcommandes")]
+    [ForeignKey(nameof(AdresseFactId))]
+    [InverseProperty(nameof(Adressefacturation.ListeDetailCommande))]
     public virtual Adressefacturation? DetailComAdresseFact { get; set; }
 
-    [ForeignKey("Idclient")]
-    [InverseProperty("Detailcommandes")]
+    [ForeignKey(nameof(ClientId))]
+    [InverseProperty(nameof(Compteclient.ListeDetailCommandes))]
     public virtual Compteclient DetailCommandeClient { get; set; } = null!;
 
-    [ForeignKey("Idetatcommande")]
-    [InverseProperty("Detailcommandes")]
+    [ForeignKey(nameof(EtatCommandeId))]
+    [InverseProperty(nameof(Etatcommande.ListeDetailCommandes))]
     public virtual Etatcommande? DetailCommandeEtat { get; set; }
 
-    [ForeignKey("Idpanier")]
-    [InverseProperty("Detailcommandes")]
+    [ForeignKey(nameof(PanierId))]
+    [InverseProperty(nameof(Panier.ListeDetailCommandes))]
     public virtual Panier? DetailCommandePanier { get; set; }
 
-    [ForeignKey("Idretraitmagasin")]
-    [InverseProperty("Detailcommandes")]
+    [ForeignKey(nameof(RetraitMagasinId))]
+    [InverseProperty(nameof(Retraitmagasin.ListeDetailCommandes))]
     public virtual Retraitmagasin? DetailComRetraitMagasin { get; set; }
 
-    [InverseProperty("IdcommandeNavigation")]
+    [InverseProperty(nameof(Panier.PanierDetailCommande))]
     public virtual ICollection<Panier> ListePaniers { get; set; } = new List<Panier>();
 
-    [InverseProperty("IdcommandeNavigation")]
+    [InverseProperty(nameof(Retraitmagasin.RetraitMagasinDetailCom))]
     public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
 }
