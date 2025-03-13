@@ -50,9 +50,8 @@ public partial class Compteclient
     [StringLength(4096)]
     public string? TwoFactorRecoveryCodes { get; set; }
 
-    [Column("coc_two_factor_confirmed_at", TypeName = "text")]
-    [StringLength(4096)]
-    public string? TwoFactorConfirmedAt { get; set; }
+    [Column("coc_two_factor_confirmed_at", TypeName = "date")]
+    public DateTime? TwoFactorConfirmedAt { get; set; }
 
     [Column("coc_usertype")]
     [StringLength(20)]

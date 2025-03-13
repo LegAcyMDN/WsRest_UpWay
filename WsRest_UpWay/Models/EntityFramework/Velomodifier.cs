@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
@@ -87,19 +88,19 @@ public partial class Velomodifier
     [Column("modifier", TypeName = "date")]
     public DateTime? Modifier { get; set; }
 
-    [ForeignKey("Idcaracteristiquevelo")]
-    [InverseProperty("Velomodifiers")]
+    [ForeignKey(nameof(CaracteristiqueVeloId))]
+    [InverseProperty(nameof(Caracteristiquevelo.ListeVeloModifiers))]
     public virtual Caracteristiquevelo? VeloModifCaracteristiqueVelo { get; set; }
 
-    [ForeignKey("Idcategorie")]
-    [InverseProperty("Velomodifiers")]
+    [ForeignKey(nameof(CategorieId))]
+    [InverseProperty(nameof(Categorie.ListeVeloModifiers))]
     public virtual Categorie VeloModifierCategorie { get; set; } = null!;
 
-    [ForeignKey("Idmarque")]
-    [InverseProperty("Velomodifiers")]
+    [ForeignKey(nameof(VelomId))]
+    [InverseProperty(nameof(Marque.ListeVeloModifiers))]
     public virtual Marque? VeloModifierMarque { get; set; }
 
-    [ForeignKey("Idmoteur")]
-    [InverseProperty("Velomodifiers")]
+    [ForeignKey(nameof(MoteurId))]
+    [InverseProperty(nameof(Moteur.ListeVeloModifiers))]
     public virtual Moteur? VeloModifierMoteur { get; set; }
 }

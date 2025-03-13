@@ -1,6 +1,6 @@
 namespace WsRest_UpWay.Models.Requests;
 
-public class UserLoginOTPRequest : UserLoginRequest
+public class ConfirmOTPSetupRequest
 {
     private string code;
 
