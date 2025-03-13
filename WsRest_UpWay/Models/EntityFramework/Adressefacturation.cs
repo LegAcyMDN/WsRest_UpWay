@@ -7,10 +7,16 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_adressefacturation_adf", Schema = "upways")]
-[Index("Idadresseexp", Name = "idx_adressefact_idadresseexp")]
-[Index("Idclient", Name = "idx_adressefact_idclient")]
+[Index(nameof(AdresseExpId), Name = "ix_t_e_adressefacturation_adf_adresseexpeid")]
+[Index(nameof(ClientId), Name = "ix_t_e_adressefacturation_adf_clientid")]
 public partial class Adressefacturation
 {
+    public Adressefacturation()
+    {
+        ListeAdresseExpe = new HashSet<Adresseexpedition>();
+        ListeDetailCommande = new HashSet<Detailcommande>();
+    }
+
     [Key]
     [Column("adf_id")]
     public int AdresseFactId { get; set; }
@@ -49,17 +55,17 @@ public partial class Adressefacturation
     [StringLength(10)]
     public string? TelephoneFacturation { get; set; }
 
-    [ForeignKey("Idadresseexp")]
-    [InverseProperty("Adressefacturations")]
+    [ForeignKey(nameof(AdresseExpId))]
+    [InverseProperty(nameof(Adresseexpedition.ListeAdresseFact))]
     public virtual Adresseexpedition? AdresseFactExpe { get; set; }
 
-    [ForeignKey("Idclient")]
-    [InverseProperty("Adressefacturations")]
+    [ForeignKey(nameof(ClientId))]
+    [InverseProperty(nameof(Compteclient.ListeAdresseFact))]
     public virtual Compteclient AdresseFactClient { get; set; } = null!;
 
-    [InverseProperty("IdadressefactNavigation")]
+    [InverseProperty(nameof(Adresseexpedition.AdresseExpeFact))]
     public virtual ICollection<Adresseexpedition> ListeAdresseExpe { get; set; } = new List<Adresseexpedition>();
 
-    [InverseProperty("IdadressefactNavigation")]
+    [InverseProperty(nameof(Detailcommande.DetailComAdresseFact))]
     public virtual ICollection<Detailcommande> ListeDetailCommande { get; set; } = new List<Detailcommande>();
 }

@@ -13,6 +13,11 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index("Idretraitmagasin", Name = "idx_informations_idretraitmagasin")]
 public partial class Information
 {
+    public Information()
+    {
+        ListeRetraitMagasins = new HashSet<Retraitmagasin>();
+    }
+
     [Key]
     [Column("inf_id")]
     public int InformationId { get; set; }
@@ -49,22 +54,22 @@ public partial class Information
     [StringLength(200)]
     public string? InformationRue { get; set; }
 
-    [ForeignKey("Idadresseexp")]
-    [InverseProperty("Information")]
+    [ForeignKey(nameof(AdresseExpeId))]
+    [InverseProperty(nameof(Adresseexpedition.ListeInformations))]
     public virtual Adresseexpedition InformationAdresseExpe { get; set; } = null!;
 
-    [ForeignKey("Idpanier")]
-    [InverseProperty("Information")]
+    [ForeignKey(nameof(PanierId))]
+    [InverseProperty(nameof(Panier.ListeInformations))]
     public virtual Panier InformationPanier { get; set; } = null!;
 
-    [ForeignKey("Idreduction")]
-    [InverseProperty("Information")]
+    [ForeignKey(nameof(ReductionId))]
+    [InverseProperty(nameof(Codereduction.ListeInformations))]
     public virtual Codereduction? InformationCodeReduction { get; set; }
 
-    [ForeignKey("Idretraitmagasin")]
-    [InverseProperty("Information")]
+    [ForeignKey(nameof(RetraitMagasinId))]
+    [InverseProperty(nameof(Retraitmagasin.ListeInformations))]
     public virtual Retraitmagasin? InformationRetraitMagasin { get; set; }
 
-    [InverseProperty("IdinformationsNavigation")]
+    [InverseProperty(nameof(Retraitmagasin.RetraitMagasinInformation))]
     public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
 }

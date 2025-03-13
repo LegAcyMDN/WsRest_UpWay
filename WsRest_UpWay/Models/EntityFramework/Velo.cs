@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -13,6 +14,20 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index("Idmoteur", Name = "idx_velo_idmoteur")]
 public partial class Velo
 {
+
+    public Velo() 
+    {
+        ListeAlerteVelos = new HashSet<Alertevelo>();
+        ListeEstRealises = new HashSet<Estrealise>();
+        ListeLignePaniers = new HashSet<Lignepanier>();
+        ListeMentionVelos = new HashSet<Mentionvelo>();
+        ListePhotoVelos = new HashSet<Photovelo>();
+        ListeTestVelos = new HashSet<Testvelo>();
+        ListeMagasins = new HashSet<Magasin>();
+        ListeCaracteristiques = new HashSet<Caracteristique>();
+        ListeAccessoires = new HashSet<Accessoire>();
+        ListeUtilites = new HashSet<Utilite>();
+    }
     [Key]
     [Column("vel_id")]
     public int VeloId { get; set; }
@@ -61,8 +76,8 @@ public partial class Velo
     [Precision(3, 0)]
     public decimal? PourcentageReduction { get; set; }
 
-    [Column("vel_descriptif")]
-    [StringLength(5000)]
+    [Column("vel_descriptif", TypeName="text")]
+    [StringLength(5000) ]
     public string? DescriptifVelo { get; set; }
 
     [Column("vel_quantite")]
@@ -77,52 +92,52 @@ public partial class Velo
     [StringLength(10)]
     public string? CapaciteBatterie { get; set; }
 
-    [ForeignKey("Idcaracteristiquevelo")]
-    [InverseProperty("Velos")]
+    [ForeignKey(nameof(CaracteristiqueVeloId))]
+    [InverseProperty(nameof(Caracteristiquevelo.ListeVelos))]
     public virtual Caracteristiquevelo? VeloCaracteristiqueVelo { get; set; }
 
-    [ForeignKey("Idcategorie")]
-    [InverseProperty("Velos")]
+    [ForeignKey(nameof(CategorieId))]
+    [InverseProperty(nameof(Categorie.ListeVelos))]
     public virtual Categorie VeloCategorie { get; set; } = null!;
 
-    [ForeignKey("Idmarque")]
-    [InverseProperty("Velos")]
+    [ForeignKey(nameof(MarqueId))]
+    [InverseProperty(nameof(Marque.ListeVelos))]
     public virtual Marque? VeloMarque { get; set; }
 
-    [ForeignKey("Idmoteur")]
-    [InverseProperty("Velos")]
+    [ForeignKey(nameof(MoteurId))]
+    [InverseProperty(nameof(Moteur.ListeVelos))]
     public virtual Moteur? VeloMoteur { get; set; }
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Alertevelo.AlerteVelo))]
     public virtual ICollection<Alertevelo> ListeAlerteVelos { get; set; } = new List<Alertevelo>();
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Estrealise.EstRealiseVelo))]
     public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Lignepanier.LignePanierVelo))]
     public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Mentionvelo.MentionVeloVelo))]
     public virtual ICollection<Mentionvelo> ListeMentionVelos { get; set; } = new List<Mentionvelo>();
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Photovelo.PhotoVeloVelo))]
     public virtual ICollection<Photovelo> ListePhotoVelos { get; set; } = new List<Photovelo>();
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Testvelo.TestVeloVelo))]
     public virtual ICollection<Testvelo> ListeTestVelos { get; set; } = new List<Testvelo>();
 
-    [InverseProperty("IdveloNavigation")]
+    [InverseProperty(nameof(Utilite.UtiliteVelo))]
     public virtual ICollection<Utilite> ListeUtilites { get; set; } = new List<Utilite>();
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Idvelos")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Accessoire.ListeVelos))]
     public virtual ICollection<Accessoire> ListeAccessoires { get; set; } = new List<Accessoire>();
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Idvelos")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Caracteristique.ListeVelos))]
     public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Idvelos")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Magasin.ListeVelos))]
     public virtual ICollection<Magasin> ListeMagasins { get; set; } = new List<Magasin>();
 }
