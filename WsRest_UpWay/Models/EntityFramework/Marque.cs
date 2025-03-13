@@ -10,6 +10,14 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index("Nommarque", Name = "nommarque_unq", IsUnique = true)]
 public partial class Marque
 {
+    public Marque()
+    {
+        ListeAccessoires = new HashSet<Accessoire>();
+        ListeMoteurs = new HashSet<Moteur>();
+        ListeVeloModifiers = new HashSet<Velomodifier>();
+        ListeVelos = new HashSet<Velo>();
+    }
+
     [Key]
     [Column("mar_id")]
     public int MarqueId { get; set; }
@@ -18,15 +26,15 @@ public partial class Marque
     [StringLength(100)]
     public string? NomMarque { get; set; }
 
-    [InverseProperty("IdmarqueNavigation")]
+    [InverseProperty(nameof(Accessoire.AccessoireMarque))]
     public virtual ICollection<Accessoire> ListeAccessoires { get; set; } = new List<Accessoire>();
 
-    [InverseProperty("IdmarqueNavigation")]
+    [InverseProperty(nameof(Moteur.MoteurMarque))]
     public virtual ICollection<Moteur> ListeMoteurs { get; set; } = new List<Moteur>();
 
-    [InverseProperty("IdmarqueNavigation")]
+    [InverseProperty(nameof(Velomodifier.VeloModifierMarque))]
     public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
-    [InverseProperty("IdmarqueNavigation")]
+    [InverseProperty(nameof(Velo.VeloMarque))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

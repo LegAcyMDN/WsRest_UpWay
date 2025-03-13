@@ -26,7 +26,7 @@ public partial class Marquagevelo
     [Precision(2, 2)]
     public decimal? PrixMarquage { get; set; }
 
-    [ForeignKey("Idpanier, Idvelo")]
-    [InverseProperty("Marquagevelos")]
-    public virtual Lignepanier MarquageVeloLignePanier { get; set; } = null!;
+    [ForeignKey(nameof(VeloId) + "," + nameof(PanierId))]
+    [InverseProperty(nameof(Lignepanier.ListeMarquageVelos))]
+    public ICollection<Marquagevelo> MarquageVeloLignePanier { get; set; } = new List<Marquagevelo>();
 }

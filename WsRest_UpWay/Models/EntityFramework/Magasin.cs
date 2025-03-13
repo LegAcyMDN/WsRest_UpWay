@@ -9,6 +9,13 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_a_magasin_mag", Schema = "upways")]
 public partial class Magasin
 {
+    public Magasin()
+    {
+        ListeTestVelos = new HashSet<Testvelo>();
+        ListeRetraitMagasins = new HashSet<Retraitmagasin>();
+        ListeVelos = new HashSet<Velo>();
+    }
+
     [Key]
     [Column("mag_id")]
     public int MagasinId { get; set; }
@@ -33,13 +40,13 @@ public partial class Magasin
     [StringLength(50)]
     public string? VilleMagasin { get; set; }
 
-    [InverseProperty("IdmagasinNavigation")]
+    [InverseProperty(nameof(Retraitmagasin.RetraitMagasinMagasin))]
     public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
 
-    [InverseProperty("IdmagasinNavigation")]
+    [InverseProperty(nameof(Testvelo.TestVeloMagasin))]
     public virtual ICollection<Testvelo> ListeTestVelos { get; set; } = new List<Testvelo>();
 
-    [ForeignKey("Idmagasin")]
-    [InverseProperty("Idmagasins")]
+    [ForeignKey(nameof(MagasinId))]
+    [InverseProperty(nameof(Velo.ListeMagasins))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }
