@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -13,6 +14,11 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index("Idvelo", Name = "idx_linepanier_idvelo")]
 public partial class Lignepanier
 {
+    public Lignepanier()
+    {
+        ListeMarquageVelos = new HashSet<Marquagevelo>();
+    }
+
     [Key]
     [Column("lignpan_id")]
     public int PanierId { get; set; }
@@ -32,18 +38,18 @@ public partial class Lignepanier
     [Precision(11, 2)]
     public decimal? PrixQuantite { get; set; }
 
-    [ForeignKey("Idassurance")]
-    [InverseProperty("Lignepaniers")]
+    [ForeignKey(nameof(AssuranceId))]
+    [InverseProperty(nameof(Assurance.ListeLignePaniers))]
     public virtual Assurance LignePanierAssurance { get; set; } = null!;
 
-    [ForeignKey("Idpanier")]
-    [InverseProperty("Lignepaniers")]
+    [ForeignKey(nameof(PanierId))]
+    [InverseProperty(nameof(Panier.ListeLignePaniers))]
     public virtual Panier LignePanierPanier { get; set; } = null!;
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Lignepaniers")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Velo.ListeLignePaniers))]
     public virtual Velo LignePanierVelo { get; set; } = null!;
 
-    [InverseProperty("Lignepanier")]
+    [InverseProperty(nameof(Marquagevelo.MarquageVeloLignePanier))]
     public virtual ICollection<Marquagevelo> ListeMarquageVelos { get; set; } = new List<Marquagevelo>();
 }
