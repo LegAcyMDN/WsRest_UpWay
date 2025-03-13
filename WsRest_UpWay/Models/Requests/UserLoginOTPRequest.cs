@@ -2,7 +2,7 @@ namespace WsRest_UpWay.Models.Requests;
 
 public class UserLoginOTPRequest : UserLoginRequest
 {
-    public string code;
+    private string code;
 
     public string Code
     {
