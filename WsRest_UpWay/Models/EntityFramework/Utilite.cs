@@ -22,7 +22,7 @@ public partial class Utilite
     [Column("uti_valeur")]
     public decimal? ValeurUtilite { get; set; }
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Utilites")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Velo.ListeUtilites))]
     public virtual Velo UtiliteVelo { get; set; } = null!;
 }
