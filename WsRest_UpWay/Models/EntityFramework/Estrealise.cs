@@ -36,15 +36,15 @@ public partial class Estrealise
     [StringLength(100)]
     public string? HistoriqueInspection { get; set; }
 
-    [ForeignKey("Idinspection")]
-    [InverseProperty("Estrealises")]
+    [ForeignKey(nameof(InspectionId))]
+    [InverseProperty(nameof(Rapportinspection.ListeEstRealises))]
     public virtual Rapportinspection EstRealiseRapportInspection { get; set; } = null!;
 
-    [ForeignKey("Idreparation")]
-    [InverseProperty("Estrealises")]
+    [ForeignKey(nameof(ReparationId))]
+    [InverseProperty(nameof(Reparationvelo.ListeEstRealises))]
     public virtual Reparationvelo EstRealiseReparationVelo { get; set; } = null!;
 
-    [ForeignKey("Idvelo")]
-    [InverseProperty("Estrealises")]
+    [ForeignKey(nameof(VeloId))]
+    [InverseProperty(nameof(Velo.ListeEstRealises))]
     public virtual Velo EstRealiseVelo { get; set; } = null!;
 }
