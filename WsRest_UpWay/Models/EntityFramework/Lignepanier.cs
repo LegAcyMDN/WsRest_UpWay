@@ -34,16 +34,16 @@ public partial class Lignepanier
 
     [ForeignKey("Idassurance")]
     [InverseProperty("Lignepaniers")]
-    public virtual Assurance IdassuranceNavigation { get; set; } = null!;
+    public virtual Assurance LignePanierAssurance { get; set; } = null!;
 
     [ForeignKey("Idpanier")]
     [InverseProperty("Lignepaniers")]
-    public virtual Panier IdpanierNavigation { get; set; } = null!;
+    public virtual Panier LignePanierPanier { get; set; } = null!;
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Lignepaniers")]
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo LignePanierVelo { get; set; } = null!;
 
     [InverseProperty("Lignepanier")]
-    public virtual ICollection<Marquagevelo> Marquagevelos { get; set; } = new List<Marquagevelo>();
+    public virtual ICollection<Marquagevelo> ListeMarquageVelos { get; set; } = new List<Marquagevelo>();
 }

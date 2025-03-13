@@ -51,20 +51,20 @@ public partial class Information
 
     [ForeignKey("Idadresseexp")]
     [InverseProperty("Information")]
-    public virtual Adresseexpedition IdadresseexpNavigation { get; set; } = null!;
+    public virtual Adresseexpedition InformationAdresseExpe { get; set; } = null!;
 
     [ForeignKey("Idpanier")]
     [InverseProperty("Information")]
-    public virtual Panier IdpanierNavigation { get; set; } = null!;
+    public virtual Panier InformationPanier { get; set; } = null!;
 
     [ForeignKey("Idreduction")]
     [InverseProperty("Information")]
-    public virtual Codereduction? IdreductionNavigation { get; set; }
+    public virtual Codereduction? InformationCodeReduction { get; set; }
 
     [ForeignKey("Idretraitmagasin")]
     [InverseProperty("Information")]
-    public virtual Retraitmagasin? IdretraitmagasinNavigation { get; set; }
+    public virtual Retraitmagasin? InformationRetraitMagasin { get; set; }
 
     [InverseProperty("IdinformationsNavigation")]
-    public virtual ICollection<Retraitmagasin> Retraitmagasins { get; set; } = new List<Retraitmagasin>();
+    public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
 }
