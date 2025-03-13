@@ -1,8 +1,8 @@
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OtpNet;
+using WsRest_UpWay.Helpers;
 using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
@@ -64,7 +64,8 @@ public class AuthController : ControllerBase
 
         if (res != PasswordVerificationResult.Success) return BadRequest(UserAuthResponse.Error("Wrong password!"));
 
-        if (!string.IsNullOrEmpty(user.TwoFactorSecret)) return Ok(UserAuthResponse.OTPRequired());
+        if (!string.IsNullOrEmpty(user.TwoFactorSecret) && user.TwoFactorConfirmedAt != null)
+            return Ok(UserAuthResponse.OTPRequired());
 
         var jwt = user.GenerateJwtToken(_config);
 
@@ -85,7 +86,7 @@ public class AuthController : ControllerBase
 
         if (string.IsNullOrEmpty(user.TwoFactorSecret)) return Ok(UserAuthResponse.Error("OTP not required."));
 
-        var totp = new Totp(Encoding.Default.GetBytes(user.TwoFactorSecret));
+        var totp = new Totp(Convert.FromBase64String(user.TwoFactorSecret));
 
         long timeWindowUsed;
         if (!totp.VerifyTotp(body.Code, out timeWindowUsed, VerificationWindow.RfcSpecifiedNetworkDelay))
@@ -94,5 +95,46 @@ public class AuthController : ControllerBase
         var jwt = user.GenerateJwtToken(_config);
 
         return Ok(UserAuthResponse.Success(jwt));
+    }
+
+    [HttpPost("setup-otp")]
+    [Authorize(Policy = Policies.User)]
+    public async Task<ActionResult<SetupOTPResponse>> SetupOtp()
+    {
+        var user = (await userManager.GetByStringAsync(User.GetEmail())).Value;
+        if (user == null) return BadRequest(SetupOTPResponse.Error("User account doesn't exist!"));
+
+        if (!string.IsNullOrEmpty(user.TwoFactorSecret) && user.TwoFactorConfirmedAt != null)
+            return BadRequest(SetupOTPResponse.Error("OTP Already enabled!"));
+
+        var secret = KeyGeneration.GenerateRandomKey(2048);
+        var strSecret = Convert.ToBase64String(secret);
+
+        user.TwoFactorSecret = strSecret;
+        await userManager.UpdateAsync(user, user);
+
+        return Ok(SetupOTPResponse.Success(strSecret));
+    }
+
+    [HttpPost("setup-otp/confirmation")]
+    [Authorize(Policy = Policies.User)]
+    public async Task<ActionResult<SetupOTPResponse>> ConfirmOtpSetup([FromBody] ConfirmOTPSetupRequest body)
+    {
+        var user = (await userManager.GetByStringAsync(User.GetEmail())).Value;
+        if (user == null) return BadRequest(SetupOTPResponse.Error("User account doesn't exist!"));
+
+        if (!string.IsNullOrEmpty(user.TwoFactorSecret) && user.TwoFactorConfirmedAt != null)
+            return BadRequest(SetupOTPResponse.Error("OTP Already enabled!"));
+
+        var totp = new Totp(Convert.FromBase64String(user.TwoFactorSecret));
+
+        long timeWindowUsed;
+        if (!totp.VerifyTotp(body.Code, out timeWindowUsed, VerificationWindow.RfcSpecifiedNetworkDelay))
+            return BadRequest(UserAuthResponse.Error("OTP code doesn't match!"));
+
+        user.TwoFactorConfirmedAt = DateTime.Now;
+        await userManager.UpdateAsync(user, user);
+
+        return Ok();
     }
 }
