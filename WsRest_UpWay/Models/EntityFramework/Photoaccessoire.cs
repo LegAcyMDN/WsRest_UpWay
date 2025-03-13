@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_photoaccessoire_pha", Schema = "upways")]
-[Index("Idaccessoire", Name = "idx_photoaccessoire_idaccessoire")]
+[Index(nameof(AccessoireId), Name = "ix_t_e_photoaccessoire_pha_accessoireid")]
 public partial class Photoaccessoire
 {
     [Key]
@@ -20,7 +20,7 @@ public partial class Photoaccessoire
     [Column("pha_url")]
     public byte[]? UrlPhotoAccessoire { get; set; }
 
-    [ForeignKey("Idaccessoire")]
-    [InverseProperty("Photoaccessoires")]
+    [ForeignKey(nameof(AccessoireId))]
+    [InverseProperty(nameof(Accessoire.ListePhotoAccessoires))]
     public virtual Accessoire PhotoAccessoireAccessoire { get; set; } = null!;
 }
