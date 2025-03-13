@@ -38,13 +38,13 @@ public partial class Estrealise
 
     [ForeignKey("Idinspection")]
     [InverseProperty("Estrealises")]
-    public virtual Rapportinspection IdinspectionNavigation { get; set; } = null!;
+    public virtual Rapportinspection EstRealiseRapportInspection { get; set; } = null!;
 
     [ForeignKey("Idreparation")]
     [InverseProperty("Estrealises")]
-    public virtual Reparationvelo IdreparationNavigation { get; set; } = null!;
+    public virtual Reparationvelo EstRealiseReparationVelo { get; set; } = null!;
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Estrealises")]
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo EstRealiseVelo { get; set; } = null!;
 }

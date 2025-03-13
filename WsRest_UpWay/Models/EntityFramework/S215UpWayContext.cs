@@ -418,7 +418,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_visualise_comptecl");
 
-            entity.HasOne(d => d.DetailCommandeEtat).WithMany(p => p.Detailcommandes)
+            entity.HasOne(d => d.DetailCommandeEtat).WithMany(p => p.ListeDetailCommandes)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_detailco_indiquer_etatcomm");
 
@@ -444,15 +444,15 @@ public partial class S215UpWayContext : DbContext
 
             entity.Property(e => e.DateInspection).IsFixedLength();
 
-            entity.HasOne(d => d.IdinspectionNavigation).WithMany(p => p.Estrealises)
+            entity.HasOne(d => d.EstRealiseRapportInspection).WithMany(p => p.Estrealises)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_rapporti");
 
-            entity.HasOne(d => d.IdreparationNavigation).WithMany(p => p.Estrealises)
+            entity.HasOne(d => d.EstRealiseReparationVelo).WithMany(p => p.Estrealises)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_reparati");
 
-            entity.HasOne(d => d.IdveloNavigation).WithMany(p => p.Estrealises)
+            entity.HasOne(d => d.EstRealiseVelo).WithMany(p => p.Estrealises)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_estreali_estrealis_velo");
         });

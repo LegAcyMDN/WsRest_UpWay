@@ -18,5 +18,5 @@ public partial class Etatcommande
     public string? LibelleEtat { get; set; }
 
     [InverseProperty("IdetatcommandeNavigation")]
-    public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();
+    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
 }
