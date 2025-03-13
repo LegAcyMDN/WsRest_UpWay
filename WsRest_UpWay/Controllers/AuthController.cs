@@ -79,7 +79,7 @@ public class AuthController : ControllerBase
         var user = (await userManager.GetByStringAsync(body.Login)).Value;
         if (user == null) return BadRequest(UserAuthResponse.Error("Email Does not exist!"));
 
-        var res = passwordHasher.VerifyHashedPassword(user, user.Motdepasseclient, body.Password);
+        var res = passwordHasher.VerifyHashedPassword(user, user.MotDePasseClient, body.Password);
 
         if (res != PasswordVerificationResult.Success) return BadRequest(UserAuthResponse.Error("Wrong password!"));
 
