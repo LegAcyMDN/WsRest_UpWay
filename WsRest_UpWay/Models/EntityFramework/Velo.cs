@@ -67,7 +67,7 @@ public partial class Velo
 
     [Column("vel_quantite")]
     [Precision(3, 0)]
-    public decimal? QuantiteVelo { get; set; }
+    public int? QuantiteVelo { get; set; }
 
     [Column("vel_positionmoteur")]
     [StringLength(20)]
@@ -77,52 +77,52 @@ public partial class Velo
     [StringLength(10)]
     public string? CapaciteBatterie { get; set; }
 
-    [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Alertevelo> Alertevelos { get; set; } = new List<Alertevelo>();
-
-    [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Estrealise> Estrealises { get; set; } = new List<Estrealise>();
-
     [ForeignKey("Idcaracteristiquevelo")]
     [InverseProperty("Velos")]
-    public virtual Caracteristiquevelo? IdcaracteristiqueveloNavigation { get; set; }
+    public virtual Caracteristiquevelo? VeloCaracteristiqueVelo { get; set; }
 
     [ForeignKey("Idcategorie")]
     [InverseProperty("Velos")]
-    public virtual Categorie IdcategorieNavigation { get; set; } = null!;
+    public virtual Categorie VeloCategorie { get; set; } = null!;
 
     [ForeignKey("Idmarque")]
     [InverseProperty("Velos")]
-    public virtual Marque? IdmarqueNavigation { get; set; }
+    public virtual Marque? VeloMarque { get; set; }
 
     [ForeignKey("Idmoteur")]
     [InverseProperty("Velos")]
-    public virtual Moteur? IdmoteurNavigation { get; set; }
+    public virtual Moteur? VeloMoteur { get; set; }
 
     [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Lignepanier> Lignepaniers { get; set; } = new List<Lignepanier>();
+    public virtual ICollection<Alertevelo> ListeAlerteVelos { get; set; } = new List<Alertevelo>();
 
     [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Mentionvelo> Mentionvelos { get; set; } = new List<Mentionvelo>();
+    public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
 
     [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Photovelo> Photovelos { get; set; } = new List<Photovelo>();
+    public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
 
     [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Testvelo> Testvelos { get; set; } = new List<Testvelo>();
+    public virtual ICollection<Mentionvelo> ListeMentionVelos { get; set; } = new List<Mentionvelo>();
 
     [InverseProperty("IdveloNavigation")]
-    public virtual ICollection<Utilite> Utilites { get; set; } = new List<Utilite>();
+    public virtual ICollection<Photovelo> ListePhotoVelos { get; set; } = new List<Photovelo>();
+
+    [InverseProperty("IdveloNavigation")]
+    public virtual ICollection<Testvelo> ListeTestVelos { get; set; } = new List<Testvelo>();
+
+    [InverseProperty("IdveloNavigation")]
+    public virtual ICollection<Utilite> ListeUtilites { get; set; } = new List<Utilite>();
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Idvelos")]
-    public virtual ICollection<Accessoire> Idaccessoires { get; set; } = new List<Accessoire>();
+    public virtual ICollection<Accessoire> ListeAccessoires { get; set; } = new List<Accessoire>();
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Idvelos")]
-    public virtual ICollection<Caracteristique> Idcaracteristiques { get; set; } = new List<Caracteristique>();
+    public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Idvelos")]
-    public virtual ICollection<Magasin> Idmagasins { get; set; } = new List<Magasin>();
+    public virtual ICollection<Magasin> ListeMagasins { get; set; } = new List<Magasin>();
 }

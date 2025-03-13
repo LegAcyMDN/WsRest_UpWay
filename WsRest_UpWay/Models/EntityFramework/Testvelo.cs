@@ -21,17 +21,17 @@ public partial class Testvelo
     [Column("mag_id")]
     public int MagasinId { get; set; }
 
-    [Column("tev_date")]
-    public DateOnly? DateTest { get; set; }
+    [Column("tev_date", TypeName = "date")]
+    public DateTime? DateTest { get; set; }
 
-    [Column("tev_heure")]
+    [Column("tev_heure", TypeName = "heure")]
     public TimeOnly? HeureTest { get; set; }
 
     [ForeignKey("Idmagasin")]
     [InverseProperty("Testvelos")]
-    public virtual Magasin IdmagasinNavigation { get; set; } = null!;
+    public virtual Magasin TestVeloMagasin { get; set; } = null!;
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Testvelos")]
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo TestVeloVelo { get; set; } = null!;
 }

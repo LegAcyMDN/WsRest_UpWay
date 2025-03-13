@@ -52,20 +52,20 @@ public partial class Velomodifier
     [StringLength(15)]
     public string? NombreKms { get; set; }
 
-    [Column("vlm_prixremise")]
-    [Precision(5, 0)]
+    [Column("vlm_prixremise", TypeName = "numeric(5, 2")]
+    [Precision(5, 2)]
     public decimal? PrixRemise { get; set; }
 
-    [Column("vlm_prixneuf")]
-    [Precision(5, 0)]
+    [Column("vlm_prixneuf", TypeName = "numeric(5, 2")]
+    [Precision(5, 2)]
     public decimal? PrixNeuf { get; set; }
 
-    [Column("vlm_pourcentagereduction")]
+    [Column("vlm_pourcentagereduction", TypeName = "numeric(3, 0)")]
     [Precision(3, 0)]
     public decimal? PourcentageReduction { get; set; }
 
-    [Column("vlm_descriptif")]
-    [StringLength(5000)]
+    [Column("vlm_descriptif", TypeName = "text")]
+    [StringLength(4096)]
     public string? DescriptifVelo { get; set; }
 
     [Column("vlm_quantite")]
@@ -80,8 +80,8 @@ public partial class Velomodifier
     [StringLength(10)]
     public string? CapaciteBatterie { get; set; }
 
-    [Column("vlm_ancienprix")]
-    [Precision(5, 0)]
+    [Column("vlm_ancienprix", TypeName = "numeric(5, 2)")]
+    [Precision(5, 2)]
     public decimal? AncienPrix { get; set; }
 
     [Column("modifier", TypeName = "date")]
@@ -89,17 +89,17 @@ public partial class Velomodifier
 
     [ForeignKey("Idcaracteristiquevelo")]
     [InverseProperty("Velomodifiers")]
-    public virtual Caracteristiquevelo? IdcaracteristiqueveloNavigation { get; set; }
+    public virtual Caracteristiquevelo? VeloModifCaracteristiqueVelo { get; set; }
 
     [ForeignKey("Idcategorie")]
     [InverseProperty("Velomodifiers")]
-    public virtual Categorie IdcategorieNavigation { get; set; } = null!;
+    public virtual Categorie VeloModifierCategorie { get; set; } = null!;
 
     [ForeignKey("Idmarque")]
     [InverseProperty("Velomodifiers")]
-    public virtual Marque? IdmarqueNavigation { get; set; }
+    public virtual Marque? VeloModifierMarque { get; set; }
 
     [ForeignKey("Idmoteur")]
     [InverseProperty("Velomodifiers")]
-    public virtual Moteur? IdmoteurNavigation { get; set; }
+    public virtual Moteur? VeloModifierMoteur { get; set; }
 }

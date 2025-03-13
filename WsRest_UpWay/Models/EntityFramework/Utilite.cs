@@ -24,5 +24,5 @@ public partial class Utilite
 
     [ForeignKey("Idvelo")]
     [InverseProperty("Utilites")]
-    public virtual Velo IdveloNavigation { get; set; } = null!;
+    public virtual Velo UtiliteVelo { get; set; } = null!;
 }
