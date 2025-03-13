@@ -79,8 +79,8 @@ public partial class Caracteristiquevelo
     public bool? SelleTelescopique { get; set; }
 
     [InverseProperty("IdcaracteristiqueveloNavigation")]
-    public virtual ICollection<Velomodifier> Velomodifiers { get; set; } = new List<Velomodifier>();
+    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
     [InverseProperty("IdcaracteristiqueveloNavigation")]
-    public virtual ICollection<Velo> Velos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

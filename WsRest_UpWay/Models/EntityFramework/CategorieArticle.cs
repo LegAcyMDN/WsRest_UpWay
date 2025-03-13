@@ -26,13 +26,13 @@ public partial class CategorieArticle
     public string? ImageCategorie { get; set; }
 
     [InverseProperty("IdcategorieArticleNavigation")]
-    public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
+    public virtual ICollection<Article> ListeArticles { get; set; } = new List<Article>();
 
     [ForeignKey("IdcategorieArticle")]
     [InverseProperty("IdcategorieArticles")]
-    public virtual ICollection<CategorieArticle> CatIdcategorieArticles { get; set; } = new List<CategorieArticle>();
+    public virtual ICollection<CategorieArticle> ListeSousCategorieArticles { get; set; } = new List<CategorieArticle>();
 
     [ForeignKey("CatIdcategorieArticle")]
     [InverseProperty("CatIdcategorieArticles")]
-    public virtual ICollection<CategorieArticle> IdcategorieArticles { get; set; } = new List<CategorieArticle>();
+    public virtual ICollection<CategorieArticle> ListeCategorieArticles { get; set; } = new List<CategorieArticle>();
 }

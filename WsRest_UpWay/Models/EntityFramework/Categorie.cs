@@ -19,15 +19,15 @@ public partial class Categorie
     public string? LibelleCategorie { get; set; }
 
     [InverseProperty("IdcategorieNavigation")]
-    public virtual ICollection<Accessoire> Accessoires { get; set; } = new List<Accessoire>();
+    public virtual ICollection<Accessoire> ListeAccessoires { get; set; } = new List<Accessoire>();
 
     [InverseProperty("IdcategorieNavigation")]
-    public virtual ICollection<Velomodifier> Velomodifiers { get; set; } = new List<Velomodifier>();
+    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
 
     [InverseProperty("IdcategorieNavigation")]
-    public virtual ICollection<Velo> Velos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 
     [ForeignKey("Idcategorie")]
     [InverseProperty("Idcategories")]
-    public virtual ICollection<Caracteristique> Idcaracteristiques { get; set; } = new List<Caracteristique>();
+    public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
 }

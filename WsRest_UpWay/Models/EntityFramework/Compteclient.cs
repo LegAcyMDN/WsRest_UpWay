@@ -63,19 +63,19 @@ public partial class Compteclient
 
     [Column("coc_is_from_google")]
     public bool? IsFromGoogle { get; set; }
+    
+    [InverseProperty("IdclientNavigation")]
+    public virtual ICollection<Adresseexpedition> ListeAdresseExpe { get; set; } = new List<Adresseexpedition>();
 
     [InverseProperty("IdclientNavigation")]
-    public virtual ICollection<Adresseexpedition> Adresseexpeditions { get; set; } = new List<Adresseexpedition>();
+    public virtual ICollection<Adressefacturation> ListeAdresseFact { get; set; } = new List<Adressefacturation>();
 
     [InverseProperty("IdclientNavigation")]
-    public virtual ICollection<Adressefacturation> Adressefacturations { get; set; } = new List<Adressefacturation>();
+    public virtual ICollection<Alertevelo> ListeAlerteVelos { get; set; } = new List<Alertevelo>();
 
     [InverseProperty("IdclientNavigation")]
-    public virtual ICollection<Alertevelo> Alertevelos { get; set; } = new List<Alertevelo>();
+    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
 
     [InverseProperty("IdclientNavigation")]
-    public virtual ICollection<Detailcommande> Detailcommandes { get; set; } = new List<Detailcommande>();
-
-    [InverseProperty("IdclientNavigation")]
-    public virtual ICollection<Panier> Paniers { get; set; } = new List<Panier>();
+    public virtual ICollection<Panier> ListePaniers { get; set; } = new List<Panier>();
 }

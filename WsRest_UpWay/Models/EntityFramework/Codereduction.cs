@@ -21,5 +21,5 @@ public partial class Codereduction
     public int? Reduction { get; set; }
 
     [InverseProperty("IdreductionNavigation")]
-    public virtual ICollection<Information> Information { get; set; } = new List<Information>();
+    public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }

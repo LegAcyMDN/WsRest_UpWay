@@ -23,17 +23,17 @@ public partial class Caracteristique
 
     [ForeignKey("Idcaracteristique")]
     [InverseProperty("Idcaracteristiques")]
-    public virtual ICollection<Caracteristique> CarIdcaracteristiques { get; set; } = new List<Caracteristique>();
+    public virtual ICollection<Caracteristique> ListeSousCaracteristiques { get; set; } = new List<Caracteristique>();
 
     [ForeignKey("CarIdcaracteristique")]
     [InverseProperty("CarIdcaracteristiques")]
-    public virtual ICollection<Caracteristique> Idcaracteristiques { get; set; } = new List<Caracteristique>();
+    public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
 
     [ForeignKey("Idcaracteristique")]
     [InverseProperty("Idcaracteristiques")]
-    public virtual ICollection<Categorie> Idcategories { get; set; } = new List<Categorie>();
+    public virtual ICollection<Categorie> ListeCategories { get; set; } = new List<Categorie>();
 
     [ForeignKey("Idcaracteristique")]
     [InverseProperty("Idcaracteristiques")]
-    public virtual ICollection<Velo> Idvelos { get; set; } = new List<Velo>();
+    public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
 }

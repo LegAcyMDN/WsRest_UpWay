@@ -29,5 +29,5 @@ public partial class ContenuArticle
 
     [ForeignKey("Idarticle")]
     [InverseProperty("ContenuArticles")]
-    public virtual Article IdarticleNavigation { get; set; } = null!;
+    public virtual Article ContenuArticleArt { get; set; } = null!;
 }
