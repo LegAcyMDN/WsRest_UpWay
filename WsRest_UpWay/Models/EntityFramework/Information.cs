@@ -19,7 +19,7 @@ public partial class Information
 
     [Column("red_id")]
     [StringLength(20)]
-    public string? reductionid { get; set; }
+    public string? ReductionId { get; set; }
 
     [Column("retmag_id")]
     public int? RetraitMagasinId { get; set; }
