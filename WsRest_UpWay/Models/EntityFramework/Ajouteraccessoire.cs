@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[PrimaryKey("Idaccessoire", "Idpanier")]
+[PrimaryKey(nameof(AccessoireId), nameof(PanierId))]
 [Table("t_j_ajouteraccessoire_aja", Schema = "upways")]
-[Index("Idaccessoire", Name = "idx_ajouteracessoire_idaccessoire")]
-[Index("Idpanier", Name = "idx_ajouteracessoire_idpanier")]
+[Index(nameof(AccessoireId), Name = "ix_t_e_ajouteracessoire_aja_accessoireid")]
+[Index(nameof(PanierId), Name = "ix_t_e_ajouteracessoire_aja_panierid")]
 public partial class Ajouteraccessoire
 {
     [Key]
@@ -24,11 +24,11 @@ public partial class Ajouteraccessoire
     [Precision(2, 0)]
     public int? QuantiteAccessoire { get; set; }
 
-    [ForeignKey("Idaccessoire")]
-    [InverseProperty("Ajouteraccessoires")]
+    [ForeignKey(nameof(AccessoireId))]
+    [InverseProperty(nameof(Accessoire.ListeAjoutAccessoires))]
     public virtual Accessoire AjoutDAccessoire { get; set; } = null!;
 
-    [ForeignKey("Idpanier")]
-    [InverseProperty("Ajouteraccessoires")]
+    [ForeignKey(nameof(PanierId))]
+    [InverseProperty(nameof(Panier.ListeAjouterAccessoires))]
     public virtual Panier AjoutDAccessoirePanier { get; set; } = null!;
 }
