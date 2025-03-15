@@ -19,6 +19,6 @@ public partial class Reparationvelo
     [Column("rev_checkValidation")]
     public bool? CheckValidation { get; set; }
 
-    [InverseProperty("IdreparationNavigation")]
+    [InverseProperty(nameof(Estrealise.EstRealiseReparationVelo))]
     public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
 }

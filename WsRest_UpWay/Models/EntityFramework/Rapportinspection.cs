@@ -25,6 +25,6 @@ public partial class Rapportinspection
     [StringLength(200)]
     public string? PointDInspection { get; set; }
 
-    [InverseProperty("IdinspectionNavigation")]
+    [InverseProperty(nameof(Estrealise.EstRealiseRapportInspection))]
     public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
 }
