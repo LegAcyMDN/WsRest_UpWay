@@ -52,6 +52,12 @@ public class AuthController : ControllerBase
         return Ok(UserAuthResponse.Success(jwt));
     }
 
+    [HttpPost("confirm-email")]
+    public async Task<ActionResult<UserAuthResponse>> ConfirmEmail()
+    {
+        return Ok();
+    }
+
     [HttpPost("login")]
     [AllowAnonymous]
     // Login
@@ -123,7 +129,11 @@ public class AuthController : ControllerBase
         var user = (await userManager.GetByStringAsync(User.GetEmail())).Value;
         if (user == null) return BadRequest(SetupOTPResponse.Error("User account doesn't exist!"));
 
-        if (!string.IsNullOrEmpty(user.TwoFactorSecret) && user.TwoFactorConfirmedAt != null)
+
+        if (string.IsNullOrEmpty(user.TwoFactorSecret))
+            return BadRequest(SetupOTPResponse.Error("OTP setup not started."));
+
+        if (user.TwoFactorConfirmedAt != null)
             return BadRequest(SetupOTPResponse.Error("OTP Already enabled!"));
 
         var totp = new Totp(Convert.FromBase64String(user.TwoFactorSecret));
