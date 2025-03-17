@@ -50,7 +50,7 @@ public partial class Velo
 
     [Column("vel_annee")]
     [Precision(4, 0)]
-    public decimal? AnneeVelo { get; set; }
+    public int? AnneeVelo { get; set; }
 
     [Column("vel_taillemin")]
     [StringLength(15)]

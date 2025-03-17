@@ -25,6 +25,7 @@ public partial class Testvelo
     public int MagasinId { get; set; }
 
     [Column("tev_date", TypeName = "date")]
+    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit être au format français")]
     public DateTime? DateTest { get; set; }
 
     [Column("tev_heure", TypeName = "heure")]
