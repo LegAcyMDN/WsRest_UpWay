@@ -40,7 +40,7 @@ public partial class Adressefacturation
     public string? RueFacturation { get; set; }
 
     [Column("adf_cp", TypeName = "char(5)")]
-    [StringLength(5)]
+    [StringLength(5, ErrorMessage = "Le code postal doit être composé de 5 chiffres.")]
     public string? CPFacturation { get; set; }
 
     [Column("adf_region")]
@@ -52,7 +52,7 @@ public partial class Adressefacturation
     public string? VilleFacturation { get; set; }
 
     [Column("adf_telephone", TypeName = "char(10)")]
-    [StringLength(10)]
+    [StringLength(10, ErrorMessage = "Le code postal doit être composé de 10 chiffres.")]
     public string? TelephoneFacturation { get; set; }
 
     [ForeignKey(nameof(AdresseExpId))]

@@ -40,7 +40,7 @@ public partial class Adresseexpedition
     public string? RueExpedition { get; set; }
 
     [Column("ade_cp", TypeName = "char(5)")]
-    [StringLength(5)]
+    [StringLength(5, ErrorMessage = "Le code postal doit être composé de 5 chiffres.")]
     public string? CPExpedition { get; set; }
 
     [Column("ade_region")]
@@ -52,8 +52,7 @@ public partial class Adresseexpedition
     public string? VilleExpedition { get; set; }
 
     [Column("ade_telephone", TypeName = "char(10)")]
-    [StringLength(10)]
-    [RegularExpression(@"^0[0-9]{9}$", ErrorMessage = "Le mobile doit contenir 10 chiffres")]
+    [StringLength(10, ErrorMessage = "Le code postal doit être composé de 10 chiffres.")]
     public string? TelephoneExpedition { get; set; }
 
     [Column("ade_donneessauv")]
