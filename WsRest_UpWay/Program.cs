@@ -1,4 +1,5 @@
 using System.Text;
+using Braintree;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -6,6 +7,7 @@ using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
+using Environment = Braintree.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IDataRepository<Compteclient>, UserManager>();
+
+builder.Services.AddSingleton(new BraintreeGateway
+{
+    Environment = Environment.ParseEnvironment(builder.Configuration["BRAINTREE_ENV"]),
+    MerchantId = builder.Configuration["BRAINTREE_MERCHANT_ID"],
+    PublicKey = builder.Configuration["BRAINTREE_PUBLIC_KEY"],
+    PrivateKey = builder.Configuration["BRAINTREE_PRIVATE_KEY"]
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -13,4 +13,12 @@ public static class UserHelper
 
         return null;
     }
+
+    public static int GetId(this ClaimsPrincipal principal)
+    {
+        var userIdClaim = principal.FindFirst(c => c.Type == JwtRegisteredClaimNames.Sid);
+        if (userIdClaim != null && !string.IsNullOrEmpty(userIdClaim.Value)) return int.Parse(userIdClaim.Value);
+
+        return -1;
+    }
 }
