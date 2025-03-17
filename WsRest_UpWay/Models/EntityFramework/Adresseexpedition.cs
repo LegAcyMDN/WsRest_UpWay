@@ -53,6 +53,7 @@ public partial class Adresseexpedition
 
     [Column("ade_telephone", TypeName = "char(10)")]
     [StringLength(10)]
+    [RegularExpression(@"^0[0-9]{9}$", ErrorMessage = "Le mobile doit contenir 10 chiffres")]
     public string? TelephoneExpedition { get; set; }
 
     [Column("ade_donneessauv")]

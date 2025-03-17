@@ -34,6 +34,7 @@ public partial class Magasin
 
     [Column("mag_cp", TypeName = "char(5)")]
     [StringLength(5)]
+    [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "Le code postal doit contenir 5 chiffres")]
     public string? CPMagasin { get; set; }
 
     [Column("mag_ville")]
