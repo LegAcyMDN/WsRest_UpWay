@@ -51,6 +51,6 @@ public partial class RetraitMagasin
     [InverseProperty(nameof(DetailCommande.DetailComRetraitMagasin))]
     public virtual ICollection<DetailCommande> ListeDetailCommandes { get; set; } = new List<DetailCommande>();
 
-    [InverseProperty(nameof(Information.InformationRetraitMagasin)]
+    [InverseProperty(nameof(Information.InformationRetraitMagasin))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }
