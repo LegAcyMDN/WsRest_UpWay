@@ -28,5 +28,5 @@ public partial class Marquagevelo
 
     [ForeignKey(nameof(VeloId) + "," + nameof(PanierId))]
     [InverseProperty(nameof(Lignepanier.ListeMarquageVelos))]
-    public ICollection<Marquagevelo> MarquageVeloLignePanier { get; set; } = new List<Marquagevelo>();
+    public virtual Lignepanier MarquageVeloLignePanier { get; set; } = null!;
 }
