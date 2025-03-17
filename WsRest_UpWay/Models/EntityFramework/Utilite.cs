@@ -8,7 +8,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 
 [PrimaryKey("Idutilite", "Idvelo")]
 [Table("t_j_utilite_uti", Schema = "upways")]
-[Index(nameof(VeloId), Name = "idx_utilite_idvelo")]
+[Index(nameof(VeloId), Name = "ix_t_e_utilite_uti_veloid")]
 public partial class Utilite
 {
     [Key]

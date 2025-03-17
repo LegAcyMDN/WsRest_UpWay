@@ -38,7 +38,7 @@ public partial class Accessoire
     [Precision(4, 2)]
     public decimal? PrixAccessoire { get; set; }
 
-    [Column("acs_description")]
+    [Column("acs_description", TypeName = "text")]
     [StringLength(4096)]
     public string? DescriptionAccessoire { get; set; }
 

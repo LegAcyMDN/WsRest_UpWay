@@ -26,6 +26,7 @@ public partial class Magasin
 
     [Column("mag_horaire")]
     [StringLength(200)]
+
     public string? HoraireMagasin { get; set; }
 
     [Column("mag_rue")]

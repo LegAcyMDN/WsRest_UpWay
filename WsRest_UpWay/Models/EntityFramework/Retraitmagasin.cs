@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_retraitmagasin_rem", Schema = "upways")]
-[Index(nameof(CommandeId), Name = "idx_retraitmagasin_idcommande")]
-[Index(nameof(InformationId), Name = "idx_retraitmagasin_idinformations")]
-[Index(nameof(MagasinId), Name = "idx_retraitmagasin_idmagasin")]
+[Index(nameof(CommandeId), Name = "ix_t_e_retraitmagasin_rem_commandeid")]
+[Index(nameof(InformationId), Name = "ix_t_e_retraitmagasin_rem_informationid")]
+[Index(nameof(MagasinId), Name = "ix_t_e_retraitmagasin_rem_magasinid")]
 public partial class Retraitmagasin
 {
     public Retraitmagasin()

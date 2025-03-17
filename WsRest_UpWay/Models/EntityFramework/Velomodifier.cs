@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_velomodofier_vlm", Schema = "upways")]
-[Index(nameof(CaracteristiqueVeloId), Name = "idx_velomodifier_idcaracteristiquevelomodifier")]
-[Index(nameof(CategorieId), Name = "idx_velomodifier_idcategorie")]
-[Index(nameof(MarqueId), Name = "idx_velomodifier_idmarque")]
-[Index(nameof(MoteurId), Name = "idx_velomodifier_idmoteur")]
+[Index(nameof(CaracteristiqueVeloId), Name = "ix_t_e_velomodifier_vlm_caracteristiqueveloid")]
+[Index(nameof(CategorieId), Name = "ix_t_e_velomodifier_vlm_categorieid")]
+[Index(nameof(MarqueId), Name = "ix_t_e_velomodifier_vlm_marqueid")]
+[Index(nameof(MoteurId), Name = "ix_t_e_velomodifier_vlm_moteurid")]
 public partial class Velomodifier
 {
     [Key]
