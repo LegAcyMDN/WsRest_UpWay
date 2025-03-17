@@ -37,7 +37,7 @@ public partial class RetraitMagasin
     public TimeOnly? HeureRetrait { get; set; }
 
     [ForeignKey(nameof(CommandeId))]
-    [InverseProperty(nameof(DetailCommande.RetraitMagasinId))]
+    [InverseProperty(nameof(DetailCommande.ListeRetraitMagasins))]
     public virtual DetailCommande? RetraitMagasinDetailCom { get; set; }
 
     [ForeignKey(nameof(InformationId))]
