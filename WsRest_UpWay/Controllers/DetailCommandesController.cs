@@ -9,15 +9,15 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class DetailCommandesController : ControllerBase
     {
-        private readonly IDataRepository<Detailcommande> dataRepository;
+        private readonly IDataRepository<DetailCommande> dataRepository;
 
-        public DetailCommandesController(IDataRepository<Detailcommande> dataRepo)
+        public DetailCommandesController(IDataRepository<DetailCommande> dataRepo)
         {
             dataRepository = dataRepo;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Detailcommande>>> GetDetailCommandes()
+        public async Task<ActionResult<IEnumerable<DetailCommande>>> GetDetailCommandes()
         {
             return await dataRepository.GetAllAsync();
         }
@@ -27,7 +27,7 @@ namespace WsRest_UpWay.Controllers
         [ActionName("GetById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Detailcommande>> GetDetailCommande(int id)
+        public async Task<ActionResult<DetailCommande>> GetDetailCommande(int id)
         {
             var commande = await dataRepository.GetByIdAsync(id);
 
@@ -42,7 +42,7 @@ namespace WsRest_UpWay.Controllers
         [ActionName("GetByMode")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Detailcommande>> GetDetailCommandeByModeLivraison(string mode)
+        public async Task<ActionResult<DetailCommande>> GetDetailCommandeByModeLivraison(string mode)
         {
             var commande = await dataRepository.GetByStringAsync(mode);
             if (commande == null)
@@ -55,7 +55,7 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutDetailCommande(int id, Detailcommande detailCommande)
+        public async Task<IActionResult> PutDetailCommande(int id, DetailCommande detailCommande)
         {
             if (id != detailCommande.CommandeId)
                 return BadRequest();
@@ -74,7 +74,7 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Detailcommande>> PostDetailCommande(Detailcommande detailCommande)
+        public async Task<ActionResult<DetailCommande>> PostDetailCommande(DetailCommande detailCommande)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

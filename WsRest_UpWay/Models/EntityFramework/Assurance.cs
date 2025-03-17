@@ -11,7 +11,7 @@ public partial class Assurance
 {
     public Assurance()
     {
-        ListeLignePaniers = new HashSet<Lignepanier>();
+        ListeLignePaniers = new HashSet<LignePanier>();
     }
 
     [Key]
@@ -27,9 +27,8 @@ public partial class Assurance
     public string? DescriptionAssurance { get; set; }
 
     [Column("ass_prix", TypeName = "numeric(4, 2)")]
-    [Precision(4, 2)]
     public decimal? PrixAssurance { get; set; }
 
-    [InverseProperty(nameof(Lignepanier.LignePanierAssurance))]
-    public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
+    [InverseProperty(nameof(LignePanier.LignePanierAssurance))]
+    public virtual ICollection<LignePanier> ListeLignePaniers { get; set; } = new List<LignePanier>();
 }

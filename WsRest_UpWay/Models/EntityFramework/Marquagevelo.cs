@@ -9,7 +9,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_marquage_velo_mal", Schema = "upways")]
 [Index(nameof(CodeMarquage), Name = "codemarquage_unq", IsUnique = true)]
 [Index(nameof(PanierId), nameof(VeloId), Name = "ix_t_e_marquagevelo_idpanier_idvelo")]
-public partial class Marquagevelo
+public partial class MarquageVelo
 {
     [Key]
     [Column("mal_code")]
@@ -27,6 +27,6 @@ public partial class Marquagevelo
     public decimal? PrixMarquage { get; set; }
 
     [ForeignKey(nameof(VeloId) + "," + nameof(PanierId))]
-    [InverseProperty(nameof(Lignepanier.ListeMarquageVelos))]
-    public virtual Lignepanier MarquageVeloLignePanier { get; set; } = null!;
+    [InverseProperty(nameof(LignePanier.ListeMarquageVelos))]
+    public virtual LignePanier MarquageVeloLignePanier { get; set; } = null!;
 }

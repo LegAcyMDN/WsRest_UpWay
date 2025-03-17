@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_rapportinspection_ras", Schema = "upways")]
-public partial class Rapportinspection
+public partial class RapportInspection
 {
     [Key]
     [Column("ras_id")]
@@ -25,6 +25,6 @@ public partial class Rapportinspection
     [StringLength(200)]
     public string? PointDInspection { get; set; }
 
-    [InverseProperty(nameof(Estrealise.EstRealiseRapportInspection))]
-    public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
+    [InverseProperty(nameof(EstRealise.EstRealiseRapportInspection))]
+    public virtual ICollection<EstRealise> ListeEstRealises { get; set; } = new List<EstRealise>();
 }

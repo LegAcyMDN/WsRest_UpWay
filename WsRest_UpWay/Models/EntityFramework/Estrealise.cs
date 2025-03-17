@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[PrimaryKey("Idvelo", "Idinspection", "Idreparation")]
+[PrimaryKey(nameof(VeloId), nameof(InspectionId), nameof(ReparationId))]
 [Table("t_j_estrealise_esr", Schema = "upways")]
-[Index("Idinspection", Name = "idx_estrealise_idinspection")]
-[Index("Idreparation", Name = "idx_estrealise_idreparation")]
-[Index("Idvelo", Name = "idx_estrealise_idvelo")]
-public partial class Estrealise
+[Index(nameof(InspectionId), Name = "ix_t_j_estrealise_esr_inspectionid")]
+[Index(nameof(ReparationId), Name = "ix_t_j_estrealise_esr_reparationid")]
+[Index(nameof(VeloId), Name = "ix_t_j_estrealise_esr_veloid")]
+public partial class EstRealise
 {
     [Key]
     [Column("esr_id")]
@@ -38,12 +38,12 @@ public partial class Estrealise
     public string? HistoriqueInspection { get; set; }
 
     [ForeignKey(nameof(InspectionId))]
-    [InverseProperty(nameof(Rapportinspection.ListeEstRealises))]
-    public virtual Rapportinspection EstRealiseRapportInspection { get; set; } = null!;
+    [InverseProperty(nameof(RapportInspection.ListeEstRealises))]
+    public virtual RapportInspection EstRealiseRapportInspection { get; set; } = null!;
 
     [ForeignKey(nameof(ReparationId))]
-    [InverseProperty(nameof(Reparationvelo.ListeEstRealises))]
-    public virtual Reparationvelo EstRealiseReparationVelo { get; set; } = null!;
+    [InverseProperty(nameof(ReparationVelo.ListeEstRealises))]
+    public virtual ReparationVelo EstRealiseReparationVelo { get; set; } = null!;
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeEstRealises))]

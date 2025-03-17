@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_marque_mar", Schema = "upways")]
-[Index("Nommarque", Name = "nommarque_unq", IsUnique = true)]
+[Index(nameof(NomMarque), Name = "nommarque_unq", IsUnique = true)]
 public partial class Marque
 {
     public Marque()
     {
         ListeAccessoires = new HashSet<Accessoire>();
         ListeMoteurs = new HashSet<Moteur>();
-        ListeVeloModifiers = new HashSet<Velomodifier>();
+        ListeVeloModifiers = new HashSet<VeloModifier>();
         ListeVelos = new HashSet<Velo>();
     }
 
@@ -32,8 +32,8 @@ public partial class Marque
     [InverseProperty(nameof(Moteur.MoteurMarque))]
     public virtual ICollection<Moteur> ListeMoteurs { get; set; } = new List<Moteur>();
 
-    [InverseProperty(nameof(Velomodifier.VeloModifierMarque))]
-    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
+    [InverseProperty(nameof(VeloModifier.VeloModifierMarque))]
+    public virtual ICollection<VeloModifier> ListeVeloModifiers { get; set; } = new List<VeloModifier>();
 
     [InverseProperty(nameof(Velo.VeloMarque))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();

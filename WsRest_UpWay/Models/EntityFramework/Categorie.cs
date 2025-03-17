@@ -13,7 +13,7 @@ public partial class Categorie
     public Categorie()
     {
         ListeAccessoires = new HashSet<Accessoire>();
-        ListeVeloModifiers = new HashSet<Velomodifier>();
+        ListeVeloModifiers = new HashSet<VeloModifier>();
         ListeVelos = new HashSet<Velo>();
         ListeCaracteristiques = new HashSet<Caracteristique>();
     }
@@ -29,8 +29,8 @@ public partial class Categorie
     [InverseProperty(nameof(Accessoire.AccessoireCategorie))]
     public virtual ICollection<Accessoire> ListeAccessoires { get; set; } = new List<Accessoire>();
 
-    [InverseProperty(nameof(Velomodifier.VeloModifierCategorie))]
-    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
+    [InverseProperty(nameof(VeloModifier.VeloModifierCategorie))]
+    public virtual ICollection<VeloModifier> ListeVeloModifiers { get; set; } = new List<VeloModifier>();
 
     [InverseProperty(nameof(Velo.VeloCategorie))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();

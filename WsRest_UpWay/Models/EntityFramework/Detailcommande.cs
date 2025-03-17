@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_detailcommande_detcom", Schema = "upways")]
-[Index("Idadressefact", Name = "idx_detailcommande_idadressefact")]
-[Index("Idclient", Name = "idx_detailcommande_idclient")]
-[Index("Idetatcommande", Name = "idx_detailcommande_idetatcommande")]
-[Index("Idpanier", Name = "idx_detailcommande_idpanier")]
-[Index("Idretraitmagasin", Name = "idx_detailcommande_idretraitmagasin")]
-public partial class Detailcommande
+[Index(nameof(AdresseFactId), Name = "ix_t_e_detailcommande_detcom_adressefactid")]
+[Index(nameof(ClientId), Name = "ix_t_e_detailcommande_detcom_clientid")]
+[Index(nameof(EtatCommandeId), Name = "ix_t_e_detailcommande_detcom_etatcommandeid")]
+[Index(nameof(PanierId), Name = "ix_t_e_detailcommande_detcom_panierid")]
+[Index(nameof(RetraitMagasinId), Name = "ix_t_e_detailcommande_detcom_retraitmagasinid")]
+public partial class DetailCommande
 {
-    public Detailcommande()
+    public DetailCommande()
     {
         ListePaniers = new HashSet<Panier>();
-        ListeRetraitMagasins = new HashSet<Retraitmagasin>();
+        ListeRetraitMagasins = new HashSet<RetraitMagasin>();
     }
 
     [Key]
@@ -48,32 +48,31 @@ public partial class Detailcommande
     public string? ModeExpedition { get; set; }
 
     [Column("detcom_datach", TypeName = "date")]
-    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit étre en format français")]
     public DateTime? DateAchat { get; set; }
 
     [ForeignKey(nameof(AdresseFactId))]
-    [InverseProperty(nameof(Adressefacturation.ListeDetailCommande))]
-    public virtual Adressefacturation? DetailComAdresseFact { get; set; }
+    [InverseProperty(nameof(AdresseFacturation.ListeDetailCommande))]
+    public virtual AdresseFacturation? DetailComAdresseFact { get; set; }
 
     [ForeignKey(nameof(ClientId))]
-    [InverseProperty(nameof(Compteclient.ListeDetailCommandes))]
-    public virtual Compteclient DetailCommandeClient { get; set; } = null!;
+    [InverseProperty(nameof(CompteClient.ListeDetailCommandes))]
+    public virtual CompteClient DetailCommandeClient { get; set; } = null!;
 
     [ForeignKey(nameof(EtatCommandeId))]
-    [InverseProperty(nameof(Etatcommande.ListeDetailCommandes))]
-    public virtual Etatcommande? DetailCommandeEtat { get; set; }
+    [InverseProperty(nameof(EtatCommande.ListeDetailCommandes))]
+    public virtual EtatCommande? DetailCommandeEtat { get; set; }
 
     [ForeignKey(nameof(PanierId))]
     [InverseProperty(nameof(Panier.ListeDetailCommandes))]
     public virtual Panier? DetailCommandePanier { get; set; }
 
     [ForeignKey(nameof(RetraitMagasinId))]
-    [InverseProperty(nameof(Retraitmagasin.ListeDetailCommandes))]
-    public virtual Retraitmagasin? DetailComRetraitMagasin { get; set; }
+    [InverseProperty(nameof(RetraitMagasin.ListeDetailCommandes))]
+    public virtual RetraitMagasin? DetailComRetraitMagasin { get; set; }
 
     [InverseProperty(nameof(Panier.PanierDetailCommande))]
     public virtual ICollection<Panier> ListePaniers { get; set; } = new List<Panier>();
 
-    [InverseProperty(nameof(Retraitmagasin.RetraitMagasinDetailCom))]
-    public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
+    [InverseProperty(nameof(RetraitMagasin.RetraitMagasinDetailCom))]
+    public virtual ICollection<RetraitMagasin> ListeRetraitMagasins { get; set; } = new List<RetraitMagasin>();
 }

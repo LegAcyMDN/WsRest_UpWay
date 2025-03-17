@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_reparationvelo_rev", Schema = "upways")]
-public partial class Reparationvelo
+public partial class ReparationVelo
 {
     [Key]
     [Column("rev_id")]
@@ -19,6 +19,6 @@ public partial class Reparationvelo
     [Column("rev_checkValidation")]
     public bool? CheckValidation { get; set; }
 
-    [InverseProperty(nameof(Estrealise.EstRealiseReparationVelo))]
-    public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
+    [InverseProperty(nameof(EstRealise.EstRealiseReparationVelo))]
+    public virtual ICollection<EstRealise> ListeEstRealises { get; set; } = new List<EstRealise>();
 }

@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class CompteClientManager : IDataRepository<Compteclient>
+    public class CompteClientManager : IDataRepository<CompteClient>
     {
         readonly S215UpWayContext? s215DbContext;
         public CompteClientManager() { }
@@ -13,24 +13,24 @@ namespace WsRest_UpWay.Models.DataManager
         {
             s215DbContext = context;
         }
-        public async Task<ActionResult<IEnumerable<Compteclient>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<CompteClient>>> GetAllAsync()
         {
             return await s215DbContext.Compteclients.ToListAsync();
         }
-        public async Task<ActionResult<Compteclient>> GetByIdAsync(int id)
+        public async Task<ActionResult<CompteClient>> GetByIdAsync(int id)
         {
             return await s215DbContext.Compteclients.FirstOrDefaultAsync(u => u.ClientId == id);
         }
-        public async Task<ActionResult<Compteclient>> GetByStringAsync(string mail)
+        public async Task<ActionResult<CompteClient>> GetByStringAsync(string mail)
         {
             return await s215DbContext.Compteclients.FirstOrDefaultAsync(u => u.EmailClient.ToUpper() == mail.ToUpper());
         }
-        public async Task AddAsync(Compteclient entity)
+        public async Task AddAsync(CompteClient entity)
         {
             s215DbContext.Compteclients.Add(entity);
             s215DbContext.SaveChanges();
         }
-        public async Task UpdateAsync(Compteclient Compteclient, Compteclient entity)
+        public async Task UpdateAsync(CompteClient Compteclient, CompteClient entity)
         {
             s215DbContext.Entry(Compteclient).State = EntityState.Modified;
             Compteclient.ClientId = entity.ClientId;
@@ -48,7 +48,7 @@ namespace WsRest_UpWay.Models.DataManager
             Compteclient.IsFromGoogle = entity.IsFromGoogle;
             s215DbContext.SaveChanges();
         }
-        public async Task DeleteAsync(Compteclient Compteclient)
+        public async Task DeleteAsync(CompteClient Compteclient)
         {
             s215DbContext.Compteclients.Remove(Compteclient);
             s215DbContext.SaveChanges();

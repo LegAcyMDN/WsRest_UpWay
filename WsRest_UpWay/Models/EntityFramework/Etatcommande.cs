@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_etatcommande_etc", Schema = "upways")]
-public partial class Etatcommande
+public partial class EtatCommande
 {
-    public Etatcommande()
+    public EtatCommande()
     {
-        ListeDetailCommandes = new HashSet<Detailcommande>();
+        ListeDetailCommandes = new HashSet<DetailCommande>();
     }
     [Key]
     [Column("etc_id")]
@@ -21,6 +21,6 @@ public partial class Etatcommande
     [StringLength(20)]
     public string? LibelleEtat { get; set; }
 
-    [InverseProperty(nameof(Detailcommande.DetailCommandeEtat))]
-    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
+    [InverseProperty(nameof(DetailCommande.DetailCommandeEtat))]
+    public virtual ICollection<DetailCommande> ListeDetailCommandes { get; set; } = new List<DetailCommande>();
 }

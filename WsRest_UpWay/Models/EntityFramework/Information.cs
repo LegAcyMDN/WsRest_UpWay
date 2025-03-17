@@ -7,15 +7,15 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_informations_inf", Schema = "upways")]
-[Index("Idadresseexp", Name = "idx_informations_idadresseexp")]
-[Index("Idpanier", Name = "idx_informations_idpanier")]
-[Index("Idreduction", Name = "idx_informations_idreduction")]
-[Index("Idretraitmagasin", Name = "idx_informations_idretraitmagasin")]
+[Index(nameof(AdresseExpeId), Name = "ix_t_e_informations_inf_adresseexpeid")]
+[Index(nameof(PanierId), Name = "ix_t_e_informations_inf_panierid")]
+[Index(nameof(ReductionId), Name = "ix_t_e_informations_inf_reductionid")]
+[Index(nameof(RetraitMagasinId), Name = "ix_t_e_informations_inf_retraitmagasinid")]
 public partial class Information
 {
     public Information()
     {
-        ListeRetraitMagasins = new HashSet<Retraitmagasin>();
+        ListeRetraitMagasins = new HashSet<RetraitMagasin>();
     }
 
     [Key]
@@ -55,21 +55,21 @@ public partial class Information
     public string? InformationRue { get; set; }
 
     [ForeignKey(nameof(AdresseExpeId))]
-    [InverseProperty(nameof(Adresseexpedition.ListeInformations))]
-    public virtual Adresseexpedition InformationAdresseExpe { get; set; } = null!;
+    [InverseProperty(nameof(AdresseExpedition.ListeInformations))]
+    public virtual AdresseExpedition InformationAdresseExpe { get; set; } = null!;
 
     [ForeignKey(nameof(PanierId))]
     [InverseProperty(nameof(Panier.ListeInformations))]
     public virtual Panier InformationPanier { get; set; } = null!;
 
     [ForeignKey(nameof(ReductionId))]
-    [InverseProperty(nameof(Codereduction.ListeInformations))]
-    public virtual Codereduction? InformationCodeReduction { get; set; }
+    [InverseProperty(nameof(CodeReduction.ListeInformations))]
+    public virtual CodeReduction? InformationCodeReduction { get; set; }
 
     [ForeignKey(nameof(RetraitMagasinId))]
-    [InverseProperty(nameof(Retraitmagasin.ListeInformations))]
-    public virtual Retraitmagasin? InformationRetraitMagasin { get; set; }
+    [InverseProperty(nameof(RetraitMagasin.ListeInformations))]
+    public virtual RetraitMagasin? InformationRetraitMagasin { get; set; }
 
-    [InverseProperty(nameof(Retraitmagasin.RetraitMagasinInformation))]
-    public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
+    [InverseProperty(nameof(RetraitMagasin.RetraitMagasinInformation))]
+    public virtual ICollection<RetraitMagasin> ListeRetraitMagasins { get; set; } = new List<RetraitMagasin>();
 }

@@ -11,8 +11,8 @@ public partial class Magasin
 {
     public Magasin()
     {
-        ListeTestVelos = new HashSet<Testvelo>();
-        ListeRetraitMagasins = new HashSet<Retraitmagasin>();
+        ListeTestVelos = new HashSet<TestVelo>();
+        ListeRetraitMagasins = new HashSet<RetraitMagasin>();
         ListeVelos = new HashSet<Velo>();
     }
 
@@ -26,7 +26,6 @@ public partial class Magasin
 
     [Column("mag_horaire")]
     [StringLength(200)]
-
     public string? HoraireMagasin { get; set; }
 
     [Column("mag_rue")]
@@ -35,18 +34,17 @@ public partial class Magasin
 
     [Column("mag_cp", TypeName = "char(5)")]
     [StringLength(5)]
-    [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "Le code postal doit contenir 5 chiffres")]
     public string? CPMagasin { get; set; }
 
     [Column("mag_ville")]
     [StringLength(50)]
     public string? VilleMagasin { get; set; }
 
-    [InverseProperty(nameof(Retraitmagasin.RetraitMagasinMagasin))]
-    public virtual ICollection<Retraitmagasin> ListeRetraitMagasins { get; set; } = new List<Retraitmagasin>();
+    [InverseProperty(nameof(RetraitMagasin.RetraitMagasinMagasin))]
+    public virtual ICollection<RetraitMagasin> ListeRetraitMagasins { get; set; } = new List<RetraitMagasin>();
 
-    [InverseProperty(nameof(Testvelo.TestVeloMagasin))]
-    public virtual ICollection<Testvelo> ListeTestVelos { get; set; } = new List<Testvelo>();
+    [InverseProperty(nameof(TestVelo.TestVeloMagasin))]
+    public virtual ICollection<TestVelo> ListeTestVelos { get; set; } = new List<TestVelo>();
 
     [ForeignKey(nameof(MagasinId))]
     [InverseProperty(nameof(Velo.ListeMagasins))]

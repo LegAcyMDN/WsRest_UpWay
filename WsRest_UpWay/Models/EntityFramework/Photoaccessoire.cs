@@ -8,7 +8,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_photoaccessoire_pha", Schema = "upways")]
 [Index(nameof(AccessoireId), Name = "ix_t_e_photoaccessoire_pha_accessoireid")]
-public partial class Photoaccessoire
+public partial class PhotoAccessoire
 {
     [Key]
     [Column("pha_id")]

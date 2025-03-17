@@ -8,7 +8,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_mentionvelo_mev", Schema = "upways")]
 [Index(nameof(VeloId), Name = "ix_t_e_mentionvelo_mev_veloid")]
-public partial class Mentionvelo
+public partial class MentionVelo
 {
     [Key]
     [Column("mev_id")]

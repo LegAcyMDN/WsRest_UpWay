@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
@@ -12,7 +11,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(CategorieId), Name = "ix_t_e_velomodifier_vlm_categorieid")]
 [Index(nameof(MarqueId), Name = "ix_t_e_velomodifier_vlm_marqueid")]
 [Index(nameof(MoteurId), Name = "ix_t_e_velomodifier_vlm_moteurid")]
-public partial class Velomodifier
+public partial class VeloModifier
 {
     [Key]
     [Column("vlm_id")]
@@ -38,8 +37,8 @@ public partial class Velomodifier
     public string? NomVelo { get; set; }
 
     [Column("vlm_annee")]
-    [Precision(2, 0)]
-    public int? AnneeVelo { get; set; }
+    [Precision(4, 0)]
+    public decimal? AnneeVelo { get; set; }
 
     [Column("vlm_taillemin")]
     [StringLength(15)]
@@ -89,8 +88,8 @@ public partial class Velomodifier
     public DateTime? Modifier { get; set; }
 
     [ForeignKey(nameof(CaracteristiqueVeloId))]
-    [InverseProperty(nameof(Caracteristiquevelo.ListeVeloModifiers))]
-    public virtual Caracteristiquevelo? VeloModifCaracteristiqueVelo { get; set; }
+    [InverseProperty(nameof(CaracteristiqueVelo.ListeVeloModifiers))]
+    public virtual CaracteristiqueVelo? VeloModifCaracteristiqueVelo { get; set; }
 
     [ForeignKey(nameof(CategorieId))]
     [InverseProperty(nameof(Categorie.ListeVeloModifiers))]

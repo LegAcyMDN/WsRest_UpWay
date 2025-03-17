@@ -10,7 +10,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_j_ajouteraccessoire_aja", Schema = "upways")]
 [Index(nameof(AccessoireId), Name = "ix_t_e_ajouteracessoire_aja_accessoireid")]
 [Index(nameof(PanierId), Name = "ix_t_e_ajouteracessoire_aja_panierid")]
-public partial class Ajouteraccessoire
+public partial class AjouterAccessoire
 {
     [Key]
     [Column("acs_id")]

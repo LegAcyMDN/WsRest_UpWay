@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_dpo_dpo", Schema = "upways")]
-[Index("Idclient", Name = "idx_dpo_idclient")]
+[Index(nameof(ClientId), Name = "ix_t_e_dpo_dpo_clientid")]
 public partial class Dpo
 {
     [Key]

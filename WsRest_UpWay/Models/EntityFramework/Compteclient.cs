@@ -9,14 +9,14 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_compteclient_coc", Schema = "upways")]
 [Index(nameof(EmailClient), Name = "ix_t_e_compteclient_coc_email_unq", IsUnique = true)]
 [Index(nameof(LoginClient), Name = "ix_t_e_compteclient_coc_pseudo_unq", IsUnique = true)]
-public partial class Compteclient
+public partial class CompteClient
 {
-    public Compteclient()
+    public CompteClient()
     {
-        ListeAdresseExpe = new HashSet<Adresseexpedition>();
-        ListeAdresseFact = new HashSet<Adressefacturation>();
-        ListeAlerteVelos = new HashSet<Alertevelo>();
-        ListeDetailCommandes = new HashSet<Detailcommande>();
+        ListeAdresseExpe = new HashSet<AdresseExpedition>();
+        ListeAdresseFact = new HashSet<AdresseFacturation>();
+        ListeAlerteVelos = new HashSet<AlerteVelo>();
+        ListeDetailCommandes = new HashSet<DetailCommande>();
         ListePaniers = new HashSet<Panier>();
     }
 
@@ -79,17 +79,17 @@ public partial class Compteclient
     [Column("coc_is_from_google")]
     public bool? IsFromGoogle { get; set; }
 
-    [InverseProperty(nameof(Adresseexpedition.AdresseExpeClient))]
-    public virtual ICollection<Adresseexpedition> ListeAdresseExpe { get; set; } = new List<Adresseexpedition>();
+    [InverseProperty(nameof(AdresseExpedition.AdresseExpeClient))]
+    public virtual ICollection<AdresseExpedition> ListeAdresseExpe { get; set; } = new List<AdresseExpedition>();
 
-    [InverseProperty(nameof(Adressefacturation.AdresseFactClient))]
-    public virtual ICollection<Adressefacturation> ListeAdresseFact { get; set; } = new List<Adressefacturation>();
+    [InverseProperty(nameof(AdresseFacturation.AdresseFactClient))]
+    public virtual ICollection<AdresseFacturation> ListeAdresseFact { get; set; } = new List<AdresseFacturation>();
 
-    [InverseProperty(nameof(Alertevelo.AlerteClient))]
-    public virtual ICollection<Alertevelo> ListeAlerteVelos { get; set; } = new List<Alertevelo>();
+    [InverseProperty(nameof(AlerteVelo.AlerteClient))]
+    public virtual ICollection<AlerteVelo> ListeAlerteVelos { get; set; } = new List<AlerteVelo>();
 
-    [InverseProperty(nameof(Detailcommande.DetailCommandeClient))]
-    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
+    [InverseProperty(nameof(DetailCommande.DetailCommandeClient))]
+    public virtual ICollection<DetailCommande> ListeDetailCommandes { get; set; } = new List<DetailCommande>();
 
     [InverseProperty(nameof(Panier.PanierClient))]
     public virtual ICollection<Panier> ListePaniers { get; set; } = new List<Panier>();

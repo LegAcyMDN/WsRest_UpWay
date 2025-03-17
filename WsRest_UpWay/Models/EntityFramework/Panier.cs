@@ -12,10 +12,10 @@ public partial class Panier
 {
     public Panier()
     {
-        ListeAjouterAccessoires = new HashSet<Ajouteraccessoire>();
-        ListeDetailCommandes = new HashSet<Detailcommande>();
+        ListeAjouterAccessoires = new HashSet<AjouterAccessoire>();
+        ListeDetailCommandes = new HashSet<DetailCommande>();
         ListeInformations = new HashSet<Information>();
-        ListeLignePaniers = new HashSet<Lignepanier>();
+        ListeLignePaniers = new HashSet<LignePanier>();
     }
 
     [Key]
@@ -39,22 +39,22 @@ public partial class Panier
     public decimal? PrixPanier { get; set; }
 
     [ForeignKey(nameof(ClientId))]
-    [InverseProperty(nameof(Compteclient.ListePaniers))]
-    public virtual Compteclient? PanierClient { get; set; }
+    [InverseProperty(nameof(CompteClient.ListePaniers))]
+    public virtual CompteClient? PanierClient { get; set; }
 
     [ForeignKey(nameof(CommandeId))]
-    [InverseProperty(nameof(Detailcommande.ListePaniers))]
-    public virtual Detailcommande? PanierDetailCommande { get; set; }
+    [InverseProperty(nameof(DetailCommande.ListePaniers))]
+    public virtual DetailCommande? PanierDetailCommande { get; set; }
 
-    [InverseProperty(nameof(Ajouteraccessoire.AjoutDAccessoirePanier))]
-    public virtual ICollection<Ajouteraccessoire> ListeAjouterAccessoires { get; set; } = new List<Ajouteraccessoire>();
+    [InverseProperty(nameof(AjouterAccessoire.AjoutDAccessoirePanier))]
+    public virtual ICollection<AjouterAccessoire> ListeAjouterAccessoires { get; set; } = new List<AjouterAccessoire>();
 
-    [InverseProperty(nameof(Detailcommande.DetailCommandePanier))]
-    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
+    [InverseProperty(nameof(DetailCommande.DetailCommandePanier))]
+    public virtual ICollection<DetailCommande> ListeDetailCommandes { get; set; } = new List<DetailCommande>();
 
     [InverseProperty(nameof(Information.InformationPanier))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 
-    [InverseProperty(nameof(Lignepanier.LignePanierPanier))]
-    public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
+    [InverseProperty(nameof(LignePanier.LignePanierPanier))]
+    public virtual ICollection<LignePanier> ListeLignePaniers { get; set; } = new List<LignePanier>();
 }

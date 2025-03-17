@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class DetailCommandeManager : IDataRepository<Detailcommande>
+    public class DetailCommandeManager : IDataRepository<DetailCommande>
     {
         readonly S215UpWayContext? upwaysDbContext;
 
@@ -14,24 +14,24 @@ namespace WsRest_UpWay.Models.DataManager
         {
             upwaysDbContext = context;
         }
-        public async Task<ActionResult<IEnumerable<Detailcommande>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<DetailCommande>>> GetAllAsync()
         {
             return await upwaysDbContext.Detailcommandes.ToListAsync();
         }
-        public async Task<ActionResult<Detailcommande>> GetByIdAsync(int id)
+        public async Task<ActionResult<DetailCommande>> GetByIdAsync(int id)
         {
             return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.CommandeId == id);
         }
-        public async Task<ActionResult<Detailcommande>> GetByStringAsync(string nom)
+        public async Task<ActionResult<DetailCommande>> GetByStringAsync(string nom)
         {
             return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.ModeExpedition.ToUpper() == nom.ToUpper());
         }
-        public async Task AddAsync(Detailcommande entity)
+        public async Task AddAsync(DetailCommande entity)
         {
             upwaysDbContext.Detailcommandes.AddAsync(entity);
             upwaysDbContext.SaveChangesAsync();
         }
-        public async Task UpdateAsync(Detailcommande detailcommande, Detailcommande entity)
+        public async Task UpdateAsync(DetailCommande detailcommande, DetailCommande entity)
         {
             upwaysDbContext.Entry(detailcommande).State = EntityState.Modified;
             detailcommande.CommandeId = entity.CommandeId;
@@ -46,7 +46,7 @@ namespace WsRest_UpWay.Models.DataManager
             upwaysDbContext.SaveChangesAsync();
 
         }
-        public async Task DeleteAsync(Detailcommande detailcommande)
+        public async Task DeleteAsync(DetailCommande detailcommande)
         {
             upwaysDbContext.Detailcommandes.Remove(detailcommande);
             upwaysDbContext.SaveChangesAsync();

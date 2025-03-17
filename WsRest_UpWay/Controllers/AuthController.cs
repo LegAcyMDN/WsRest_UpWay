@@ -16,10 +16,10 @@ namespace WsRest_UpWay.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _config;
-    private readonly PasswordHasher<Compteclient> passwordHasher = new();
-    private readonly IDataRepository<Compteclient> userManager;
+    private readonly PasswordHasher<CompteClient> passwordHasher = new();
+    private readonly IDataRepository<CompteClient> userManager;
 
-    public AuthController(IDataRepository<Compteclient> userManager, IConfiguration config)
+    public AuthController(IDataRepository<CompteClient> userManager, IConfiguration config)
     {
         this.userManager = userManager;
         _config = config;
@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
 
         var hashed = passwordHasher.HashPassword(null, body.Password);
 
-        var user = new Compteclient
+        var user = new CompteClient
         {
             LoginClient = body.Login,
             MotDePasseClient = hashed,
@@ -50,12 +50,6 @@ public class AuthController : ControllerBase
         var jwt = user.GenerateJwtToken(_config);
 
         return Ok(UserAuthResponse.Success(jwt));
-    }
-
-    [HttpPost("confirm-email")]
-    public async Task<ActionResult<UserAuthResponse>> ConfirmEmail()
-    {
-        return Ok();
     }
 
     [HttpPost("login")]
@@ -129,11 +123,7 @@ public class AuthController : ControllerBase
         var user = (await userManager.GetByStringAsync(User.GetEmail())).Value;
         if (user == null) return BadRequest(SetupOTPResponse.Error("User account doesn't exist!"));
 
-
-        if (string.IsNullOrEmpty(user.TwoFactorSecret))
-            return BadRequest(SetupOTPResponse.Error("OTP setup not started."));
-
-        if (user.TwoFactorConfirmedAt != null)
+        if (!string.IsNullOrEmpty(user.TwoFactorSecret) && user.TwoFactorConfirmedAt != null)
             return BadRequest(SetupOTPResponse.Error("OTP Already enabled!"));
 
         var totp = new Totp(Convert.FromBase64String(user.TwoFactorSecret));

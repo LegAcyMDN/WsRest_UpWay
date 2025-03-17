@@ -1,5 +1,4 @@
 using System.Text;
-using Braintree;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,7 +6,6 @@ using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
-using Environment = Braintree.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,15 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IDataRepository<Compteclient>, UserManager>();
-
-builder.Services.AddSingleton(new BraintreeGateway
-{
-    Environment = Environment.ParseEnvironment(builder.Configuration["BRAINTREE_ENV"]),
-    MerchantId = builder.Configuration["BRAINTREE_MERCHANT_ID"],
-    PublicKey = builder.Configuration["BRAINTREE_PUBLIC_KEY"],
-    PrivateKey = builder.Configuration["BRAINTREE_PRIVATE_KEY"]
-});
+builder.Services.AddScoped<IDataRepository<CompteClient>, UserManager>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -54,7 +44,7 @@ builder.Services.AddAuthorization(config =>
     config.AddPolicy(Policies.User, Policies.UserPolicy());
 });
 
-builder.Services.AddScoped<IDataRepository<Detailcommande>, DetailCommandeManager>();
+builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

@@ -13,8 +13,8 @@ public partial class Accessoire
 {
     public Accessoire() 
     {
-        ListeAjoutAccessoires = new HashSet<Ajouteraccessoire>();
-        ListePhotoAccessoires = new HashSet<Photoaccessoire>();
+        ListeAjoutAccessoires = new HashSet<AjouterAccessoire>();
+        ListePhotoAccessoires = new HashSet<PhotoAccessoire>();
         ListeVelos = new HashSet<Velo>();
     }
 
@@ -50,11 +50,11 @@ public partial class Accessoire
     [InverseProperty(nameof(Marque.ListeAccessoires))]
     public virtual Marque AccessoireMarque { get; set; } = null!;
 
-    [InverseProperty(nameof(Ajouteraccessoire.AjoutDAccessoire))]
-    public virtual ICollection<Ajouteraccessoire> ListeAjoutAccessoires { get; set; } = new List<Ajouteraccessoire>();
+    [InverseProperty(nameof(AjouterAccessoire.AjoutDAccessoire))]
+    public virtual ICollection<AjouterAccessoire> ListeAjoutAccessoires { get; set; } = new List<AjouterAccessoire>();
 
-    [InverseProperty(nameof(Photoaccessoire.PhotoAccessoireAccessoire))]
-    public virtual ICollection<Photoaccessoire> ListePhotoAccessoires { get; set; } = new List<Photoaccessoire>();
+    [InverseProperty(nameof(PhotoAccessoire.PhotoAccessoireAccessoire))]
+    public virtual ICollection<PhotoAccessoire> ListePhotoAccessoires { get; set; } = new List<PhotoAccessoire>();
 
     [ForeignKey(nameof(AccessoireId))]
     [InverseProperty(nameof(Velo.ListeAccessoires))]

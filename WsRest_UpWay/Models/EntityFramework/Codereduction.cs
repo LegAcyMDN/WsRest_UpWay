@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_codereduction_cor", Schema = "upways")]
-public partial class Codereduction
+public partial class CodeReduction
 {
-    public Codereduction()
+    public CodeReduction()
     {
         ListeInformations = new HashSet<Information>();
     }

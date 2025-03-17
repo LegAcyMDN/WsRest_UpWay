@@ -12,7 +12,7 @@ public partial class Moteur
 {
     public Moteur()
     {
-        ListeVeloModifiers = new HashSet<Velomodifier>();
+        ListeVeloModifiers = new HashSet<VeloModifier>();
         ListeVelos = new HashSet<Velo>();
     }
 
@@ -39,8 +39,8 @@ public partial class Moteur
     [InverseProperty(nameof(Marque.ListeMoteurs))]
     public virtual Marque MoteurMarque { get; set; } = null!;
 
-    [InverseProperty(nameof(Velomodifier.VeloModifierMoteur))]
-    public virtual ICollection<Velomodifier> ListeVeloModifiers { get; set; } = new List<Velomodifier>();
+    [InverseProperty(nameof(VeloModifier.VeloModifierMoteur))]
+    public virtual ICollection<VeloModifier> ListeVeloModifiers { get; set; } = new List<VeloModifier>();
 
     [InverseProperty(nameof(Velo.VeloMoteur))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();

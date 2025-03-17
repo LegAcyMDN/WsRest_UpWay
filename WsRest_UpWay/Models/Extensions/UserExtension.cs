@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-public partial class Compteclient
+public partial class CompteClient
 {
     public string FullName => NomClient + " " + PrenomClient;
 
@@ -18,8 +18,7 @@ public partial class Compteclient
             new Claim(JwtRegisteredClaimNames.Sub, EmailClient),
             new Claim(JwtRegisteredClaimNames.Name, FullName),
             new Claim("role", Usertype),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Sid, ClientId.ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
         var token = new JwtSecurityToken(

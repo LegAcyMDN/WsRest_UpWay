@@ -10,7 +10,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_alertevelo_alv", Schema = "upways")]
 [Index(nameof(ClientId), Name = "ix_t_e_alertevelo_alv_clientid")]
 [Index(nameof(VeloId), Name = "ix_t_e_alertevelo_alv_veloid")]
-public partial class Alertevelo
+public partial class AlerteVelo
 {
     [Key]
     [Column("alv_id")]
@@ -29,8 +29,8 @@ public partial class Alertevelo
     public DateTime? ModificationAlerte { get; set; }
 
     [ForeignKey(nameof(ClientId))]
-    [InverseProperty(nameof(Compteclient.ListeAlerteVelos))]
-    public virtual Compteclient AlerteClient { get; set; } = null!;
+    [InverseProperty(nameof(CompteClient.ListeAlerteVelos))]
+    public virtual CompteClient AlerteClient { get; set; } = null!;
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeAlerteVelos))]

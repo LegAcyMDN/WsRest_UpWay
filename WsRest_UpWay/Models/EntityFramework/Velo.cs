@@ -17,12 +17,12 @@ public partial class Velo
 
     public Velo() 
     {
-        ListeAlerteVelos = new HashSet<Alertevelo>();
-        ListeEstRealises = new HashSet<Estrealise>();
-        ListeLignePaniers = new HashSet<Lignepanier>();
-        ListeMentionVelos = new HashSet<Mentionvelo>();
-        ListePhotoVelos = new HashSet<Photovelo>();
-        ListeTestVelos = new HashSet<Testvelo>();
+        ListeAlerteVelos = new HashSet<AlerteVelo>();
+        ListeEstRealises = new HashSet<EstRealise>();
+        ListeLignePaniers = new HashSet<LignePanier>();
+        ListeMentionVelos = new HashSet<MentionVelo>();
+        ListePhotoVelos = new HashSet<PhotoVelo>();
+        ListeTestVelos = new HashSet<TestVelo>();
         ListeMagasins = new HashSet<Magasin>();
         ListeCaracteristiques = new HashSet<Caracteristique>();
         ListeAccessoires = new HashSet<Accessoire>();
@@ -93,8 +93,8 @@ public partial class Velo
     public string? CapaciteBatterie { get; set; }
 
     [ForeignKey(nameof(CaracteristiqueVeloId))]
-    [InverseProperty(nameof(Caracteristiquevelo.ListeVelos))]
-    public virtual Caracteristiquevelo? VeloCaracteristiqueVelo { get; set; }
+    [InverseProperty(nameof(CaracteristiqueVelo.ListeVelos))]
+    public virtual CaracteristiqueVelo? VeloCaracteristiqueVelo { get; set; }
 
     [ForeignKey(nameof(CategorieId))]
     [InverseProperty(nameof(Categorie.ListeVelos))]
@@ -108,23 +108,23 @@ public partial class Velo
     [InverseProperty(nameof(Moteur.ListeVelos))]
     public virtual Moteur? VeloMoteur { get; set; }
 
-    [InverseProperty(nameof(Alertevelo.AlerteVelo))]
-    public virtual ICollection<Alertevelo> ListeAlerteVelos { get; set; } = new List<Alertevelo>();
+    [InverseProperty(nameof(AlerteVelo.AlerteVelo))]
+    public virtual ICollection<AlerteVelo> ListeAlerteVelos { get; set; } = new List<AlerteVelo>();
 
-    [InverseProperty(nameof(Estrealise.EstRealiseVelo))]
-    public virtual ICollection<Estrealise> ListeEstRealises { get; set; } = new List<Estrealise>();
+    [InverseProperty(nameof(EstRealise.EstRealiseVelo))]
+    public virtual ICollection<EstRealise> ListeEstRealises { get; set; } = new List<EstRealise>();
 
-    [InverseProperty(nameof(Lignepanier.LignePanierVelo))]
-    public virtual ICollection<Lignepanier> ListeLignePaniers { get; set; } = new List<Lignepanier>();
+    [InverseProperty(nameof(LignePanier.LignePanierVelo))]
+    public virtual ICollection<LignePanier> ListeLignePaniers { get; set; } = new List<LignePanier>();
 
-    [InverseProperty(nameof(Mentionvelo.MentionVeloVelo))]
-    public virtual ICollection<Mentionvelo> ListeMentionVelos { get; set; } = new List<Mentionvelo>();
+    [InverseProperty(nameof(MentionVelo.MentionVeloVelo))]
+    public virtual ICollection<MentionVelo> ListeMentionVelos { get; set; } = new List<MentionVelo>();
 
-    [InverseProperty(nameof(Photovelo.PhotoVeloVelo))]
-    public virtual ICollection<Photovelo> ListePhotoVelos { get; set; } = new List<Photovelo>();
+    [InverseProperty(nameof(PhotoVelo.PhotoVeloVelo))]
+    public virtual ICollection<PhotoVelo> ListePhotoVelos { get; set; } = new List<PhotoVelo>();
 
-    [InverseProperty(nameof(Testvelo.TestVeloVelo))]
-    public virtual ICollection<Testvelo> ListeTestVelos { get; set; } = new List<Testvelo>();
+    [InverseProperty(nameof(TestVelo.TestVeloVelo))]
+    public virtual ICollection<TestVelo> ListeTestVelos { get; set; } = new List<TestVelo>();
 
     [InverseProperty(nameof(Utilite.UtiliteVelo))]
     public virtual ICollection<Utilite> ListeUtilites { get; set; } = new List<Utilite>();

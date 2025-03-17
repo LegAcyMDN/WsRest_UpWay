@@ -9,12 +9,12 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_adressefacturation_adf", Schema = "upways")]
 [Index(nameof(AdresseExpId), Name = "ix_t_e_adressefacturation_adf_adresseexpeid")]
 [Index(nameof(ClientId), Name = "ix_t_e_adressefacturation_adf_clientid")]
-public partial class Adressefacturation
+public partial class AdresseFacturation
 {
-    public Adressefacturation()
+    public AdresseFacturation()
     {
-        ListeAdresseExpe = new HashSet<Adresseexpedition>();
-        ListeDetailCommande = new HashSet<Detailcommande>();
+        ListeAdresseExpe = new HashSet<AdresseExpedition>();
+        ListeDetailCommande = new HashSet<DetailCommande>();
     }
 
     [Key]
@@ -40,7 +40,7 @@ public partial class Adressefacturation
     public string? RueFacturation { get; set; }
 
     [Column("adf_cp", TypeName = "char(5)")]
-    [StringLength(5, ErrorMessage = "Le code postal doit être composé de 5 chiffres.")]
+    [StringLength(5)]
     public string? CPFacturation { get; set; }
 
     [Column("adf_region")]
@@ -52,20 +52,20 @@ public partial class Adressefacturation
     public string? VilleFacturation { get; set; }
 
     [Column("adf_telephone", TypeName = "char(10)")]
-    [StringLength(10, ErrorMessage = "Le code postal doit être composé de 10 chiffres.")]
+    [StringLength(10)]
     public string? TelephoneFacturation { get; set; }
 
     [ForeignKey(nameof(AdresseExpId))]
-    [InverseProperty(nameof(Adresseexpedition.ListeAdresseFact))]
-    public virtual Adresseexpedition? AdresseFactExpe { get; set; }
+    [InverseProperty(nameof(AdresseExpedition.ListeAdresseFact))]
+    public virtual AdresseExpedition? AdresseFactExpe { get; set; }
 
     [ForeignKey(nameof(ClientId))]
-    [InverseProperty(nameof(Compteclient.ListeAdresseFact))]
-    public virtual Compteclient AdresseFactClient { get; set; } = null!;
+    [InverseProperty(nameof(CompteClient.ListeAdresseFact))]
+    public virtual CompteClient AdresseFactClient { get; set; } = null!;
 
-    [InverseProperty(nameof(Adresseexpedition.AdresseExpeFact))]
-    public virtual ICollection<Adresseexpedition> ListeAdresseExpe { get; set; } = new List<Adresseexpedition>();
+    [InverseProperty(nameof(AdresseExpedition.AdresseExpeFact))]
+    public virtual ICollection<AdresseExpedition> ListeAdresseExpe { get; set; } = new List<AdresseExpedition>();
 
-    [InverseProperty(nameof(Detailcommande.DetailComAdresseFact))]
-    public virtual ICollection<Detailcommande> ListeDetailCommande { get; set; } = new List<Detailcommande>();
+    [InverseProperty(nameof(DetailCommande.DetailComAdresseFact))]
+    public virtual ICollection<DetailCommande> ListeDetailCommande { get; set; } = new List<DetailCommande>();
 }

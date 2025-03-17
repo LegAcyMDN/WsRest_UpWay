@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[PrimaryKey("Idpanier", "Idvelo")]
+[PrimaryKey(nameof(PanierId), nameof(VeloId))]
 [Table("t_e_lignepanier_lignpan", Schema = "upways")]
-[Index("Idassurance", Name = "idx_linepanier_idassurance")]
-[Index("Idpanier", Name = "idx_linepanier_idpanier")]
-[Index("Idvelo", Name = "idx_linepanier_idvelo")]
-public class Lignepanier
+[Index(nameof(AssuranceId), Name = "ix_t_e_linepanier_lignpan_assuranceid")]
+[Index(nameof(PanierId), Name = "ix_t_e_linepanier_lignpan_panierid")]
+[Index(nameof(VeloId), Name = "ix_t_e_linepanier_lignpan_veloid")]
+public class LignePanier
 {
-    public Lignepanier()
+    public LignePanier()
     {
-        ListeMarquageVelos = new HashSet<Marquagevelo>();
+        ListeMarquageVelos = new HashSet<MarquageVelo>();
     }
 
     [Key] [Column("lignpan_id")] public int PanierId { get; set; }
@@ -42,6 +42,6 @@ public class Lignepanier
     [InverseProperty(nameof(Velo.ListeLignePaniers))]
     public virtual Velo LignePanierVelo { get; set; } = null!;
 
-    [InverseProperty(nameof(Marquagevelo.MarquageVeloLignePanier))]
-    public virtual ICollection<Marquagevelo> ListeMarquageVelos { get; set; } = new List<Marquagevelo>();
+    [InverseProperty(nameof(MarquageVelo.MarquageVeloLignePanier))]
+    public virtual ICollection<MarquageVelo> ListeMarquageVelos { get; set; } = new List<MarquageVelo>();
 }

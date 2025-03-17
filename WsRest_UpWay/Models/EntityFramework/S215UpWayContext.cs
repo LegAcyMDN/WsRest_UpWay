@@ -17,13 +17,13 @@ public partial class S215UpWayContext : DbContext
 
     public virtual DbSet<Accessoire> Accessoires { get; set; }
 
-    public virtual DbSet<Adresseexpedition> Adresseexpeditions { get; set; }
+    public virtual DbSet<AdresseExpedition> Adresseexpeditions { get; set; }
 
-    public virtual DbSet<Adressefacturation> Adressefacturations { get; set; }
+    public virtual DbSet<AdresseFacturation> Adressefacturations { get; set; }
 
-    public virtual DbSet<Ajouteraccessoire> Ajouteraccessoires { get; set; }
+    public virtual DbSet<AjouterAccessoire> Ajouteraccessoires { get; set; }
 
-    public virtual DbSet<Alertevelo> Alertevelos { get; set; }
+    public virtual DbSet<AlerteVelo> Alertevelos { get; set; }
 
     public virtual DbSet<Article> Articles { get; set; }
 
@@ -31,53 +31,53 @@ public partial class S215UpWayContext : DbContext
 
     public virtual DbSet<Caracteristique> Caracteristiques { get; set; }
 
-    public virtual DbSet<Caracteristiquevelo> Caracteristiquevelos { get; set; }
+    public virtual DbSet<CaracteristiqueVelo> Caracteristiquevelos { get; set; }
 
     public virtual DbSet<Categorie> Categories { get; set; }
 
     public virtual DbSet<CategorieArticle> CategorieArticles { get; set; }
 
-    public virtual DbSet<Codereduction> Codereductions { get; set; }
+    public virtual DbSet<CodeReduction> Codereductions { get; set; }
 
-    public virtual DbSet<Compteclient> Compteclients { get; set; }
+    public virtual DbSet<CompteClient> Compteclients { get; set; }
 
     public virtual DbSet<ContenuArticle> ContenuArticles { get; set; }
 
-    public virtual DbSet<Detailcommande> Detailcommandes { get; set; }
+    public virtual DbSet<DetailCommande> Detailcommandes { get; set; }
 
     public virtual DbSet<Dpo> Dpos { get; set; }
 
-    public virtual DbSet<Estrealise> Estrealises { get; set; }
+    public virtual DbSet<EstRealise> Estrealises { get; set; }
 
-    public virtual DbSet<Etatcommande> Etatcommandes { get; set; }
+    public virtual DbSet<EtatCommande> Etatcommandes { get; set; }
 
     public virtual DbSet<Information> Informations { get; set; }
 
-    public virtual DbSet<Lignepanier> Lignepaniers { get; set; }
+    public virtual DbSet<LignePanier> Lignepaniers { get; set; }
 
     public virtual DbSet<Magasin> Magasins { get; set; }
 
-    public virtual DbSet<Marquagevelo> Marquagevelos { get; set; }
+    public virtual DbSet<MarquageVelo> Marquagevelos { get; set; }
 
     public virtual DbSet<Marque> Marques { get; set; }
 
-    public virtual DbSet<Mentionvelo> Mentionvelos { get; set; }
+    public virtual DbSet<MentionVelo> Mentionvelos { get; set; }
 
     public virtual DbSet<Moteur> Moteurs { get; set; }
 
     public virtual DbSet<Panier> Paniers { get; set; }
 
-    public virtual DbSet<Photoaccessoire> Photoaccessoires { get; set; }
+    public virtual DbSet<PhotoAccessoire> Photoaccessoires { get; set; }
 
-    public virtual DbSet<Photovelo> Photovelos { get; set; }
+    public virtual DbSet<PhotoVelo> Photovelos { get; set; }
 
-    public virtual DbSet<Rapportinspection> Rapportinspections { get; set; }
+    public virtual DbSet<RapportInspection> Rapportinspections { get; set; }
 
-    public virtual DbSet<Reparationvelo> Reparationvelos { get; set; }
+    public virtual DbSet<ReparationVelo> Reparationvelos { get; set; }
 
-    public virtual DbSet<Retraitmagasin> Retraitmagasins { get; set; }
+    public virtual DbSet<RetraitMagasin> Retraitmagasins { get; set; }
 
-    public virtual DbSet<Testvelo> Testvelos { get; set; }
+    public virtual DbSet<TestVelo> Testvelos { get; set; }
 
     public virtual DbSet<Utilite> Utilites { get; set; }
 
@@ -91,7 +91,7 @@ public partial class S215UpWayContext : DbContext
 
     public virtual DbSet<Velo> Velos { get; set; }
 
-    public virtual DbSet<Velomodifier> Velomodifiers { get; set; }
+    public virtual DbSet<VeloModifier> Velomodifiers { get; set; }
 
     public virtual DbSet<Vvelo> Vvelos { get; set; }
 
@@ -141,7 +141,7 @@ public partial class S215UpWayContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Adresseexpedition>(entity =>
+        modelBuilder.Entity<AdresseExpedition>(entity =>
         {
             entity.HasKey(e => e.AdresseExpeId).HasName("pk_adresseexpedition");
 
@@ -157,7 +157,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_adressee_modifier_comptecl");
         });
 
-        modelBuilder.Entity<Adressefacturation>(entity =>
+        modelBuilder.Entity<AdresseFacturation>(entity =>
         {
             entity.HasKey(e => e.AdresseFactId).HasName("pk_adressefacturation");
 
@@ -173,7 +173,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_adressef_rectifier_comptecl");
         });
 
-        modelBuilder.Entity<Ajouteraccessoire>(entity =>
+        modelBuilder.Entity<AjouterAccessoire>(entity =>
         {
             entity.HasKey(e => new { e.AccessoireId, e.PanierId }).HasName("pk_ajouteraccessoire");
 
@@ -188,7 +188,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_ajoutera_ajouterac_panier");
         });
 
-        modelBuilder.Entity<Alertevelo>(entity =>
+        modelBuilder.Entity<AlerteVelo>(entity =>
         {
             entity.HasKey(e => new { e.AlerteId, e.ClientId, e.VeloId }).HasName("pk_alertevelo");
 
@@ -312,7 +312,7 @@ public partial class S215UpWayContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Caracteristiquevelo>(entity =>
+        modelBuilder.Entity<CaracteristiqueVelo>(entity =>
         {
             entity.HasKey(e => e.CaracteristiqueVeloId).HasName("pk_caracteristiquevelo");
 
@@ -381,12 +381,12 @@ public partial class S215UpWayContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Codereduction>(entity =>
+        modelBuilder.Entity<CodeReduction>(entity =>
         {
             entity.HasKey(e => e.ReductionId).HasName("pk_codereduction");
         });
 
-        modelBuilder.Entity<Compteclient>(entity =>
+        modelBuilder.Entity<CompteClient>(entity =>
         {
             entity.HasKey(e => e.ClientId).HasName("pk_compteclient");
 
@@ -404,7 +404,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_contenu_article_article");
         });
 
-        modelBuilder.Entity<Detailcommande>(entity =>
+        modelBuilder.Entity<DetailCommande>(entity =>
         {
             entity.HasKey(e => e.CommandeId).HasName("pk_detailcommande");
 
@@ -438,7 +438,7 @@ public partial class S215UpWayContext : DbContext
             entity.Property(e => e.DpoId).HasDefaultValueSql("nextval('dpo_iddpo_seq'::regclass)");
         });
 
-        modelBuilder.Entity<Estrealise>(entity =>
+        modelBuilder.Entity<EstRealise>(entity =>
         {
             entity.HasKey(e => new { e.VeloId, e.InspectionId, e.ReparationId }).HasName("pk_estrealise");
 
@@ -457,7 +457,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_estreali_estrealis_velo");
         });
 
-        modelBuilder.Entity<Etatcommande>(entity =>
+        modelBuilder.Entity<EtatCommande>(entity =>
         {
             entity.HasKey(e => e.EtatCommandeId).HasName("pk_etatcommande");
 
@@ -487,7 +487,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_informat_choisir2_retraitm");
         });
 
-        modelBuilder.Entity<Lignepanier>(entity =>
+        modelBuilder.Entity<LignePanier>(entity =>
         {
             entity.HasKey(e => new { e.PanierId, e.VeloId }).HasName("pk_lignepanier");
 
@@ -532,7 +532,7 @@ public partial class S215UpWayContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Marquagevelo>(entity =>
+        modelBuilder.Entity<MarquageVelo>(entity =>
         {
             entity.HasKey(e => e.CodeMarquage).HasName("pk_marquagevelo");
 
@@ -548,7 +548,7 @@ public partial class S215UpWayContext : DbContext
             entity.Property(e => e.MarqueId).HasDefaultValueSql("nextval('marque_idmarque_seq'::regclass)");
         });
 
-        modelBuilder.Entity<Mentionvelo>(entity =>
+        modelBuilder.Entity<MentionVelo>(entity =>
         {
             entity.HasKey(e => e.MentionId).HasName("pk_mentionvelo");
 
@@ -585,7 +585,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_panier_estlie2_detailco");
         });
 
-        modelBuilder.Entity<Photoaccessoire>(entity =>
+        modelBuilder.Entity<PhotoAccessoire>(entity =>
         {
             entity.HasKey(e => e.PhotoAcessoireId).HasName("pk_photoaccessoire");
 
@@ -596,7 +596,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_photoacc_comprendr_accessoi");
         });
 
-        modelBuilder.Entity<Photovelo>(entity =>
+        modelBuilder.Entity<PhotoVelo>(entity =>
         {
             entity.HasKey(e => e.PhotoVeloId).HasName("pk_photovelo");
 
@@ -607,21 +607,21 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_photovel_represent_velo");
         });
 
-        modelBuilder.Entity<Rapportinspection>(entity =>
+        modelBuilder.Entity<RapportInspection>(entity =>
         {
             entity.HasKey(e => e.InspectionId).HasName("pk_rapportinspection");
 
             entity.Property(e => e.InspectionId).HasDefaultValueSql("nextval('rapportinspection_idinspection_seq'::regclass)");
         });
 
-        modelBuilder.Entity<Reparationvelo>(entity =>
+        modelBuilder.Entity<ReparationVelo>(entity =>
         {
             entity.HasKey(e => e.ReparationId).HasName("pk_reparationvelo");
 
             entity.Property(e => e.ReparationId).HasDefaultValueSql("nextval('reparationvelo_idreparation_seq'::regclass)");
         });
 
-        modelBuilder.Entity<Retraitmagasin>(entity =>
+        modelBuilder.Entity<RetraitMagasin>(entity =>
         {
             entity.HasKey(e => e.RetraitMagasinId).HasName("pk_retraitmagasin");
 
@@ -640,7 +640,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_retraitm_estfait_magasin");
         });
 
-        modelBuilder.Entity<Testvelo>(entity =>
+        modelBuilder.Entity<TestVelo>(entity =>
         {
             entity.HasKey(e => e.TestId).HasName("pk_testvelo");
 
@@ -730,7 +730,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_moteur_integrer_velo");
         });
 
-        modelBuilder.Entity<Velomodifier>(entity =>
+        modelBuilder.Entity<VeloModifier>(entity =>
         {
             entity.HasKey(e => e.VelomId).HasName("pk_velomodif");
 

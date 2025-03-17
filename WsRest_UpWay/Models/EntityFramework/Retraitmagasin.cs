@@ -10,11 +10,11 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(CommandeId), Name = "ix_t_e_retraitmagasin_rem_commandeid")]
 [Index(nameof(InformationId), Name = "ix_t_e_retraitmagasin_rem_informationid")]
 [Index(nameof(MagasinId), Name = "ix_t_e_retraitmagasin_rem_magasinid")]
-public partial class Retraitmagasin
+public partial class RetraitMagasin
 {
-    public Retraitmagasin()
+    public RetraitMagasin()
     {
-        ListeDetailCommandes = new HashSet<Detailcommande>();
+        ListeDetailCommandes = new HashSet<DetailCommande>();
     }
 
     [Key]
@@ -31,15 +31,14 @@ public partial class Retraitmagasin
     public int MagasinId { get; set; }
 
     [Column("rem_date", TypeName = "date")]
-    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit être au format français")]
     public DateOnly? DateRetrait { get; set; }
 
     [Column("rem_heure", TypeName = "heure")]
     public TimeOnly? HeureRetrait { get; set; }
 
     [ForeignKey(nameof(CommandeId))]
-    [InverseProperty(nameof(Detailcommande.RetraitMagasinId))]
-    public virtual Detailcommande? RetraitMagasinDetailCom { get; set; }
+    [InverseProperty(nameof(DetailCommande.RetraitMagasinId))]
+    public virtual DetailCommande? RetraitMagasinDetailCom { get; set; }
 
     [ForeignKey(nameof(InformationId))]
     [InverseProperty(nameof(Information.InformationRetraitMagasin))]
@@ -49,9 +48,9 @@ public partial class Retraitmagasin
     [InverseProperty(nameof(Magasin.ListeRetraitMagasins))]
     public virtual Magasin RetraitMagasinMagasin { get; set; } = null!;
 
-    [InverseProperty(nameof(Detailcommande.DetailComRetraitMagasin))]
-    public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
+    [InverseProperty(nameof(DetailCommande.DetailComRetraitMagasin))]
+    public virtual ICollection<DetailCommande> ListeDetailCommandes { get; set; } = new List<DetailCommande>();
 
-    [InverseProperty(nameof(Information.InformationRetraitMagasin))]
+    [InverseProperty(nameof(Information.InformationRetraitMagasin)]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }

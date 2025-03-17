@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[PrimaryKey("Idutilite", "Idvelo")]
+[PrimaryKey(nameof(UtiliteId), nameof(VeloId))]
 [Table("t_j_utilite_uti", Schema = "upways")]
 [Index(nameof(VeloId), Name = "ix_t_e_utilite_uti_veloid")]
 public partial class Utilite
