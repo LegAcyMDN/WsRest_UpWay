@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_marquage_velo_mal", Schema = "upways")]
-[Index("Codemarquage", Name = "codemarquage_unq", IsUnique = true)]
-[Index("Idpanier", "Idvelo", Name = "idx_marquagevelo_idpanier_idvelo")]
+[Index(nameof(CodeMarquage), Name = "codemarquage_unq", IsUnique = true)]
+[Index(nameof(PanierId), nameof(VeloId), Name = "ix_t_e_marquagevelo_idpanier_idvelo")]
 public partial class Marquagevelo
 {
     [Key]
