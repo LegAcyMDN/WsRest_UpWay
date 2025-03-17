@@ -30,7 +30,7 @@ public partial class Panier
     [Column("com_id")]
     public int? CommandeId { get; set; }
 
-    [Column("pan_cookie")]
+    [Column("pan_cookie", TypeName ="text")]
     [StringLength(255)]
     public string? Cookie { get; set; }
 

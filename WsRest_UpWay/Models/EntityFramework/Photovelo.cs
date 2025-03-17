@@ -18,7 +18,7 @@ public partial class Photovelo
     [Column("vel_id")]
     public int VeloId { get; set; }
 
-    [Column("phv_url")]
+    [Column("phv_url", TypeName = "text")]
     [StringLength(4096)]
     public string? UrlPhotoVelo { get; set; }
 
