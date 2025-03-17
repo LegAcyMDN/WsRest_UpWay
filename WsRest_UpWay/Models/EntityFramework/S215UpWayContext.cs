@@ -198,7 +198,7 @@ public partial class S215UpWayContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_alertevelo_client");
 
-            entity.HasOne(d => d.AlerteVelo).WithMany(p => p.ListeAlerteVelos)
+            entity.HasOne(d => d.AlerteVeloVelo).WithMany(p => p.ListeAlerteVelos)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_alertevelo_velo");
         });

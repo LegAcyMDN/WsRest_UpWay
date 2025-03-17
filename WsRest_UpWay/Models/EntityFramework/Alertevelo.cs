@@ -34,5 +34,5 @@ public partial class AlerteVelo
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeAlerteVelos))]
-    public virtual Velo AlerteVelo { get; set; } = null!;
+    public virtual Velo AlerteVeloVelo { get; set; } = null!;
 }

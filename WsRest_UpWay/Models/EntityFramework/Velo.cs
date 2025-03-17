@@ -108,7 +108,7 @@ public partial class Velo
     [InverseProperty(nameof(Moteur.ListeVelos))]
     public virtual Moteur? VeloMoteur { get; set; }
 
-    [InverseProperty(nameof(AlerteVelo.AlerteVelo))]
+    [InverseProperty(nameof(AlerteVelo.AlerteVeloVelo))]
     public virtual ICollection<AlerteVelo> ListeAlerteVelos { get; set; } = new List<AlerteVelo>();
 
     [InverseProperty(nameof(EstRealise.EstRealiseVelo))]
