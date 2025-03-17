@@ -18,7 +18,8 @@ public partial class Compteclient
             new Claim(JwtRegisteredClaimNames.Sub, EmailClient),
             new Claim(JwtRegisteredClaimNames.Name, FullName),
             new Claim("role", Usertype),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Sid, ClientId.ToString())
         };
 
         var token = new JwtSecurityToken(

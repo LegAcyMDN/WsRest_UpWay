@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_retraitmagasin_rem", Schema = "upways")]
-[Index("Idcommande", Name = "idx_retraitmagasin_idcommande")]
-[Index("Idinformations", Name = "idx_retraitmagasin_idinformations")]
-[Index("Idmagasin", Name = "idx_retraitmagasin_idmagasin")]
+[Index(nameof(CommandeId), Name = "idx_retraitmagasin_idcommande")]
+[Index(nameof(InformationId), Name = "idx_retraitmagasin_idinformations")]
+[Index(nameof(MagasinId), Name = "idx_retraitmagasin_idmagasin")]
 public partial class Retraitmagasin
 {
     public Retraitmagasin()
@@ -31,6 +31,7 @@ public partial class Retraitmagasin
     public int MagasinId { get; set; }
 
     [Column("rem_date", TypeName = "date")]
+    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit être au format français")]
     public DateOnly? DateRetrait { get; set; }
 
     [Column("rem_heure", TypeName = "heure")]
@@ -51,6 +52,6 @@ public partial class Retraitmagasin
     [InverseProperty(nameof(Detailcommande.DetailComRetraitMagasin))]
     public virtual ICollection<Detailcommande> ListeDetailCommandes { get; set; } = new List<Detailcommande>();
 
-    [InverseProperty(nameof(Information.InformationRetraitMagasin)]
+    [InverseProperty(nameof(Information.InformationRetraitMagasin))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
 }

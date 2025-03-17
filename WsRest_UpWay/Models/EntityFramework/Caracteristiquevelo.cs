@@ -21,6 +21,7 @@ public partial class Caracteristiquevelo
 
     [Column("cav_poids")]
     [Precision(5, 2)]
+    [RegularExpression(@"^\d{1,4}(\.\d{2})?$", ErrorMessage = "le prix n'est pas valide il doit avoir entre 1 et 4 chiffres avant la virgule qui est un point et 2 chiffres obligatoires après.")]
     public decimal Poids { get; set; }
 
     [Column("cav_tubeSelle")]
