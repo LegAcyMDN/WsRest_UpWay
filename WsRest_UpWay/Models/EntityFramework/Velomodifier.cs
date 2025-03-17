@@ -38,8 +38,8 @@ public partial class Velomodifier
     public string? NomVelo { get; set; }
 
     [Column("vlm_annee")]
-    [Precision(4, 0)]
-    public decimal? AnneeVelo { get; set; }
+    [Precision(2, 0)]
+    public int? AnneeVelo { get; set; }
 
     [Column("vlm_taillemin")]
     [StringLength(15)]

@@ -20,6 +20,7 @@ public partial class Utilite
     public int VeloId { get; set; }
 
     [Column("uti_valeur")]
+    [Precision(5,0)]
     public decimal? ValeurUtilite { get; set; }
 
     [ForeignKey(nameof(VeloId))]
