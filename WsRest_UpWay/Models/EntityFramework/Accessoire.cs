@@ -35,7 +35,7 @@ public partial class Accessoire
     public string? NomAccessoire { get; set; }
 
     [Column("acs_prix", TypeName = "numeric(3, 2)")]
-    [RegularExpression(@"^\d{1,3}(\.\d{2})?$", ErrorMessage = "le prix n'est pas valide il doit avoir entre 1 et 3 chifre avent la virgule qui est un point et 2 chifre obligatoir aprées.")]
+    [RegularExpression(@"^\d{1,3}(\.\d{2})?$", ErrorMessage = "le prix n'est pas valide il doit avoir entre 1 et 3 chiffres avant la virgule qui est un point et 2 chiffres obligatoires après.")]
     public decimal? PrixAccessoire { get; set; }
 
     [Column("acs_description")]
