@@ -27,7 +27,7 @@ public partial class Assurance
     public string? DescriptionAssurance { get; set; }
 
     [Column("ass_prix", TypeName = "numeric(4, 2)")]
-    [RegularExpression(@"^\d{1,4}(\.\d{2})?$", ErrorMessage = "le prix n'est pas valide il doit avoir entre 1 et 4 chifre avent la virgule qui est un point et 2 chifre obligatoir aprées.")]
+    [RegularExpression(@"^\d{1,4}(\.\d{2})?$", ErrorMessage = "le prix n'est pas valide il doit avoir entre 1 et 4 chiffres avant la virgule qui est un point et 2 chiffres obligatoires après.")]
     public decimal? PrixAssurance { get; set; }
 
     [InverseProperty(nameof(Lignepanier.LignePanierAssurance))]
