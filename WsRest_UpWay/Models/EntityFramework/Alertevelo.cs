@@ -25,6 +25,7 @@ public partial class Alertevelo
     public int VeloId { get; set; }
 
     [Column("alv_modification", TypeName = "date")]
+    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit étre en format français")]
     public DateTime? ModificationAlerte { get; set; }
 
     [ForeignKey(nameof(ClientId))]

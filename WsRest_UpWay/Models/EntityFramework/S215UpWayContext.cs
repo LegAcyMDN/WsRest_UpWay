@@ -109,7 +109,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.AccessoireId).HasName("pk_accessoire");
 
-            entity.Property(e => e.AccessoireId).HasDefaultValueSql("nextval('accessoire_idaccessoire_seq'::regclass)");
+            entity.Property(e => e.AccessoireId).HasDefaultValueSql("nextval('accessoire_accessoireid_seq'::regclass)");
 
             entity.HasOne(d => d.AccessoireCategorie).WithMany(p => p.ListeAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -123,21 +123,21 @@ public partial class S215UpWayContext : DbContext
                 .UsingEntity<Dictionary<string, object>>(
                     "Equiper",
                     r => r.HasOne<Velo>().WithMany()
-                        .HasForeignKey("Idvelo")
+                        .HasForeignKey("VeloId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_equiper_equiper2_velo"),
                     l => l.HasOne<Accessoire>().WithMany()
-                        .HasForeignKey("Idaccessoire")
+                        .HasForeignKey("AccessoireId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_equiper_equiper_accessoi"),
                     j =>
                     {
-                        j.HasKey("Idaccessoire", "Idvelo").HasName("pk_equiper");
-                        j.ToTable("equiper", "upways");
-                        j.HasIndex(new[] { "Idaccessoire" }, "idx_equiper_idacessoire");
-                        j.HasIndex(new[] { "Idvelo" }, "idx_equiper_idvelo");
-                        j.IndexerProperty<int>("Idaccessoire").HasColumnName("idaccessoire");
-                        j.IndexerProperty<int>("Idvelo").HasColumnName("idvelo");
+                        j.HasKey("AccessoireId", "VeloId").HasName("pk_equiper");
+                        j.ToTable("t_j_equiper_equ", "upways");
+                        j.HasIndex(new[] { "AccessoireId" }, "ix_t_j__equiper_equ_acessoireid");
+                        j.HasIndex(new[] { "VeloId" }, "ix_t_j_equiper_equ_veloid");
+                        j.IndexerProperty<int>("AccessoireId").HasColumnName("acs_id");
+                        j.IndexerProperty<int>("VeloId").HasColumnName("vel_id");
                     });
         });
 
@@ -145,7 +145,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.AdresseExpeId).HasName("pk_adresseexpedition");
 
-            entity.Property(e => e.AdresseExpeId).HasDefaultValueSql("nextval('adresseexpedition_idadresseexp_seq'::regclass)");
+            entity.Property(e => e.AdresseExpeId).HasDefaultValueSql("nextval('adresseexpedition_adresseexpeid_seq'::regclass)");
             entity.Property(e => e.RegionExpedition).IsFixedLength();
 
             entity.HasOne(d => d.AdresseExpeFact).WithMany(p => p.ListeAdresseExpe)
@@ -231,84 +231,84 @@ public partial class S215UpWayContext : DbContext
                 .UsingEntity<Dictionary<string, object>>(
                     "Sedecompose",
                     r => r.HasOne<Caracteristique>().WithMany()
-                        .HasForeignKey("CarIdcaracteristique")
+                        .HasForeignKey("SousCaracteristiqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_sedecomp_caracteri_caracter"),
                     l => l.HasOne<Caracteristique>().WithMany()
-                        .HasForeignKey("Idcaracteristique")
+                        .HasForeignKey("CaracteristiqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_sedecomp_caract_fi_caracter"),
                     j =>
                     {
-                        j.HasKey("Idcaracteristique", "CarIdcaracteristique").HasName("pk_sedecompose");
-                        j.ToTable("sedecompose", "upways");
-                        j.HasIndex(new[] { "CarIdcaracteristique" }, "idx_sedecompose_car_idcaracteristique");
-                        j.HasIndex(new[] { "Idcaracteristique" }, "idx_sedecompose_idcaracteristique");
-                        j.IndexerProperty<int>("Idcaracteristique").HasColumnName("idcaracteristique");
-                        j.IndexerProperty<int>("CarIdcaracteristique").HasColumnName("car_idcaracteristique");
+                        j.HasKey("CaracteristiqueId", "SousCaracteristiqueId").HasName("pk_sedecompose");
+                        j.ToTable("t_j_sedecompose_sed", "upways");
+                        j.HasIndex(new[] { "SousCaracteristiqueId" }, "ix_t_j_sedecompose_sed_souscaracteristiqueid");
+                        j.HasIndex(new[] { "CaracteristiqueId" }, "idx_t_j_sedecompose_sed_caracteristiqueid");
+                        j.IndexerProperty<int>("CaracteristiqueId").HasColumnName("car_id");
+                        j.IndexerProperty<int>("SousCaracteristiqueId").HasColumnName("soc_id");
                     });
 
             entity.HasMany(d => d.ListeCaracteristiques).WithMany(p => p.ListeSousCaracteristiques)
                 .UsingEntity<Dictionary<string, object>>(
                     "Sedecompose",
                     r => r.HasOne<Caracteristique>().WithMany()
-                        .HasForeignKey("Idcaracteristique")
+                        .HasForeignKey("CaracteristiqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_sedecomp_caract_fi_caracter"),
                     l => l.HasOne<Caracteristique>().WithMany()
-                        .HasForeignKey("CarIdcaracteristique")
+                        .HasForeignKey("SousCaracteristiqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_sedecomp_caracteri_caracter"),
                     j =>
                     {
-                        j.HasKey("Idcaracteristique", "CarIdcaracteristique").HasName("pk_sedecompose");
-                        j.ToTable("sedecompose", "upways");
-                        j.HasIndex(new[] { "CarIdcaracteristique" }, "idx_sedecompose_car_idcaracteristique");
-                        j.HasIndex(new[] { "Idcaracteristique" }, "idx_sedecompose_idcaracteristique");
-                        j.IndexerProperty<int>("Idcaracteristique").HasColumnName("idcaracteristique");
-                        j.IndexerProperty<int>("CarIdcaracteristique").HasColumnName("car_idcaracteristique");
+                        j.HasKey("CaracteristiqueId", "SousCaracteristiqueId").HasName("pk_sedecompose");
+                        j.ToTable("t_j_sedecompose_sed", "upways");
+                        j.HasIndex(new[] { "SousCaracteristiqueId" }, "ix_t_j_sedecompose_sed_souscaracteristiqueid");
+                        j.HasIndex(new[] { "CaracteristiqueId" }, "ix_t_j_sedecompose_sed_caracteristiqueid");
+                        j.IndexerProperty<int>("CaracteristiqueId").HasColumnName("car_id");
+                        j.IndexerProperty<int>("SousCaracteristiqueId").HasColumnName("soc_id");
                     });
 
             entity.HasMany(d => d.ListeCategories).WithMany(p => p.ListeCaracteristiques)
                 .UsingEntity<Dictionary<string, object>>(
                     "Regrouper",
                     r => r.HasOne<Categorie>().WithMany()
-                        .HasForeignKey("Idcategorie")
+                        .HasForeignKey("CategorieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_regroupe_regrouper_categori"),
                     l => l.HasOne<Caracteristique>().WithMany()
-                        .HasForeignKey("Idcaracteristique")
+                        .HasForeignKey("CaracteristiqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_regroupe_regrouper_caracter"),
                     j =>
                     {
-                        j.HasKey("Idcaracteristique", "Idcategorie").HasName("pk_regrouper");
-                        j.ToTable("regrouper", "upways");
-                        j.HasIndex(new[] { "Idcaracteristique" }, "idx_regrouper_idcaracteristique");
-                        j.HasIndex(new[] { "Idcategorie" }, "idx_regrouper_idcategorie");
-                        j.IndexerProperty<int>("Idcaracteristique").HasColumnName("idcaracteristique");
-                        j.IndexerProperty<int>("Idcategorie").HasColumnName("idcategorie");
+                        j.HasKey("CaracteristiqueId", "CategorieId").HasName("pk_regrouper");
+                        j.ToTable("t_j_regrouper_reg", "upways");
+                        j.HasIndex(new[] { "CaracteristiqueId" }, "ix_t_j_regrouper_reg_caracteristiqueid");
+                        j.HasIndex(new[] { "CategorieId" }, "ix_t_j_regrouper_reg_categorieid");
+                        j.IndexerProperty<int>("CaracteristiqueId").HasColumnName("car_id");
+                        j.IndexerProperty<int>("CategorieId").HasColumnName("cat_id");
                     });
 
             entity.HasMany(d => d.ListeVelos).WithMany(p => p.ListeCaracteristiques)
                 .UsingEntity<Dictionary<string, object>>(
                     "Caracteriser",
                     r => r.HasOne<Velo>().WithMany()
-                        .HasForeignKey("Idvelo")
+                        .HasForeignKey("VeloId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_caracter_caracteri_velo"),
                     l => l.HasOne<Caracteristique>().WithMany()
-                        .HasForeignKey("Idcaracteristique")
+                        .HasForeignKey("CaracteristiqueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_caracter_caracteri_caracter"),
                     j =>
                     {
-                        j.HasKey("Idcaracteristique", "Idvelo").HasName("pk_caracteriser");
-                        j.ToTable("caracteriser", "upways");
-                        j.HasIndex(new[] { "Idcaracteristique" }, "idx_caracteriser_idcaracteristique");
-                        j.HasIndex(new[] { "Idvelo" }, "idx_caracteriser_idvelo");
-                        j.IndexerProperty<int>("Idcaracteristique").HasColumnName("idcaracteristique");
-                        j.IndexerProperty<int>("Idvelo").HasColumnName("idvelo");
+                        j.HasKey("CaracteristiqueId", "VeloId").HasName("pk_caracteriser");
+                        j.ToTable("t_j_caracteriser_car", "upways");
+                        j.HasIndex(new[] { "CaracteristiqueId" }, "ix_t_j_caracteriser_car_idcaracteristique");
+                        j.HasIndex(new[] { "VeloId" }, "id_t_j_caracteriser_car_idvelo");
+                        j.IndexerProperty<int>("CaracteristiqueId").HasColumnName("car_id");
+                        j.IndexerProperty<int>("VeloId").HasColumnName("vel_id");
                     });
         });
 
@@ -346,38 +346,38 @@ public partial class S215UpWayContext : DbContext
                 .UsingEntity<Dictionary<string, object>>(
                     "Appartient",
                     r => r.HasOne<CategorieArticle>().WithMany()
-                        .HasForeignKey("CatIdcategorieArticle")
+                        .HasForeignKey("SousCategorieArticleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_appartient_categorie"),
                     l => l.HasOne<CategorieArticle>().WithMany()
-                        .HasForeignKey("IdcategorieArticle")
+                        .HasForeignKey("CategorieArticleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_appartient_categorie_fi"),
                     j =>
                     {
-                        j.HasKey("IdcategorieArticle", "CatIdcategorieArticle").HasName("pk_appartient");
-                        j.ToTable("appartient", "upways");
-                        j.IndexerProperty<int>("IdcategorieArticle").HasColumnName("idcategorie_article");
-                        j.IndexerProperty<int>("CatIdcategorieArticle").HasColumnName("cat_idcategorie_article");
+                        j.HasKey("CategorieArticleId", "SousCategorieArticleId").HasName("pk_appartient");
+                        j.ToTable("t_j_appartient_app", "upways");
+                        j.IndexerProperty<int>("CategorieArticleId").HasColumnName("caa_id");
+                        j.IndexerProperty<int>("SousCategorieArticleId").HasColumnName("sca_id");
                     });
 
             entity.HasMany(d => d.ListeCategorieArticles).WithMany(p => p.ListeSousCategorieArticles)
                 .UsingEntity<Dictionary<string, object>>(
                     "Appartient",
                     r => r.HasOne<CategorieArticle>().WithMany()
-                        .HasForeignKey("IdcategorieArticle")
+                        .HasForeignKey("CategorieArticleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_appartient_categorie_fi"),
                     l => l.HasOne<CategorieArticle>().WithMany()
-                        .HasForeignKey("CatIdcategorieArticle")
+                        .HasForeignKey("SousCategorieArticleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_appartient_categorie"),
                     j =>
                     {
-                        j.HasKey("IdcategorieArticle", "CatIdcategorieArticle").HasName("pk_appartient");
+                        j.HasKey("CategorieArticleId", "SousCategorieArticleId").HasName("pk_appartient");
                         j.ToTable("appartient", "upways");
-                        j.IndexerProperty<int>("IdcategorieArticle").HasColumnName("idcategorie_article");
-                        j.IndexerProperty<int>("CatIdcategorieArticle").HasColumnName("cat_idcategorie_article");
+                        j.IndexerProperty<int>("CategorieArticleId").HasColumnName("caa_id");
+                        j.IndexerProperty<int>("SousCategorieArticleId").HasColumnName("sca_id");
                     });
         });
 
@@ -515,20 +515,20 @@ public partial class S215UpWayContext : DbContext
                 .UsingEntity<Dictionary<string, object>>(
                     "Estdisponible",
                     r => r.HasOne<Velo>().WithMany()
-                        .HasForeignKey("Idvelo")
+                        .HasForeignKey("VeloId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_estdispo_estdispon_velo"),
                     l => l.HasOne<Magasin>().WithMany()
-                        .HasForeignKey("Idmagasin")
+                        .HasForeignKey("MagasinId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("fk_estdispo_estdispon_magasin"),
                     j =>
                     {
-                        j.HasKey("Idmagasin", "Idvelo").HasName("pk_estdisponible");
-                        j.ToTable("estdisponible", "upways");
-                        j.HasIndex(new[] { "Idmagasin" }, "idx_estdisponible_idmagasin");
-                        j.IndexerProperty<int>("Idmagasin").HasColumnName("idmagasin");
-                        j.IndexerProperty<int>("Idvelo").HasColumnName("idvelo");
+                        j.HasKey("MagasinId", "VeloId").HasName("pk_estdisponible");
+                        j.ToTable("t_j_estdisponible_esd", "upways");
+                        j.HasIndex(new[] { "MagasinId" }, "ix_t_j_estdisponible_esd_magasinid");
+                        j.IndexerProperty<int>("MagasinId").HasColumnName("mag_id");
+                        j.IndexerProperty<int>("VeloId").HasColumnName("vel_id");
                     });
         });
 

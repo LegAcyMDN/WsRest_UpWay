@@ -26,14 +26,20 @@ public partial class Compteclient
 
     [Column("coc_login")]
     [StringLength(20)]
+    [Required]
     public string? LoginClient { get; set; }
 
     [Column("coc_MPD")]
-    [StringLength(64)]
+    [StringLength(64, MinimumLength = 12)]
+    [Required]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{12,}$", ErrorMessage = "Le mot de passe doit être supérieur à 12 caractères")]
     public string? MotDePasseClient { get; set; }
 
     [Column("coc_email")]
     [StringLength(200)]
+    [EmailAddress]
+    [Required]
+    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "L'adresse mail ne correspond pas ")]
     public string? EmailClient { get; set; }
 
     [Column("coc_prenom")]
@@ -45,6 +51,7 @@ public partial class Compteclient
     public string? NomClient { get; set; }
 
     [Column("coc_dateCreation", TypeName = "date")]
+    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit étre en format français")]
     public DateOnly? DateCreation { get; set; }
 
     [Column("coc_remember_token")]

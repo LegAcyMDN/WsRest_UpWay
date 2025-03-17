@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_velo_vel", Schema = "upways")]
-[Index("Idcaracteristiquevelo", Name = "idx_velo_idcaracteristiquevelo")]
-[Index("Idcategorie", Name = "idx_velo_idcategorie")]
-[Index("Idmarque", Name = "idx_velo_idmarque")]
-[Index("Idmoteur", Name = "idx_velo_idmoteur")]
+[Index(nameof(CaracteristiqueVeloId), Name = "idx_velo_idcaracteristiquevelo")]
+[Index(nameof(CategorieId), Name = "idx_velo_idcategorie")]
+[Index(nameof( MarqueId), Name = "idx_velo_idmarque")]
+[Index(nameof(MoteurId), Name = "idx_velo_idmoteur")]
 public partial class Velo
 {
 
