@@ -27,7 +27,7 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<Magasin>> GetByStringAsync(string nom)
         {
-            return await upwaysDbContext.Magasins.FirstOrDefaultAsync(u => u.NomMagasin.ToUpper() == nom.ToUpper());
+            return await upwaysDbContext.Magasins.FirstOrDefaultAsync(u => u.NomMagasin.ToLower() == nom.ToUpper());
         }
 
         public async Task AddAsync(Magasin entity)
