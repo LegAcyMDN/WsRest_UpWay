@@ -14,15 +14,15 @@ namespace WsRest_UpWay.Models.EntityFramework;
 public partial class EstRealise
 {
     [Key]
-    [Column("esr_id")]
+    [Column("vel_id")]
     public int VeloId { get; set; }
 
     [Key]
-    [Column("esr_idInspection")]
+    [Column("ras_id")]
     public int InspectionId { get; set; }
 
     [Key]
-    [Column("esr_idReparation")]
+    [Column("esr_id")]
     public int ReparationId { get; set; }
 
     [Column("esr_dateinspection", TypeName = "date")]
