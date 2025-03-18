@@ -25,6 +25,13 @@ public class AuthController : ControllerBase
         _config = config;
     }
 
+    /// <summary>
+    /// Enregistre un nouvel utilisateur.
+    /// </summary>
+    /// <param name="body">Les informations d'enregistrement de l'utilisateur.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'utilisateur est enregistré avec succès.</response>
+    /// <response code="400">Lorsque l'email existe déjà.</response>
     [HttpPost("register")]
     [AllowAnonymous]
     // Register
@@ -52,6 +59,13 @@ public class AuthController : ControllerBase
         return Ok(UserAuthResponse.Success(jwt));
     }
 
+    /// <summary>
+    /// Authentifie un utilisateur.
+    /// </summary>
+    /// <param name="body">Les informations de connexion de l'utilisateur.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'utilisateur est authentifié avec succès.</response>
+    /// <response code="400">Lorsque l'email n'existe pas ou le mot de passe est incorrect.</response>
     [HttpPost("login")]
     [AllowAnonymous]
     // Login
@@ -72,6 +86,13 @@ public class AuthController : ControllerBase
         return Ok(UserAuthResponse.Success(jwt));
     }
 
+    /// <summary>
+    /// Authentifie un utilisateur avec TOTP.
+    /// </summary>
+    /// <param name="body">Les informations de connexion avec OTP de l'utilisateur.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'utilisateur est authentifié avec succès.</response>
+    /// <response code="400">Lorsque l'email n'existe pas, le mot de passe est incorrect ou le code OTP ne correspond pas.</response>
     [HttpPost("login-otp")]
     [AllowAnonymous]
     // Login with TOTP
@@ -97,6 +118,12 @@ public class AuthController : ControllerBase
         return Ok(UserAuthResponse.Success(jwt));
     }
 
+    /// <summary>
+    /// Configure l'authentification à deux facteurs (OTP).
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'OTP est configuré avec succès.</response>
+    /// <response code="400">Lorsque l'utilisateur n'existe pas ou que l'OTP est déjà activé.</response>
     [HttpPost("setup-otp")]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<SetupOTPResponse>> SetupOtp()
@@ -116,6 +143,13 @@ public class AuthController : ControllerBase
         return Ok(SetupOTPResponse.Success(strSecret));
     }
 
+    /// <summary>
+    /// Confirme la configuration de l'authentification à deux facteurs (OTP).
+    /// </summary>
+    /// <param name="body">Les informations de confirmation de l'OTP.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la configuration de l'OTP est confirmée avec succès.</response>
+    /// <response code="400">Lorsque l'utilisateur n'existe pas ou que le code OTP ne correspond pas.</response>
     [HttpPost("setup-otp/confirmation")]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<SetupOTPResponse>> ConfirmOtpSetup([FromBody] ConfirmOTPSetupRequest body)

@@ -17,12 +17,24 @@ public class AccessoiresController : ControllerBase
         dataRepository = dataRepo;
     }
 
+    /// <summary>
+    /// Récupère tous les accessoires.
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la liste des accessoires est récupérée avec succès.</response>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoires()
     {
         return await dataRepository.GetAllAsync();
     }
 
+    /// <summary>
+    /// Récupère un accessoire par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant de l'accessoire.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant de l'accessoire n'est pas trouvé.</response>
     [HttpGet]
     [Route("[action]/{id}")]
     [ActionName("GetById")]
@@ -38,6 +50,13 @@ public class AccessoiresController : ControllerBase
         return accessoire;
     }
 
+    /// <summary>
+    /// Récupère un accessoire par son nom.
+    /// </summary>
+    /// <param name="nom">Le nom de l'accessoire.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
+    /// <response code="404">Lorsque l'accessoire avec le nom spécifié n'est pas trouvé.</response>
     [HttpGet]
     [Route("[action]/{nom}")]
     [ActionName("GetByNom")]
@@ -52,10 +71,19 @@ public class AccessoiresController : ControllerBase
         return accessoire;
     }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    /// <summary>
+    /// Met à jour un accessoire existant.
+    /// </summary>
+    /// <param name="id">L'identifiant de l'accessoire à mettre à jour.</param>
+    /// <param name="accessoire">L'objet accessoire avec les nouvelles valeurs.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la mise à jour est réussie.</response>
+    /// <response code="404">Lorsque l'accessoire à mettre à jour n'est pas trouvé.</response>
+    /// <response code="400">Lorsque l'identifiant de l'accessoire ne correspond pas à l'objet fourni.</response>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutAccessoire(int id, Accessoire accessoire)
         {
@@ -70,6 +98,13 @@ public class AccessoiresController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Crée un nouvel accessoire.
+    /// </summary>
+    /// <param name="accessoire">L'objet accessoire à créer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="201">Lorsque l'accessoire est créé avec succès.</response>
+    /// <response code="400">Lorsque le modèle de l'accessoire est invalide.</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -81,9 +116,16 @@ public class AccessoiresController : ControllerBase
 
         await dataRepository.AddAsync(accessoire);
 
-            return CreatedAtAction("GetById", new { id = accessoire.AccessoireId }, accessoire);
-        }
+        return CreatedAtAction("GetById", new { id = accessoire.AccessoireId }, accessoire);
+    }
 
+    /// <summary>
+    /// Supprime un accessoire par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant de l'accessoire à supprimer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la suppression est réussie.</response>
+    /// <response code="404">Lorsque l'accessoire à supprimer n'est pas trouvé.</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
