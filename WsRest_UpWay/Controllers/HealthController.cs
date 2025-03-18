@@ -13,6 +13,7 @@ namespace WsRest_UpWay.Controllers
         /// <returns>Http response</returns>
         /// <response code="200">Lorsque l'application est en bonne santé.</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult Get()
         {
             return Ok("OK");

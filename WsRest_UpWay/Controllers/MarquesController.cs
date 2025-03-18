@@ -23,6 +23,7 @@ public class MarquesController : ControllerBase
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des marques est récupérée avec succès.</response>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Marque>>> GetMarques()
     {
         return await dataRepository.GetAllAsync();

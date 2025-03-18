@@ -24,6 +24,7 @@ public class ArticleController : ControllerBase
     /// <response code="200">Lorsque la liste des articles est récupérée avec succès.</response>
     // GET: api/Velos
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
     {
         return await dataRepository.GetAllAsync();

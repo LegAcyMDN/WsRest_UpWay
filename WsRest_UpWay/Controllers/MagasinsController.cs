@@ -24,6 +24,7 @@ public class MagasinsController : ControllerBase
     /// <response code="200">Lorsque la liste des magasins est récupérée avec succès.</response>
     // GET: api/Magasin
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasins()
     {
         return await dataRepository.GetAllAsync();
@@ -63,6 +64,9 @@ public class MagasinsController : ControllerBase
     // PUT: api/Magasin/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutMagasin(int id, Magasin magasin)
     {

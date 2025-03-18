@@ -22,6 +22,7 @@ namespace WsRest_UpWay.Controllers
         /// <returns>Http response</returns>
         /// <response code="200">Lorsque la liste des détails de commandes est récupérée avec succès.</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<DetailCommande>>> GetDetailCommandes()
         {
             return await dataRepository.GetAllAsync();
