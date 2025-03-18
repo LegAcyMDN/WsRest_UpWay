@@ -33,6 +33,8 @@ public class AuthController : ControllerBase
     /// <response code="200">Lorsque l'utilisateur est enregistré avec succès.</response>
     /// <response code="400">Lorsque l'email existe déjà.</response>
     [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [AllowAnonymous]
     // Register
     public async Task<ActionResult<UserAuthResponse>> Register([FromBody] UserRegistrationRequest body)
@@ -67,6 +69,8 @@ public class AuthController : ControllerBase
     /// <response code="200">Lorsque l'utilisateur est authentifié avec succès.</response>
     /// <response code="400">Lorsque l'email n'existe pas ou le mot de passe est incorrect.</response>
     [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [AllowAnonymous]
     // Login
     public async Task<ActionResult<UserAuthResponse>> Login([FromBody] UserLoginRequest body)
@@ -94,6 +98,8 @@ public class AuthController : ControllerBase
     /// <response code="200">Lorsque l'utilisateur est authentifié avec succès.</response>
     /// <response code="400">Lorsque l'email n'existe pas, le mot de passe est incorrect ou le code OTP ne correspond pas.</response>
     [HttpPost("login-otp")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [AllowAnonymous]
     // Login with TOTP
     public async Task<ActionResult<UserAuthResponse>> LoginOtp([FromBody] UserLoginOTPRequest body)
@@ -125,6 +131,8 @@ public class AuthController : ControllerBase
     /// <response code="200">Lorsque l'OTP est configuré avec succès.</response>
     /// <response code="400">Lorsque l'utilisateur n'existe pas ou que l'OTP est déjà activé.</response>
     [HttpPost("setup-otp")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<SetupOTPResponse>> SetupOtp()
     {
@@ -151,6 +159,8 @@ public class AuthController : ControllerBase
     /// <response code="200">Lorsque la configuration de l'OTP est confirmée avec succès.</response>
     /// <response code="400">Lorsque l'utilisateur n'existe pas ou que le code OTP ne correspond pas.</response>
     [HttpPost("setup-otp/confirmation")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<SetupOTPResponse>> ConfirmOtpSetup([FromBody] ConfirmOTPSetupRequest body)
     {

@@ -23,6 +23,7 @@ public class AccessoiresController : ControllerBase
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des accessoires est récupérée avec succès.</response>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoires()
     {
         return await dataRepository.GetAllAsync();
