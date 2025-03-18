@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +8,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(CommandeId), Name = "ix_t_e_retraitmagasin_rem_commandeid")]
 [Index(nameof(InformationId), Name = "ix_t_e_retraitmagasin_rem_informationid")]
 [Index(nameof(MagasinId), Name = "ix_t_e_retraitmagasin_rem_magasinid")]
-public partial class RetraitMagasin
+public class RetraitMagasin
 {
     public RetraitMagasin()
     {
@@ -18,23 +16,18 @@ public partial class RetraitMagasin
         ListeInformations = new HashSet<Information>();
     }
 
-    [Key]
-    [Column("rem_id")]
-    public int RetraitMagasinId { get; set; }
+    [Key] [Column("rem_id")] public int RetraitMagasinId { get; set; }
 
-    [Column("inf_id")]
-    public int?InformationId { get; set; }
+    [Column("inf_id")] public int? InformationId { get; set; }
 
-    [Column("detcom_id")]
-    public int? CommandeId { get; set; }
+    [Column("detcom_id")] public int? CommandeId { get; set; }
 
-    [Column("mag_id")]
-    public int MagasinId { get; set; }
+    [Column("mag_id")] public int MagasinId { get; set; }
 
     [Column("rem_date", TypeName = "date")]
     public DateOnly? DateRetrait { get; set; }
 
-    [Column("rem_heure", TypeName = "heure")]
+    [Column("rem_heure", TypeName = "time")]
     public TimeOnly? HeureRetrait { get; set; }
 
     [ForeignKey(nameof(CommandeId))]
