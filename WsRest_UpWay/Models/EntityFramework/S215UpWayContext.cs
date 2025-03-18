@@ -79,23 +79,9 @@ public partial class S215UpWayContext : DbContext
 
     public virtual DbSet<Utilite> Utilites { get; set; }
 
-    public virtual DbSet<Vadresse> Vadresses { get; set; }
-
-    public virtual DbSet<Vcaracteristiquevelo> Vcaracteristiquevelos { get; set; }
-
-    public virtual DbSet<Vcommande> Vcommandes { get; set; }
-
-    public virtual DbSet<Vdpo> Vdpos { get; set; }
-
     public virtual DbSet<Velo> Velos { get; set; }
 
     public virtual DbSet<VeloModifier> Velomodifiers { get; set; }
-
-    public virtual DbSet<Vvelo> Vvelos { get; set; }
-
-    public virtual DbSet<Vventenombreacessoire> Vventenombreacessoires { get; set; }
-
-    public virtual DbSet<Vventenombrevelo> Vventenombrevelos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -665,37 +651,6 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_utilite_note_velo");
         });
 
-        modelBuilder.Entity<Vadresse>(entity =>
-        {
-            entity.ToView("vadresse", "upways");
-
-            entity.Property(e => e.Regionfact).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Vcaracteristiquevelo>(entity =>
-        {
-            entity.ToView("vcaracteristiquevelo", "upways");
-
-            entity.Property(e => e.Amortisseur).IsFixedLength();
-            entity.Property(e => e.Capacitebatterie).IsFixedLength();
-            entity.Property(e => e.Couleur).IsFixedLength();
-            entity.Property(e => e.Etatbatterie).IsFixedLength();
-            entity.Property(e => e.Fourche).IsFixedLength();
-            entity.Property(e => e.Freins).IsFixedLength();
-            entity.Property(e => e.Materiau).IsFixedLength();
-            entity.Property(e => e.Modeltransmission).IsFixedLength();
-            entity.Property(e => e.Nombrekms).IsFixedLength();
-            entity.Property(e => e.Pneus).IsFixedLength();
-            entity.Property(e => e.Taillemax).IsFixedLength();
-            entity.Property(e => e.Taillemin).IsFixedLength();
-            entity.Property(e => e.Typecargo).IsFixedLength();
-            entity.Property(e => e.Typesuspension).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Vcommande>(entity => { entity.ToView("vcommande", "upways"); });
-
-        modelBuilder.Entity<Vdpo>(entity => { entity.ToView("vdpo", "upways"); });
-
         modelBuilder.Entity<Velo>(entity =>
         {
             entity.HasKey(e => e.VeloId).HasName("pk_velo");
@@ -748,25 +703,6 @@ public partial class S215UpWayContext : DbContext
             entity.HasOne(d => d.VeloModifierMoteur).WithMany(p => p.ListeVeloModifiers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_moteur_integrer_velomodifier");
-        });
-
-        modelBuilder.Entity<Vvelo>(entity =>
-        {
-            entity.ToView("vvelo", "upways");
-
-            entity.Property(e => e.Nombrekms).IsFixedLength();
-            entity.Property(e => e.Taillemax).IsFixedLength();
-            entity.Property(e => e.Taillemin).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Vventenombreacessoire>(entity => { entity.ToView("vventenombreacessoire", "upways"); });
-
-        modelBuilder.Entity<Vventenombrevelo>(entity =>
-        {
-            entity.ToView("vventenombrevelo", "upways");
-
-            entity.Property(e => e.Taillemax).IsFixedLength();
-            entity.Property(e => e.Taillemin).IsFixedLength();
         });
 
         OnModelCreatingPartial(modelBuilder);
