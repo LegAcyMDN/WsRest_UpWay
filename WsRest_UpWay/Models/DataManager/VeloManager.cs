@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class VeloManager : IDataRepository<Velo>
+    public class VeloManager : IDataVelo<Velo>
     {
         readonly S215UpWayContext _upWayContext;
 
@@ -28,6 +28,20 @@ namespace WsRest_UpWay.Models.DataManager
             await _upWayContext.SaveChangesAsync();
         }
 
+        public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltresAsync(string taille, int categorie, int cara, int marque, int annee, int kilomin, int kilomax, string posmot, string motmar, int couplemot, int capbat, string posbat, string batamo, string posbag, int poids)
+        {
+            IQueryable<Velo> velofilt = _upWayContext.Velos;
+            if (taille != null) 
+            {
+                velofilt = velofilt.Where(p => p.TailleMin == taille);
+            }
+            if (categorie != null) 
+            {
+                velofilt = velofilt.Where(p => p.CategorieId == categorie);
+            }
+            return await velofilt.ToListAsync();
+        }
+
         public async Task<ActionResult<IEnumerable<Velo>>> GetAllAsync()
         {
             return await _upWayContext.Velos.ToListAsync();
@@ -36,11 +50,6 @@ namespace WsRest_UpWay.Models.DataManager
         public async Task<ActionResult<Velo>> GetByIdAsync(int id)
         {
             return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.VeloId == id);
-        }
-
-        public async Task<ActionResult<Velo>> GetByStringAsync(string str)
-        {
-            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.NomVelo.ToUpper() == str.ToLower());
         }
 
         public async Task UpdateAsync(Velo vel, Velo entity)
