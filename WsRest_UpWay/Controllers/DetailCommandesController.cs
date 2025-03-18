@@ -16,12 +16,24 @@ namespace WsRest_UpWay.Controllers
             dataRepository = dataRepo;
         }
 
+        /// <summary>
+        /// Récupère tous les détails de commandes.
+        /// </summary>
+        /// <returns>Http response</returns>
+        /// <response code="200">Lorsque la liste des détails de commandes est récupérée avec succès.</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DetailCommande>>> GetDetailCommandes()
         {
             return await dataRepository.GetAllAsync();
         }
 
+        /// <summary>
+        /// Récupère un détail de commande par son identifiant.
+        /// </summary>
+        /// <param name="id">L'identifiant du détail de commande.</param>
+        /// <returns>Http response</returns>
+        /// <response code="200">Lorsque le détail de commande est trouvé.</response>
+        /// <response code="404">Lorsque l'identifiant du détail de commande n'est pas trouvé.</response>
         [HttpGet]
         [Route("[action]/{id}")]
         [ActionName("GetById")]
@@ -37,6 +49,13 @@ namespace WsRest_UpWay.Controllers
             return commande;
         }
 
+        /// <summary>
+        /// Récupère un détail de commande par le mode de livraison.
+        /// </summary>
+        /// <param name="mode">Le mode de livraison.</param>
+        /// <returns>Http response</returns>
+        /// <response code="200">Lorsque le détail de commande est trouvé.</response>
+        /// <response code="404">Lorsque le mode de livraison spécifié n'est pas trouvé.</response>
         [HttpGet]
         [Route("[action]/{mode}")]
         [ActionName("GetByMode")]
@@ -51,6 +70,15 @@ namespace WsRest_UpWay.Controllers
             return commande;
         }
 
+        /// <summary>
+        /// Met à jour un détail de commande existant.
+        /// </summary>
+        /// <param name="id">L'identifiant du détail de commande à mettre à jour.</param>
+        /// <param name="detailCommande">L'objet détail de commande avec les nouvelles valeurs.</param>
+        /// <returns>Http response</returns>
+        /// <response code="204">Lorsque la mise à jour est réussie.</response>
+        /// <response code="404">Lorsque le détail de commande à mettre à jour n'est pas trouvé.</response>
+        /// <response code="400">Lorsque l'identifiant du détail de commande ne correspond pas à l'objet fourni.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -71,6 +99,13 @@ namespace WsRest_UpWay.Controllers
             }
         }
 
+        /// <summary>
+        /// Crée un nouveau détail de commande.
+        /// </summary>
+        /// <param name="detailCommande">L'objet détail de commande à créer.</param>
+        /// <returns>Http response</returns>
+        /// <response code="201">Lorsque le détail de commande est créé avec succès.</response>
+        /// <response code="400">Lorsque le modèle du détail de commande est invalide.</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,6 +119,13 @@ namespace WsRest_UpWay.Controllers
             return CreatedAtAction("GetById", new { id = detailCommande.CommandeId }, detailCommande);
         }
 
+        /// <summary>
+        /// Supprime un détail de commande par son identifiant.
+        /// </summary>
+        /// <param name="id">L'identifiant du détail de commande à supprimer.</param>
+        /// <returns>Http response</returns>
+        /// <response code="204">Lorsque la suppression est réussie.</response>
+        /// <response code="404">Lorsque le détail de commande à supprimer n'est pas trouvé.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
