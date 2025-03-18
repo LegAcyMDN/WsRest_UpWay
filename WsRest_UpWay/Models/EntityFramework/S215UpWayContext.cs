@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -81,27 +79,9 @@ public partial class S215UpWayContext : DbContext
 
     public virtual DbSet<Utilite> Utilites { get; set; }
 
-    public virtual DbSet<Vadresse> Vadresses { get; set; }
-
-    public virtual DbSet<Vcaracteristiquevelo> Vcaracteristiquevelos { get; set; }
-
-    public virtual DbSet<Vcommande> Vcommandes { get; set; }
-
-    public virtual DbSet<Vdpo> Vdpos { get; set; }
-
     public virtual DbSet<Velo> Velos { get; set; }
 
     public virtual DbSet<VeloModifier> Velomodifiers { get; set; }
-
-    public virtual DbSet<Vvelo> Vvelos { get; set; }
-
-    public virtual DbSet<Vventenombreacessoire> Vventenombreacessoires { get; set; }
-
-    public virtual DbSet<Vventenombrevelo> Vventenombrevelos { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Server=51.83.36.122;port=5432;Database=s215_UpWay;uid=s215;password=e932ef57-561f-40cb-bbe6-e4952926895253769175fbbafe508f4cd113d35cb1976e371119952198f3a26478d6b7d1b61e;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -109,7 +89,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.AccessoireId).HasName("pk_accessoire");
 
-            entity.Property(e => e.AccessoireId).HasDefaultValueSql("nextval('accessoire_accessoireid_seq'::regclass)");
+            //entity.Property(e => e.AccessoireId).HasDefaultValueSql("nextval('accessoire_accessoireid_seq'::regclass)");
 
             entity.HasOne(d => d.AccessoireCategorie).WithMany(p => p.ListeAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -145,7 +125,8 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.AdresseExpeId).HasName("pk_adresseexpedition");
 
-            entity.Property(e => e.AdresseExpeId).HasDefaultValueSql("nextval('adresseexpedition_adresseexpeid_seq'::regclass)");
+            //entity.Property(e => e.AdresseExpeId)
+            //    .HasDefaultValueSql("nextval('adresseexpedition_adresseexpeid_seq'::regclass)");
             entity.Property(e => e.RegionExpedition).IsFixedLength();
 
             entity.HasOne(d => d.AdresseExpeFact).WithMany(p => p.ListeAdresseExpe)
@@ -161,7 +142,8 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.AdresseFactId).HasName("pk_adressefacturation");
 
-            entity.Property(e => e.AdresseFactId).HasDefaultValueSql("nextval('adressefacturation_idadressefact_seq'::regclass)");
+            //entity.Property(e => e.AdresseFactId)
+            //    .HasDefaultValueSql("nextval('adressefacturation_idadressefact_seq'::regclass)");
             entity.Property(e => e.RegionFacturation).IsFixedLength();
 
             entity.HasOne(d => d.AdresseFactExpe).WithMany(p => p.ListeAdresseFact)
@@ -192,7 +174,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => new { e.AlerteId, e.ClientId, e.VeloId }).HasName("pk_alertevelo");
 
-            entity.Property(e => e.AlerteId).HasDefaultValueSql("nextval('alertevelo_idalerte_seq'::regclass)");
+            //entity.Property(e => e.AlerteId).HasDefaultValueSql("nextval('alertevelo_idalerte_seq'::regclass)");
 
             entity.HasOne(d => d.AlerteClient).WithMany(p => p.ListeAlerteVelos)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -207,7 +189,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.ArticleId).HasName("pk_article");
 
-            entity.Property(e => e.ArticleId).HasDefaultValueSql("nextval('article_idarticle_seq'::regclass)");
+            //entity.Property(e => e.ArticleId).HasDefaultValueSql("nextval('article_idarticle_seq'::regclass)");
 
             entity.HasOne(d => d.ArticleCategorieArt).WithMany(p => p.ListeArticles)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -218,14 +200,15 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.AssuranceId).HasName("pk_assurance");
 
-            entity.Property(e => e.AssuranceId).HasDefaultValueSql("nextval('assurance_idassurance_seq'::regclass)");
+            //entity.Property(e => e.AssuranceId).HasDefaultValueSql("nextval('assurance_idassurance_seq'::regclass)");
         });
 
         modelBuilder.Entity<Caracteristique>(entity =>
         {
             entity.HasKey(e => e.CaracteristiqueId).HasName("pk_caracteristique");
 
-            entity.Property(e => e.CaracteristiqueId).HasDefaultValueSql("nextval('caracteristique_idcaracteristique_seq'::regclass)");
+            //entity.Property(e => e.CaracteristiqueId)
+            //    .HasDefaultValueSql("nextval('caracteristique_idcaracteristique_seq'::regclass)");
 
             entity.HasMany(d => d.ListeSousCaracteristiques).WithMany(p => p.ListeCaracteristiques)
                 .UsingEntity<Dictionary<string, object>>(
@@ -316,7 +299,8 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.CaracteristiqueVeloId).HasName("pk_caracteristiquevelo");
 
-            entity.Property(e => e.CaracteristiqueVeloId).HasDefaultValueSql("nextval('caracteristiquevelo_idcaracteristiquevelo_seq'::regclass)");
+            //entity.Property(e => e.CaracteristiqueVeloId)
+            //    .HasDefaultValueSql("nextval('caracteristiquevelo_idcaracteristiquevelo_seq'::regclass)");
             entity.Property(e => e.Amortisseur).IsFixedLength();
             entity.Property(e => e.Couleur).IsFixedLength();
             entity.Property(e => e.EtatBatterie).IsFixedLength();
@@ -333,14 +317,15 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.CategorieId).HasName("pk_categorie");
 
-            entity.Property(e => e.CategorieId).HasDefaultValueSql("nextval('categorie_idcategorie_seq'::regclass)");
+            //entity.Property(e => e.CategorieId).HasDefaultValueSql("nextval('categorie_idcategorie_seq'::regclass)");
         });
 
         modelBuilder.Entity<CategorieArticle>(entity =>
         {
             entity.HasKey(e => e.CategorieArticleId).HasName("pk_categorie_article");
 
-            entity.Property(e => e.CategorieArticleId).HasDefaultValueSql("nextval('categorie_article_idcategorie_article_seq'::regclass)");
+            //entity.Property(e => e.CategorieArticleId)
+            //    .HasDefaultValueSql("nextval('categorie_article_idcategorie_article_seq'::regclass)");
 
             entity.HasMany(d => d.ListeSousCategorieArticles).WithMany(p => p.ListeCategorieArticles)
                 .UsingEntity<Dictionary<string, object>>(
@@ -390,14 +375,14 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.ClientId).HasName("pk_compteclient");
 
-            entity.Property(e => e.ClientId).HasDefaultValueSql("nextval('compteclient_idclient_seq'::regclass)");
+            // entity.Property(e => e.ClientId).HasDefaultValueSql("nextval('compteclient_idclient_seq'::regclass)");
         });
 
         modelBuilder.Entity<ContenuArticle>(entity =>
         {
             entity.HasKey(e => e.ContenueId).HasName("pk_contenu_article");
 
-            entity.Property(e => e.ContenueId).HasDefaultValueSql("nextval('contenu_article_idcontenue_seq'::regclass)");
+            //  entity.Property(e => e.ContenueId.HasDefaultValueSql("nextval('contenu_article_idcontenue_seq'::regclass)");
 
             entity.HasOne(d => d.ContenuArticleArt).WithMany(p => p.ListeContenuArticles)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -408,7 +393,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.CommandeId).HasName("pk_detailcommande");
 
-            entity.Property(e => e.CommandeId).HasDefaultValueSql("nextval('detailcommande_idcommande_seq'::regclass)");
+            //entity.Property(e => e.CommandeId).HasDefaultValueSql("nextval('detailcommande_idcommande_seq'::regclass)");
 
             entity.HasOne(d => d.DetailComAdresseFact).WithMany(p => p.ListeDetailCommande)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -435,7 +420,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.DpoId).HasName("pk_dpo");
 
-            entity.Property(e => e.DpoId).HasDefaultValueSql("nextval('dpo_iddpo_seq'::regclass)");
+            // entity.Property(e => e.DpoId).HasDefaultValueSql("nextval('dpo_iddpo_seq'::regclass)");
         });
 
         modelBuilder.Entity<EstRealise>(entity =>
@@ -461,14 +446,14 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.EtatCommandeId).HasName("pk_etatcommande");
 
-            entity.Property(e => e.EtatCommandeId).HasDefaultValueSql("nextval('etatcommande_idetatcommande_seq'::regclass)");
+            // entity.Property(e => e.EtatCommandeId).HasDefaultValueSql("nextval('etatcommande_idetatcommande_seq'::regclass)");
         });
 
         modelBuilder.Entity<Information>(entity =>
         {
             entity.HasKey(e => e.InformationId).HasName("pk_informations");
 
-            entity.Property(e => e.InformationId).HasDefaultValueSql("nextval('informations_idinformations_seq'::regclass)");
+            //  entity.Property(e => e.InformationId).HasDefaultValueSql("nextval('informations_idinformations_seq'::regclass)");
 
             entity.HasOne(d => d.InformationAdresseExpe).WithMany(p => p.ListeInformations)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -508,7 +493,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.MagasinId).HasName("pk_magasin");
 
-            entity.Property(e => e.MagasinId).HasDefaultValueSql("nextval('magasin_idmagasin_seq'::regclass)");
+            //entity.Property(e => e.MagasinId).HasDefaultValueSql("nextval('magasin_idmagasin_seq'::regclass)");
             entity.Property(e => e.CPMagasin).IsFixedLength();
 
             entity.HasMany(d => d.ListeVelos).WithMany(p => p.ListeMagasins)
@@ -545,14 +530,14 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.MarqueId).HasName("pk_marque");
 
-            entity.Property(e => e.MarqueId).HasDefaultValueSql("nextval('marque_idmarque_seq'::regclass)");
+            // entity.Property(e => e.MarqueId).HasDefaultValueSql("nextval('marque_idmarque_seq'::regclass)");
         });
 
         modelBuilder.Entity<MentionVelo>(entity =>
         {
             entity.HasKey(e => e.MentionId).HasName("pk_mentionvelo");
 
-            entity.Property(e => e.MentionId).HasDefaultValueSql("nextval('mentionvelo_idmention_seq'::regclass)");
+            // entity.Property(e => e.MentionId).HasDefaultValueSql("nextval('mentionvelo_idmention_seq'::regclass)");
 
             entity.HasOne(d => d.MentionVeloVelo).WithMany(p => p.ListeMentionVelos)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -563,7 +548,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.MoteurId).HasName("pk_moteur");
 
-            entity.Property(e => e.MoteurId).HasDefaultValueSql("nextval('moteur_idmoteur_seq'::regclass)");
+            // entity.Property(e => e.MoteurId).HasDefaultValueSql("nextval('moteur_idmoteur_seq'::regclass)");
 
             entity.HasOne(d => d.MoteurMarque).WithMany(p => p.ListeMoteurs)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -574,7 +559,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.PanierId).HasName("pk_panier");
 
-            entity.Property(e => e.PanierId).HasDefaultValueSql("nextval('panier_idpanier_seq'::regclass)");
+            //  entity.Property(e => e.PanierId).HasDefaultValueSql("nextval('panier_idpanier_seq'::regclass)");
 
             entity.HasOne(d => d.PanierClient).WithMany(p => p.ListePaniers)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -589,7 +574,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.PhotoAcessoireId).HasName("pk_photoaccessoire");
 
-            entity.Property(e => e.PhotoAcessoireId).HasDefaultValueSql("nextval('photoaccessoire_idphotoaccessoire_seq'::regclass)");
+            //entity.Property(e => e.PhotoAcessoireId).HasDefaultValueSql("nextval('photoaccessoire_idphotoaccessoire_seq'::regclass)");
 
             entity.HasOne(d => d.PhotoAccessoireAccessoire).WithMany(p => p.ListePhotoAccessoires)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -600,7 +585,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.PhotoVeloId).HasName("pk_photovelo");
 
-            entity.Property(e => e.PhotoVeloId).HasDefaultValueSql("nextval('photovelo_idphotovelo_seq'::regclass)");
+            // entity.Property(e => e.PhotoVeloId).HasDefaultValueSql("nextval('photovelo_idphotovelo_seq'::regclass)");
 
             entity.HasOne(d => d.PhotoVeloVelo).WithMany(p => p.ListePhotoVelos)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -611,21 +596,21 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.InspectionId).HasName("pk_rapportinspection");
 
-            entity.Property(e => e.InspectionId).HasDefaultValueSql("nextval('rapportinspection_idinspection_seq'::regclass)");
+            //  entity.Property(e => e.InspectionId).HasDefaultValueSql("nextval('rapportinspection_idinspection_seq'::regclass)");
         });
 
         modelBuilder.Entity<ReparationVelo>(entity =>
         {
             entity.HasKey(e => e.ReparationId).HasName("pk_reparationvelo");
 
-            entity.Property(e => e.ReparationId).HasDefaultValueSql("nextval('reparationvelo_idreparation_seq'::regclass)");
+            //  entity.Property(e => e.ReparationId).HasDefaultValueSql("nextval('reparationvelo_idreparation_seq'::regclass)");
         });
 
         modelBuilder.Entity<RetraitMagasin>(entity =>
         {
             entity.HasKey(e => e.RetraitMagasinId).HasName("pk_retraitmagasin");
 
-            entity.Property(e => e.RetraitMagasinId).HasDefaultValueSql("nextval('retraitmagasin_idretraitmagasin_seq'::regclass)");
+            //  entity.Property(e => e.RetraitMagasinId).HasDefaultValueSql("nextval('retraitmagasin_idretraitmagasin_seq'::regclass)");
 
             entity.HasOne(d => d.RetraitMagasinDetailCom).WithMany(p => p.ListeRetraitMagasins)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -644,7 +629,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.TestId).HasName("pk_testvelo");
 
-            entity.Property(e => e.TestId).HasDefaultValueSql("nextval('testvelo_idtest_seq'::regclass)");
+            // entity.Property(e => e.TestId).HasDefaultValueSql("nextval('testvelo_idtest_seq'::regclass)");
 
             entity.HasOne(d => d.TestVeloMagasin).WithMany(p => p.ListeTestVelos)
                 .OnDelete(DeleteBehavior.Restrict)
@@ -659,55 +644,18 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => new { e.UtiliteId, e.VeloId }).HasName("pk_utilite");
 
-            entity.Property(e => e.UtiliteId).HasDefaultValueSql("nextval('utilite_idutilite_seq'::regclass)");
+            //  entity.Property(e => e.UtiliteId).HasDefaultValueSql("nextval('utilite_idutilite_seq'::regclass)");
 
             entity.HasOne(d => d.UtiliteVelo).WithMany(p => p.ListeUtilites)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_utilite_note_velo");
         });
 
-        modelBuilder.Entity<Vadresse>(entity =>
-        {
-            entity.ToView("vadresse", "upways");
-
-            entity.Property(e => e.Regionfact).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Vcaracteristiquevelo>(entity =>
-        {
-            entity.ToView("vcaracteristiquevelo", "upways");
-
-            entity.Property(e => e.Amortisseur).IsFixedLength();
-            entity.Property(e => e.Capacitebatterie).IsFixedLength();
-            entity.Property(e => e.Couleur).IsFixedLength();
-            entity.Property(e => e.Etatbatterie).IsFixedLength();
-            entity.Property(e => e.Fourche).IsFixedLength();
-            entity.Property(e => e.Freins).IsFixedLength();
-            entity.Property(e => e.Materiau).IsFixedLength();
-            entity.Property(e => e.Modeltransmission).IsFixedLength();
-            entity.Property(e => e.Nombrekms).IsFixedLength();
-            entity.Property(e => e.Pneus).IsFixedLength();
-            entity.Property(e => e.Taillemax).IsFixedLength();
-            entity.Property(e => e.Taillemin).IsFixedLength();
-            entity.Property(e => e.Typecargo).IsFixedLength();
-            entity.Property(e => e.Typesuspension).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Vcommande>(entity =>
-        {
-            entity.ToView("vcommande", "upways");
-        });
-
-        modelBuilder.Entity<Vdpo>(entity =>
-        {
-            entity.ToView("vdpo", "upways");
-        });
-
         modelBuilder.Entity<Velo>(entity =>
         {
             entity.HasKey(e => e.VeloId).HasName("pk_velo");
 
-            entity.Property(e => e.VeloId).HasDefaultValueSql("nextval('velo_idvelo_seq'::regclass)");
+            //   entity.Property(e => e.VeloId).HasDefaultValueSql("nextval('velo_idvelo_seq'::regclass)");
             entity.Property(e => e.CapaciteBatterie).IsFixedLength();
             entity.Property(e => e.NombreKms).IsFixedLength();
             entity.Property(e => e.TailleMax).IsFixedLength();
@@ -734,7 +682,7 @@ public partial class S215UpWayContext : DbContext
         {
             entity.HasKey(e => e.VelomId).HasName("pk_velomodif");
 
-            entity.Property(e => e.VelomId).HasDefaultValueSql("nextval('velomodifier_idvelom_seq'::regclass)");
+            //  entity.Property(e => e.VelomId).HasDefaultValueSql("nextval('velomodifier_idvelom_seq'::regclass)");
             entity.Property(e => e.CapaciteBatterie).IsFixedLength();
             entity.Property(e => e.NombreKms).IsFixedLength();
             entity.Property(e => e.TailleMax).IsFixedLength();
@@ -755,28 +703,6 @@ public partial class S215UpWayContext : DbContext
             entity.HasOne(d => d.VeloModifierMoteur).WithMany(p => p.ListeVeloModifiers)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_moteur_integrer_velomodifier");
-        });
-
-        modelBuilder.Entity<Vvelo>(entity =>
-        {
-            entity.ToView("vvelo", "upways");
-
-            entity.Property(e => e.Nombrekms).IsFixedLength();
-            entity.Property(e => e.Taillemax).IsFixedLength();
-            entity.Property(e => e.Taillemin).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Vventenombreacessoire>(entity =>
-        {
-            entity.ToView("vventenombreacessoire", "upways");
-        });
-
-        modelBuilder.Entity<Vventenombrevelo>(entity =>
-        {
-            entity.ToView("vventenombrevelo", "upways");
-
-            entity.Property(e => e.Taillemax).IsFixedLength();
-            entity.Property(e => e.Taillemin).IsFixedLength();
         });
 
         OnModelCreatingPartial(modelBuilder);

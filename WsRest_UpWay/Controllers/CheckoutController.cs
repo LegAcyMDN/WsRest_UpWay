@@ -23,7 +23,13 @@ public class CheckoutController : ControllerBase
         this.gateway = gateway;
     }
 
+    /// <summary>
+    /// Récupère le token de client pour Braintree.
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le token est récupéré avec succès.</response>
     [HttpGet("get-token")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<GetTokenResponse>> GetToken()
     {
@@ -31,7 +37,18 @@ public class CheckoutController : ControllerBase
         return Ok(new GetTokenResponse { Token = token });
     }
 
+    /// <summary>
+    /// Crée une commande et effectue une transaction.
+    /// </summary>
+    /// <param name="body">Les informations de la commande à créer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la commande est créée avec succès.</response>
+    /// <response code="400">Lorsque la commande n'est pas trouvée ou en cas d'erreur de transaction.</response>
+    /// <response code="401">Lorsque l'utilisateur n'est pas autorisé à effectuer cette commande.</response>
     [HttpPost("create")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<CreateOrderResponse>> CreateOrder([FromBody] CreateOrderRequest body)
     {
@@ -65,7 +82,16 @@ public class CheckoutController : ControllerBase
         return BadRequest(CreateOrderResponse.Error(res.Message));
     }
 
+    /// <summary>
+    /// Affiche les détails d'une transaction.
+    /// </summary>
+    /// <param name="body">Les informations de la transaction à afficher.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque les détails de la transaction sont récupérés avec succès.</response>
+    /// <response code="400">Lorsque l'identifiant de la transaction n'est pas reconnu.</response>
     [HttpPost("show")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.User)]
     public async Task<ActionResult<ShowTransactionResponse>> ShowTransaction([FromBody] ShowTransactionRequest body)
     {

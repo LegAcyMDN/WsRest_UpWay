@@ -17,13 +17,26 @@ public class MagasinsController : ControllerBase
         dataRepository = dataRepo;
     }
 
+    /// <summary>
+    /// Récupère tous les magasins.
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la liste des magasins est récupérée avec succès.</response>
     // GET: api/Magasin
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasins()
     {
         return await dataRepository.GetAllAsync();
     }
 
+    /// <summary>
+    /// Récupère un magasin par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du magasin.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le magasin est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant du magasin n'est pas trouvé.</response>
     // GET: api/Magasin/5
     [HttpGet]
     [Route("[action]/{id}")]
@@ -39,9 +52,21 @@ public class MagasinsController : ControllerBase
         return magasin;
     }
 
+    /// <summary>
+    /// Met à jour un magasin existant.
+    /// </summary>
+    /// <param name="id">L'identifiant du magasin à mettre à jour.</param>
+    /// <param name="magasin">L'objet magasin avec les nouvelles valeurs.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la mise à jour est réussie.</response>
+    /// <response code="404">Lorsque le magasin à mettre à jour n'est pas trouvé.</response>
+    /// <response code="400">Lorsque l'identifiant du magasin ne correspond pas à l'objet fourni.</response>
     // PUT: api/Magasin/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutMagasin(int id, Magasin magasin)
     {
@@ -55,6 +80,13 @@ public class MagasinsController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Crée un nouveau magasin.
+    /// </summary>
+    /// <param name="magasin">L'objet magasin à créer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="201">Lorsque le magasin est créé avec succès.</response>
+    /// <response code="400">Lorsque le modèle du magasin est invalide.</response>
     // POST: api/Magasin
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
@@ -70,6 +102,13 @@ public class MagasinsController : ControllerBase
         return CreatedAtAction("GetByIdAsync", new { id = magasin.MagasinId }, magasin);
     }
 
+    /// <summary>
+    /// Supprime un magasin par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du magasin à supprimer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la suppression est réussie.</response>
+    /// <response code="404">Lorsque le magasin à supprimer n'est pas trouvé.</response>
     // DELETE: api/Magasin/5
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

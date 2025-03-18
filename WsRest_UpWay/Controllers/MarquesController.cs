@@ -17,12 +17,25 @@ public class MarquesController : ControllerBase
         dataRepository = dataRepo;
     }
 
+    /// <summary>
+    /// Récupère toutes les marques.
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la liste des marques est récupérée avec succès.</response>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Marque>>> GetMarques()
     {
         return await dataRepository.GetAllAsync();
     }
 
+    /// <summary>
+    /// Récupère une marque par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant de la marque.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la marque est trouvée.</response>
+    /// <response code="404">Lorsque l'identifiant de la marque n'est pas trouvé.</response>
     [HttpGet]
     [Route("[action]/{id}")]
     [ActionName("GetById")]
@@ -38,6 +51,13 @@ public class MarquesController : ControllerBase
         return marque;
     }
 
+    /// <summary>
+    /// Récupère une marque par son nom.
+    /// </summary>
+    /// <param name="nom">Le nom de la marque.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la marque est trouvée.</response>
+    /// <response code="404">Lorsque la marque avec le nom spécifié n'est pas trouvée.</response>
     [HttpGet]
     [Route("[action]/{nom}")]
     [ActionName("GetByNom")]
@@ -52,6 +72,15 @@ public class MarquesController : ControllerBase
         return marque;
     }
 
+    /// <summary>
+    /// Met à jour une marque existante.
+    /// </summary>
+    /// <param name="id">L'identifiant de la marque à mettre à jour.</param>
+    /// <param name="marque">L'objet marque avec les nouvelles valeurs.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la mise à jour est réussie.</response>
+    /// <response code="404">Lorsque la marque à mettre à jour n'est pas trouvée.</response>
+    /// <response code="400">Lorsque l'identifiant de la marque ne correspond pas à l'objet fourni.</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -70,6 +99,13 @@ public class MarquesController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Crée une nouvelle marque.
+    /// </summary>
+    /// <param name="marque">L'objet marque à créer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="201">Lorsque la marque est créée avec succès.</response>
+    /// <response code="400">Lorsque le modèle de la marque est invalide.</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,6 +120,13 @@ public class MarquesController : ControllerBase
         return CreatedAtAction("GetById", new { id = marque.MarqueId }, marque);
     }
 
+    /// <summary>
+    /// Supprime une marque par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant de la marque à supprimer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la suppression est réussie.</response>
+    /// <response code="404">Lorsque la marque à supprimer n'est pas trouvée.</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

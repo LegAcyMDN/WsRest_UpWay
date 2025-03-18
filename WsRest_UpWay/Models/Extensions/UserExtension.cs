@@ -11,7 +11,7 @@ public partial class CompteClient
 
     public string GenerateJwtToken(IConfiguration config)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:SecretKey"]));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT_SECRET_KEY"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
@@ -22,8 +22,8 @@ public partial class CompteClient
         };
 
         var token = new JwtSecurityToken(
-            config["Jwt:Issuer"],
-            config["Jwt:Audience"],
+            config["JWT_ISSUER"],
+            config["JWT_AUDIENCE"],
             claims,
             expires: DateTime.Now.AddDays(7),
             signingCredentials: credentials
