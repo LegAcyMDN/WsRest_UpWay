@@ -15,19 +15,20 @@ public partial class RetraitMagasin
     public RetraitMagasin()
     {
         ListeDetailCommandes = new HashSet<DetailCommande>();
+        ListeInformations = new HashSet<Information>();
     }
 
     [Key]
     [Column("rem_id")]
     public int RetraitMagasinId { get; set; }
 
-    [Column("rem_idinformations")]
+    [Column("inf_id")]
     public int?InformationId { get; set; }
 
-    [Column("rem_idcommande")]
+    [Column("detcom_id")]
     public int? CommandeId { get; set; }
 
-    [Column("rem_idmagasin")]
+    [Column("mag_id")]
     public int MagasinId { get; set; }
 
     [Column("rem_date", TypeName = "date")]
@@ -41,7 +42,7 @@ public partial class RetraitMagasin
     public virtual DetailCommande? RetraitMagasinDetailCom { get; set; }
 
     [ForeignKey(nameof(InformationId))]
-    [InverseProperty(nameof(Information.InformationRetraitMagasin))]
+    [InverseProperty(nameof(Information.ListeRetraitMagasins))]
     public virtual Information? RetraitMagasinInformation { get; set; }
 
     [ForeignKey(nameof(MagasinId))]
