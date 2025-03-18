@@ -32,6 +32,28 @@ public class AccessoireManager : IDataRepository<Accessoire>
     {
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.NomAccessoire.ToUpper() == nom.ToUpper());
     }
+    /*
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByAntivolsAsync(string nom)
+    {
+        return await upwaysDbContext.Accessoires.Where(u => u.NomAccessoire.ToUpper() == nom.ToUpper()).ToListAsync();
+    }
+    
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByAntivolsAsync(string nom)
+    {
+        return await upwaysDbContext.Accessoires
+            .Where(u => u.NomAccessoire.ToUpper() == nom.ToUpper() && u.Categorie.LibelleCategorie == "Antivols")
+            .ToListAsync();
+    }
+    */
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByAntivolsAsync(string nom)
+    {
+        return await (from accessoire in upwaysDbContext.Accessoires
+                      join categorie in upwaysDbContext.Categories
+                      on accessoire.CategorieId equals categorie.CategorieId
+                      where accessoire.NomAccessoire.ToUpper() == nom.ToUpper()
+                            && categorie.LibelleCategorie == "Antivols"
+                      select accessoire).ToListAsync();
+    }
 
     public async Task AddAsync(Accessoire entity)
     {
