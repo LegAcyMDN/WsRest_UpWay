@@ -19,6 +19,7 @@ public class InformationsController : ControllerBase
 
     // GET: api/Information
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<Information>>> GetInformations()
     {
         return await _context.GetAllAsync();

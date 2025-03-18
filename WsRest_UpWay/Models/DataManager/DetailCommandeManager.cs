@@ -28,8 +28,8 @@ namespace WsRest_UpWay.Models.DataManager
         }
         public async Task AddAsync(DetailCommande entity)
         {
-            upwaysDbContext.Detailcommandes.AddAsync(entity);
-            upwaysDbContext.SaveChangesAsync();
+            await upwaysDbContext.Detailcommandes.AddAsync(entity);
+            await upwaysDbContext.SaveChangesAsync();
         }
         public async Task UpdateAsync(DetailCommande detailcommande, DetailCommande entity)
         {
@@ -43,13 +43,13 @@ namespace WsRest_UpWay.Models.DataManager
             detailcommande.MoyenPaiement = entity.MoyenPaiement;
             detailcommande.ModeExpedition = entity.ModeExpedition;
             detailcommande.DateAchat = entity.DateAchat;
-            upwaysDbContext.SaveChangesAsync();
+            await upwaysDbContext.SaveChangesAsync();
 
         }
         public async Task DeleteAsync(DetailCommande detailcommande)
         {
             upwaysDbContext.Detailcommandes.Remove(detailcommande);
-            upwaysDbContext.SaveChangesAsync();
+            await upwaysDbContext.SaveChangesAsync();
         }
     }
 }
