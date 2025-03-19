@@ -40,6 +40,18 @@ public class AccessoireManager : IDataRepository<Accessoire>
         return cat.ListeAccessoires.ToList();
     }
 
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrix(string categoryName, int min, int max)
+    {
+        Categorie cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
+        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
+        return cat.ListeAccessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).ToList();
+    }
+
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByPrix(int min, int max)
+    {
+        return await upwaysDbContext.Accessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).ToListAsync();
+    }
+
     public async Task AddAsync(Accessoire entity)
     {
         await upwaysDbContext.Accessoires.AddAsync(entity);
