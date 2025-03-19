@@ -30,27 +30,27 @@ namespace WsRest_UpWay.Models.DataManager
             return await upwaysDbContext.Magasins.FirstOrDefaultAsync(u => u.NomMagasin.ToLower() == nom.ToUpper());
         }
 
-        public async Task AddAsync(Magasin entity)
+        public async Task AddAsync(Magasin mag)
         {
-            await upwaysDbContext.Magasins.AddAsync(entity);
+            await upwaysDbContext.Magasins.AddAsync(mag);
             await upwaysDbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Magasin magasin, Magasin entity)
+        public async Task UpdateAsync(Magasin magToUpdate, Magasin mag)
         {
-            upwaysDbContext.Entry(magasin).State = EntityState.Modified;
-            magasin.MagasinId = entity.MagasinId;
-            magasin.NomMagasin = entity.NomMagasin;
-            magasin.HoraireMagasin = entity.HoraireMagasin;
-            magasin.RueMagasin = entity.RueMagasin;
-            magasin.CPMagasin = entity.CPMagasin;
-            magasin.VilleMagasin = entity.VilleMagasin;
+            upwaysDbContext.Entry(magToUpdate).State = EntityState.Modified;
+            magToUpdate.MagasinId = mag.MagasinId;
+            magToUpdate.NomMagasin = mag.NomMagasin;
+            magToUpdate.HoraireMagasin = mag.HoraireMagasin;
+            magToUpdate.RueMagasin = mag.RueMagasin;
+            magToUpdate.CPMagasin = mag.CPMagasin;
+            magToUpdate.VilleMagasin = mag.VilleMagasin;
             await upwaysDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Magasin magasin)
+        public async Task DeleteAsync(Magasin mag)
         {
-            upwaysDbContext.Magasins.Remove(magasin);
+            upwaysDbContext.Magasins.Remove(mag);
             await upwaysDbContext.SaveChangesAsync();
         }
     }

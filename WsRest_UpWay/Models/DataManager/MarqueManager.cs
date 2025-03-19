@@ -31,24 +31,24 @@ namespace WsRest_UpWay.Models.DataManager
             return await upwaysDbContext.Marques.FirstOrDefaultAsync(u => u.NomMarque.ToUpper() == nom.ToUpper());
         }
 
-        public async Task AddAsync(Marque entity)
+        public async Task AddAsync(Marque mar)
         {
-            await upwaysDbContext.Marques.AddAsync(entity);
+            await upwaysDbContext.Marques.AddAsync(mar);
             await upwaysDbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Marque marque, Marque entity)
+        public async Task UpdateAsync(Marque marToUpdate, Marque mar)
         {
-            upwaysDbContext.Entry(marque).State = EntityState.Modified;
-            marque.MarqueId = entity.MarqueId;
-            marque.NomMarque = entity.NomMarque;
+            upwaysDbContext.Entry(marToUpdate).State = EntityState.Modified;
+            marToUpdate.MarqueId = mar.MarqueId;
+            marToUpdate.NomMarque = mar.NomMarque;
             await upwaysDbContext.SaveChangesAsync();
 
         }
 
-        public async Task DeleteAsync(Marque marque)
+        public async Task DeleteAsync(Marque mar)
         {
-            upwaysDbContext.Marques.Remove(marque);
+            upwaysDbContext.Marques.Remove(mar);
             await upwaysDbContext.SaveChangesAsync();
         }
     }

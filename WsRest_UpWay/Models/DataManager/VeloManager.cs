@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class VeloManager : IDataVelo<Velo>
+    public class VeloManager : IDataVelo
     {
         readonly S215UpWayContext _upWayContext;
 
@@ -22,13 +23,18 @@ namespace WsRest_UpWay.Models.DataManager
             await _upWayContext.SaveChangesAsync();
         }
 
+        public async Task<ActionResult<Velo>>GetByStringAsync(string nom)
+        {
+            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.NomVelo == nom);
+        }
+
         public async Task DeleteAsync(Velo vel)
         {
             _upWayContext.Velos.Remove(vel);
             await _upWayContext.SaveChangesAsync();
         }
 
-        public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltresAsync(string taille, int categorie, int cara, int marque, int annee, int kilomin, int kilomax, string posmot, string motmar, int couplemot, int capbat, string posbat, string batamo, string posbag, int poids)
+        public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltresAsync(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
         {
             IQueryable<Velo> velofilt = _upWayContext.Velos;
             if (taille != null) 
@@ -38,6 +44,47 @@ namespace WsRest_UpWay.Models.DataManager
             if (categorie != null) 
             {
                 velofilt = velofilt.Where(p => p.CategorieId == categorie);
+            }
+            if (cara != null) 
+            {
+                velofilt = velofilt.Where(p => p.CaracteristiqueVeloId == cara);
+            }
+            if(marque != null) 
+            {
+                velofilt = velofilt.Where(p => p.MarqueId == marque);
+            }
+            if (annee != null)
+            {
+                velofilt = velofilt.Where(p => p.AnneeVelo >= annee);
+            }
+            if (kilom != null)
+            {
+                velofilt = velofilt.Where(p => p.NombreKms == kilom);
+            }
+            if (posmot != null) 
+            {
+                velofilt = velofilt.Where(p => p.PositionMoteur == posmot);
+            }
+            if (motmar != null) 
+            {
+
+                Moteur mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(m => m.MoteurMarque.NomMarque == motmar);
+                velofilt = velofilt.Where(p => p.MoteurId == mot.MoteurId);
+            }
+            if (couplemot != null) 
+            {
+                Moteur mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(cp => cp.CoupleMoteur == couplemot);
+                velofilt = velofilt.Where(p => p.MoteurId == mot.MoteurId);
+            }
+            if(capbat != null) 
+            {
+                Caracteristique cat = await _upWayContext.Caracteristiques.FirstOrDefaultAsync(c => c.LibelleCaracteristique == capbat);
+                velofilt = velofilt.Where(p => p.CapaciteBatterie == cat.LibelleCaracteristique);
+            }
+            if(poids != null) 
+            {
+                CaracteristiqueVelo catv = await _upWayContext.Caracteristiquevelos.FirstOrDefaultAsync(c => c.Poids == poids);
+                velofilt = velofilt.Where(p => p.CaracteristiqueVeloId == catv.CaracteristiqueVeloId);
             }
             return await velofilt.ToListAsync();
         }

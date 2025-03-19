@@ -33,33 +33,33 @@ public class UserManager : IDataRepository<CompteClient>
         return _context.Compteclients.FirstOrDefault(c => c.EmailClient.ToLower() == str.ToLower());
     }
 
-    public async Task AddAsync(CompteClient entity)
+    public async Task AddAsync(CompteClient coc)
     {
-        await _context.Compteclients.AddAsync(entity);
+        await _context.Compteclients.AddAsync(coc);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(CompteClient entityToUpdate, CompteClient entity)
+    public async Task UpdateAsync(CompteClient cocToUpdate, CompteClient coc)
     {
-        _context.Entry(entityToUpdate).State = EntityState.Modified;
+        _context.Entry(cocToUpdate).State = EntityState.Modified;
 
-        entityToUpdate.LoginClient = entity.LoginClient;
-        entityToUpdate.MotDePasseClient = entity.MotDePasseClient;
-        entityToUpdate.EmailClient = entity.EmailClient;
-        entityToUpdate.RememberToken = entity.RememberToken;
-        entityToUpdate.TwoFactorSecret = entity.TwoFactorSecret;
-        entityToUpdate.TwoFactorRecoveryCodes = entity.TwoFactorRecoveryCodes;
-        entityToUpdate.TwoFactorConfirmedAt = entity.TwoFactorConfirmedAt;
-        entityToUpdate.Usertype = entity.Usertype;
-        entityToUpdate.EmailVerifiedAt = entity.EmailVerifiedAt;
-        entityToUpdate.IsFromGoogle = entity.IsFromGoogle;
+        cocToUpdate.LoginClient = coc.LoginClient;
+        cocToUpdate.MotDePasseClient = coc.MotDePasseClient;
+        cocToUpdate.EmailClient = coc.EmailClient;
+        cocToUpdate.RememberToken = coc.RememberToken;
+        cocToUpdate.TwoFactorSecret = coc.TwoFactorSecret;
+        cocToUpdate.TwoFactorRecoveryCodes = coc.TwoFactorRecoveryCodes;
+        cocToUpdate.TwoFactorConfirmedAt = coc.TwoFactorConfirmedAt;
+        cocToUpdate.Usertype = coc.Usertype;
+        cocToUpdate.EmailVerifiedAt = coc.EmailVerifiedAt;
+        cocToUpdate.IsFromGoogle = coc.IsFromGoogle;
 
         _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(CompteClient entity)
+    public async Task DeleteAsync(CompteClient coc)
     {
-        _context.Remove(entity);
+        _context.Remove(coc);
         await _context.SaveChangesAsync();
     }
 }

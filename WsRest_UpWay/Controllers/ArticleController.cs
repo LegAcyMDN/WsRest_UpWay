@@ -64,7 +64,7 @@ public class ArticleController : ControllerBase
     [ActionName("GetByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Article>> GetInformationMode(string nom)
+    public async Task<ActionResult<Article>> GetbyTitreArticle(string nom)
     {
         var article = await dataRepository.GetByStringAsync(nom);
         if (article == null)
