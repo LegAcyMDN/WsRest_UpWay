@@ -65,11 +65,11 @@ public class VelosController : ControllerBase
         if (id != velo.VeloId)
             return BadRequest();
 
-        var comToUpdate = await dataRepository.GetByIdAsync(id);
+        var velToUpdate = await dataRepository.GetByIdAsync(id);
 
-        if (comToUpdate == null)
+        if (velToUpdate == null)
             return NotFound();
-        await dataRepository.UpdateAsync(comToUpdate.Value, velo);
+        await dataRepository.UpdateAsync(velToUpdate.Value, velo);
         return NoContent();
     }
 
