@@ -10,9 +10,9 @@ namespace WsRest_UpWay.Controllers;
 [ApiController]
 public class VelosController : ControllerBase
 {
-    private readonly IDataVelo<Velo> dataRepository;
+    private readonly IDataVelo dataRepository;
 
-    public VelosController(IDataVelo<Velo> dataRepo)
+    public VelosController(IDataVelo dataRepo)
     {
         dataRepository = dataRepo;
     }
@@ -44,9 +44,9 @@ public class VelosController : ControllerBase
     [ActionName("GetByName")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetFiltres(string taille, int categorie, int cara, int marque, int annee, int kilomin, int kilomax, string posmot, string motmar, int couplemot, int capbat, string posbat, string batamo, string posbag, int poids)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetFiltres(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
     {
-        var velo = await dataRepository.GetByFiltresAsync(taille,categorie, cara, marque, annee,kilomin,  kilomax,  posmot,  motmar,  couplemot,  capbat, posbat, batamo, posbag, poids);
+        var velo = await dataRepository.GetByFiltresAsync(taille,categorie, cara, marque, annee ,kilom, posmot,  motmar,  couplemot,  capbat, posbat, batamo, posbag, poids);
         if (velo == null)
             return NotFound();
 
