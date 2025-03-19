@@ -16,15 +16,15 @@ namespace WsRest_UpWay.Models.DataManager
             s215UpWayContext = context;
         }
 
-        public async Task AddAsync(Article entity)
+        public async Task AddAsync(Article art)
         {
-            await s215UpWayContext.Articles.AddAsync(entity);
+            await s215UpWayContext.Articles.AddAsync(art);
             await s215UpWayContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Article entity)
+        public async Task DeleteAsync(Article art)
         {
-            s215UpWayContext.Articles.Remove(entity);
+            s215UpWayContext.Articles.Remove(art);
             await s215UpWayContext.SaveChangesAsync();
         }
 
@@ -45,11 +45,11 @@ namespace WsRest_UpWay.Models.DataManager
                     .FirstOrDefaultAsync(u => u.ArticleCategorieArt.TitreCategorieArticle.ToUpper() == str.ToLower());
         }
 
-        public async Task UpdateAsync(Article entityToUpdate, Article entity)
+        public async Task UpdateAsync(Article artToUpdate, Article art)
         {
-            s215UpWayContext.Entry(entityToUpdate).State = EntityState.Modified;
-            entityToUpdate.ArticleId = entity.ArticleId;
-            entityToUpdate.CategorieArticleId = entity.ArticleId;
+            s215UpWayContext.Entry(artToUpdate).State = EntityState.Modified;
+            artToUpdate.ArticleId = art.ArticleId;
+            artToUpdate.CategorieArticleId = art.ArticleId;
             await s215UpWayContext.SaveChangesAsync();
         }
     }

@@ -30,25 +30,25 @@ namespace WsRest_UpWay.Models.DataManager
             return await upwaysDbContext.Informations.FirstOrDefaultAsync(u => u.ModeLivraison.ToLower() == mode.ToUpper());
         }
 
-        public async Task AddAsync(Information entity)
+        public async Task AddAsync(Information inf)
         {
-            await upwaysDbContext.Informations.AddAsync(entity);
+            await upwaysDbContext.Informations.AddAsync(inf);
             await upwaysDbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Information inf, Information entity)
+        public async Task UpdateAsync(Information infToUpdate, Information inf)
         {
-            upwaysDbContext.Entry(inf).State = EntityState.Modified;
-            inf.InformationId = entity.InformationId;
-            inf.ReductionId = entity.ReductionId;
-            inf.RetraitMagasinId = entity.RetraitMagasinId;
-            inf.AdresseExpeId = entity.AdresseExpeId;
-            inf.PanierId = entity.PanierId;
-            inf.ContactInformations = entity.ContactInformations;
-            inf.OffreEmail = entity.OffreEmail;
-            inf.ModeLivraison = entity.ModeLivraison;
-            inf.InformationPays = entity.InformationPays;
-            inf.InformationRue = entity.InformationRue;
+            upwaysDbContext.Entry(infToUpdate).State = EntityState.Modified;
+            infToUpdate.InformationId = inf.InformationId;
+            infToUpdate.ReductionId = inf.ReductionId;
+            infToUpdate.RetraitMagasinId = inf.RetraitMagasinId;
+            infToUpdate.AdresseExpeId = inf.AdresseExpeId;
+            infToUpdate.PanierId = inf.PanierId;
+            infToUpdate.ContactInformations = inf.ContactInformations;
+            infToUpdate.OffreEmail = inf.OffreEmail;
+            infToUpdate.ModeLivraison = inf.ModeLivraison;
+            infToUpdate.InformationPays = inf.InformationPays;
+            infToUpdate.InformationRue = inf.InformationRue;
             await upwaysDbContext.SaveChangesAsync();
         }
 

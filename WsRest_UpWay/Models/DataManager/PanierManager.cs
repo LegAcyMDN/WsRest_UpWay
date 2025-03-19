@@ -16,15 +16,15 @@ namespace WsRest_UpWay.Models.DataManager
             upwaysDbContext = context;
         }
 
-        public async Task AddAsync(Panier entity)
+        public async Task AddAsync(Panier pan)
         {
-            await upwaysDbContext.Paniers.AddAsync(entity);
+            await upwaysDbContext.Paniers.AddAsync(pan);
             await upwaysDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Panier entity)
+        public async Task DeleteAsync(Panier pan)
         {
-            upwaysDbContext.Paniers.Remove(entity);
+            upwaysDbContext.Paniers.Remove(pan);
             await upwaysDbContext.SaveChangesAsync();
         }
 
@@ -43,14 +43,14 @@ namespace WsRest_UpWay.Models.DataManager
             return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.Cookie == str);
         }
 
-        public async Task UpdateAsync(Panier entityToUpdate, Panier entity)
+        public async Task UpdateAsync(Panier panToUpdate, Panier pan)
         {
-            upwaysDbContext.Entry(entityToUpdate).State = EntityState.Modified;
-            entityToUpdate.PanierId = entity.PanierId;
-            entityToUpdate.ClientId = entity.ClientId;
-            entityToUpdate.CommandeId = entity.CommandeId;
-            entityToUpdate.Cookie = entity.Cookie;
-            entityToUpdate.PrixPanier = entity.PrixPanier;
+            upwaysDbContext.Entry(panToUpdate).State = EntityState.Modified;
+            panToUpdate.PanierId = pan.PanierId;
+            panToUpdate.ClientId = pan.ClientId;
+            panToUpdate.CommandeId = pan.CommandeId;
+            panToUpdate.Cookie = pan.Cookie;
+            panToUpdate.PrixPanier = pan.PrixPanier;
             await upwaysDbContext.SaveChangesAsync();
         }
     }
