@@ -81,6 +81,10 @@ namespace WsRest_UpWay.Models.DataManager
                 Caracteristique cat = await _upWayContext.Caracteristiques.FirstOrDefaultAsync(c => c.LibelleCaracteristique == capbat);
                 velofilt = velofilt.Where(p => p.CapaciteBatterie == cat.LibelleCaracteristique);
             }
+            if (posbat != null) 
+            {
+
+            }
             if(poids != null) 
             {
                 CaracteristiqueVelo catv = await _upWayContext.Caracteristiquevelos.FirstOrDefaultAsync(c => c.Poids == poids);
