@@ -739,8 +739,8 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<string>("MotDePasseClient")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
                         .HasColumnName("coc_MPD");
 
                     b.Property<string>("NomClient")
