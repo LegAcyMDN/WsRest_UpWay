@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class CategorieArticleManager
+    public class CategorieArticleManager : IDataRepository<CategorieArticle>
     {
-        readonly S215UpWayContext s215UpWayContext;
+        readonly S215UpWayContext? s215UpWayContext;
 
         public CategorieArticleManager() { }
 
