@@ -248,8 +248,8 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnName("acs_nom");
 
                     b.Property<decimal?>("PrixAccessoire")
-                        .HasPrecision(4, 2)
-                        .HasColumnType("numeric(4, 2)")
+                        .HasPrecision(8, 2)
+                        .HasColumnType("numeric(8, 2)")
                         .HasColumnName("acs_prix");
 
                     b.HasKey("AccessoireId")
@@ -310,8 +310,8 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnName("ade_rue");
 
                     b.Property<string>("TelephoneExpedition")
-                        .HasMaxLength(10)
-                        .HasColumnType("char(10)")
+                        .HasMaxLength(14)
+                        .HasColumnType("char(14)")
                         .HasColumnName("ade_telephone");
 
                     b.Property<string>("VilleExpedition")
@@ -373,8 +373,8 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnName("adf_rue");
 
                     b.Property<string>("TelephoneFacturation")
-                        .HasMaxLength(10)
-                        .HasColumnType("char(10)")
+                        .HasMaxLength(14)
+                        .HasColumnType("char(14)")
                         .HasColumnName("adf_telephone");
 
                     b.Property<string>("VilleFacturation")
@@ -550,12 +550,12 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<int?>("DebattementAmortisseur")
                         .HasColumnType("integer")
-                        .HasColumnName("cav_debattementAmortisseur");
+                        .HasColumnName("cav_debattementamortisseur");
 
                     b.Property<string>("EtatBatterie")
                         .HasMaxLength(10)
                         .HasColumnType("character(10)")
-                        .HasColumnName("cav_etatBatterie")
+                        .HasColumnName("cav_etatbatterie")
                         .IsFixedLength();
 
                     b.Property<string>("Fourche")
@@ -579,16 +579,16 @@ namespace WsRest_UpWay.Migrations
                     b.Property<string>("ModelTransmission")
                         .HasMaxLength(50)
                         .HasColumnType("character(50)")
-                        .HasColumnName("cav_modelTransmission")
+                        .HasColumnName("cav_modeltransmission")
                         .IsFixedLength();
 
                     b.Property<int?>("NombreCycle")
                         .HasColumnType("integer")
-                        .HasColumnName("cav_nombreCycle");
+                        .HasColumnName("cav_nombrecycle");
 
                     b.Property<int?>("NombreVitesse")
                         .HasColumnType("integer")
-                        .HasColumnName("cav_nombreVitesse");
+                        .HasColumnName("cav_nombrevitesse");
 
                     b.Property<string>("Pneus")
                         .HasMaxLength(100)
@@ -603,26 +603,26 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<bool?>("SelleTelescopique")
                         .HasColumnType("boolean")
-                        .HasColumnName("cav_selleTelescopique");
+                        .HasColumnName("cav_selletelescopique");
 
                     b.Property<int?>("TaillesRoues")
                         .HasColumnType("integer")
-                        .HasColumnName("cav_taillesRoues");
+                        .HasColumnName("cav_taillesroues");
 
                     b.Property<int>("TubeSelle")
                         .HasColumnType("integer")
-                        .HasColumnName("cav_tubeSelle");
+                        .HasColumnName("cav_tubeselle");
 
                     b.Property<string>("TypeCargo")
                         .HasMaxLength(20)
                         .HasColumnType("character(20)")
-                        .HasColumnName("cav_typeCargo")
+                        .HasColumnName("cav_typecargo")
                         .IsFixedLength();
 
                     b.Property<string>("TypeSuspension")
                         .HasMaxLength(20)
                         .HasColumnType("character(20)")
-                        .HasColumnName("cav_typeSuspension")
+                        .HasColumnName("cav_typesuspension")
                         .IsFixedLength();
 
                     b.HasKey("CaracteristiqueVeloId")
@@ -715,7 +715,7 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<DateOnly?>("DateCreation")
                         .HasColumnType("date")
-                        .HasColumnName("coc_dateCreation");
+                        .HasColumnName("coc_datecreation");
 
                     b.Property<string>("EmailClient")
                         .IsRequired()
@@ -739,9 +739,9 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<string>("MotDePasseClient")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)")
-                        .HasColumnName("coc_MPD");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("coc_mpd");
 
                     b.Property<string>("NomClient")
                         .HasMaxLength(30)
@@ -835,11 +835,11 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<int?>("AdresseFactId")
                         .HasColumnType("integer")
-                        .HasColumnName("adfact_id");
+                        .HasColumnName("adf_id");
 
                     b.Property<int>("ClientId")
                         .HasColumnType("integer")
-                        .HasColumnName("clt_id");
+                        .HasColumnName("cli_id");
 
                     b.Property<DateTime?>("DateAchat")
                         .HasColumnType("date")
@@ -917,30 +917,30 @@ namespace WsRest_UpWay.Migrations
                 {
                     b.Property<int>("VeloId")
                         .HasColumnType("integer")
-                        .HasColumnName("esr_id");
+                        .HasColumnName("vel_id");
 
                     b.Property<int>("InspectionId")
                         .HasColumnType("integer")
-                        .HasColumnName("esr_idInspection");
+                        .HasColumnName("ras_id");
 
                     b.Property<int>("ReparationId")
                         .HasColumnType("integer")
-                        .HasColumnName("esr_idReparation");
+                        .HasColumnName("esr_id");
 
                     b.Property<string>("CommentaireInspection")
                         .HasMaxLength(4096)
                         .HasColumnType("text")
-                        .HasColumnName("esr_commentaireInspection");
+                        .HasColumnName("esr_commentaireinspection");
 
-                    b.Property<DateTime>("DateInspection")
-                        .HasColumnType("date")
+                    b.Property<string>("DateInspection")
+                        .HasColumnType("text")
                         .HasColumnName("esr_dateinspection")
                         .IsFixedLength();
 
                     b.Property<string>("HistoriqueInspection")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
-                        .HasColumnName("esr_historiqueInspection");
+                        .HasColumnName("esr_historiqueinspection");
 
                     b.HasKey("VeloId", "InspectionId", "ReparationId")
                         .HasName("pk_estrealise");
@@ -1112,7 +1112,7 @@ namespace WsRest_UpWay.Migrations
                     b.HasKey("MagasinId")
                         .HasName("pk_magasin");
 
-                    b.ToTable("t_a_magasin_mag", "upways");
+                    b.ToTable("t_e_magasin_mag", "upways");
                 });
 
             modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.MarquageVelo", b =>
@@ -1228,7 +1228,7 @@ namespace WsRest_UpWay.Migrations
                     b.Property<string>("VitesseMaximal")
                         .HasMaxLength(10)
                         .HasColumnType("character varying(10)")
-                        .HasColumnName("mot_vitesseMax");
+                        .HasColumnName("mot_vitessemax");
 
                     b.HasKey("MoteurId")
                         .HasName("pk_moteur");
@@ -1248,12 +1248,10 @@ namespace WsRest_UpWay.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PanierId"));
 
                     b.Property<int?>("ClientId")
-                        .IsRequired()
                         .HasColumnType("integer")
                         .HasColumnName("cli_id");
 
                     b.Property<int?>("CommandeId")
-                        .IsRequired()
                         .HasColumnType("integer")
                         .HasColumnName("com_id");
 
@@ -1344,12 +1342,12 @@ namespace WsRest_UpWay.Migrations
                     b.Property<string>("PointDInspection")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)")
-                        .HasColumnName("ras_pointdInspection");
+                        .HasColumnName("ras_pointdinspection");
 
                     b.Property<string>("SousTypeInspection")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)")
-                        .HasColumnName("ras_sousType");
+                        .HasColumnName("ras_soustype");
 
                     b.Property<string>("TypeInspection")
                         .HasMaxLength(200)
@@ -1377,7 +1375,7 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<bool?>("CheckValidation")
                         .HasColumnType("boolean")
-                        .HasColumnName("rev_checkValidation");
+                        .HasColumnName("rev_checkvalidation");
 
                     b.HasKey("ReparationId")
                         .HasName("pk_reparationvelo");
@@ -1482,262 +1480,6 @@ namespace WsRest_UpWay.Migrations
                     b.HasIndex(new[] { "VeloId" }, "ix_t_e_utilite_uti_veloid");
 
                     b.ToTable("t_j_utilite_uti", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vadresse", b =>
-                {
-                    b.Property<int?>("Idadressefact")
-                        .HasColumnType("integer")
-                        .HasColumnName("idadressefact");
-
-                    b.Property<string>("Paysfact")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("paysfact");
-
-                    b.Property<string>("Regionfact")
-                        .HasMaxLength(20)
-                        .HasColumnType("character(20)")
-                        .HasColumnName("regionfact")
-                        .IsFixedLength();
-
-                    b.Property<string>("Villefact")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("villefact");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vadresse", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vcaracteristiquevelo", b =>
-                {
-                    b.Property<string>("Amortisseur")
-                        .HasMaxLength(50)
-                        .HasColumnType("character(50)")
-                        .HasColumnName("amortisseur")
-                        .IsFixedLength();
-
-                    b.Property<string>("Capacitebatterie")
-                        .HasMaxLength(10)
-                        .HasColumnType("character(10)")
-                        .HasColumnName("capacitebatterie")
-                        .IsFixedLength();
-
-                    b.Property<string>("Caracteristique")
-                        .HasColumnType("text")
-                        .HasColumnName("caracteristique");
-
-                    b.Property<string>("Couleur")
-                        .HasMaxLength(10)
-                        .HasColumnType("character(10)")
-                        .HasColumnName("couleur")
-                        .IsFixedLength();
-
-                    b.Property<string>("Couplemoteur")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("couplemoteur");
-
-                    b.Property<int?>("Debattement")
-                        .HasColumnType("integer")
-                        .HasColumnName("debattement");
-
-                    b.Property<int?>("Debattementamortisseur")
-                        .HasColumnType("integer")
-                        .HasColumnName("debattementamortisseur");
-
-                    b.Property<string>("Etatbatterie")
-                        .HasMaxLength(10)
-                        .HasColumnType("character(10)")
-                        .HasColumnName("etatbatterie")
-                        .IsFixedLength();
-
-                    b.Property<string>("Fourche")
-                        .HasMaxLength(50)
-                        .HasColumnType("character(50)")
-                        .HasColumnName("fourche")
-                        .IsFixedLength();
-
-                    b.Property<string>("Freins")
-                        .HasMaxLength(30)
-                        .HasColumnType("character(30)")
-                        .HasColumnName("freins")
-                        .IsFixedLength();
-
-                    b.Property<int?>("Idvelo")
-                        .HasColumnType("integer")
-                        .HasColumnName("idvelo");
-
-                    b.Property<string>("Libellecategorie")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("libellecategorie");
-
-                    b.Property<string>("Materiau")
-                        .HasMaxLength(20)
-                        .HasColumnType("character(20)")
-                        .HasColumnName("materiau")
-                        .IsFixedLength();
-
-                    b.Property<string>("Modelemoteur")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("modelemoteur");
-
-                    b.Property<string>("Modeltransmission")
-                        .HasMaxLength(50)
-                        .HasColumnType("character(50)")
-                        .HasColumnName("modeltransmission")
-                        .IsFixedLength();
-
-                    b.Property<int?>("Nombrecycle")
-                        .HasColumnType("integer")
-                        .HasColumnName("nombrecycle");
-
-                    b.Property<string>("Nombrekms")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("nombrekms")
-                        .IsFixedLength();
-
-                    b.Property<int?>("Nombrevitesse")
-                        .HasColumnType("integer")
-                        .HasColumnName("nombrevitesse");
-
-                    b.Property<string>("Nommarque")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("nommarque");
-
-                    b.Property<string>("Nomvelo")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("nomvelo");
-
-                    b.Property<string>("Pneus")
-                        .HasMaxLength(100)
-                        .HasColumnType("character(100)")
-                        .HasColumnName("pneus")
-                        .IsFixedLength();
-
-                    b.Property<decimal?>("Poids")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("numeric(5,2)")
-                        .HasColumnName("poids");
-
-                    b.Property<string>("Positionmoteur")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("positionmoteur");
-
-                    b.Property<bool?>("Selletelescopique")
-                        .HasColumnType("boolean")
-                        .HasColumnName("selletelescopique");
-
-                    b.Property<string>("Taillemax")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("taillemax")
-                        .IsFixedLength();
-
-                    b.Property<string>("Taillemin")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("taillemin")
-                        .IsFixedLength();
-
-                    b.Property<int?>("Taillesroues")
-                        .HasColumnType("integer")
-                        .HasColumnName("taillesroues");
-
-                    b.Property<int?>("Tubeselle")
-                        .HasColumnType("integer")
-                        .HasColumnName("tubeselle");
-
-                    b.Property<string>("Typecargo")
-                        .HasMaxLength(20)
-                        .HasColumnType("character(20)")
-                        .HasColumnName("typecargo")
-                        .IsFixedLength();
-
-                    b.Property<string>("Typesuspension")
-                        .HasMaxLength(20)
-                        .HasColumnType("character(20)")
-                        .HasColumnName("typesuspension")
-                        .IsFixedLength();
-
-                    b.Property<string>("Vitessemaximal")
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("vitessemaximal");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vcaracteristiquevelo", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vcommande", b =>
-                {
-                    b.Property<int?>("Idclient")
-                        .HasColumnType("integer")
-                        .HasColumnName("idclient");
-
-                    b.Property<int?>("Idcommande")
-                        .HasColumnType("integer")
-                        .HasColumnName("idcommande");
-
-                    b.Property<int?>("Idpanier")
-                        .HasColumnType("integer")
-                        .HasColumnName("idpanier");
-
-                    b.Property<int?>("Idvelo")
-                        .HasColumnType("integer")
-                        .HasColumnName("idvelo");
-
-                    b.Property<decimal?>("Prixpanier")
-                        .HasPrecision(11, 2)
-                        .HasColumnType("numeric(11,2)")
-                        .HasColumnName("prixpanier");
-
-                    b.Property<string>("Titreassurance")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("titreassurance");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vcommande", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vdpo", b =>
-                {
-                    b.Property<DateOnly?>("Daterequetedpo")
-                        .HasColumnType("date")
-                        .HasColumnName("daterequetedpo");
-
-                    b.Property<int?>("Idclient")
-                        .HasColumnType("integer")
-                        .HasColumnName("idclient");
-
-                    b.Property<int?>("Iddpo")
-                        .HasColumnType("integer")
-                        .HasColumnName("iddpo");
-
-                    b.Property<string>("Loginclient")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("loginclient");
-
-                    b.Property<string>("Typeoperation")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("typeoperation");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vdpo", "upways");
                 });
 
             modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Velo", b =>
@@ -1954,176 +1696,6 @@ namespace WsRest_UpWay.Migrations
                     b.HasIndex(new[] { "MoteurId" }, "ix_t_e_velomodifier_vlm_moteurid");
 
                     b.ToTable("t_e_velomodofier_vlm", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vvelo", b =>
-                {
-                    b.Property<decimal?>("Anneevelo")
-                        .HasPrecision(4)
-                        .HasColumnType("numeric(4,0)")
-                        .HasColumnName("anneevelo");
-
-                    b.Property<string>("Descriptifvelo")
-                        .HasMaxLength(5000)
-                        .HasColumnType("character varying(5000)")
-                        .HasColumnName("descriptifvelo");
-
-                    b.Property<string>("Libellecategorie")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("libellecategorie");
-
-                    b.Property<string>("Libellemention")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("libellemention");
-
-                    b.Property<string>("Nombrekms")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("nombrekms")
-                        .IsFixedLength();
-
-                    b.Property<string>("Nommarque")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("nommarque");
-
-                    b.Property<string>("Nomvelo")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("nomvelo");
-
-                    b.Property<decimal?>("Pourcentagereduction")
-                        .HasPrecision(3)
-                        .HasColumnType("numeric(3,0)")
-                        .HasColumnName("pourcentagereduction");
-
-                    b.Property<decimal?>("Prixneuf")
-                        .HasPrecision(5)
-                        .HasColumnType("numeric(5,0)")
-                        .HasColumnName("prixneuf");
-
-                    b.Property<decimal?>("Prixremise")
-                        .HasPrecision(5)
-                        .HasColumnType("numeric(5,0)")
-                        .HasColumnName("prixremise");
-
-                    b.Property<string>("Taillemax")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("taillemax")
-                        .IsFixedLength();
-
-                    b.Property<string>("Taillemin")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("taillemin")
-                        .IsFixedLength();
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vvelo", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vventenombreacessoire", b =>
-                {
-                    b.Property<DateOnly?>("Dateachat")
-                        .HasColumnType("date")
-                        .HasColumnName("dateachat");
-
-                    b.Property<int?>("Idaccessoire")
-                        .HasColumnType("integer")
-                        .HasColumnName("idaccessoire");
-
-                    b.Property<int?>("Idadressefact")
-                        .HasColumnType("integer")
-                        .HasColumnName("idadressefact");
-
-                    b.Property<string>("Libellecategorie")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("libellecategorie");
-
-                    b.Property<string>("Nomaccessoire")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("nomaccessoire");
-
-                    b.Property<string>("Nommarque")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("nommarque");
-
-                    b.Property<decimal?>("Prixpanier")
-                        .HasPrecision(11, 2)
-                        .HasColumnType("numeric(11,2)")
-                        .HasColumnName("prixpanier");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vventenombreacessoire", "upways");
-                });
-
-            modelBuilder.Entity("WsRest_UpWay.Models.EntityFramework.Vventenombrevelo", b =>
-                {
-                    b.Property<DateOnly?>("Dateachat")
-                        .HasColumnType("date")
-                        .HasColumnName("dateachat");
-
-                    b.Property<int?>("Idadressefact")
-                        .HasColumnType("integer")
-                        .HasColumnName("idadressefact");
-
-                    b.Property<int?>("Idvelo")
-                        .HasColumnType("integer")
-                        .HasColumnName("idvelo");
-
-                    b.Property<string>("Libellecategorie")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("libellecategorie");
-
-                    b.Property<string>("Modelemoteur")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("modelemoteur");
-
-                    b.Property<string>("Nommarque")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("nommarque");
-
-                    b.Property<string>("Nomvelo")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("nomvelo");
-
-                    b.Property<decimal?>("Prixpanier")
-                        .HasPrecision(11, 2)
-                        .HasColumnType("numeric(11,2)")
-                        .HasColumnName("prixpanier");
-
-                    b.Property<string>("Taillemax")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("taillemax")
-                        .IsFixedLength();
-
-                    b.Property<string>("Taillemin")
-                        .HasMaxLength(15)
-                        .HasColumnType("character(15)")
-                        .HasColumnName("taillemin")
-                        .IsFixedLength();
-
-                    b.Property<string>("Titreassurance")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("titreassurance");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("vventenombrevelo", "upways");
                 });
 
             modelBuilder.Entity("Appartient", b =>
@@ -2538,14 +2110,12 @@ namespace WsRest_UpWay.Migrations
                         .WithMany("ListePaniers")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
                         .HasConstraintName("fk_panier_appartient_client");
 
                     b.HasOne("WsRest_UpWay.Models.EntityFramework.DetailCommande", "PanierDetailCommande")
                         .WithMany("ListePaniers")
                         .HasForeignKey("CommandeId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
                         .HasConstraintName("fk_panier_estlie2_detailco");
 
                     b.Navigation("PanierClient");

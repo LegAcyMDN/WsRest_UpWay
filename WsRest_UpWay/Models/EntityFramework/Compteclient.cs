@@ -25,7 +25,7 @@ public partial class CompteClient
     [Required]
     public string? LoginClient { get; set; }
 
-    [Column("coc_MPD")]
+    [Column("coc_mpd")]
     [StringLength(128)]
     [Required]
     public string? MotDePasseClient { get; set; }
@@ -44,7 +44,7 @@ public partial class CompteClient
 
     [Column("coc_nom")] [StringLength(30)] public string? NomClient { get; set; }
 
-    [Column("coc_dateCreation", TypeName = "date")]
+    [Column("coc_datecreation", TypeName = "date")]
     [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$",
         ErrorMessage = "la date doit étre en format français")]
     public DateOnly? DateCreation { get; set; }

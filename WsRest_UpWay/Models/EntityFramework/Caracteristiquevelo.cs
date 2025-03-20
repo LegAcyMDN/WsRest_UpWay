@@ -24,10 +24,10 @@ public partial class CaracteristiqueVelo
     [RegularExpression(@"^\d{1,4}(\.\d{2})?$", ErrorMessage = "le prix n'est pas valide il doit avoir entre 1 et 4 chiffres avant la virgule qui est un point et 2 chiffres obligatoires après.")]
     public decimal Poids { get; set; }
 
-    [Column("cav_tubeSelle")]
+    [Column("cav_tubeselle")]
     public int TubeSelle { get; set; }
 
-    [Column("cav_typeSuspension")]
+    [Column("cav_typesuspension")]
     [StringLength(20)]
     public string? TypeSuspension { get; set; }
 
@@ -35,15 +35,15 @@ public partial class CaracteristiqueVelo
     [StringLength(10)]
     public string? Couleur { get; set; }
 
-    [Column("cav_typeCargo")]
+    [Column("cav_typecargo")]
     [StringLength(20)]
     public string? TypeCargo { get; set; }
 
-    [Column("cav_etatBatterie")]
+    [Column("cav_etatbatterie")]
     [StringLength(10)]
     public string? EtatBatterie { get; set; }
 
-    [Column("cav_nombreCycle")]
+    [Column("cav_nombrecycle")]
     public int? NombreCycle { get; set; }
 
     [Column("cav_materiau")]
@@ -61,28 +61,28 @@ public partial class CaracteristiqueVelo
     [StringLength(50)]
     public string? Amortisseur { get; set; }
 
-    [Column("cav_debattementAmortisseur")]
+    [Column("cav_debattementamortisseur")]
     public int? DebattementAmortisseur { get; set; }
 
-    [Column("cav_modelTransmission")]
+    [Column("cav_modeltransmission")]
     [StringLength(50)]
     public string? ModelTransmission { get; set; }
 
-    [Column("cav_nombreVitesse")]
+    [Column("cav_nombrevitesse")]
     public int? NombreVitesse { get; set; }
 
     [Column("cav_freins")]
     [StringLength(30)]
     public string? Freins { get; set; }
 
-    [Column("cav_taillesRoues")]
+    [Column("cav_taillesroues")]
     public int? TaillesRoues { get; set; }
 
     [Column("cav_pneus")]
     [StringLength(100)]
     public string? Pneus { get; set; }
 
-    [Column("cav_selleTelescopique")]
+    [Column("cav_selletelescopique")]
     public bool? SelleTelescopique { get; set; }
 
     [InverseProperty(nameof(VeloModifier.VeloModifCaracteristiqueVelo))]
