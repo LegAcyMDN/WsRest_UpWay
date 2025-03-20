@@ -25,7 +25,7 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<Velo>>GetByStringAsync(string nom)
         {
-            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.NomVelo == nom);
+            return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.NomVelo.ToUpper() == nom.ToUpper());
         }
 
         public async Task DeleteAsync(Velo vel)
@@ -39,7 +39,7 @@ namespace WsRest_UpWay.Models.DataManager
             IQueryable<Velo> velofilt = _upWayContext.Velos;
             if (taille != null) 
             {
-                velofilt = velofilt.Where(p => p.TailleMin == taille);
+                velofilt = velofilt.Where(p => p.TailleMin.ToUpper() == taille.ToUpper());
             }
             if (categorie != null) 
             {
@@ -59,26 +59,26 @@ namespace WsRest_UpWay.Models.DataManager
             }
             if (kilom != null)
             {
-                velofilt = velofilt.Where(p => p.NombreKms == kilom);
+                velofilt = velofilt.Where(p => p.NombreKms.ToUpper() == kilom.ToUpper());
             }
             if (posmot != null) 
             {
-                velofilt = velofilt.Where(p => p.PositionMoteur == posmot);
+                velofilt = velofilt.Where(p => p.PositionMoteur.ToUpper() == posmot.ToUpper());
             }
             if (motmar != null) 
             {
 
-                Moteur mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(m => m.MoteurMarque.NomMarque == motmar);
+                Moteur mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(m => m.MoteurMarque.NomMarque.ToUpper() == motmar.ToUpper());
                 velofilt = velofilt.Where(p => p.MoteurId == mot.MoteurId);
             }
             if (couplemot != null) 
             {
-                Moteur mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(cp => cp.CoupleMoteur == couplemot);
+                Moteur mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(cp => cp.CoupleMoteur.ToUpper() == couplemot.ToUpper());
                 velofilt = velofilt.Where(p => p.MoteurId == mot.MoteurId);
             }
             if(capbat != null) 
             {
-                Caracteristique cat = await _upWayContext.Caracteristiques.FirstOrDefaultAsync(c => c.LibelleCaracteristique == capbat);
+                Caracteristique cat = await _upWayContext.Caracteristiques.FirstOrDefaultAsync(c => c.LibelleCaracteristique.ToUpper() == capbat.ToUpper());
                 velofilt = velofilt.Where(p => p.CapaciteBatterie == cat.LibelleCaracteristique);
             }
             if (posbat != null) 

@@ -27,7 +27,7 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<Information>> GetByStringAsync(string mode)
         {
-            return await upwaysDbContext.Informations.FirstOrDefaultAsync(u => u.ModeLivraison.ToLower() == mode.ToUpper());
+            return await upwaysDbContext.Informations.FirstOrDefaultAsync(u => u.ModeLivraison.ToUpper() == mode.ToUpper());
         }
 
         public async Task AddAsync(Information inf)
