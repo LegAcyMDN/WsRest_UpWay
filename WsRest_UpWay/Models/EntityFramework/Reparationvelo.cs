@@ -16,7 +16,7 @@ public partial class ReparationVelo
     [Column("rev_check")]
     public bool? CheckReparation { get; set; }
 
-    [Column("rev_checkValidation")]
+    [Column("rev_checkvalidation")]
     public bool? CheckValidation { get; set; }
 
     [InverseProperty(nameof(EstRealise.EstRealiseReparationVelo))]

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
-[Table("t_a_magasin_mag", Schema = "upways")]
+[Table("t_e_magasin_mag", Schema = "upways")]
 public partial class Magasin
 {
     public Magasin()

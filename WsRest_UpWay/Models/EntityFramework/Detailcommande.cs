@@ -27,13 +27,13 @@ public partial class DetailCommande
     [Column("retmag_id")]
     public int? RetraitMagasinId { get; set; }
 
-    [Column("adfact_id")]
+    [Column("adf_id")]
     public int? AdresseFactId { get; set; }
 
     [Column("etacom_id")]
     public int? EtatCommandeId { get; set; }
 
-    [Column("clt_id")]
+    [Column("cli_id")]
     public int ClientId { get; set; }
 
     [Column("pan_id")]

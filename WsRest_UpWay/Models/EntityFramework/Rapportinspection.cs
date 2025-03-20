@@ -17,11 +17,11 @@ public partial class RapportInspection
     [StringLength(200)]
     public string? TypeInspection { get; set; }
 
-    [Column("ras_sousType")]
+    [Column("ras_soustype")]
     [StringLength(200)]
     public string? SousTypeInspection { get; set; }
 
-    [Column("ras_pointdInspection")]
+    [Column("ras_pointdinspection")]
     [StringLength(200)]
     public string? PointDInspection { get; set; }
 

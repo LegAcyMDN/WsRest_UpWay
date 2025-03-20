@@ -22,6 +22,11 @@ public class VelosController : ControllerBase
     /// </summary>
     /// <returns>Une liste de vélos.</returns>
     // GET: api/Velos
+    /// <summary>
+    /// Récupère tous les Velos.
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la liste des Velos est récupérée avec succès.</response>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
     {
@@ -36,6 +41,13 @@ public class VelosController : ControllerBase
     /// <response code="200">Lorsque le vélo est trouvé.</response>
     /// <response code="404">Lorsque le vélo n'est pas trouvé.</response>
     // GET: api/Velos/5
+    /// <summary>
+    /// Récupère un Velo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du Velo.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le Velo est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant du Velo n'est pas trouvé.</response>
     [HttpGet]
     [Route("[action]/{id}")]
     [ActionName("GetById")]
@@ -71,11 +83,11 @@ public class VelosController : ControllerBase
     /// <response code="200">Lorsque les vélos sont trouvés.</response>
     /// <response code="404">Lorsque aucun vélo n'est trouvé.</response>
     [HttpGet]
-    [Route("[action]/{taille}")]
+    [Route("[action]/{filtre}")]
     [ActionName("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltres(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
     {
         var velo = await dataRepository.GetByFiltresAsync(taille,categorie, cara, marque, annee ,kilom, posmot,  motmar,  couplemot,  capbat, posbat, batamo, posbag, poids);
         if (velo == null)

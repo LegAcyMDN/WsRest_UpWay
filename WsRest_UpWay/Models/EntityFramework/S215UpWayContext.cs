@@ -85,6 +85,7 @@ public partial class S215UpWayContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.Entity<Accessoire>(entity =>
         {
             entity.HasKey(e => e.AccessoireId).HasName("pk_accessoire");
@@ -705,6 +706,7 @@ public partial class S215UpWayContext : DbContext
                 .HasConstraintName("fk_moteur_integrer_velomodifier");
         });
 
+        
         OnModelCreatingPartial(modelBuilder);
     }
 

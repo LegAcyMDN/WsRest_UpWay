@@ -51,8 +51,8 @@ public partial class AdresseFacturation
     [StringLength(100)]
     public string? VilleFacturation { get; set; }
 
-    [Column("adf_telephone", TypeName = "char(10)")]
-    [StringLength(10)]
+    [Column("adf_telephone", TypeName = "char(14)")]
+    [StringLength(14)]
     public string? TelephoneFacturation { get; set; }
 
     [ForeignKey(nameof(AdresseExpId))]

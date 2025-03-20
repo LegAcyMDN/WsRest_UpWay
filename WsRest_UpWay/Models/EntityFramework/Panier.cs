@@ -22,11 +22,11 @@ public partial class Panier
     [Column("pan_id")]
     public int PanierId { get; set; }
 
-    [Key]
+
     [Column("cli_id")]
     public int? ClientId { get; set; }
 
-    [Key]
+
     [Column("com_id")]
     public int? CommandeId { get; set; }
 

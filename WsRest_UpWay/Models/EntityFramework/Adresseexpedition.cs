@@ -51,8 +51,8 @@ public partial class AdresseExpedition
     [StringLength(100)]
     public string? VilleExpedition { get; set; }
 
-    [Column("ade_telephone", TypeName = "char(10)")]
-    [StringLength(10, ErrorMessage = "Le code postal doit être composé de 10 chiffres.")]
+    [Column("ade_telephone", TypeName = "char(14)")]
+    [StringLength(14, ErrorMessage = "Le code postal doit être composé de 10 chiffres.")]
     public string? TelephoneExpedition { get; set; }
 
     [Column("ade_donneessauv")]
