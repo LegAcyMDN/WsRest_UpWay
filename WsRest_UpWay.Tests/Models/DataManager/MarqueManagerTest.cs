@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ public class MarqueManagerTest
     public void Initialize()
     {
         var builder = new DbContextOptionsBuilder<S215UpWayContext>();
-        builder.UseNpgsql("Server=localhost;port=5432;Database=upway;uid=postgres;password=postgres;SearchPath=upways");
+        builder.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_URL"));
 
         ctx = new S215UpWayContext(builder.Options);
         manager = new MarqueManager(ctx);

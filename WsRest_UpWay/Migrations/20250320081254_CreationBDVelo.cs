@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WsRest_UpWay.Migrations
 {
     /// <inheritdoc />
-    public partial class CreationBD : Migration
+    public partial class CreationBDVelo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -88,24 +88,6 @@ namespace WsRest_UpWay.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "t_a_magasin_mag",
-                schema: "upways",
-                columns: table => new
-                {
-                    mag_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    mag_nom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    mag_horaire = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    mag_rue = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    mag_cp = table.Column<string>(type: "char(5)", fixedLength: true, maxLength: 5, nullable: true),
-                    mag_ville = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_magasin", x => x.mag_id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "t_e_assurance_ass",
                 schema: "upways",
                 columns: table => new
@@ -144,23 +126,23 @@ namespace WsRest_UpWay.Migrations
                     cav_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     cav_poids = table.Column<decimal>(type: "numeric(5,2)", precision: 5, scale: 2, nullable: false),
-                    cav_tubeSelle = table.Column<int>(type: "integer", nullable: false),
-                    cav_typeSuspension = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
+                    cav_tubeselle = table.Column<int>(type: "integer", nullable: false),
+                    cav_typesuspension = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
                     cav_couleur = table.Column<string>(type: "character(10)", fixedLength: true, maxLength: 10, nullable: true),
-                    cav_typeCargo = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
-                    cav_etatBatterie = table.Column<string>(type: "character(10)", fixedLength: true, maxLength: 10, nullable: true),
-                    cav_nombreCycle = table.Column<int>(type: "integer", nullable: true),
+                    cav_typecargo = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
+                    cav_etatbatterie = table.Column<string>(type: "character(10)", fixedLength: true, maxLength: 10, nullable: true),
+                    cav_nombrecycle = table.Column<int>(type: "integer", nullable: true),
                     cav_materiau = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
                     cav_fourche = table.Column<string>(type: "character(50)", fixedLength: true, maxLength: 50, nullable: true),
                     cav_debattement = table.Column<int>(type: "integer", nullable: true),
                     cav_amortisseur = table.Column<string>(type: "character(50)", fixedLength: true, maxLength: 50, nullable: true),
-                    cav_debattementAmortisseur = table.Column<int>(type: "integer", nullable: true),
-                    cav_modelTransmission = table.Column<string>(type: "character(50)", fixedLength: true, maxLength: 50, nullable: true),
-                    cav_nombreVitesse = table.Column<int>(type: "integer", nullable: true),
+                    cav_debattementamortisseur = table.Column<int>(type: "integer", nullable: true),
+                    cav_modeltransmission = table.Column<string>(type: "character(50)", fixedLength: true, maxLength: 50, nullable: true),
+                    cav_nombrevitesse = table.Column<int>(type: "integer", nullable: true),
                     cav_freins = table.Column<string>(type: "character(30)", fixedLength: true, maxLength: 30, nullable: true),
-                    cav_taillesRoues = table.Column<int>(type: "integer", nullable: true),
+                    cav_taillesroues = table.Column<int>(type: "integer", nullable: true),
                     cav_pneus = table.Column<string>(type: "character(100)", fixedLength: true, maxLength: 100, nullable: true),
-                    cav_selleTelescopique = table.Column<bool>(type: "boolean", nullable: true)
+                    cav_selletelescopique = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,11 +201,11 @@ namespace WsRest_UpWay.Migrations
                     coc_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     coc_login = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    coc_MPD = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    coc_mpd = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     coc_email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     coc_prenom = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     coc_nom = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
-                    coc_dateCreation = table.Column<DateOnly>(type: "date", nullable: true),
+                    coc_datecreation = table.Column<DateOnly>(type: "date", nullable: true),
                     coc_remember_token = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     coc_two_factor_secret = table.Column<string>(type: "text", maxLength: 4096, nullable: true),
                     coc_two_factor_recovery_codes = table.Column<string>(type: "text", maxLength: 4096, nullable: true),
@@ -268,6 +250,24 @@ namespace WsRest_UpWay.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "t_e_magasin_mag",
+                schema: "upways",
+                columns: table => new
+                {
+                    mag_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    mag_nom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    mag_horaire = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    mag_rue = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    mag_cp = table.Column<string>(type: "char(5)", fixedLength: true, maxLength: 5, nullable: true),
+                    mag_ville = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_magasin", x => x.mag_id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "t_e_marque_mar",
                 schema: "upways",
                 columns: table => new
@@ -289,8 +289,8 @@ namespace WsRest_UpWay.Migrations
                     ras_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ras_type = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    ras_sousType = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    ras_pointdInspection = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true)
+                    ras_soustype = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    ras_pointdinspection = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -305,7 +305,7 @@ namespace WsRest_UpWay.Migrations
                     rev_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     rev_check = table.Column<bool>(type: "boolean", nullable: true),
-                    rev_checkValidation = table.Column<bool>(type: "boolean", nullable: true)
+                    rev_checkvalidation = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -424,7 +424,7 @@ namespace WsRest_UpWay.Migrations
                     mar_id = table.Column<int>(type: "integer", nullable: false),
                     cat_id = table.Column<int>(type: "integer", nullable: false),
                     acs_nom = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    acs_prix = table.Column<decimal>(type: "numeric(4,2)", precision: 4, scale: 2, nullable: true),
+                    acs_prix = table.Column<decimal>(type: "numeric(8,2)", precision: 8, scale: 2, nullable: true),
                     acs_description = table.Column<string>(type: "text", maxLength: 4096, nullable: true)
                 },
                 constraints: table =>
@@ -456,7 +456,7 @@ namespace WsRest_UpWay.Migrations
                     mar_id = table.Column<int>(type: "integer", nullable: false),
                     mot_modele = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     mot_couple = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
-                    mot_vitesseMax = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true)
+                    mot_vitessemax = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -733,7 +733,7 @@ namespace WsRest_UpWay.Migrations
                         name: "fk_testvelo_sederoule_magasin",
                         column: x => x.mag_id,
                         principalSchema: "upways",
-                        principalTable: "t_a_magasin_mag",
+                        principalTable: "t_e_magasin_mag",
                         principalColumn: "mag_id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -807,7 +807,7 @@ namespace WsRest_UpWay.Migrations
                         name: "fk_estdispo_estdispon_magasin",
                         column: x => x.mag_id,
                         principalSchema: "upways",
-                        principalTable: "t_a_magasin_mag",
+                        principalTable: "t_e_magasin_mag",
                         principalColumn: "mag_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -824,33 +824,33 @@ namespace WsRest_UpWay.Migrations
                 schema: "upways",
                 columns: table => new
                 {
+                    vel_id = table.Column<int>(type: "integer", nullable: false),
+                    ras_id = table.Column<int>(type: "integer", nullable: false),
                     esr_id = table.Column<int>(type: "integer", nullable: false),
-                    esr_idInspection = table.Column<int>(type: "integer", nullable: false),
-                    esr_idReparation = table.Column<int>(type: "integer", nullable: false),
-                    esr_dateinspection = table.Column<DateTime>(type: "date", fixedLength: true, nullable: false),
-                    esr_commentaireInspection = table.Column<string>(type: "text", maxLength: 4096, nullable: true),
-                    esr_historiqueInspection = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    esr_dateinspection = table.Column<string>(type: "text", fixedLength: true, nullable: true),
+                    esr_commentaireinspection = table.Column<string>(type: "text", maxLength: 4096, nullable: true),
+                    esr_historiqueinspection = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_estrealise", x => new { x.esr_id, x.esr_idInspection, x.esr_idReparation });
+                    table.PrimaryKey("pk_estrealise", x => new { x.vel_id, x.ras_id, x.esr_id });
                     table.ForeignKey(
                         name: "fk_estreali_estrealis_rapporti",
-                        column: x => x.esr_idInspection,
+                        column: x => x.ras_id,
                         principalSchema: "upways",
                         principalTable: "t_e_rapportinspection_ras",
                         principalColumn: "ras_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_estreali_estrealis_reparati",
-                        column: x => x.esr_idReparation,
+                        column: x => x.esr_id,
                         principalSchema: "upways",
                         principalTable: "t_e_reparationvelo_rev",
                         principalColumn: "rev_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_estreali_estrealis_velo",
-                        column: x => x.esr_id,
+                        column: x => x.vel_id,
                         principalSchema: "upways",
                         principalTable: "t_e_velo_vel",
                         principalColumn: "vel_id",
@@ -893,7 +893,7 @@ namespace WsRest_UpWay.Migrations
                     ade_cp = table.Column<string>(type: "char(5)", maxLength: 5, nullable: true),
                     ade_region = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
                     ade_ville = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    ade_telephone = table.Column<string>(type: "char(10)", maxLength: 10, nullable: true),
+                    ade_telephone = table.Column<string>(type: "char(14)", maxLength: 14, nullable: true),
                     ade_donneessauv = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
@@ -923,7 +923,7 @@ namespace WsRest_UpWay.Migrations
                     adf_cp = table.Column<string>(type: "char(5)", maxLength: 5, nullable: true),
                     adf_region = table.Column<string>(type: "character(20)", fixedLength: true, maxLength: 20, nullable: true),
                     adf_ville = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    adf_telephone = table.Column<string>(type: "char(10)", maxLength: 10, nullable: true)
+                    adf_telephone = table.Column<string>(type: "char(14)", maxLength: 14, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -952,9 +952,9 @@ namespace WsRest_UpWay.Migrations
                     detcom_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     retmag_id = table.Column<int>(type: "integer", nullable: true),
-                    adfact_id = table.Column<int>(type: "integer", nullable: true),
+                    adf_id = table.Column<int>(type: "integer", nullable: true),
                     etacom_id = table.Column<int>(type: "integer", nullable: true),
-                    clt_id = table.Column<int>(type: "integer", nullable: false),
+                    cli_id = table.Column<int>(type: "integer", nullable: false),
                     pan_id = table.Column<int>(type: "integer", nullable: true),
                     detcom_moypai = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
                     detcom_modexp = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
@@ -965,7 +965,7 @@ namespace WsRest_UpWay.Migrations
                     table.PrimaryKey("pk_detailcommande", x => x.detcom_id);
                     table.ForeignKey(
                         name: "fk_detailco_afficher2_adressef",
-                        column: x => x.adfact_id,
+                        column: x => x.adf_id,
                         principalSchema: "upways",
                         principalTable: "t_e_adressefacturation_adf",
                         principalColumn: "adf_id",
@@ -979,7 +979,7 @@ namespace WsRest_UpWay.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_detailco_visualise_comptecl",
-                        column: x => x.clt_id,
+                        column: x => x.cli_id,
                         principalSchema: "upways",
                         principalTable: "t_e_compteclient_coc",
                         principalColumn: "coc_id",
@@ -993,8 +993,8 @@ namespace WsRest_UpWay.Migrations
                 {
                     pan_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    cli_id = table.Column<int>(type: "integer", nullable: false),
-                    com_id = table.Column<int>(type: "integer", nullable: false),
+                    cli_id = table.Column<int>(type: "integer", nullable: true),
+                    com_id = table.Column<int>(type: "integer", nullable: true),
                     pan_cookie = table.Column<string>(type: "text", maxLength: 255, nullable: true),
                     pan_prix = table.Column<decimal>(type: "numeric(11,2)", precision: 11, scale: 2, nullable: true)
                 },
@@ -1174,7 +1174,7 @@ namespace WsRest_UpWay.Migrations
                         name: "fk_retraitm_estfait_magasin",
                         column: x => x.mag_id,
                         principalSchema: "upways",
-                        principalTable: "t_a_magasin_mag",
+                        principalTable: "t_e_magasin_mag",
                         principalColumn: "mag_id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -1276,13 +1276,13 @@ namespace WsRest_UpWay.Migrations
                 name: "ix_t_e_detailcommande_detcom_adressefactid",
                 schema: "upways",
                 table: "t_e_detailcommande_detcom",
-                column: "adfact_id");
+                column: "adf_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_t_e_detailcommande_detcom_clientid",
                 schema: "upways",
                 table: "t_e_detailcommande_detcom",
-                column: "clt_id");
+                column: "cli_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_t_e_detailcommande_detcom_etatcommandeid",
@@ -1542,19 +1542,19 @@ namespace WsRest_UpWay.Migrations
                 name: "ix_t_j_estrealise_esr_inspectionid",
                 schema: "upways",
                 table: "t_j_estrealise_esr",
-                column: "esr_idInspection");
+                column: "ras_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_t_j_estrealise_esr_reparationid",
                 schema: "upways",
                 table: "t_j_estrealise_esr",
-                column: "esr_idReparation");
+                column: "esr_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_t_j_estrealise_esr_veloid",
                 schema: "upways",
                 table: "t_j_estrealise_esr",
-                column: "esr_id");
+                column: "vel_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_t_j_regrouper_reg_caracteristiqueid",
@@ -1862,7 +1862,7 @@ namespace WsRest_UpWay.Migrations
                 schema: "upways");
 
             migrationBuilder.DropTable(
-                name: "t_a_magasin_mag",
+                name: "t_e_magasin_mag",
                 schema: "upways");
 
             migrationBuilder.DropTable(

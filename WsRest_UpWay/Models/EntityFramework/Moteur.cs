@@ -31,7 +31,7 @@ public partial class Moteur
     [StringLength(10)]
     public string? CoupleMoteur { get; set; }
 
-    [Column("mot_vitesseMax")]
+    [Column("mot_vitessemax")]
     [StringLength(10)]
     public string? VitesseMaximal { get; set; }
 

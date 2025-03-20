@@ -25,15 +25,14 @@ public partial class EstRealise
     [Column("esr_id")]
     public int ReparationId { get; set; }
 
-    [Column("esr_dateinspection", TypeName = "date")]
-    [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$", ErrorMessage = "la date doit être au format français")]
-    public DateTime DateInspection { get; set; }
+    [Column("esr_dateinspection")]
+    public string? DateInspection { get; set; }
 
-    [Column("esr_commentaireInspection", TypeName = "text")]
+    [Column("esr_commentaireinspection", TypeName = "text")]
     [StringLength(4096)]
     public string? CommentaireInspection { get; set; }
 
-    [Column("esr_historiqueInspection")]
+    [Column("esr_historiqueinspection")]
     [StringLength(100)]
     public string? HistoriqueInspection { get; set; }
 
