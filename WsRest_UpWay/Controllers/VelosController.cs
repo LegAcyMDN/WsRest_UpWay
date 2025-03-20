@@ -18,6 +18,11 @@ public class VelosController : ControllerBase
     }
 
     // GET: api/Velos
+    /// <summary>
+    /// Récupère tous les Velos.
+    /// </summary>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque la liste des Velos est récupérée avec succès.</response>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
     {
@@ -25,6 +30,13 @@ public class VelosController : ControllerBase
     }
 
     // GET: api/Velos/5
+    /// <summary>
+    /// Récupère un Velo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du Velo.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le Velo est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant du Velo n'est pas trouvé.</response>
     [HttpGet]
     [Route("[action]/{id}")]
     [ActionName("GetById")]
@@ -39,12 +51,19 @@ public class VelosController : ControllerBase
         return velo;
     }
 
+    /// <summary>
+    /// Récupère un Velo via plien de filtre.
+    /// </summary>
+    /// <param name="taille">La taille du Velo.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le Velo est trouvé.</response>
+    /// <response code="404">Lorsque le Velo avec les filtre spécifié n'est pas trouvé.</response>
     [HttpGet]
-    [Route("[action]/{taille}")]
+    [Route("[action]/{filtre}")]
     [ActionName("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltres(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
     {
         var velo = await dataRepository.GetByFiltresAsync(taille,categorie, cara, marque, annee ,kilom, posmot,  motmar,  couplemot,  capbat, posbat, batamo, posbag, poids);
         if (velo == null)
@@ -55,6 +74,15 @@ public class VelosController : ControllerBase
 
     // PUT: api/Velos/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    /// <summary>
+    /// Met à jour un velo existant.
+    /// </summary>
+    /// <param name="id">L'identifiant du velo à mettre à jour.</param>
+    /// <param name="accessoire">L'objet velo avec les nouvelles valeurs.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la mise à jour est réussie.</response>
+    /// <response code="404">Lorsque le velo à mettre à jour n'est pas trouvé.</response>
+    /// <response code="400">Lorsque l'identifiant du velo ne correspond pas à l'objet fourni.</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -75,6 +103,13 @@ public class VelosController : ControllerBase
 
     // POST: api/Velos
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    /// <summary>
+    /// Crée un nouvel velo.
+    /// </summary>
+    /// <param name="velo">L'objet velo à créer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="201">Lorsque le velo est créé avec succès.</response>
+    /// <response code="400">Lorsque le modèle du velo est invalide.</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -90,6 +125,13 @@ public class VelosController : ControllerBase
     }
 
     // DELETE: api/Velos/5
+    /// <summary>
+    /// Supprime un velo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du velo à supprimer.</param>
+    /// <returns>Http response</returns>
+    /// <response code="204">Lorsque la suppression est réussie.</response>
+    /// <response code="404">Lorsque le velo à supprimer n'est pas trouvé.</response>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
