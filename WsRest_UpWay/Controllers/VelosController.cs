@@ -17,6 +17,10 @@ public class VelosController : ControllerBase
         dataRepository = dataRepo;
     }
 
+    /// <summary>
+    /// Récupère tous les vélos.
+    /// </summary>
+    /// <returns>Une liste de vélos.</returns>
     // GET: api/Velos
     /// <summary>
     /// Récupère tous les Velos.
@@ -29,6 +33,13 @@ public class VelosController : ControllerBase
         return await dataRepository.GetAllAsync();
     }
 
+    /// <summary>
+    /// Récupère un vélo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du vélo à récupérer.</param>
+    /// <returns>Le vélo correspondant à l'identifiant.</returns>
+    /// <response code="200">Lorsque le vélo est trouvé.</response>
+    /// <response code="404">Lorsque le vélo n'est pas trouvé.</response>
     // GET: api/Velos/5
     /// <summary>
     /// Récupère un Velo par son identifiant.
@@ -52,12 +63,25 @@ public class VelosController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère un Velo via plien de filtre.
+    /// Récupère des vélos en fonction de plusieurs filtres.
     /// </summary>
-    /// <param name="taille">La taille du Velo.</param>
-    /// <returns>Http response</returns>
-    /// <response code="200">Lorsque le Velo est trouvé.</response>
-    /// <response code="404">Lorsque le Velo avec les filtre spécifié n'est pas trouvé.</response>
+    /// <param name="taille">La taille du vélo.</param>
+    /// <param name="categorie">La catégorie du vélo.</param>
+    /// <param name="cara">Caractéristiques supplémentaires.</param>
+    /// <param name="marque">La marque du vélo.</param>
+    /// <param name="annee">L'année de fabrication.</param>
+    /// <param name="kilom">Le kilométrage.</param>
+    /// <param name="posmot">Position du mot.</param>
+    /// <param name="motmar">Mot de la marque.</param>
+    /// <param name="couplemot">Couple de mots.</param>
+    /// <param name="capbat">Capacité de la batterie.</param>
+    /// <param name="posbat">Position de la batterie.</param>
+    /// <param name="batamo">Batterie amovible.</param>
+    /// <param name="posbag">Position du bagage.</param>
+    /// <param name="poids">Le poids du vélo.</param>
+    /// <returns>Une liste de vélos correspondant aux filtres.</returns>
+    /// <response code="200">Lorsque les vélos sont trouvés.</response>
+    /// <response code="404">Lorsque aucun vélo n'est trouvé.</response>
     [HttpGet]
     [Route("[action]/{filtre}")]
     [ActionName("GetByFilters")]
@@ -72,17 +96,17 @@ public class VelosController : ControllerBase
         return velo;
     }
 
+    /// <summary>
+    /// Met à jour un vélo existant.
+    /// </summary>
+    /// <param name="id">L'identifiant du vélo à mettre à jour.</param>
+    /// <param name="velo">L'objet vélo avec les nouvelles valeurs.</param>
+    /// <returns>Http response.</returns>
+    /// <response code="204">Lorsque la mise à jour est réussie.</response>
+    /// <response code="404">Lorsque le vélo à mettre à jour n'est pas trouvé.</response>
+    /// <response code="400">Lorsque l'identifiant du vélo ne correspond pas à l'objet fourni.</response>
     // PUT: api/Velos/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    /// <summary>
-    /// Met à jour un velo existant.
-    /// </summary>
-    /// <param name="id">L'identifiant du velo à mettre à jour.</param>
-    /// <param name="accessoire">L'objet velo avec les nouvelles valeurs.</param>
-    /// <returns>Http response</returns>
-    /// <response code="204">Lorsque la mise à jour est réussie.</response>
-    /// <response code="404">Lorsque le velo à mettre à jour n'est pas trouvé.</response>
-    /// <response code="400">Lorsque l'identifiant du velo ne correspond pas à l'objet fourni.</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -101,15 +125,15 @@ public class VelosController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Crée un nouveau vélo.
+    /// </summary>
+    /// <param name="velo">L'objet vélo à créer.</param>
+    /// <returns>Http response avec le vélo créé.</returns>
+    /// <response code="201">Lorsque le vélo est créé avec succès.</response>
+    /// <response code="400">Lorsque les données fournies ne sont pas valides.</response>
     // POST: api/Velos
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    /// <summary>
-    /// Crée un nouvel velo.
-    /// </summary>
-    /// <param name="velo">L'objet velo à créer.</param>
-    /// <returns>Http response</returns>
-    /// <response code="201">Lorsque le velo est créé avec succès.</response>
-    /// <response code="400">Lorsque le modèle du velo est invalide.</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -124,14 +148,14 @@ public class VelosController : ControllerBase
         return CreatedAtAction("GetById", new { id = velo.VeloId }, velo);
     }
 
-    // DELETE: api/Velos/5
     /// <summary>
-    /// Supprime un velo par son identifiant.
+    /// Supprime un vélo existant.
     /// </summary>
-    /// <param name="id">L'identifiant du velo à supprimer.</param>
-    /// <returns>Http response</returns>
+    /// <param name="id">L'identifiant du vélo à supprimer.</param>
+    /// <returns>Http response.</returns>
     /// <response code="204">Lorsque la suppression est réussie.</response>
-    /// <response code="404">Lorsque le velo à supprimer n'est pas trouvé.</response>
+    /// <response code="404">Lorsque le vélo à supprimer n'est pas trouvé.</response>
+    // DELETE: api/Velos/5
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
