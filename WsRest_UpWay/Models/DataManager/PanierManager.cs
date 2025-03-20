@@ -40,7 +40,7 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<Panier>> GetByStringAsync(string str)
         {
-            return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.Cookie == str);
+            return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.Cookie.ToUpper() == str.ToUpper());
         }
 
         public async Task UpdateAsync(Panier panToUpdate, Panier pan)

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class InformationManager
+    public class InformationManager : IDataRepository<Information>
     {
         readonly S215UpWayContext? upwaysDbContext;
 
@@ -27,7 +28,7 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<Information>> GetByStringAsync(string mode)
         {
-            return await upwaysDbContext.Informations.FirstOrDefaultAsync(u => u.ModeLivraison.ToLower() == mode.ToUpper());
+            return await upwaysDbContext.Informations.FirstOrDefaultAsync(u => u.ModeLivraison.ToUpper() == mode.ToUpper());
         }
 
         public async Task AddAsync(Information inf)
