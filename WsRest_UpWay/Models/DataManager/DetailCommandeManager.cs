@@ -26,29 +26,29 @@ namespace WsRest_UpWay.Models.DataManager
         {
             return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.ModeExpedition.ToUpper() == nom.ToUpper());
         }
-        public async Task AddAsync(DetailCommande entity)
+        public async Task AddAsync(DetailCommande detcom)
         {
-            await upwaysDbContext.Detailcommandes.AddAsync(entity);
+            await upwaysDbContext.Detailcommandes.AddAsync(detcom);
             await upwaysDbContext.SaveChangesAsync();
         }
-        public async Task UpdateAsync(DetailCommande detailcommande, DetailCommande entity)
+        public async Task UpdateAsync(DetailCommande detcomToUpdate, DetailCommande detcom)
         {
-            upwaysDbContext.Entry(detailcommande).State = EntityState.Modified;
-            detailcommande.CommandeId = entity.CommandeId;
-            detailcommande.RetraitMagasinId = entity.RetraitMagasinId;
-            detailcommande.AdresseFactId = entity.AdresseFactId;
-            detailcommande.EtatCommandeId = entity.EtatCommandeId;
-            detailcommande.ClientId = entity.ClientId;
-            detailcommande.PanierId = entity.PanierId;
-            detailcommande.MoyenPaiement = entity.MoyenPaiement;
-            detailcommande.ModeExpedition = entity.ModeExpedition;
-            detailcommande.DateAchat = entity.DateAchat;
+            upwaysDbContext.Entry(detcomToUpdate).State = EntityState.Modified;
+            detcomToUpdate.CommandeId = detcom.CommandeId;
+            detcomToUpdate.RetraitMagasinId = detcom.RetraitMagasinId;
+            detcomToUpdate.AdresseFactId = detcom.AdresseFactId;
+            detcomToUpdate.EtatCommandeId = detcom.EtatCommandeId;
+            detcomToUpdate.ClientId = detcom.ClientId;
+            detcomToUpdate.PanierId = detcom.PanierId;
+            detcomToUpdate.MoyenPaiement = detcom.MoyenPaiement;
+            detcomToUpdate.ModeExpedition = detcom.ModeExpedition;
+            detcomToUpdate.DateAchat = detcom.DateAchat;
             await upwaysDbContext.SaveChangesAsync();
 
         }
-        public async Task DeleteAsync(DetailCommande detailcommande)
+        public async Task DeleteAsync(DetailCommande detcom)
         {
-            upwaysDbContext.Detailcommandes.Remove(detailcommande);
+            upwaysDbContext.Detailcommandes.Remove(detcom);
             await upwaysDbContext.SaveChangesAsync();
         }
     }

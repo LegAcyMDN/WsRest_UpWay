@@ -10,9 +10,9 @@ namespace WsRest_UpWay.Controllers;
 [ApiController]
 public class AccessoiresController : ControllerBase
 {
-    private readonly IDataRepository<Accessoire> dataRepository;
+    private readonly IDataAccessoire dataRepository;
 
-    public AccessoiresController(IDataRepository<Accessoire> dataRepo)
+    public AccessoiresController(IDataAccessoire dataRepo)
     {
         dataRepository = dataRepo;
     }
@@ -52,20 +52,65 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère un accessoire par son nom.
+    /// Récupère un accessoire par sa category.
     /// </summary>
-    /// <param name="nom">Le nom de l'accessoire.</param>
+    /// <param name="category">La category de l'accessoire.</param>
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque l'accessoire est trouvé.</response>
-    /// <response code="404">Lorsque l'accessoire avec le nom spécifié n'est pas trouvé.</response>
+    /// <response code="404">Lorsque l'accessoire avec la category spécifié n'est pas trouvé.</response>
     [HttpGet]
-    [Route("[action]/{nom}")]
-    [ActionName("GetByNom")]
+    [Route("[action]/{category}")]
+    [ActionName("GetByCategory")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Accessoire>> GetAccessoireByNom(string nom)
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategory(string category)
     {
-        var accessoire = await dataRepository.GetByStringAsync(nom);
+        var accessoire = await dataRepository.GetByCategoryAsync(category);
+        if (accessoire == null)
+            return NotFound();
+
+        return accessoire;
+    }
+
+    /// <summary>
+    /// Récupère un accessoire par son prix.
+    /// </summary>
+    /// <param name="min">Le prix min de l'accessoire.</param>
+    /// <param name="max">Le prix max de l'accessoire.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
+    /// <response code="404">Lorsque l'accessoire avec le prix spécifié n'est pas trouvé.</response>
+    [HttpGet]
+    [Route("[action]/{prix}")]
+    [ActionName("GetByPrix")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByPrix(int min, int max)
+    {
+        var accessoire = await dataRepository.GetByPrixAsync(min,max);
+        if (accessoire == null)
+            return NotFound();
+
+        return accessoire;
+    }
+
+    /// <summary>
+    /// Récupère un accessoire par son prix et sa category.
+    /// </summary>
+    /// <param name="category">La category de l'accessoire.</param>
+    /// <param name="min">Le prix min de l'accessoire.</param>
+    /// <param name="max">Le prix max de l'accessoire.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
+    /// <response code="404">Lorsque l'accessoire avec le prix et la category spécifié n'est pas trouvé.</response>
+    [HttpGet]
+    [Route("[action]/{prix}")]
+    [ActionName("GetByCategoryPrix")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategoryPrix(string category, int min, int max)
+    {
+        var accessoire = await dataRepository.GetByCategoryPrixAsync(category, min, max);
         if (accessoire == null)
             return NotFound();
 
@@ -120,6 +165,7 @@ public class AccessoiresController : ControllerBase
         return CreatedAtAction("GetById", new { id = accessoire.AccessoireId }, accessoire);
     }
 
+    // DELETE: api/Accessoires/5
     /// <summary>
     /// Supprime un accessoire par son identifiant.
     /// </summary>

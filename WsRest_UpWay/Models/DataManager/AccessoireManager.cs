@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager;
 
-public class AccessoireManager : IDataRepository<Accessoire>
+public class AccessoireManager : IDataAccessoire
 {
     private readonly S215UpWayContext? upwaysDbContext;
 
@@ -31,6 +31,25 @@ public class AccessoireManager : IDataRepository<Accessoire>
     public async Task<ActionResult<Accessoire>> GetByStringAsync(string nom)
     {
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.NomAccessoire.ToUpper() == nom.ToUpper());
+    }
+    
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryAsync(string categoryName)
+    {
+        Categorie cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a =>a.LibelleCategorie == categoryName);
+        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
+        return cat.ListeAccessoires.ToList();
+    }
+
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(string categoryName, int min, int max)
+    {
+        Categorie cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
+        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
+        return cat.ListeAccessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).ToList();
+    }
+
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByPrixAsync(int min, int max)
+    {
+        return await upwaysDbContext.Accessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).ToListAsync();
     }
 
     public async Task AddAsync(Accessoire entity)
