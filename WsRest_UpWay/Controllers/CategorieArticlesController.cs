@@ -29,7 +29,7 @@ namespace WsRest_UpWay.Controllers
         [ActionName("GetById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<CategorieArticle>> GetCategorieArticle(int id)
+        public async Task<ActionResult<CategorieArticle>> GetCategorieArticleById(int id)
         {
             var catArticle = await dataRepository.GetByIdAsync(id);
             if (catArticle == null)
@@ -88,7 +88,7 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Authorize(Policy = Policies.Admin)]
-        public async Task<IActionResult> DeleteArticle(int id)
+        public async Task<IActionResult> DeleteCategorieArticle(int id)
         {
             var catArticle = await dataRepository.GetByIdAsync(id);
             if (catArticle == null)
