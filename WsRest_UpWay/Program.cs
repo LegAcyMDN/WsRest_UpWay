@@ -10,7 +10,7 @@ using WsRest_UpWay.Models.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<S215UpWayContext>(options =>
+builder.Services.AddDbContext<S215UpWayContext>(options => 
     options.UseNpgsql(builder.Configuration["DB_CONNECTION_URL"]));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,6 +18,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IDataRepository<CompteClient>, UserManager>();
+builder.Services.AddScoped<IDataAccessoire, AccessoireManager>();
+builder.Services.AddScoped<IDataRepository<Information>, InformationManager>();
+builder.Services.AddScoped<IDataRepository<Magasin>, MagasinManager>();
+builder.Services.AddScoped<IDataRepository<Marque>, MarqueManager>();
+builder.Services.AddScoped<IDataRepository<Panier>, PanierManager>();
+builder.Services.AddScoped<IDataRepository<Velo>, VeloManager>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -44,14 +50,19 @@ builder.Services.AddAuthorization(config =>
     config.AddPolicy(Policies.User, Policies.UserPolicy());
 });
 
-builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     // ensure database is up to date with latest migrations
     var db = scope.ServiceProvider.GetRequiredService<S215UpWayContext>();
-    if (db.Database.GetPendingMigrations().Any()) db.Database.Migrate();
+    var migrations = db.Database.GetPendingMigrations();
+    
+    if (migrations.Any())
+    {
+        db.Database.Migrate();
+    }
 }
 
 

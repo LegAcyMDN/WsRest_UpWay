@@ -6,6 +6,8 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategorieArticlesController : ControllerBase
     {
         private readonly IDataRepository<CategorieArticle> dataRepository;
