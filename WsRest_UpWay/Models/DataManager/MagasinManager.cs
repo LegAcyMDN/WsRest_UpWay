@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class MagasinManager
+    public class MagasinManager : IDataRepository<Magasin>
     {
         readonly S215UpWayContext? upwaysDbContext;
 
