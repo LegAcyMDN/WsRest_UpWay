@@ -18,7 +18,7 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère tous les accessoires.
+    ///     Récupère tous les accessoires.
     /// </summary>
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des accessoires est récupérée avec succès.</response>
@@ -30,7 +30,7 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère un accessoire par son identifiant.
+    ///     Récupère un accessoire par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant de l'accessoire.</param>
     /// <returns>Http response</returns>
@@ -45,14 +45,14 @@ public class AccessoiresController : ControllerBase
     {
         var accessoire = await dataRepository.GetByIdAsync(id);
 
-        if (accessoire == null)
+        if (accessoire.Value == null)
             return NotFound();
 
         return accessoire;
     }
 
     /// <summary>
-    /// Récupère un accessoire par sa category.
+    ///     Récupère un accessoire par sa category.
     /// </summary>
     /// <param name="category">La category de l'accessoire.</param>
     /// <returns>Http response</returns>
@@ -73,7 +73,7 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère un accessoire par son prix.
+    ///     Récupère un accessoire par son prix.
     /// </summary>
     /// <param name="min">Le prix min de l'accessoire.</param>
     /// <param name="max">Le prix max de l'accessoire.</param>
@@ -87,7 +87,7 @@ public class AccessoiresController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByPrix(int min, int max)
     {
-        var accessoire = await dataRepository.GetByPrixAsync(min,max);
+        var accessoire = await dataRepository.GetByPrixAsync(min, max);
         if (accessoire == null)
             return NotFound();
 
@@ -95,7 +95,7 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère un accessoire par son prix et sa category.
+    ///     Récupère un accessoire par son prix et sa category.
     /// </summary>
     /// <param name="category">La category de l'accessoire.</param>
     /// <param name="min">Le prix min de l'accessoire.</param>
@@ -108,7 +108,8 @@ public class AccessoiresController : ControllerBase
     [ActionName("GetByCategoryPrix")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategoryPrix(string category, int min, int max)
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategoryPrix(string category, int min,
+        int max)
     {
         var accessoire = await dataRepository.GetByCategoryPrixAsync(category, min, max);
         if (accessoire == null)
@@ -118,7 +119,7 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    /// Met à jour un accessoire existant.
+    ///     Met à jour un accessoire existant.
     /// </summary>
     /// <param name="id">L'identifiant de l'accessoire à mettre à jour.</param>
     /// <param name="accessoire">L'objet accessoire avec les nouvelles valeurs.</param>
@@ -132,20 +133,20 @@ public class AccessoiresController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutAccessoire(int id, Accessoire accessoire)
-        {
-            if (id != accessoire.AccessoireId)
-                return BadRequest();
+    {
+        if (id != accessoire.AccessoireId)
+            return BadRequest();
 
         var accToUpdate = await dataRepository.GetByIdAsync(id);
 
-        if (accToUpdate == null)
+        if (accToUpdate.Value == null)
             return NotFound();
         await dataRepository.UpdateAsync(accToUpdate.Value, accessoire);
         return NoContent();
     }
 
     /// <summary>
-    /// Crée un nouvel accessoire.
+    ///     Crée un nouvel accessoire.
     /// </summary>
     /// <param name="accessoire">L'objet accessoire à créer.</param>
     /// <returns>Http response</returns>
@@ -167,7 +168,7 @@ public class AccessoiresController : ControllerBase
 
     // DELETE: api/Accessoires/5
     /// <summary>
-    /// Supprime un accessoire par son identifiant.
+    ///     Supprime un accessoire par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant de l'accessoire à supprimer.</param>
     /// <returns>Http response</returns>
@@ -180,7 +181,7 @@ public class AccessoiresController : ControllerBase
     public async Task<IActionResult> DeleteAccessoire(int id)
     {
         var accessoire = await dataRepository.GetByIdAsync(id);
-        if (accessoire == null)
+        if (accessoire.Value == null)
             return NotFound();
 
         await dataRepository.DeleteAsync(accessoire.Value);

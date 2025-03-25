@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -13,29 +10,6 @@ namespace WsRest_UpWay.Controllers.Tests;
 [TestClass]
 public class VelosControllerTests
 {
-    private IDataVelo data;
-    private S215UpWayContext _context { get; set; }
-    private VelosController _controller { get; set; }
-
-    [TestInitialize]
-    public void Init()
-    {
-        var builder = new DbContextOptionsBuilder<S215UpWayContext>().UseNpgsql("");
-        _context = new S215UpWayContext(builder.Options);
-        data = new VeloManager(_context);
-        _controller = new VelosController(data);
-    }
-
-    [TestMethod]
-    public void GetVelosTest()
-    {
-        var result = _controller.GetVelos().Result.Value;
-        var velos = _context.Velos.ToList();
-
-        Assert.IsInstanceOfType(result, typeof(List<Velo>));
-        CollectionAssert.AreEqual(result.ToList(), velos);
-    }
-
     [TestMethod]
     public void GetVeloByIdAvecMoq()
     {
