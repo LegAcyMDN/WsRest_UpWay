@@ -10,8 +10,9 @@ using WsRest_UpWay.Models.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<S215UpWayContext>(options => 
-    options.UseNpgsql(builder.Configuration["DB_CONNECTION_URL"]));
+builder.Services.AddDbContext<S215UpWayContext>(options =>
+    options.UseNpgsql(builder.Configuration["DB_CONNECTION_URL"],
+        x => x.MigrationsHistoryTable("__EFMigrationsHistory", "upways")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -58,11 +59,8 @@ using (var scope = app.Services.CreateScope())
     // ensure database is up to date with latest migrations
     var db = scope.ServiceProvider.GetRequiredService<S215UpWayContext>();
     var migrations = db.Database.GetPendingMigrations();
-    
-    if (migrations.Any())
-    {
-        db.Database.Migrate();
-    }
+
+    if (migrations.Any()) db.Database.Migrate();
 }
 
 
