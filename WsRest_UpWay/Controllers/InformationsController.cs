@@ -67,11 +67,11 @@ public class InformationsController : ControllerBase
         if (id != information.InformationId)
             return BadRequest();
 
-        var comToUpdate = await _context.GetByIdAsync(id);
+        var infToUpdate = await _context.GetByIdAsync(id);
 
-        if (comToUpdate == null)
+        if (infToUpdate == null)
             return NotFound();
-        await _context.UpdateAsync(comToUpdate.Value, information);
+        await _context.UpdateAsync(infToUpdate.Value, information);
         return NoContent();
     }
 
