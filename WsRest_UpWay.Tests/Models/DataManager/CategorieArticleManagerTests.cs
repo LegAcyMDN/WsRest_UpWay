@@ -109,7 +109,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
             Assert.IsNotNull(store);
 
             manager.DeleteAsync(store).Wait();
-            store = ctx.CategorieArticles.Find(store.MagasinId);
+            store = ctx.CategorieArticles.Find(store.CategorieArticleId);
             Assert.IsNull(store);
         }
     }
