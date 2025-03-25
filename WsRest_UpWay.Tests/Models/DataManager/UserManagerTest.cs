@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
@@ -23,10 +22,18 @@ public class UserManagerTest
     public void Initialize()
     {
         var builder = new DbContextOptionsBuilder<S215UpWayContext>();
-        builder.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_URL"));
+        builder.UseSqlite("Data Source=S215UpWay.db");
 
         ctx = new S215UpWayContext(builder.Options);
+        ctx.Database.Migrate();
+
         manager = new UserManager(ctx);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        ctx.Database.EnsureDeleted();
     }
 
     [TestMethod]

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +18,18 @@ public class MagasinManagerTest
     public void Initialize()
     {
         var builder = new DbContextOptionsBuilder<S215UpWayContext>();
-        builder.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_URL"));
+        builder.UseSqlite("Data Source=S215UpWay.db");
 
         ctx = new S215UpWayContext(builder.Options);
+        ctx.Database.Migrate();
+
         manager = new MagasinManager(ctx);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        ctx.Database.EnsureDeleted();
     }
 
     [TestMethod]
