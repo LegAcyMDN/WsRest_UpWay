@@ -1,9 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-ARG DB_CONNECTION_URL=""
-ENV DB_CONNECTION_URL=$DB_CONNECTION_URL
-
 # Copy everything
 COPY . ./
 # Restore as distinct layers
