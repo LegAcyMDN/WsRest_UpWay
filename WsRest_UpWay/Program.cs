@@ -24,7 +24,9 @@ builder.Services.AddScoped<IDataRepository<Information>, InformationManager>();
 builder.Services.AddScoped<IDataRepository<Magasin>, MagasinManager>();
 builder.Services.AddScoped<IDataRepository<Marque>, MarqueManager>();
 builder.Services.AddScoped<IDataRepository<Panier>, PanierManager>();
-builder.Services.AddScoped<IDataRepository<Velo>, VeloManager>();
+builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
+builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleManager>();
+builder.Services.AddScoped<IDataVelo, VeloManager>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
