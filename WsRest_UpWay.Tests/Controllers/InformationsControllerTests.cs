@@ -117,6 +117,7 @@ namespace WsRest_UpWay.Controllers.Tests
                 InformationPays = "France",
                 InformationRue = "16 rue de l'Arc en Ciel"
             };
+
             // Arrange
             Information infEdited = new Information
             {
