@@ -58,7 +58,7 @@ namespace WsRest_UpWay.Controllers.Tests
         }
 
         [TestMethod]
-        public void GetDetailCommandeByModeLivraison_ExistingInePassed_AvecMoq()
+        public void GetDetailCommandeByModeLivraison_ExistingModePassed_AvecMoq()
         {
             // Arrange
             DetailCommande detCommande = new DetailCommande
@@ -87,7 +87,7 @@ namespace WsRest_UpWay.Controllers.Tests
         }
 
         [TestMethod]
-        public void GetDetailCommandeByModeLivraison_UnknownInePassed_AvecMoq()
+        public void GetDetailCommandeByModeLivraison_UnknownModePassed_AvecMoq()
         {
             var mockRepository = new Mock<IDataRepository<DetailCommande>>();
             var detCommandeController = new DetailCommandesController(mockRepository.Object);

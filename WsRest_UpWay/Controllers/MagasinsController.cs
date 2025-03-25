@@ -52,6 +52,20 @@ public class MagasinsController : ControllerBase
         return magasin;
     }
 
+    [HttpGet]
+    [Route("[action]/{nom}")]
+    [ActionName("GetByNom")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Magasin>> GetMagasinByNom(string nom)
+    {
+        var magasin = await dataRepository.GetByStringAsync(nom);
+        if (magasin == null)
+            return NotFound();
+
+        return magasin;
+    }
+
     /// <summary>
     /// Met à jour un magasin existant.
     /// </summary>

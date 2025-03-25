@@ -55,7 +55,7 @@ namespace WsRest_UpWay.Controllers.Tests
         }
 
         [TestMethod]
-        public void GetCategorieArticleByTitre_ExistingInePassed_AvecMoq()
+        public void GetCategorieArticleByTitre_ExistingTitrePassed_AvecMoq()
         {
             // Arrange
             CategorieArticle catArticle = new CategorieArticle
@@ -79,7 +79,7 @@ namespace WsRest_UpWay.Controllers.Tests
         }
 
         [TestMethod]
-        public void GetCategorieArticleByTitre_UnknownInePassed_AvecMoq()
+        public void GetCategorieArticleByTitre_UnknownTitrePassed_AvecMoq()
         {
             var mockRepository = new Mock<IDataRepository<CategorieArticle>>();
             var catArticleController = new CategorieArticlesController(mockRepository.Object);
