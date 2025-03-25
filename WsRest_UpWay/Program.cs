@@ -51,8 +51,15 @@ builder.Services.AddAuthorization(config =>
     config.AddPolicy(Policies.User, Policies.UserPolicy());
 });
 
-
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+    app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true)
+        .AllowCredentials());
+else
+    app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod()
+        .WithOrigins(builder.Configuration["FRONTEND_URL"].Split(";"))
+        .AllowCredentials());
 
 using (var scope = app.Services.CreateScope())
 {
