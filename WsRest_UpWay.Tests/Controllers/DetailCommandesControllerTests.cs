@@ -58,18 +58,6 @@ namespace WsRest_UpWay.Controllers.Tests
         }
 
         [TestMethod]
-        public void GetDetailCommandeByModeLivraison_ExistingModePassed_AvecMoq()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        public void GetDetailCommandeByModeLivraison_UnknownModePassed_AvecMoq()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
         public void PutDetailCommandeTest_AvecMoq()
         {
             DetailCommande detCommandeToEdit = new DetailCommande

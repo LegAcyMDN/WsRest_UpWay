@@ -58,12 +58,6 @@ public class InformationManagerTests
     }
 
     [TestMethod]
-    public void GetByStringAsyncTest()
-    {
-        throw new NotImplementedException();
-    }
-
-    [TestMethod]
     public void AddAsyncTest()
     {
         var user = new CompteClient

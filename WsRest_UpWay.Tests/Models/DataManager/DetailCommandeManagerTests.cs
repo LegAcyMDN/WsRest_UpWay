@@ -137,12 +137,6 @@ public class DetailCommandeManagerTests
     }
 
     [TestMethod]
-    public void GetByStringAsyncTest()
-    {
-        throw new NotImplementedException();
-    }
-
-    [TestMethod]
     public void AddAsyncTest()
     {
         var user = new CompteClient
