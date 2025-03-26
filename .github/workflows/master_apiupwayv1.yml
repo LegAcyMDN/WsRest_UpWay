@@ -30,13 +30,13 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release -f net8.0
           
       - name: Tests
-        run: dotnet test --no-build --verbosity normal -c Release -e BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}} -e BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}} -e BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}} -e BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}
+        run: dotnet test --no-build --verbosity normal -c Release -f net8.0 -e BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}} -e BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}} -e BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}} -e BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp" -f net8.0
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
