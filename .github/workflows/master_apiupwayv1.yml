@@ -26,8 +26,15 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
         
+      - name: Set env vars
+        run: |
+          echo ${{secrets.BRAINTREE_ENV}} >> $env:BRAINTREE_ENV
+          echo ${{secrets.BRAINTREE_MERCHANT_ID}} >> $env:BRAINTREE_MERCHANT_ID
+          echo ${{secrets.BRAINTREE_PUBLIC_KEY}} >> $env:BRAINTREE_PUBLIC_KEY
+          echo ${{secrets.BRAINTREE_PRIVATE_KEY}} >> $env:BRAINTREE_PRIVATE_KEY
+          
       - name: Tests
-        run: set "BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}}" && set "BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}}" && set "BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}}" && set "BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}" && dotnet test --verbosity normal
+        run: dotnet test --verbosity normal
 
       - name: dotnet publish
         run:  dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
