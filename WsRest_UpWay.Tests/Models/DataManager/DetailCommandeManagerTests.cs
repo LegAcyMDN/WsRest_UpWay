@@ -42,7 +42,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
             var result = manager.GetAllAsync().Result;
 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Value);
             CollectionAssert.AreEquivalent(ctx.Detailcommandes.ToList(), result.Value.ToList());
         }
 
@@ -77,7 +77,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
 
             manager.AddAsync(store).Wait();
 
-            var store2 = ctx.Detailcommandes.First(u => u.ModeExpedition == store.ModeExpedition);
+            var store2 = ctx.Detailcommandes.First(u => u.MoyenPaiement == store.MoyenPaiement);
             Assert.IsNotNull(store2);
 
             ctx.Detailcommandes.Remove(store2);
@@ -114,7 +114,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
                 EtatCommandeId = 1,
                 ClientId = 1,
                 PanierId = 1,
-                MoyenPaiement = "Carte Bancaire",
+                MoyenPaiement = "Apple Pay",
                 ModeExpedition = "Retrait Magasin",
                 DateAchat = DateTime.Now
             };

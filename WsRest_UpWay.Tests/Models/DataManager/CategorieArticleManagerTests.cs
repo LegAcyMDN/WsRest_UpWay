@@ -37,7 +37,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
             var result = manager.GetAllAsync().Result;
 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Value);
             CollectionAssert.AreEquivalent(ctx.CategorieArticles.ToList(), result.Value.ToList());
         }
 

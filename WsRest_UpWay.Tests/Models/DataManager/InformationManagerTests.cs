@@ -42,7 +42,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
             var result = manager.GetAllAsync().Result;
 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Result);
+            Assert.IsNotNull(result.Value);
             CollectionAssert.AreEquivalent(ctx.Informations.ToList(), result.Value.ToList());
         }
 
@@ -81,7 +81,7 @@ namespace WsRest_UpWay.Models.DataManager.Tests
             var store2 = ctx.Informations.First(u => u.ModeLivraison == store.ModeLivraison);
             Assert.IsNotNull(store2);
 
-            ctx.CategorieArticles.Remove(store2);
+            ctx.Informations.Remove(store2);
             ctx.SaveChanges();
         }
 
