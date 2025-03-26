@@ -27,7 +27,7 @@ jobs:
         run: dotnet build --configuration Release
         
       - name: Tests
-        run: BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}} BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}} BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}} BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}} dotnet test --verbosity normal
+        run: set "BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}}" && set "BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}}" && set "BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}}" && set "BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}" && dotnet test --verbosity normal
 
       - name: dotnet publish
         run:  dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
