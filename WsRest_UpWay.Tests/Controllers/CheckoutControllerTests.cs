@@ -35,6 +35,11 @@ public class CheckoutControllerTests
         _config["JWT_ISSUER"] = "http://localhost:5194/";
         _config["JWT_AUDIENCE"] = "http://localhost:5194/";
 
+        Console.WriteLine(_config["BRAINTREE_ENV"]);
+        Console.WriteLine(_config["BRAINTREE_MERCHANT_ID"]);
+        Console.WriteLine(_config["BRAINTREE_PUBLIC_KEY"]);
+        Console.WriteLine(_config["BRAINTREE_PRIVATE_KEY"]);
+
         _gateway = new BraintreeGateway(Environment.ParseEnvironment(_config["BRAINTREE_ENV"]),
             _config["BRAINTREE_MERCHANT_ID"], _config["BRAINTREE_PUBLIC_KEY"], _config["BRAINTREE_PRIVATE_KEY"]);
     }

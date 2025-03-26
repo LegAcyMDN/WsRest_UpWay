@@ -80,10 +80,10 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            "BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}}" 
-            "BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}}" 
-            "BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}}" 
-            "BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}"
+            BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}}
+            BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}}
+            BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}}
+            BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
