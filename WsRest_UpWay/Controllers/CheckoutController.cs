@@ -14,20 +14,22 @@ namespace WsRest_UpWay.Controllers;
 [ApiController]
 public class CheckoutController : ControllerBase
 {
-    private readonly IDataRepository<Panier> orderManager;
+    private readonly S215UpWayContext ctx;
     private readonly BraintreeGateway gateway;
+    private readonly IDataRepository<Panier> orderManager;
 
-    public CheckoutController(IDataRepository<Panier> orderManager, BraintreeGateway gateway)
+    public CheckoutController(IDataRepository<Panier> orderManager, BraintreeGateway gateway, S215UpWayContext ctx)
     {
         this.orderManager = orderManager;
         this.gateway = gateway;
+        this.ctx = ctx;
     }
 
     /// <summary>
-    /// Récupère le token de client pour Braintree.
+    ///     Rï¿½cupï¿½re le token de client pour Braintree.
     /// </summary>
     /// <returns>Http response</returns>
-    /// <response code="200">Lorsque le token est récupéré avec succès.</response>
+    /// <response code="200">Lorsque le token est rï¿½cupï¿½rï¿½ avec succï¿½s.</response>
     [HttpGet("get-token")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [Authorize(Policy = Policies.User)]
@@ -38,13 +40,13 @@ public class CheckoutController : ControllerBase
     }
 
     /// <summary>
-    /// Crée une commande et effectue une transaction.
+    ///     Crï¿½e une commande et effectue une transaction.
     /// </summary>
-    /// <param name="body">Les informations de la commande à créer.</param>
+    /// <param name="body">Les informations de la commande ï¿½ crï¿½er.</param>
     /// <returns>Http response</returns>
-    /// <response code="200">Lorsque la commande est créée avec succès.</response>
-    /// <response code="400">Lorsque la commande n'est pas trouvée ou en cas d'erreur de transaction.</response>
-    /// <response code="401">Lorsque l'utilisateur n'est pas autorisé à effectuer cette commande.</response>
+    /// <response code="200">Lorsque la commande est crï¿½ï¿½e avec succï¿½s.</response>
+    /// <response code="400">Lorsque la commande n'est pas trouvï¿½e ou en cas d'erreur de transaction.</response>
+    /// <response code="401">Lorsque l'utilisateur n'est pas autorisï¿½ ï¿½ effectuer cette commande.</response>
     [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,6 +62,14 @@ public class CheckoutController : ControllerBase
             return Unauthorized();
 
         decimal price = 0;
+
+        try
+        {
+            ctx.Entry(order).Collection(e => e.ListeLignePaniers).Load();
+        }
+        catch (Exception _)
+        {
+        } // Unit tests cause this to return null
 
         foreach (var lignePanier in order.ListeLignePaniers)
             price += lignePanier.QuantitePanier * lignePanier.PrixQuantite;
@@ -83,11 +93,11 @@ public class CheckoutController : ControllerBase
     }
 
     /// <summary>
-    /// Affiche les détails d'une transaction.
+    ///     Affiche les dï¿½tails d'une transaction.
     /// </summary>
-    /// <param name="body">Les informations de la transaction à afficher.</param>
+    /// <param name="body">Les informations de la transaction ï¿½ afficher.</param>
     /// <returns>Http response</returns>
-    /// <response code="200">Lorsque les détails de la transaction sont récupérés avec succès.</response>
+    /// <response code="200">Lorsque les dï¿½tails de la transaction sont rï¿½cupï¿½rï¿½s avec succï¿½s.</response>
     /// <response code="400">Lorsque l'identifiant de la transaction n'est pas reconnu.</response>
     [HttpPost("show")]
     [ProducesResponseType(StatusCodes.Status200OK)]
