@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -54,44 +55,13 @@ public class InformationsControllerTests
     [TestMethod]
     public void GetInformationByModeLivraison_ExistingInePassed_AvecMoq()
     {
-        // Arrange
-        var inf = new Information
-        {
-            InformationId = 1,
-            ReductionId = "100",
-            RetraitMagasinId = 1,
-            AdresseExpeId = 1,
-            PanierId = 1,
-            ContactInformations = "Carte Bancaire",
-            OffreEmail = true,
-            ModeLivraison = "Expédition",
-            InformationPays = "France",
-            InformationRue = "16 rue de l'Arc en Ciel"
-        };
-        var mockRepository = new Mock<IDataRepository<Information>>();
-        mockRepository.Setup(x => x.GetByStringAsync("Expédition").Result).Returns(inf);
-        var infController = new InformationsController(mockRepository.Object);
-
-        // Act
-        var actionResult = infController.GetInformationMode("Expédition").Result;
-
-        // Assert
-        Assert.IsNotNull(actionResult);
-        Assert.IsNotNull(actionResult.Value);
-        Assert.AreEqual(inf, actionResult.Value);
+        throw new NotImplementedException();
     }
 
     [TestMethod]
     public void GetInformationByModeLivraison_UnknownInePassed_AvecMoq()
     {
-        var mockRepository = new Mock<IDataRepository<Information>>();
-        var infController = new InformationsController(mockRepository.Object);
-
-        // Act
-        var actionResult = infController.GetInformationMode("Marche à pieds").Result;
-
-        // Assert
-        Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+        throw new NotImplementedException();
     }
 
     [TestMethod]

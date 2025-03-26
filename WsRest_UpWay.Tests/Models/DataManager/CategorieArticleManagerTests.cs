@@ -56,6 +56,20 @@ namespace WsRest_UpWay.Models.DataManager.Tests
         }
 
         [TestMethod]
+        public void GetByStringAsyncTest()
+        {
+            var expected = ctx.CategorieArticles.FirstOrDefault();
+            if (expected == null)
+                return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+
+            var result = manager.GetByStringAsync(expected.TitreCategorieArticle).Result;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(expected, result.Value);
+        }
+
+        [TestMethod]
         public void AddAsyncTest()
         {
             var store = new CategorieArticle

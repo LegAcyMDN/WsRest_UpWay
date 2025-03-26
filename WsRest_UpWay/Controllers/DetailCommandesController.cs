@@ -64,11 +64,7 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<DetailCommande>> GetDetailCommandeByModeLivraison(string mode)
         {
-            var commande = await dataRepository.GetByStringAsync(mode);
-            if (commande == null)
-                return NotFound();
-
-            return commande;
+            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -60,43 +60,13 @@ namespace WsRest_UpWay.Controllers.Tests
         [TestMethod]
         public void GetDetailCommandeByModeLivraison_ExistingModePassed_AvecMoq()
         {
-            // Arrange
-            DetailCommande detCommande = new DetailCommande
-            {
-                CommandeId = 1,
-                RetraitMagasinId = 1,
-                AdresseFactId = 1,
-                EtatCommandeId = 1,
-                ClientId = 1,
-                PanierId = 1,
-                MoyenPaiement = "Carte Bancaire",
-                ModeExpedition = "Retrait Magasin",
-                DateAchat = DateTime.Now
-            };
-            var mockRepository = new Mock<IDataRepository<DetailCommande>>();
-            mockRepository.Setup(x => x.GetByStringAsync("Retrait Magasin").Result).Returns(detCommande);
-            var detCommandeController = new DetailCommandesController(mockRepository.Object);
-
-            // Act
-            var actionResult = detCommandeController.GetDetailCommandeByModeLivraison("Retrait Magasin").Result;
-
-            // Assert
-            Assert.IsNotNull(actionResult);
-            Assert.IsNotNull(actionResult.Value);
-            Assert.AreEqual(detCommande, actionResult.Value as DetailCommande);
+            throw new NotImplementedException();
         }
 
         [TestMethod]
         public void GetDetailCommandeByModeLivraison_UnknownModePassed_AvecMoq()
         {
-            var mockRepository = new Mock<IDataRepository<DetailCommande>>();
-            var detCommandeController = new DetailCommandesController(mockRepository.Object);
-
-            // Act
-            var actionResult = detCommandeController.GetDetailCommandeByModeLivraison("Marche à pieds").Result;
-
-            // Assert
-            Assert.IsInstanceOfType(actionResult.Result, typeof(NotFoundResult));
+            throw new NotImplementedException();
         }
 
         [TestMethod]
