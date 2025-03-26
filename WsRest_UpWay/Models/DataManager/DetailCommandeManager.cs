@@ -24,7 +24,7 @@ namespace WsRest_UpWay.Models.DataManager
         }
         public async Task<ActionResult<DetailCommande>> GetByStringAsync(string nom)
         {
-            return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.ModeExpedition.ToUpper() == nom.ToUpper());
+            throw new NotImplementedException();
         }
         public async Task AddAsync(DetailCommande detcom)
         {

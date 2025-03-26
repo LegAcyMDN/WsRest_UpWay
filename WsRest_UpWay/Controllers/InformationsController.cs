@@ -48,11 +48,7 @@ public class InformationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Information>> GetInformationMode(string mode)
     {
-        var information = await _context.GetByStringAsync(mode);
-        if (information == null)
-            return NotFound();
-
-        return information;
+        throw new NotImplementedException();
     }
 
     // PUT: api/Information/5
