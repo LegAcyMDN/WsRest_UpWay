@@ -53,18 +53,6 @@ public class InformationsControllerTests
     }
 
     [TestMethod]
-    public void GetInformationByModeLivraison_ExistingInePassed_AvecMoq()
-    {
-        throw new NotImplementedException();
-    }
-
-    [TestMethod]
-    public void GetInformationByModeLivraison_UnknownInePassed_AvecMoq()
-    {
-        throw new NotImplementedException();
-    }
-
-    [TestMethod]
     public void PutInformationTest_AvecMoq()
     {
         var infToEdit = new Information
