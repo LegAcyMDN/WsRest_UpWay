@@ -8,6 +8,12 @@ on:
     branches:
       - master
   workflow_dispatch:
+    
+env:
+  BRAINTREE_ENV: ${{secrets.BRAINTREE_ENV}}
+  BRAINTREE_MERCHANT_ID: ${{secrets.BRAINTREE_MERCHANT_ID}}
+  BRAINTREE_PUBLIC_KEY: ${{secrets.BRAINTREE_PUBLIC_KEY}}
+  BRAINTREE_PRIVATE_KEY: ${{secrets.BRAINTREE_PRIVATE_KEY}}
 
 jobs:
   build:
@@ -25,19 +31,12 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        
-      - name: Set env vars
-        run: |
-          echo ${{secrets.BRAINTREE_ENV}} >> $env:BRAINTREE_ENV
-          echo ${{secrets.BRAINTREE_MERCHANT_ID}} >> $env:BRAINTREE_MERCHANT_ID
-          echo ${{secrets.BRAINTREE_PUBLIC_KEY}} >> $env:BRAINTREE_PUBLIC_KEY
-          echo ${{secrets.BRAINTREE_PRIVATE_KEY}} >> $env:BRAINTREE_PRIVATE_KEY
           
       - name: Tests
-        run: dotnet test --verbosity normal
+        run: dotnet test --no-build --verbosity normal -c Release -e BRAINTREE_ENV=${{secrets.BRAINTREE_ENV}} -e BRAINTREE_MERCHANT_ID=${{secrets.BRAINTREE_MERCHANT_ID}} -e BRAINTREE_PUBLIC_KEY=${{secrets.BRAINTREE_PUBLIC_KEY}} -e BRAINTREE_PRIVATE_KEY=${{secrets.BRAINTREE_PRIVATE_KEY}}
 
       - name: dotnet publish
-        run:  dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
