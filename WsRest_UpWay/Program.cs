@@ -26,6 +26,7 @@ builder.Services.AddScoped<IDataRepository<Marque>, MarqueManager>();
 builder.Services.AddScoped<IDataRepository<Panier>, PanierManager>();
 builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
 builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleManager>();
+builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
