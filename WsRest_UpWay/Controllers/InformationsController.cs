@@ -20,9 +20,9 @@ public class InformationsController : ControllerBase
     // GET: api/Information
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<Information>>> GetInformations()
+    public async Task<ActionResult<IEnumerable<Information>>> GetInformations(int page = 0)
     {
-        return await _context.GetAllAsync();
+        return await _context.GetAllAsync(page);
     }
 
     // GET: api/Information/5
@@ -35,20 +35,10 @@ public class InformationsController : ControllerBase
     {
         var information = await _context.GetByIdAsync(id);
 
-        if (information == null)
+        if (information.Value == null)
             return NotFound();
 
         return information;
-    }
-
-    [HttpGet]
-    [Route("[action]/{mode}")]
-    [ActionName("GetByMode")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Information>> GetInformationMode(string mode)
-    {
-        throw new NotImplementedException();
     }
 
     // PUT: api/Information/5
@@ -65,8 +55,9 @@ public class InformationsController : ControllerBase
 
         var infToUpdate = await _context.GetByIdAsync(id);
 
-        if (infToUpdate == null)
+        if (infToUpdate.Value == null)
             return NotFound();
+
         await _context.UpdateAsync(infToUpdate.Value, information);
         return NoContent();
     }
@@ -95,16 +86,10 @@ public class InformationsController : ControllerBase
     public async Task<IActionResult> DeleteInformation(int id)
     {
         var information = await _context.GetByIdAsync(id);
-        if (information == null)
+        if (information.Value == null)
             return NotFound();
 
         await _context.DeleteAsync(information.Value);
         return NoContent();
     }
-    /*
-    private bool InformationExists(int id)
-    {
-        return _context.Informations.Any(e => e.Idinformations == id);
-    }
-    */
 }

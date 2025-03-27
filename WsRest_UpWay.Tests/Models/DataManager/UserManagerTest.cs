@@ -39,11 +39,23 @@ public class UserManagerTest
     [TestMethod]
     public void GetAllAsyncTest()
     {
-        var result = manager.GetAllAsync().Result;
+        var result = manager.GetAllAsync(0).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
-        CollectionAssert.AreEquivalent(ctx.Compteclients.ToList(), result.Value.ToList());
+        CollectionAssert.AreEquivalent(ctx.Compteclients.Take(UserManager.PAGE_SIZE).ToList(), result.Value.ToList());
+    }
+
+    [TestMethod]
+    public void GetAllAsyncPage1Test()
+    {
+        var result = manager.GetAllAsync(1).Result;
+
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        CollectionAssert.AreEquivalent(
+            ctx.Compteclients.Skip(UserManager.PAGE_SIZE * 1).Take(UserManager.PAGE_SIZE).ToList(),
+            result.Value.ToList());
     }
 
     [TestMethod]

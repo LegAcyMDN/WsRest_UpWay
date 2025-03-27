@@ -7,6 +7,7 @@ namespace WsRest_UpWay.Models.DataManager;
 
 public class UserManager : IDataRepository<CompteClient>
 {
+    public const int PAGE_SIZE = 20;
     private readonly S215UpWayContext _context;
 
     public UserManager()
@@ -20,7 +21,7 @@ public class UserManager : IDataRepository<CompteClient>
 
     public async Task<ActionResult<IEnumerable<CompteClient>>> GetAllAsync(int page)
     {
-        return await _context.Compteclients.ToListAsync();
+        return await _context.Compteclients.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task<ActionResult<CompteClient>> GetByIdAsync(int id)

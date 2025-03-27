@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -43,6 +42,7 @@ public class InformationsControllerTests
     public void GetInformationById_UnknownIdPassed_ReturnsNotFoundResult_AvecMoq()
     {
         var mockRepository = new Mock<IDataRepository<Information>>();
+        mockRepository.Setup(x => x.GetByIdAsync(0).Result).Returns((Information)null);
         var infController = new InformationsController(mockRepository.Object);
 
         // Act

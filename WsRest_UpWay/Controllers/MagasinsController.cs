@@ -18,20 +18,20 @@ public class MagasinsController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère tous les magasins.
+    ///     Récupère tous les magasins.
     /// </summary>
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des magasins est récupérée avec succès.</response>
     // GET: api/Magasin
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasins()
+    public async Task<ActionResult<IEnumerable<Magasin>>> GetMagasins(int page = 0)
     {
-        return await dataRepository.GetAllAsync();
+        return await dataRepository.GetAllAsync(page);
     }
 
     /// <summary>
-    /// Récupère un magasin par son identifiant.
+    ///     Récupère un magasin par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant du magasin.</param>
     /// <returns>Http response</returns>
@@ -47,7 +47,7 @@ public class MagasinsController : ControllerBase
     {
         var magasin = await dataRepository.GetByIdAsync(id);
 
-        if (magasin == null) return NotFound();
+        if (magasin.Value == null) return NotFound();
 
         return magasin;
     }
@@ -60,14 +60,14 @@ public class MagasinsController : ControllerBase
     public async Task<ActionResult<Magasin>> GetMagasinByNom(string nom)
     {
         var magasin = await dataRepository.GetByStringAsync(nom);
-        if (magasin == null)
+        if (magasin.Value == null)
             return NotFound();
 
         return magasin;
     }
 
     /// <summary>
-    /// Met à jour un magasin existant.
+    ///     Met à jour un magasin existant.
     /// </summary>
     /// <param name="id">L'identifiant du magasin à mettre à jour.</param>
     /// <param name="magasin">L'objet magasin avec les nouvelles valeurs.</param>
@@ -88,14 +88,14 @@ public class MagasinsController : ControllerBase
 
         var comtoUpdate = await dataRepository.GetByIdAsync(id);
 
-        if (comtoUpdate == null) return NotFound();
+        if (comtoUpdate.Value == null) return NotFound();
 
         await dataRepository.UpdateAsync(comtoUpdate.Value, magasin);
         return NoContent();
     }
 
     /// <summary>
-    /// Crée un nouveau magasin.
+    ///     Crée un nouveau magasin.
     /// </summary>
     /// <param name="magasin">L'objet magasin à créer.</param>
     /// <returns>Http response</returns>
@@ -113,11 +113,11 @@ public class MagasinsController : ControllerBase
 
         await dataRepository.AddAsync(magasin);
 
-        return CreatedAtAction("GetByIdAsync", new { id = magasin.MagasinId }, magasin);
+        return CreatedAtAction(nameof(GetMagasin), new { id = magasin.MagasinId }, magasin);
     }
 
     /// <summary>
-    /// Supprime un magasin par son identifiant.
+    ///     Supprime un magasin par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant du magasin à supprimer.</param>
     /// <returns>Http response</returns>
@@ -130,14 +130,9 @@ public class MagasinsController : ControllerBase
     public async Task<IActionResult> DeleteMagasin(int id)
     {
         var magasin = await dataRepository.GetByIdAsync(id);
-        if (magasin == null) return NotFound();
+        if (magasin.Value == null) return NotFound();
 
         await dataRepository.DeleteAsync(magasin.Value);
         return NoContent();
     }
-
-    /*  private bool MagasinExists(int id)
-      {
-          return _context.Magasins.Any(e => e.Idmagasin == id);
-      }*/
 }

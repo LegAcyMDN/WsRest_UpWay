@@ -36,11 +36,24 @@ public class InformationManagerTests
     [TestMethod]
     public void GetAllAsyncTest()
     {
-        var result = manager.GetAllAsync().Result;
+        var result = manager.GetAllAsync(0).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
-        CollectionAssert.AreEquivalent(ctx.Informations.ToList(), result.Value.ToList());
+        CollectionAssert.AreEquivalent(ctx.Informations.Take(InformationManager.PAGE_SIZE).ToList(),
+            result.Value.ToList());
+    }
+
+    [TestMethod]
+    public void GetAllAsyncPage1Test()
+    {
+        var result = manager.GetAllAsync(1).Result;
+
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        CollectionAssert.AreEquivalent(
+            ctx.Informations.Skip(InformationManager.PAGE_SIZE * 1).Take(InformationManager.PAGE_SIZE).ToList(),
+            result.Value.ToList());
     }
 
     [TestMethod]

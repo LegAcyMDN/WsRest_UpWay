@@ -64,7 +64,7 @@ public class VelosControllerTests
         var mockRepository = new Mock<IDataVelo>();
         mockRepository
             .Setup(x => x.GetByFiltresAsync("150", 1, 1, 1, 2021, "347", "Avant", "Kryptonite", null, "120 Wh", null,
-                null, null, 10)).ReturnsAsync(new ActionResult<IEnumerable<Velo>>(new List<Velo> { velo }));
+                null, null, 10, 0)).ReturnsAsync(new ActionResult<IEnumerable<Velo>>(new List<Velo> { velo }));
         var velocontroller = new VelosController(mockRepository.Object);
 
         var actionResult = velocontroller.GetVelo(1).Result;

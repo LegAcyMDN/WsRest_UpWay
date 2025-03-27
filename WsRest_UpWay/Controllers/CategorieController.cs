@@ -32,7 +32,7 @@ public class CategoriesController : ControllerBase
     public async Task<ActionResult<Categorie>> GetCategorieById(int id)
     {
         var catArticle = await dataRepository.GetByIdAsync(id);
-        if (catArticle == null)
+        if (catArticle.Value == null)
             return NotFound();
 
         return catArticle;
@@ -46,7 +46,7 @@ public class CategoriesController : ControllerBase
     public async Task<ActionResult<Categorie>> GetCategorieByTitre(string titre)
     {
         var catArticle = await dataRepository.GetByStringAsync(titre);
-        if (catArticle == null)
+        if (catArticle.Value == null)
             return NotFound();
 
         return catArticle;
@@ -64,7 +64,7 @@ public class CategoriesController : ControllerBase
 
         var comToUpdate = await dataRepository.GetByIdAsync(id);
 
-        if (comToUpdate == null)
+        if (comToUpdate.Value == null)
             return NotFound();
         await dataRepository.UpdateAsync(comToUpdate.Value, cat);
         return NoContent();
@@ -91,7 +91,7 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> DeleteCategorie(int id)
     {
         var catArticle = await dataRepository.GetByIdAsync(id);
-        if (catArticle == null)
+        if (catArticle.Value == null)
             return NotFound();
 
         await dataRepository.DeleteAsync(catArticle.Value);

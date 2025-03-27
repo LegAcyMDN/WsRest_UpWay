@@ -36,11 +36,24 @@ public class DetailCommandeManagerTests
     [TestMethod]
     public void GetAllAsyncTest()
     {
-        var result = manager.GetAllAsync().Result;
+        var result = manager.GetAllAsync(0).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
-        CollectionAssert.AreEquivalent(ctx.Detailcommandes.ToList(), result.Value.ToList());
+        CollectionAssert.AreEquivalent(ctx.Detailcommandes.Take(DetailCommandeManager.PAGE_SIZE).ToList(),
+            result.Value.ToList());
+    }
+
+    [TestMethod]
+    public void GetAllAsyncPage1Test()
+    {
+        var result = manager.GetAllAsync(1).Result;
+
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        CollectionAssert.AreEquivalent(
+            ctx.Detailcommandes.Skip(DetailCommandeManager.PAGE_SIZE * 1).Take(DetailCommandeManager.PAGE_SIZE)
+                .ToList(), result.Value.ToList());
     }
 
     [TestMethod]
