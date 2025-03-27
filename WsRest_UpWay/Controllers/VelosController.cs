@@ -33,6 +33,8 @@ public class VelosController : ControllerBase
         return await dataRepository.GetAllAsync(page);
     }
 
+
+
     /// <summary>
     /// Récupère un vélo par son identifiant.
     /// </summary>
@@ -61,6 +63,38 @@ public class VelosController : ControllerBase
 
         return velo;
     }
+
+
+    /// <summary>
+    /// Récupère un vélo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du vélo à récupérer.</param>
+    /// <returns>Le vélo correspondant à l'identifiant.</returns>
+    /// <response code="200">Lorsque le vélo est trouvé.</response>
+    /// <response code="404">Lorsque le vélo n'est pas trouvé.</response>
+    // GET: api/Velos/5
+    /// <summary>
+    ///     Récupère un Velo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du Velo.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le Velo est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant du Velo n'est pas trouvé.</response>
+    [HttpGet]
+    [Route("[action]/{id}")]
+    [ActionName("GetPhotosById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<PhotoVelo>>> GetPhotosById(int id)
+    {
+        var velo = await dataRepository.GetPhotosByIdAsync(id);
+        if (velo.Value == null)
+            return NotFound();
+
+        return velo;
+    }
+
+
 
     /// <summary>
     ///     Récupère des vélos en fonction de plusieurs filtres.
@@ -99,6 +133,7 @@ public class VelosController : ControllerBase
         return velo;
     }
 
+
     /// <summary>
     ///     Met à jour un vélo existant.
     /// </summary>
@@ -127,6 +162,8 @@ public class VelosController : ControllerBase
         await dataRepository.UpdateAsync(velToUpdate.Value, velo);
         return NoContent();
     }
+
+
 
     /// <summary>
     ///     Crée un nouveau vélo.
