@@ -35,11 +35,23 @@ public class MagasinManagerTest
     [TestMethod]
     public void GetAllAsyncTest()
     {
-        var result = manager.GetAllAsync().Result;
+        var result = manager.GetAllAsync(0).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
-        CollectionAssert.AreEquivalent(ctx.Magasins.ToList(), result.Value.ToList());
+        CollectionAssert.AreEquivalent(ctx.Magasins.Take(MagasinManager.PAGE_SIZE).ToList(), result.Value.ToList());
+    }
+
+    [TestMethod]
+    public void GetAllAsyncPage1Test()
+    {
+        var result = manager.GetAllAsync(1).Result;
+
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        CollectionAssert.AreEquivalent(
+            ctx.Magasins.Skip(MagasinManager.PAGE_SIZE * 1).Take(MagasinManager.PAGE_SIZE).ToList(),
+            result.Value.ToList());
     }
 
     [TestMethod]

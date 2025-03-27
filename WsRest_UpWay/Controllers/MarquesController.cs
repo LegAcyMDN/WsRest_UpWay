@@ -18,19 +18,19 @@ public class MarquesController : ControllerBase
     }
 
     /// <summary>
-    /// Récupère toutes les marques.
+    ///     Récupère toutes les marques.
     /// </summary>
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des marques est récupérée avec succès.</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<Marque>>> GetMarques()
+    public async Task<ActionResult<IEnumerable<Marque>>> GetMarques(int page = 0)
     {
-        return await dataRepository.GetAllAsync();
+        return await dataRepository.GetAllAsync(page);
     }
 
     /// <summary>
-    /// Récupère une marque par son identifiant.
+    ///     Récupère une marque par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant de la marque.</param>
     /// <returns>Http response</returns>
@@ -45,14 +45,14 @@ public class MarquesController : ControllerBase
     {
         var marque = await dataRepository.GetByIdAsync(id);
 
-        if (marque == null)
+        if (marque.Value == null)
             return NotFound();
 
         return marque;
     }
 
     /// <summary>
-    /// Récupère une marque par son nom.
+    ///     Récupère une marque par son nom.
     /// </summary>
     /// <param name="nom">Le nom de la marque.</param>
     /// <returns>Http response</returns>
@@ -66,14 +66,14 @@ public class MarquesController : ControllerBase
     public async Task<ActionResult<Marque>> GetMarqueByNom(string nom)
     {
         var marque = await dataRepository.GetByStringAsync(nom);
-        if (marque == null)
+        if (marque.Value == null)
             return NotFound();
 
         return marque;
     }
 
     /// <summary>
-    /// Met à jour une marque existante.
+    ///     Met à jour une marque existante.
     /// </summary>
     /// <param name="id">L'identifiant de la marque à mettre à jour.</param>
     /// <param name="marque">L'objet marque avec les nouvelles valeurs.</param>
@@ -93,14 +93,14 @@ public class MarquesController : ControllerBase
 
         var accToUpdate = await dataRepository.GetByIdAsync(id);
 
-        if (accToUpdate == null)
+        if (accToUpdate.Value == null)
             return NotFound();
         await dataRepository.UpdateAsync(accToUpdate.Value, marque);
         return NoContent();
     }
 
     /// <summary>
-    /// Crée une nouvelle marque.
+    ///     Crée une nouvelle marque.
     /// </summary>
     /// <param name="marque">L'objet marque à créer.</param>
     /// <returns>Http response</returns>
@@ -121,7 +121,7 @@ public class MarquesController : ControllerBase
     }
 
     /// <summary>
-    /// Supprime une marque par son identifiant.
+    ///     Supprime une marque par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant de la marque à supprimer.</param>
     /// <returns>Http response</returns>
@@ -134,7 +134,7 @@ public class MarquesController : ControllerBase
     public async Task<IActionResult> DeleteMarque(int id)
     {
         var accessoire = await dataRepository.GetByIdAsync(id);
-        if (accessoire == null)
+        if (accessoire.Value == null)
             return NotFound();
 
         await dataRepository.DeleteAsync(accessoire.Value);

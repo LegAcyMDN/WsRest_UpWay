@@ -7,6 +7,8 @@ namespace WsRest_UpWay.Models.DataManager;
 
 public class AccessoireManager : IDataAccessoire
 {
+    public const int PAGE_SIZE = 20;
+
     private readonly S215UpWayContext? upwaysDbContext;
 
     public AccessoireManager()
@@ -18,11 +20,6 @@ public class AccessoireManager : IDataAccessoire
         upwaysDbContext = context;
     }
 
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAllAsync()
-    {
-        return await upwaysDbContext.Accessoires.ToListAsync();
-    }
-
     public async Task<ActionResult<Accessoire>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.AccessoireId == id);
@@ -32,24 +29,27 @@ public class AccessoireManager : IDataAccessoire
     {
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.NomAccessoire.ToUpper() == nom.ToUpper());
     }
-    
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryAsync(string categoryName)
+
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryAsync(string categoryName, int page)
     {
-        Categorie cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a =>a.LibelleCategorie == categoryName);
+        var cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
         await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
-        return cat.ListeAccessoires.ToList();
+        return cat.ListeAccessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToList();
     }
 
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(string categoryName, int min, int max)
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(string categoryName, int min,
+        int max, int page)
     {
-        Categorie cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
+        var cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
         await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
-        return cat.ListeAccessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).ToList();
+        return cat.ListeAccessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).Skip(page * PAGE_SIZE)
+            .Take(PAGE_SIZE).ToList();
     }
 
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByPrixAsync(int min, int max)
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByPrixAsync(int min, int max, int page)
     {
-        return await upwaysDbContext.Accessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).ToListAsync();
+        return await upwaysDbContext.Accessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min)
+            .Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task AddAsync(Accessoire entity)
@@ -74,5 +74,10 @@ public class AccessoireManager : IDataAccessoire
     {
         upwaysDbContext.Accessoires.Remove(accessoire);
         await upwaysDbContext.SaveChangesAsync();
+    }
+
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAllAsync(int page)
+    {
+        return await upwaysDbContext.Accessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 }
