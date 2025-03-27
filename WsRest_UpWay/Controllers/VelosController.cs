@@ -23,7 +23,7 @@ public class VelosController : ControllerBase
     /// <returns>Une liste de vélos.</returns>
     // GET: api/Velos
     /// <summary>
-    /// Récupère tous les Velos.
+    ///     Récupère tous les Velos.
     /// </summary>
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des Velos est récupérée avec succès.</response>
@@ -31,17 +31,6 @@ public class VelosController : ControllerBase
     public async Task<ActionResult<IEnumerable<Velo>>> GetVelos(int page = 0)
     {
         return await dataRepository.GetAllAsync(page);
-    }
-
-    [HttpGet("{id}/photos")]
-    public async Task<ActionResult<IEnumerable<PhotoVelo>>> getPhotos(int id)
-    {
-        var velo = await dataRepository.GetByIdAsync(id);
-        if (velo.Value == null)
-        {
-            return NotFound();
-        }
-        return await dataRepository.GetPhotos(id);
     }
 
     /// <summary>
@@ -53,7 +42,7 @@ public class VelosController : ControllerBase
     /// <response code="404">Lorsque le vélo n'est pas trouvé.</response>
     // GET: api/Velos/5
     /// <summary>
-    /// Récupère un Velo par son identifiant.
+    ///     Récupère un Velo par son identifiant.
     /// </summary>
     /// <param name="id">L'identifiant du Velo.</param>
     /// <returns>Http response</returns>
@@ -67,7 +56,7 @@ public class VelosController : ControllerBase
     public async Task<ActionResult<Velo>> GetVelo(int id)
     {
         var velo = await dataRepository.GetByIdAsync(id);
-        if (velo == null)
+        if (velo.Value == null)
             return NotFound();
 
         return velo;
@@ -75,7 +64,7 @@ public class VelosController : ControllerBase
 
 
     /// <summary>
-    /// Récupère des vélos en fonction de plusieurs filtres.
+    ///     Récupère des vélos en fonction de plusieurs filtres.
     /// </summary>
     /// <param name="taille">La taille du vélo.</param>
     /// <param name="categorie">La catégorie du vélo.</param>
@@ -99,10 +88,13 @@ public class VelosController : ControllerBase
     [ActionName("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string taille, int categorie, int cara,
+        int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat,
+        string posbat, string batamo, string posbag, decimal poids, int page = 0)
     {
-        var velo = await dataRepository.GetByFiltresAsync(taille,categorie, cara, marque, annee ,kilom, posmot,  motmar,  couplemot,  capbat, posbat, batamo, posbag, poids);
-        if (velo == null)
+        var velo = await dataRepository.GetByFiltresAsync(taille, categorie, cara, marque, annee, kilom, posmot, motmar,
+            couplemot, capbat, posbat, batamo, posbag, poids, page);
+        if (velo.Value == null)
             return NotFound();
 
         return velo;
@@ -110,7 +102,7 @@ public class VelosController : ControllerBase
 
 
     /// <summary>
-    /// Met à jour un vélo existant.
+    ///     Met à jour un vélo existant.
     /// </summary>
     /// <param name="id">L'identifiant du vélo à mettre à jour.</param>
     /// <param name="velo">L'objet vélo avec les nouvelles valeurs.</param>
@@ -141,7 +133,7 @@ public class VelosController : ControllerBase
 
 
     /// <summary>
-    /// Crée un nouveau vélo.
+    ///     Crée un nouveau vélo.
     /// </summary>
     /// <param name="velo">L'objet vélo à créer.</param>
     /// <returns>Http response avec le vélo créé.</returns>
@@ -164,7 +156,7 @@ public class VelosController : ControllerBase
     }
 
     /// <summary>
-    /// Supprime un vélo existant.
+    ///     Supprime un vélo existant.
     /// </summary>
     /// <param name="id">L'identifiant du vélo à supprimer.</param>
     /// <returns>Http response.</returns>
@@ -178,7 +170,7 @@ public class VelosController : ControllerBase
     public async Task<IActionResult> DeleteVelo(int id)
     {
         var velo = await dataRepository.GetByIdAsync(id);
-        if (velo == null)
+        if (velo.Value == null)
             return NotFound();
 
         await dataRepository.DeleteAsync(velo.Value);
