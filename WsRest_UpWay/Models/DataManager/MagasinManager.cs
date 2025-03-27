@@ -31,7 +31,9 @@ public class MagasinManager : IDataRepository<Magasin>
 
     public async Task<ActionResult<Magasin>> GetByStringAsync(string nom)
     {
-        return await upwaysDbContext.Magasins.FirstOrDefaultAsync(u => u.NomMagasin.ToUpper() == nom.ToUpper());
+        return await upwaysDbContext.Magasins.FirstOrDefaultAsync(u =>
+            u.NomMagasin.ToLower().Equals(nom.ToLower())
+        );
     }
 
     public async Task AddAsync(Magasin mag)

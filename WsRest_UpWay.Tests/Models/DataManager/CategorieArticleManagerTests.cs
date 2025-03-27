@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,6 +22,7 @@ public class CategorieArticleManagerTests
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new CategorieArticleManager(ctx);
     }
@@ -45,8 +47,7 @@ public class CategorieArticleManagerTests
     public void GetByIdAsyncTest()
     {
         var expected = ctx.CategorieArticles.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected, "Expected CategoryArticle object to exist.");
 
         var result = manager.GetByIdAsync(expected.CategorieArticleId).Result;
 
@@ -59,8 +60,7 @@ public class CategorieArticleManagerTests
     public void GetByStringAsyncTest()
     {
         var expected = ctx.CategorieArticles.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected, "Expected CategoryArticle object to exist.");
 
         var result = manager.GetByStringAsync(expected.TitreCategorieArticle).Result;
 
@@ -83,18 +83,14 @@ public class CategorieArticleManagerTests
 
         var store2 = ctx.CategorieArticles.First(u => u.TitreCategorieArticle == store.TitreCategorieArticle);
         Assert.IsNotNull(store2);
-
-        ctx.CategorieArticles.Remove(store2);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
         var store = ctx.CategorieArticles.FirstOrDefault();
-        if (store == null) return; // we can't test if the db is empty
+        Assert.IsNotNull(store, "Expected CategoryArticle object to exist.");
 
-        var orig = store.TitreCategorieArticle;
         var newP = "Achat de vélo";
         store.TitreCategorieArticle = newP;
 
@@ -103,27 +99,23 @@ public class CategorieArticleManagerTests
         store = ctx.CategorieArticles.Find(store.CategorieArticleId);
         Assert.IsNotNull(store);
         Assert.AreEqual(newP, store.TitreCategorieArticle);
-
-        store.TitreCategorieArticle = orig;
-        manager.UpdateAsync(store, store).Wait();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var store = new CategorieArticle
+        var category = new CategorieArticle
         {
-            TitreCategorieArticle = "Revente vélo",
-            ContenuCategorieArticle = "Toutes les informations et détails à savoir !",
+            TitreCategorieArticle = "Titre de categorie",
+            ContenuCategorieArticle = "Contenu de categorie",
             ImageCategorie = "nothing.png"
         };
-
-        store = ctx.CategorieArticles.Add(store).Entity;
+        category = ctx.CategorieArticles.Add(category).Entity;
         ctx.SaveChanges();
-        Assert.IsNotNull(store);
+        Assert.IsNotNull(category);
 
-        manager.DeleteAsync(store).Wait();
-        store = ctx.CategorieArticles.Find(store.CategorieArticleId);
-        Assert.IsNull(store);
+        manager.DeleteAsync(category).Wait();
+        category = ctx.CategorieArticles.Find(category.CategorieArticleId);
+        Assert.IsNull(category);
     }
 }

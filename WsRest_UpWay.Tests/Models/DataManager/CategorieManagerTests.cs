@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,6 +22,7 @@ public class CategorieManagerTests
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new CategorieManager(ctx);
     }
@@ -45,8 +47,7 @@ public class CategorieManagerTests
     public void GetByIdAsyncTest()
     {
         var expected = ctx.Categories.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByIdAsync(expected.CategorieId).Result;
 
@@ -67,18 +68,14 @@ public class CategorieManagerTests
 
         var store2 = ctx.Categories.First(u => u.LibelleCategorie == store.LibelleCategorie);
         Assert.IsNotNull(store2);
-
-        ctx.Categories.Remove(store2);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
         var store = ctx.Categories.FirstOrDefault();
-        if (store == null) return; // we can't test if the db is empty
+        Assert.IsNotNull(store);
 
-        var orig = store.LibelleCategorie;
         var newP = "Achat de vélo";
         store.LibelleCategorie = newP;
 
@@ -87,25 +84,21 @@ public class CategorieManagerTests
         store = ctx.Categories.Find(store.CategorieId);
         Assert.IsNotNull(store);
         Assert.AreEqual(newP, store.LibelleCategorie);
-
-        store.LibelleCategorie = orig;
-        manager.UpdateAsync(store, store).Wait();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var store = new Categorie
+        var category = new Categorie
         {
-            LibelleCategorie = "Toutes les informations et détails à savoir !"
+            LibelleCategorie = "Truc a delete"
         };
-
-        store = ctx.Categories.Add(store).Entity;
+        category = ctx.Categories.Add(category).Entity;
         ctx.SaveChanges();
-        Assert.IsNotNull(store);
+        Assert.IsNotNull(category);
 
-        manager.DeleteAsync(store).Wait();
-        store = ctx.Categories.Find(store.CategorieId);
-        Assert.IsNull(store);
+        manager.DeleteAsync(category).Wait();
+        category = ctx.Categories.Find(category.CategorieId);
+        Assert.IsNull(category);
     }
 }

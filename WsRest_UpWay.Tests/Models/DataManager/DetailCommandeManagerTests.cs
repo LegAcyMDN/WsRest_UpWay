@@ -1,7 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WsRest_UpWay.Models.EntityFramework;
@@ -23,6 +23,7 @@ public class DetailCommandeManagerTests
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new DetailCommandeManager(ctx);
     }
@@ -59,160 +60,32 @@ public class DetailCommandeManagerTests
     [TestMethod]
     public void GetByIdAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
-
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
-
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
-
-        var command = new DetailCommande
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = 1,
-            DateAchat = DateTime.Now,
-            EtatCommandeId = state.EtatCommandeId,
-            RetraitMagasinId = null,
-            PanierId = null,
-            MoyenPaiement = "Carte Banquaire",
-            ModeExpedition = "Expeditiuon"
-        };
-
-
-        ctx.Detailcommandes.Add(command);
-        ctx.SaveChanges();
-
         var expected = ctx.Detailcommandes.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByIdAsync(expected.CommandeId).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
         Assert.AreEqual(expected, result.Value);
-
-        ctx.Detailcommandes.Remove(command);
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void AddAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
+        var address_fact = ctx.Adressefacturations.FirstOrDefault();
+        Assert.IsNotNull(address_fact);
 
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
+        var state = ctx.Etatcommandes.FirstOrDefault();
+        Assert.IsNotNull(state);
 
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
+        var date = DateTime.Now;
 
         var command = new DetailCommande
         {
-            ClientId = user.ClientId,
+            ClientId = address_fact.ClientId,
             AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = 1,
-            DateAchat = DateTime.Now,
+            DateAchat = date,
             EtatCommandeId = state.EtatCommandeId,
             RetraitMagasinId = null,
             PanierId = null,
@@ -222,96 +95,16 @@ public class DetailCommandeManagerTests
 
         manager.AddAsync(command).Wait();
 
-        var store2 = ctx.Detailcommandes.First(u => u.CommandeId == command.CommandeId);
+        var store2 = ctx.Detailcommandes.FirstOrDefault(u => u.DateAchat == date);
         Assert.IsNotNull(store2);
-
-        ctx.Detailcommandes.Remove(store2);
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
-
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
-
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
-
-        var command = new DetailCommande
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = 1,
-            DateAchat = DateTime.Now,
-            EtatCommandeId = state.EtatCommandeId,
-            RetraitMagasinId = null,
-            PanierId = null,
-            MoyenPaiement = "Carte Banquaire",
-            ModeExpedition = "Expeditiuon"
-        };
-
-
-        ctx.Detailcommandes.Add(command);
-        ctx.SaveChanges();
-
         var store = ctx.Detailcommandes.FirstOrDefault();
-        if (store == null) return; // we can't test if the db is empty
+        Assert.IsNotNull(store);
 
-        var orig = store.MoyenPaiement;
         var newP = "Carte Bancaire";
         store.MoyenPaiement = newP;
 
@@ -320,103 +113,19 @@ public class DetailCommandeManagerTests
         store = ctx.Detailcommandes.Find(store.CommandeId);
         Assert.IsNotNull(store);
         Assert.AreEqual(newP, store.MoyenPaiement);
-
-        store.MoyenPaiement = orig;
-        manager.UpdateAsync(store, store).Wait();
-
-        ctx.Detailcommandes.Remove(store);
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
-
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
-
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
-
-        var command = new DetailCommande
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = 1,
-            DateAchat = DateTime.Now,
-            EtatCommandeId = state.EtatCommandeId,
-            RetraitMagasinId = null,
-            PanierId = null,
-            MoyenPaiement = "Carte Banquaire",
-            ModeExpedition = "Expeditiuon"
-        };
-
-
-        ctx.Detailcommandes.Add(command);
-        ctx.SaveChanges();
-
+        var command = ctx.Detailcommandes.FirstOrDefault();
         Assert.IsNotNull(command);
+
+        // cascade so it doesn't break foreign keys when deleting
+        ctx.Entry(command).Collection(e => e.ListePaniers).Load();
 
         manager.DeleteAsync(command).Wait();
         command = ctx.Detailcommandes.Find(command.CommandeId);
         Assert.IsNull(command);
-
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 }

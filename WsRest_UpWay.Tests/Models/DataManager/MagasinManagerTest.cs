@@ -1,11 +1,11 @@
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 
-namespace WsRest_UpWay.Tests.Models.DataManager;
+namespace WsRest_UpWay.Models.DataManager.Tests;
 
 [TestClass]
 [TestSubject(typeof(MagasinManager))]
@@ -22,6 +22,7 @@ public class MagasinManagerTest
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new MagasinManager(ctx);
     }
@@ -58,8 +59,7 @@ public class MagasinManagerTest
     public void GetByIdAsyncTest()
     {
         var expected = ctx.Magasins.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByIdAsync(expected.MagasinId).Result;
 
@@ -72,8 +72,7 @@ public class MagasinManagerTest
     public void GetByStringAsyncTest()
     {
         var expected = ctx.Magasins.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByStringAsync(expected.NomMagasin).Result;
 
@@ -98,18 +97,14 @@ public class MagasinManagerTest
 
         var store2 = ctx.Magasins.First(u => u.NomMagasin == store.NomMagasin);
         Assert.IsNotNull(store2);
-
-        ctx.Magasins.Remove(store2);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
         var store = ctx.Magasins.FirstOrDefault();
-        if (store == null) return; // we can't test if the db is empty
+        Assert.IsNotNull(store);
 
-        var orig = store.NomMagasin;
         var newP = "Marc et Brique";
         store.NomMagasin = newP;
 
@@ -118,25 +113,12 @@ public class MagasinManagerTest
         store = ctx.Magasins.Find(store.MagasinId);
         Assert.IsNotNull(store);
         Assert.AreEqual(newP, store.NomMagasin);
-
-        store.NomMagasin = orig;
-        manager.UpdateAsync(store, store).Wait();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var store = new Magasin
-        {
-            NomMagasin = "Brick et Marc",
-            HoraireMagasin = "8h-19h",
-            RueMagasin = "37 rue du bois",
-            VilleMagasin = "Montaisse",
-            CPMagasin = "00000"
-        };
-
-        store = ctx.Magasins.Add(store).Entity;
-        ctx.SaveChanges();
+        var store = ctx.Magasins.FirstOrDefault();
         Assert.IsNotNull(store);
 
         manager.DeleteAsync(store).Wait();
