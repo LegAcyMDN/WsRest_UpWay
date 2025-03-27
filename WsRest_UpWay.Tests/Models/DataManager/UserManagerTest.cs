@@ -1,15 +1,12 @@
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WsRest_UpWay.Models;
-using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 
-// TODO: These tests will fail in the CI pipeline, what do we do to prevent this? hardcode a db? find a way to skip them?
-
-namespace WsRest_UpWay.Tests.Models.DataManager;
+namespace WsRest_UpWay.Models.DataManager.Tests;
 
 [TestClass]
 [TestSubject(typeof(UserManager))]
@@ -26,6 +23,7 @@ public class UserManagerTest
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new UserManager(ctx);
     }
@@ -62,8 +60,7 @@ public class UserManagerTest
     public void GetByIdAsyncTest()
     {
         var expected = ctx.Compteclients.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByIdAsync(expected.ClientId).Result;
 
@@ -76,8 +73,7 @@ public class UserManagerTest
     public void GetByStringAsyncTest()
     {
         var expected = ctx.Compteclients.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByStringAsync(expected.EmailClient).Result;
 
@@ -103,18 +99,14 @@ public class UserManagerTest
 
         var usr = ctx.Compteclients.First(u => u.EmailClient == user.EmailClient);
         Assert.IsNotNull(usr);
-
-        ctx.Compteclients.Remove(usr);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
         var user = ctx.Compteclients.FirstOrDefault();
-        if (user == null) return; // we can't test if the db is empty
+        Assert.IsNotNull(user);
 
-        var orig = user.PrenomClient;
         var newP = "Bernard";
         user.PrenomClient = newP;
 
@@ -123,26 +115,12 @@ public class UserManagerTest
         var usr = ctx.Compteclients.FirstOrDefault(u => u.EmailClient == user.EmailClient);
         Assert.IsNotNull(usr);
         Assert.AreEqual(newP, usr.PrenomClient);
-
-        usr.PrenomClient = orig;
-        manager.UpdateAsync(user, user).Wait();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var user = new CompteClient
-        {
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
-
-        user = ctx.Compteclients.Add(user).Entity;
-        ctx.SaveChanges();
+        var user = ctx.Compteclients.FirstOrDefault();
         Assert.IsNotNull(user);
 
         manager.DeleteAsync(user).Wait();

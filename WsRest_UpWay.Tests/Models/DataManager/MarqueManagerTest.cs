@@ -1,11 +1,11 @@
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 
-namespace WsRest_UpWay.Tests.Models.DataManager;
+namespace WsRest_UpWay.Models.DataManager.Tests;
 
 [TestClass]
 [TestSubject(typeof(MarqueManager))]
@@ -22,6 +22,7 @@ public class MarqueManagerTest
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new MarqueManager(ctx);
     }
@@ -45,7 +46,7 @@ public class MarqueManagerTest
     [TestMethod]
     public void GetAllAsyncPage1Test()
     {
-        var result = manager.GetAllAsync(0).Result;
+        var result = manager.GetAllAsync(1).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
@@ -58,8 +59,7 @@ public class MarqueManagerTest
     public void GetByIdAsyncTest()
     {
         var expected = ctx.Marques.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByIdAsync(expected.MarqueId).Result;
 
@@ -72,8 +72,7 @@ public class MarqueManagerTest
     public void GetByStringAsyncTest()
     {
         var expected = ctx.Marques.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByStringAsync(expected.NomMarque).Result;
 
@@ -94,18 +93,14 @@ public class MarqueManagerTest
 
         brand = ctx.Marques.FirstOrDefault(b => b.NomMarque == brand.NomMarque);
         Assert.IsNotNull(brand);
-
-        ctx.Marques.Remove(brand);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
         var brand = ctx.Marques.FirstOrDefault();
-        if (brand == null) return; // we can't test if the db is empty
+        Assert.IsNotNull(brand);
 
-        var orig = brand.NomMarque;
         var newP = "Captain Sparkling";
         brand.NomMarque = newP;
 
@@ -114,21 +109,12 @@ public class MarqueManagerTest
         brand = ctx.Marques.Find(brand.MarqueId);
         Assert.IsNotNull(brand);
         Assert.AreEqual(newP, brand.NomMarque);
-
-        brand.NomMarque = orig;
-        manager.UpdateAsync(brand, brand).Wait();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var brand = new Marque
-        {
-            NomMarque = "Cheese McQueen"
-        };
-
-        brand = ctx.Marques.Add(brand).Entity;
-        ctx.SaveChanges();
+        var brand = ctx.Marques.FirstOrDefault();
         Assert.IsNotNull(brand);
 
         manager.DeleteAsync(brand).Wait();

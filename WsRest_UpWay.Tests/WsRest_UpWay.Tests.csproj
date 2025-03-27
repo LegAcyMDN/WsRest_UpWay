@@ -20,4 +20,10 @@
         <ProjectReference Include="..\WsRest_UpWay\WsRest_UpWay.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="inserts.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>

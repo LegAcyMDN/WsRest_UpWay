@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WsRest_UpWay.Models.EntityFramework;
@@ -23,6 +22,7 @@ public class InformationManagerTests
 
         ctx = new S215UpWayContext(builder.Options);
         ctx.Database.Migrate();
+        ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
         manager = new InformationManager(ctx);
     }
@@ -60,8 +60,7 @@ public class InformationManagerTests
     public void GetByIdAsyncTest()
     {
         var expected = ctx.Informations.FirstOrDefault();
-        if (expected == null)
-            return; // db is either empty or not working, stop the test without error to avoid false negative when db is empty
+        Assert.IsNotNull(expected);
 
         var result = manager.GetByIdAsync(expected.InformationId).Result;
 
@@ -73,101 +72,18 @@ public class InformationManagerTests
     [TestMethod]
     public void AddAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
+        var reduction = ctx.Codereductions.FirstOrDefault();
+        Assert.IsNotNull(reduction);
 
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
+        var address_exp = ctx.Adresseexpeditions.FirstOrDefault();
+        Assert.IsNotNull(address_exp);
 
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
-
-        var command = new DetailCommande
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = state.EtatCommandeId,
-            DateAchat = DateTime.Now,
-            EtatCommandeId = 1,
-            RetraitMagasinId = null,
-            PanierId = null,
-            MoyenPaiement = "Carte Banquaire",
-            ModeExpedition = "Expeditiuon"
-        };
-
-        ctx.Detailcommandes.Add(command);
-        ctx.SaveChanges();
-
-        var order = new Panier
-        {
-            PanierId = 1,
-            ClientId = user.ClientId,
-            CommandeId = command.CommandeId,
-            PrixPanier = (decimal)69.69,
-            Cookie = null
-        };
-
-        ctx.Paniers.Add(order);
-        ctx.SaveChanges();
-
-        var reduction = new CodeReduction
-        {
-            ReductionId = "SUP3R",
-            ActifReduction = true,
-            Reduction = 100
-        };
-
-        ctx.Codereductions.Add(reduction);
-        ctx.SaveChanges();
+        var order = ctx.Paniers.FirstOrDefault();
+        Assert.IsNotNull(order);
 
         var store = new Information
         {
+            InformationId = ctx.Informations.OrderBy(e => e.InformationId).Last().InformationId + 1,
             ReductionId = reduction.ReductionId,
             AdresseExpeId = address_exp.AdresseExpeId,
             PanierId = order.PanierId,
@@ -180,130 +96,16 @@ public class InformationManagerTests
 
         manager.AddAsync(store).Wait();
 
-        var store2 = ctx.Informations.First(u => u.ModeLivraison == store.ModeLivraison);
+        var store2 = ctx.Informations.FirstOrDefault(u => u.InformationId == store.InformationId);
         Assert.IsNotNull(store2);
-
-        ctx.Informations.Remove(store2);
-        ctx.Detailcommandes.Remove(command);
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void UpdateAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
+        var store = ctx.Informations.FirstOrDefault();
+        Assert.IsNotNull(store);
 
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
-
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
-
-        var command = new DetailCommande
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = state.EtatCommandeId,
-            DateAchat = DateTime.Now,
-            EtatCommandeId = 1,
-            RetraitMagasinId = null,
-            PanierId = null,
-            MoyenPaiement = "Carte Banquaire",
-            ModeExpedition = "Expeditiuon"
-        };
-
-        ctx.Detailcommandes.Add(command);
-        ctx.SaveChanges();
-
-        var order = new Panier
-        {
-            PanierId = 1,
-            ClientId = user.ClientId,
-            CommandeId = command.CommandeId,
-            PrixPanier = (decimal)69.69,
-            Cookie = null
-        };
-
-        ctx.Paniers.Add(order);
-        ctx.SaveChanges();
-
-        var reduction = new CodeReduction
-        {
-            ReductionId = "SUP3R",
-            ActifReduction = true,
-            Reduction = 100
-        };
-
-        ctx.Codereductions.Add(reduction);
-        ctx.SaveChanges();
-
-        var store = new Information
-        {
-            ReductionId = reduction.ReductionId,
-            AdresseExpeId = address_exp.AdresseExpeId,
-            PanierId = order.PanierId,
-            ContactInformations = "Carte Bancaire",
-            OffreEmail = true,
-            ModeLivraison = "Expédition",
-            InformationPays = "France",
-            InformationRue = "16 rue de l'Arc en Ciel"
-        };
-
-        store = ctx.Informations.FirstOrDefault();
-        if (store == null) return; // we can't test if the db is empty
-
-        var orig = store.ModeLivraison;
         var newP = "Retrait Magasin";
         store.ModeLivraison = newP;
 
@@ -312,140 +114,16 @@ public class InformationManagerTests
         store = ctx.Informations.Find(store.InformationId);
         Assert.IsNotNull(store);
         Assert.AreEqual(newP, store.ModeLivraison);
-
-        store.ModeLivraison = orig;
-        manager.UpdateAsync(store, store).Wait();
-
-        ctx.Informations.Remove(store);
-        ctx.Detailcommandes.Remove(command);
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 
     [TestMethod]
     public void RemoveAsyncTest()
     {
-        var user = new CompteClient
-        {
-            ClientId = 1,
-            LoginClient = "jean.patrick",
-            EmailClient = "jean.patrick@gmail.com",
-            PrenomClient = "Jean",
-            NomClient = "Patrick",
-            MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
-            Usertype = Policies.User
-        };
-
-        ctx.Compteclients.Add(user);
-        ctx.SaveChanges();
-
-        var address_exp = new AdresseExpedition
-        {
-            AdresseExpeId = 1,
-            ClientId = user.ClientId,
-            PaysExpedition = "France",
-            RueExpedition = "32 route du petit lutin",
-            CPExpedition = "23456",
-            RegionExpedition = "NordDeFrance",
-            VilleExpedition = "Corse",
-            TelephoneExpedition = "+3306123456789",
-            DonneesSauvegardees = false
-        };
-
-        ctx.Adresseexpeditions.Add(address_exp);
-        ctx.SaveChanges();
-
-        var address_fact = new AdresseFacturation
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = 1,
-            AdresseExpId = address_exp.AdresseExpeId,
-            PaysFacturation = "France",
-            RueFacturation = "32 route du petit lutin",
-            CPFacturation = "23456",
-            RegionFacturation = "NordDeFrance",
-            VilleFacturation = "Corse",
-            TelephoneFacturation = "+3306123456789"
-        };
-
-        ctx.Adressefacturations.Add(address_fact);
-        ctx.SaveChanges();
-
-        var state = new EtatCommande
-        {
-            EtatCommandeId = 1,
-            LibelleEtat = "Dummy State"
-        };
-
-        ctx.Etatcommandes.Add(state);
-        ctx.SaveChanges();
-
-        var command = new DetailCommande
-        {
-            ClientId = user.ClientId,
-            AdresseFactId = address_fact.AdresseExpId,
-            CommandeId = state.EtatCommandeId,
-            DateAchat = DateTime.Now,
-            EtatCommandeId = 1,
-            RetraitMagasinId = null,
-            PanierId = null,
-            MoyenPaiement = "Carte Banquaire",
-            ModeExpedition = "Expeditiuon"
-        };
-
-        ctx.Detailcommandes.Add(command);
-        ctx.SaveChanges();
-
-        var order = new Panier
-        {
-            PanierId = 1,
-            ClientId = user.ClientId,
-            CommandeId = command.CommandeId,
-            PrixPanier = (decimal)69.69,
-            Cookie = null
-        };
-
-        ctx.Paniers.Add(order);
-        ctx.SaveChanges();
-
-        var reduction = new CodeReduction
-        {
-            ReductionId = "SUP3R",
-            ActifReduction = true,
-            Reduction = 100
-        };
-
-        ctx.Codereductions.Add(reduction);
-        ctx.SaveChanges();
-
-        var store = new Information
-        {
-            ReductionId = reduction.ReductionId,
-            AdresseExpeId = address_exp.AdresseExpeId,
-            PanierId = order.PanierId,
-            ContactInformations = "Carte Bancaire",
-            OffreEmail = true,
-            ModeLivraison = "Expédition",
-            InformationPays = "France",
-            InformationRue = "16 rue de l'Arc en Ciel"
-        };
-
-        store = ctx.Informations.Add(store).Entity;
-        ctx.SaveChanges();
+        var store = ctx.Informations.FirstOrDefault();
         Assert.IsNotNull(store);
 
         manager.DeleteAsync(store).Wait();
         store = ctx.Informations.Find(store.InformationId);
         Assert.IsNull(store);
-
-        ctx.Detailcommandes.Remove(command);
-        ctx.Adressefacturations.Remove(address_fact);
-        ctx.Adresseexpeditions.Remove(address_exp);
-        ctx.Compteclients.Remove(user);
-        ctx.Etatcommandes.Remove(state);
-        ctx.SaveChanges();
     }
 }
