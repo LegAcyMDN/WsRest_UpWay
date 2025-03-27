@@ -52,6 +52,28 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
+    ///     Récupère un accessoire par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant de l'accessoire.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant de l'accessoire n'est pas trouvé.</response>
+    [HttpGet]
+    [Route("[action]/{id}")]
+    [ActionName("GetPhotosById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<PhotoAccessoire>>> GetPhotosById(int id)
+    {
+        var accessoire = await dataRepository.GetPhotosByIdAsync(id);
+
+        if (accessoire.Value == null)
+            return NotFound();
+
+        return accessoire;
+    }
+
+    /// <summary>
     ///     Récupère un accessoire par sa category.
     /// </summary>
     /// <param name="category">La category de l'accessoire.</param>

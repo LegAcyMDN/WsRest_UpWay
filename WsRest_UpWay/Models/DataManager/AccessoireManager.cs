@@ -25,6 +25,11 @@ public class AccessoireManager : IDataAccessoire
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.AccessoireId == id);
     }
 
+    public async Task<ActionResult<IEnumerable<PhotoAccessoire>>> GetPhotosByIdAsync(int id)
+    {
+        return await upwaysDbContext.Photoaccessoires.Where(u => u.AccessoireId == id).ToListAsync();
+    }
+
     public async Task<ActionResult<Accessoire>> GetByStringAsync(string nom)
     {
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.NomAccessoire.ToUpper() == nom.ToUpper());

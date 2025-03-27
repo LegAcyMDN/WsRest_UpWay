@@ -11,4 +11,6 @@ public interface IDataAccessoire : IDataRepository<Accessoire>
         int page = 0);
 
     Task<ActionResult<IEnumerable<Accessoire>>> GetByPrixAsync(int min, int max, int page = 0);
+
+    Task<ActionResult<IEnumerable<PhotoAccessoire>>> GetPhotosByIdAsync(int id);
 }
