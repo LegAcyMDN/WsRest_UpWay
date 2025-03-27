@@ -32,7 +32,7 @@ public class AccessoiresControllerTests
             new() { AccessoireId = 1, NomAccessoire = "Accessoire 1" },
             new() { AccessoireId = 2, NomAccessoire = "Accessoire 2" }
         };
-        _mockDataRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(accessoires);
+        _mockDataRepository.Setup(repo => repo.GetAllAsync(0)).ReturnsAsync(accessoires);
 
         // Act
         var result = await _controller.GetAccessoires();

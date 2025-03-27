@@ -18,7 +18,7 @@ public class AccessoireManager : IDataAccessoire
         upwaysDbContext = context;
     }
 
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAllAsync(int page)
     {
         return await upwaysDbContext.Accessoires.ToListAsync();
     }

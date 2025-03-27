@@ -16,7 +16,7 @@ namespace WsRest_UpWay.Models.DataManager
             upwaysDbContext = context;
         }
 
-        public async Task<ActionResult<IEnumerable<Marque>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<Marque>>> GetAllAsync(int page)
         {
             return await upwaysDbContext.Marques.ToListAsync();
         }

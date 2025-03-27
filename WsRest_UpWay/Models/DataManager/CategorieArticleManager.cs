@@ -28,7 +28,7 @@ namespace WsRest_UpWay.Models.DataManager
             await s215UpWayContext.SaveChangesAsync();
         }
 
-        public async Task<ActionResult<IEnumerable<CategorieArticle>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<CategorieArticle>>> GetAllAsync(int page)
         {
             return await s215UpWayContext.CategorieArticles.ToListAsync();
         }

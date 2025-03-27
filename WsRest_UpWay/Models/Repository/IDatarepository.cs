@@ -5,7 +5,7 @@ namespace WsRest_UpWay.Models.Repository
 {
     public interface IDataRepository<TEntity>
     {
-        Task<ActionResult<IEnumerable<TEntity>>> GetAllAsync();
+        Task<ActionResult<IEnumerable<TEntity>>> GetAllAsync(int page = 0);
         Task<ActionResult<TEntity>> GetByIdAsync(int id);
         Task<ActionResult<TEntity>> GetByStringAsync(string str);
         Task AddAsync(TEntity entity);

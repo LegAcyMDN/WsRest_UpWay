@@ -36,7 +36,7 @@ namespace WsRest_UpWay.Models.DataManager
 
         public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltresAsync(string taille, int categorie, int cara, int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat, string posbat, string batamo, string posbag, decimal poids)
         {
-            IQueryable<Velo> velofilt = _upWayContext.Velos;
+            IQueryable<Velo> velofilt = _upWayContext.Velos.Include(v => v.ListePhotoVelos);
             if (taille != null) 
             {
                 velofilt = velofilt.Where(p => p.TailleMin.ToUpper() == taille.ToUpper());
@@ -93,14 +93,20 @@ namespace WsRest_UpWay.Models.DataManager
             return await velofilt.ToListAsync();
         }
 
-        public async Task<ActionResult<IEnumerable<Velo>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<Velo>>> GetAllAsync(int page)
         {
-            return await _upWayContext.Velos.ToListAsync();
+            return await _upWayContext.Velos.Skip(page * 20).Take(20)
+            .ToListAsync();
         }
 
         public async Task<ActionResult<Velo>> GetByIdAsync(int id)
         {
             return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.VeloId == id);
+        }
+
+        public async Task<ActionResult<IEnumerable<PhotoVelo>>> GetPhotos(int id)
+        {
+            return await _upWayContext.Photovelos.Where(p => p.VeloId == id).ToListAsync();
         }
 
         public async Task UpdateAsync(Velo vel, Velo entity)

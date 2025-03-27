@@ -28,7 +28,7 @@ namespace WsRest_UpWay.Models.DataManager
             await upwaysDbContext.SaveChangesAsync();
         }
 
-        public async Task<ActionResult<IEnumerable<Panier>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<Panier>>> GetAllAsync(int page)
         {
             return await upwaysDbContext.Paniers.ToListAsync();
         }

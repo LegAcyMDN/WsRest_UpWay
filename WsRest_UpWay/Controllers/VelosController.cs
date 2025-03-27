@@ -28,9 +28,20 @@ public class VelosController : ControllerBase
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des Velos est récupérée avec succès.</response>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetVelos()
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVelos(int page = 0)
     {
-        return await dataRepository.GetAllAsync();
+        return await dataRepository.GetAllAsync(page);
+    }
+
+    [HttpGet("{id}/photos")]
+    public async Task<ActionResult<IEnumerable<PhotoVelo>>> getPhotos(int id)
+    {
+        var velo = await dataRepository.GetByIdAsync(id);
+        if (velo.Value == null)
+        {
+            return NotFound();
+        }
+        return await dataRepository.GetPhotos(id);
     }
 
     /// <summary>
@@ -61,6 +72,7 @@ public class VelosController : ControllerBase
 
         return velo;
     }
+
 
     /// <summary>
     /// Récupère des vélos en fonction de plusieurs filtres.
@@ -96,6 +108,7 @@ public class VelosController : ControllerBase
         return velo;
     }
 
+
     /// <summary>
     /// Met à jour un vélo existant.
     /// </summary>
@@ -124,6 +137,8 @@ public class VelosController : ControllerBase
         await dataRepository.UpdateAsync(velToUpdate.Value, velo);
         return NoContent();
     }
+
+
 
     /// <summary>
     /// Crée un nouveau vélo.

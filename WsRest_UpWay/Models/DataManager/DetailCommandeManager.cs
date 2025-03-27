@@ -14,7 +14,7 @@ namespace WsRest_UpWay.Models.DataManager
         {
             upwaysDbContext = context;
         }
-        public async Task<ActionResult<IEnumerable<DetailCommande>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<DetailCommande>>> GetAllAsync(int page)
         {
             return await upwaysDbContext.Detailcommandes.ToListAsync();
         }

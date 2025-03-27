@@ -18,7 +18,7 @@ public class UserManager : IDataRepository<CompteClient>
         _context = context;
     }
 
-    public async Task<ActionResult<IEnumerable<CompteClient>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<CompteClient>>> GetAllAsync(int page)
     {
         return await _context.Compteclients.ToListAsync();
     }
