@@ -39,6 +39,7 @@ public class VelosControllerTests
         var actionResult = velocontroller.GetVelo(1).Result;
     }
 
+    [TestMethod]
     public void GetVeloByFiltresAvecMoq()
     {
         var velo = new Velo

@@ -117,13 +117,11 @@ public class VelosController : ControllerBase
     /// <response code="200">Lorsque les vélos sont trouvés.</response>
     /// <response code="404">Lorsque aucun vélo n'est trouvé.</response>
     [HttpGet]
-    [Route("[action]/{filtre}")]
+    [Route("[action]")]
     [ActionName("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string taille, int categorie, int cara,
-        int marque, int annee, string kilom, string posmot, string motmar, string couplemot, string capbat,
-        string posbat, string batamo, string posbag, decimal poids, int page = 0)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string? taille = null,int? categorie = null,int? cara = null,int? marque = null,int? annee = null,string? kilom = null,string? posmot = null,string? motmar = null,string? couplemot = null,string? capbat = null,string? posbat = null,string? batamo = null,string? posbag = null,decimal? poids = null,int page = 0)
     {
         var velo = await dataRepository.GetByFiltresAsync(taille, categorie, cara, marque, annee, kilom, posmot, motmar,
             couplemot, capbat, posbat, batamo, posbag, poids, page);
