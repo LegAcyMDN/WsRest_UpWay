@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WsRest_UpWay.Helpers;
-using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -19,7 +18,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("me")]
-    [Authorize(Policy = Policies.User)]
+    [Authorize]
     public async Task<ActionResult<CompteClient>> GetMe()
     {
         var user = (await userManager.GetByStringAsync(User.GetEmail())).Value;
