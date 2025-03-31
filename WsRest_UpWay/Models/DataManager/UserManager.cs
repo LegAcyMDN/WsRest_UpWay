@@ -24,6 +24,11 @@ public class UserManager : IDataRepository<CompteClient>
         return await _context.Compteclients.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await _context.Compteclients.CountAsync();
+    }
+
     public async Task<ActionResult<CompteClient>> GetByIdAsync(int id)
     {
         return await _context.Compteclients.FindAsync(id);

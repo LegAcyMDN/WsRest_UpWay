@@ -33,7 +33,11 @@ public class VelosController : ControllerBase
         return await dataRepository.GetAllAsync(page);
     }
 
-
+    [HttpGet("count")]
+    public async Task<ActionResult<int>> GetCount()
+    {
+        return await dataRepository.GetCountAsync();
+    }
 
     /// <summary>
     /// Récupère un vélo par son identifiant.
@@ -93,7 +97,6 @@ public class VelosController : ControllerBase
 
         return velo;
     }
-
 
 
     /// <summary>
@@ -162,7 +165,6 @@ public class VelosController : ControllerBase
         await dataRepository.UpdateAsync(velToUpdate.Value, velo);
         return NoContent();
     }
-
 
 
     /// <summary>

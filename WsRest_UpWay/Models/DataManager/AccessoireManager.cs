@@ -20,6 +20,11 @@ public class AccessoireManager : IDataAccessoire
         upwaysDbContext = context;
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await upwaysDbContext.Accessoires.CountAsync();
+    }
+
     public async Task<ActionResult<Accessoire>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.AccessoireId == id);

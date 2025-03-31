@@ -20,7 +20,7 @@ public class CategoriesControllerTests
         };
         var mockRepository = new Mock<IDataRepository<Categorie>>();
         mockRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(cat);
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
 
         // Act
         var actionResult = catController.GetCategorieById(1).Result;
@@ -36,7 +36,7 @@ public class CategoriesControllerTests
     {
         var mockRepository = new Mock<IDataRepository<Categorie>>();
         mockRepository.Setup(x => x.GetByIdAsync(0).Result).Returns((Categorie)null);
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
 
         // Act
         var actionResult = catController.GetCategorieById(0).Result;
@@ -56,7 +56,7 @@ public class CategoriesControllerTests
         };
         var mockRepository = new Mock<IDataRepository<Categorie>>();
         mockRepository.Setup(x => x.GetByStringAsync("Revente vélo").Result).Returns(cat);
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
 
         // Act
         var actionResult = catController.GetCategorieByTitre("Revente vélo").Result;
@@ -74,7 +74,7 @@ public class CategoriesControllerTests
         mockRepository.Setup(x => x.GetByStringAsync("On ne vend pas de switch !").Result)
             .Returns(new ActionResult<Categorie>((Categorie)null));
 
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
 
         // Act
         var actionResult = catController.GetCategorieByTitre("On ne vend pas de switch !").Result;
@@ -99,7 +99,7 @@ public class CategoriesControllerTests
         };
         var mockRepository = new Mock<IDataRepository<Categorie>>();
         mockRepository.Setup(x => x.GetByIdAsync(1).Result).Returns(catToEdit);
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
 
         // Act
         var actionResult = catController.PutCategorie(1, catEdited).Result;
@@ -113,7 +113,7 @@ public class CategoriesControllerTests
     {
         // Arrange
         var mockRepository = new Mock<IDataRepository<Categorie>>();
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
         var cat = new Categorie
         {
             CategorieId = 2,
@@ -144,7 +144,7 @@ public class CategoriesControllerTests
         };
         var mockRepository = new Mock<IDataRepository<Categorie>>();
         mockRepository.Setup(x => x.GetByIdAsync(2).Result).Returns(cat);
-        var catController = new CategoriesController(mockRepository.Object);
+        var catController = new CategoriesController(mockRepository.Object, new Mock<IDataVelo>().Object);
 
         // Act
         var actionResult = catController.DeleteCategorie(2).Result;

@@ -24,6 +24,11 @@ public class InformationManager : IDataRepository<Information>
         return await upwaysDbContext.Informations.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await upwaysDbContext.Informations.CountAsync();
+    }
+
     public async Task<ActionResult<Information>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Informations.FirstOrDefaultAsync(u => u.InformationId == id);
