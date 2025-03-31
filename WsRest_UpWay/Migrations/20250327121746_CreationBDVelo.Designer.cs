@@ -12,7 +12,7 @@ using WsRest_UpWay.Models.EntityFramework;
 namespace WsRest_UpWay.Migrations
 {
     [DbContext(typeof(S215UpWayContext))]
-    [Migration("20250320081254_CreationBDVelo")]
+    [Migration("20250327121746_CreationBDVelo")]
     partial class CreationBDVelo
     {
         /// <inheritdoc />
@@ -459,8 +459,7 @@ namespace WsRest_UpWay.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ArticleId"));
 
-                    b.Property<int?>("CategorieArticleId")
-                        .IsRequired()
+                    b.Property<int>("CategorieArticleId")
                         .HasColumnType("integer")
                         .HasColumnName("caa_id");
 
@@ -1291,8 +1290,9 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("acs_id");
 
-                    b.Property<byte[]>("UrlPhotoAccessoire")
-                        .HasColumnType("bytea")
+                    b.Property<string>("UrlPhotoAccessoire")
+                        .HasMaxLength(4096)
+                        .HasColumnType("text")
                         .HasColumnName("pha_url");
 
                     b.HasKey("PhotoAcessoireId")

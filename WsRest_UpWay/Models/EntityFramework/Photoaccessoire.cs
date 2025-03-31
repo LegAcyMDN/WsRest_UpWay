@@ -18,8 +18,9 @@ public partial class PhotoAccessoire
     [Column("acs_id")]
     public int AccessoireId { get; set; }
 
-    [Column("pha_url")]
-    public byte[]? UrlPhotoAccessoire { get; set; }
+    [Column("pha_url", TypeName = "text")]
+    [StringLength(4096)]
+    public string? UrlPhotoAccessoire { get; set; }
 
     [ForeignKey(nameof(AccessoireId))]
     [InverseProperty(nameof(Accessoire.ListePhotoAccessoires))]
