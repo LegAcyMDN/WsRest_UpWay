@@ -24,6 +24,11 @@ public class MarqueManager : IDataRepository<Marque>
         return await upwaysDbContext.Marques.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await upwaysDbContext.Marques.CountAsync();
+    }
+
     public async Task<ActionResult<Marque>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Marques.FirstOrDefaultAsync(u => u.MarqueId == id);

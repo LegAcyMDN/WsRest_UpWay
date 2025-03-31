@@ -35,6 +35,11 @@ public class CategorieManager : IDataRepository<Categorie>
         return await s215UpWayContext.Categories.ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await s215UpWayContext.Categories.CountAsync();
+    }
+
     public async Task<ActionResult<Categorie>> GetByIdAsync(int id)
     {
         return await s215UpWayContext.Categories.FirstOrDefaultAsync(u => u.CategorieId == id);

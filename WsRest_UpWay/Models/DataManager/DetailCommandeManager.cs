@@ -24,6 +24,11 @@ public class DetailCommandeManager : IDataRepository<DetailCommande>
         return await upwaysDbContext.Detailcommandes.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await upwaysDbContext.Detailcommandes.CountAsync();
+    }
+
     public async Task<ActionResult<DetailCommande>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Detailcommandes.FirstOrDefaultAsync(u => u.CommandeId == id);

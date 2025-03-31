@@ -36,6 +36,11 @@ public class PanierManager : IDataRepository<Panier>
         return await upwaysDbContext.Paniers.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await upwaysDbContext.Paniers.CountAsync();
+    }
+
     public async Task<ActionResult<Panier>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.PanierId == id);
