@@ -502,7 +502,7 @@ namespace WsRest_UpWay.Migrations
                     pha_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     acs_id = table.Column<int>(type: "integer", nullable: false),
-                    pha_url = table.Column<byte[]>(type: "bytea", nullable: true)
+                    pha_url = table.Column<string>(type: "text", maxLength: 4096, nullable: true)
                 },
                 constraints: table =>
                 {

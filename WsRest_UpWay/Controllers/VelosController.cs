@@ -27,6 +27,7 @@ public class VelosController : ControllerBase
     /// </summary>
     /// <returns>Http response</returns>
     /// <response code="200">Lorsque la liste des Velos est récupérée avec succès.</response>
+    [Route("/{page}")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Velo>>> GetVelos(int page = 0)
     {

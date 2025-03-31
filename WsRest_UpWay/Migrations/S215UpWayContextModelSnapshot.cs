@@ -456,8 +456,7 @@ namespace WsRest_UpWay.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ArticleId"));
 
-                    b.Property<int?>("CategorieArticleId")
-                        .IsRequired()
+                    b.Property<int>("CategorieArticleId")
                         .HasColumnType("integer")
                         .HasColumnName("caa_id");
 
@@ -1288,8 +1287,9 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("acs_id");
 
-                    b.Property<byte[]>("UrlPhotoAccessoire")
-                        .HasColumnType("bytea")
+                    b.Property<string>("UrlPhotoAccessoire")
+                        .HasMaxLength(4096)
+                        .HasColumnType("text")
                         .HasColumnName("pha_url");
 
                     b.HasKey("PhotoAcessoireId")
