@@ -103,7 +103,7 @@ public class AccessoiresController : ControllerBase
     /// <response code="200">Lorsque l'accessoire est trouvé.</response>
     /// <response code="404">Lorsque l'accessoire avec le prix spécifié n'est pas trouvé.</response>
     [HttpGet]
-    [Route("[action]/{prix}")]
+    [Route("[action]")]
     [ActionName("GetByPrix")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -126,7 +126,7 @@ public class AccessoiresController : ControllerBase
     /// <response code="200">Lorsque l'accessoire est trouvé.</response>
     /// <response code="404">Lorsque l'accessoire avec le prix et la category spécifié n'est pas trouvé.</response>
     [HttpGet]
-    [Route("[action]/{prix}")]
+    [Route("[action]")]
     [ActionName("GetByCategoryPrix")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
