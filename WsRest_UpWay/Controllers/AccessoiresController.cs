@@ -28,6 +28,12 @@ public class AccessoiresController : ControllerBase
     {
         return await dataRepository.GetAllAsync(page);
     }
+    
+    [HttpGet("count")]
+    public async Task<ActionResult<int>> GetCount()
+    {
+        return await dataRepository.GetCountAsync();
+    }
 
     /// <summary>
     ///     Récupère un accessoire par son identifiant.
