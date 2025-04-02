@@ -43,7 +43,17 @@ public class PanierManager : IDataRepository<Panier>
 
     public async Task<ActionResult<Panier>> GetByIdAsync(int id)
     {
-        return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.PanierId == id);
+        return await upwaysDbContext.Paniers
+            .Where(p => p.PanierId == id)
+            .Include(p => p.ListeLignePaniers)
+                .ThenInclude(lp => lp.LignePanierVelo)
+            .Include(p => p.ListeLignePaniers)
+                .ThenInclude(lp => lp.LignePanierAssurance)
+            .Include(p => p.ListeAjouterAccessoires)
+                .ThenInclude(a => a.AjoutDAccessoire)
+            .Include(p => p.ListeLignePaniers)
+                .ThenInclude(lp => lp.ListeMarquageVelos)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<ActionResult<Panier>> GetByStringAsync(string str)
