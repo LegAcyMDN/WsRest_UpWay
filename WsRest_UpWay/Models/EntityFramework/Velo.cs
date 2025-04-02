@@ -52,15 +52,15 @@ public partial class Velo
     [Precision(4, 0)]
     public int? AnneeVelo { get; set; }
 
-    [Column("vel_taillemin")]
+    [Column("vel_taillemin", TypeName = "char(15)")]
     [StringLength(15)]
     public string? TailleMin { get; set; }
 
-    [Column("vel_taillemax")]
+    [Column("vel_taillemax", TypeName = "char(15)")]
     [StringLength(15)]
     public string? TailleMax { get; set; }
 
-    [Column("vel_kms")]
+    [Column("vel_kms", TypeName = "char(15)")]
     [StringLength(15)]
     public string? NombreKms { get; set; }
 

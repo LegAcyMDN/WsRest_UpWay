@@ -11,10 +11,12 @@ namespace WsRest_UpWay.Controllers;
 public class CategoriesController : ControllerBase
 {
     private readonly IDataRepository<Categorie> dataRepository;
+    private readonly IDataVelo? veloRepository;
 
-    public CategoriesController(IDataRepository<Categorie> dataRepo)
+    public CategoriesController(IDataRepository<Categorie> dataRepo, IDataVelo veloRepo)
     {
         dataRepository = dataRepo;
+        veloRepository = veloRepo;
     }
 
     [HttpGet]
@@ -22,6 +24,26 @@ public class CategoriesController : ControllerBase
     public async Task<ActionResult<IEnumerable<Categorie>>> GetCategoriesArticles()
     {
         return await dataRepository.GetAllAsync();
+    }
+
+    [HttpGet("GetWithBicycles")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<IEnumerable<Categorie>>> GetCategoriesUsedByVelo()
+    {
+        var categories = await dataRepository.GetAllAsync();
+        if (categories.Value == null) return categories;
+
+        var filteredList = new List<Categorie>();
+
+        foreach (var category in categories.Value)
+        {
+            var velos = veloRepository.GetByFiltresAsync(null, category.CategorieId, null, null, null, null, null, null,
+                null, null, null, null, null, null);
+            if (velos.Result.Value != null && velos.Result.Value.Any())
+                filteredList.Add(category);
+        }
+
+        return filteredList;
     }
 
     [HttpGet]

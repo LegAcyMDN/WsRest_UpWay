@@ -24,6 +24,11 @@ public class MagasinManager : IDataRepository<Magasin>
         return await upwaysDbContext.Magasins.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await upwaysDbContext.Magasins.CountAsync();
+    }
+
     public async Task<ActionResult<Magasin>> GetByIdAsync(int id)
     {
         return await upwaysDbContext.Magasins.FirstOrDefaultAsync(u => u.MagasinId == id);

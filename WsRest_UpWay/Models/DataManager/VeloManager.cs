@@ -88,6 +88,11 @@ public class VeloManager : IDataVelo
         return await _upWayContext.Velos.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
+    public async Task<ActionResult<int>> GetCountAsync()
+    {
+        return await _upWayContext.Velos.CountAsync();
+    }
+
     public async Task<ActionResult<Velo>> GetByIdAsync(int id)
     {
         return await _upWayContext.Velos.FirstOrDefaultAsync(p => p.VeloId == id);
