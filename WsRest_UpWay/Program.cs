@@ -29,6 +29,7 @@ builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManage
 builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleManager>();
 builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<LignePanier>, LignePanierManager>();
+builder.Services.AddScoped<IDataRepository<MarquageVelo>, MarquageVeloManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
 
 builder.Services.AddControllers()

@@ -8,24 +8,20 @@ namespace WsRest_UpWay.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LignePanierController : ControllerBase
+public class MarqageVeloController : ControllerBase
 {
-    private readonly IDataRepository<LignePanier> _dataRepository;
+    private readonly IDataRepository<MarquageVelo> _dataRepository;
     private readonly IDataRepository<Panier> _panierRepository;
-    private readonly IDataRepository<MarquageVelo> _marquageVeloRepository;
-    private static Random random = new Random();
 
-
-    public LignePanierController(IDataRepository<LignePanier> dataRepository, IDataRepository<Panier> panierRepository, IDataRepository<MarquageVelo> marquageVeloRepository)
+    public MarqageVeloController(IDataRepository<MarquageVelo> dataRepository, IDataRepository<Panier> panierRepository)
     {
         _dataRepository = dataRepository;
         _panierRepository = panierRepository;
-        _marquageVeloRepository = marquageVeloRepository;
     }
 
     // GET: api/Panier
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<LignePanier>>> GetPaniers()
+    public async Task<ActionResult<IEnumerable<MarquageVelo>>> Gets()
     {
         return await _dataRepository.GetAllAsync();
     }
@@ -33,7 +29,7 @@ public class LignePanierController : ControllerBase
     // GET: api/Panier/5
     [HttpGet("{id}")]
     [Authorize]
-    public async Task<ActionResult<LignePanier>> GetPanier(int id)
+    public async Task<ActionResult<MarquageVelo>> Get(int id)
     {
         var lignepanier = await _dataRepository.GetByIdAsync(id);
         if (lignepanier.Value == null) return NotFound();
@@ -49,7 +45,7 @@ public class LignePanierController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     [Authorize]
-    public async Task<IActionResult> PutPanier(int id, LignePanier body)
+    public async Task<IActionResult> Put(int id, MarquageVelo body)
     {
         if (id != body.PanierId) return BadRequest();
 
@@ -65,31 +61,10 @@ public class LignePanierController : ControllerBase
         return NoContent();
     }
 
-    // POST: api/Panier
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
-    [Authorize]
-    public async Task<ActionResult<LignePanier>> PostPanier(LignePanier panier)
-    {
-        await _dataRepository.AddAsync(panier);
-
-        MarquageVelo marquageVelo = new MarquageVelo()
-        {
-            VeloId = panier.VeloId,
-            CodeMarquage = RandomString(10),
-            PrixMarquage = (decimal?)990.0,
-            PanierId = panier.PanierId
-        };
-        
-        await _marquageVeloRepository.AddAsync(marquageVelo);
-
-        return CreatedAtAction("GetPanier", new { id = panier.PanierId }, panier);
-    }
-
     // DELETE: api/Panier/5
     [HttpDelete("{id}")]
     [Authorize]
-    public async Task<IActionResult> DeletePanier(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var lignepanier = await _dataRepository.GetByIdAsync(id);
         if (lignepanier.Value == null) return NotFound();
@@ -101,13 +76,5 @@ public class LignePanierController : ControllerBase
         await _dataRepository.DeleteAsync(lignepanier.Value);
 
         return NoContent();
-    }
-    
-
-    private static string RandomString(int length)
-    {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 }
