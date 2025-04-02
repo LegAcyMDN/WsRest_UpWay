@@ -10,4 +10,6 @@ public interface IDataVelo : IDataRepository<Velo>
         string? batamo, string? posbag, decimal? poids, int page = 0);
 
     Task<ActionResult<IEnumerable<PhotoVelo>>> GetPhotosByIdAsync(int id);
+
+    Task<ActionResult<IEnumerable<MentionVelo>>> GetMentionByIdAsync(int id);
 }

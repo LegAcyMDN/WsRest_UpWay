@@ -98,6 +98,11 @@ public class VeloManager : IDataVelo
         return await _upWayContext.Photovelos.Where(p => p.VeloId == id).ToListAsync();
     }
 
+    public async Task<ActionResult<IEnumerable<MentionVelo>>> GetMentionByIdAsync(int id)
+    {
+        return await _upWayContext.Mentionvelos.Where(p => p.VeloId == id).ToListAsync();
+    }
+
     public async Task UpdateAsync(Velo vel, Velo entity)
     {
         _upWayContext.Entry(vel).State = EntityState.Modified;

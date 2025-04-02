@@ -95,6 +95,36 @@ public class VelosController : ControllerBase
     }
 
 
+    /// <summary>
+    /// Récupère un vélo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du vélo à récupérer.</param>
+    /// <returns>Le vélo correspondant à l'identifiant.</returns>
+    /// <response code="200">Lorsque le vélo est trouvé.</response>
+    /// <response code="404">Lorsque le vélo n'est pas trouvé.</response>
+    // GET: api/Velos/5
+    /// <summary>
+    ///     Récupère un Velo par son identifiant.
+    /// </summary>
+    /// <param name="id">L'identifiant du Velo.</param>
+    /// <returns>Http response</returns>
+    /// <response code="200">Lorsque le Velo est trouvé.</response>
+    /// <response code="404">Lorsque l'identifiant du Velo n'est pas trouvé.</response>
+    [HttpGet]
+    [Route("[action]/{id}")]
+    [ActionName("GetMentionById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<MentionVelo>>> GetMentionById(int id)
+    {
+        var velo = await dataRepository.GetMentionByIdAsync(id);
+        if (velo.Value == null)
+            return NotFound();
+
+        return velo;
+    }
+
+
 
     /// <summary>
     ///     Récupère des vélos en fonction de plusieurs filtres.
