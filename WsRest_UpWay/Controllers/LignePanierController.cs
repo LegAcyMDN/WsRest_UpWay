@@ -69,21 +69,25 @@ public class LignePanierController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<LignePanier>> PostPanier(LignePanier panier)
+    public async Task<ActionResult<LignePanier>> PostPanier(LignePanier lignepanier)
     {
-        await _dataRepository.AddAsync(panier);
+        var panier = await _panierRepository.GetByIdAsync(lignepanier.PanierId);
+        if (panier.Value == null) return NotFound();
+        if (panier.Value.ClientId != User.GetId()) return Unauthorized();
+        
+        await _dataRepository.AddAsync(lignepanier);
 
         MarquageVelo marquageVelo = new MarquageVelo()
         {
-            VeloId = panier.VeloId,
+            VeloId = lignepanier.VeloId,
             CodeMarquage = RandomString(10),
             PrixMarquage = (decimal?)990.0,
-            PanierId = panier.PanierId
+            PanierId = lignepanier.PanierId
         };
         
         await _marquageVeloRepository.AddAsync(marquageVelo);
 
-        return CreatedAtAction("GetPanier", new { id = panier.PanierId }, panier);
+        return CreatedAtAction("GetPanier", new { id = lignepanier.PanierId }, panier);
     }
 
     // DELETE: api/Panier/5
