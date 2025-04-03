@@ -28,7 +28,7 @@ public class AccessoiresController : ControllerBase
     {
         return await dataRepository.GetAllAsync(page);
     }
-    
+
     [HttpGet("count")]
     public async Task<ActionResult<int>> GetCount()
     {
@@ -77,6 +77,26 @@ public class AccessoiresController : ControllerBase
             return NotFound();
 
         return accessoire;
+    }
+
+
+    // Batch version of GetPhotosById
+    [HttpPost]
+    [Route("[action]")]
+    [ActionName("GetPhotosByIds")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Dictionary<int, IEnumerable<PhotoAccessoire>>>> GetPhotosById(IEnumerable<int> ids)
+    {
+        var photos = new Dictionary<int, IEnumerable<PhotoAccessoire>>();
+
+        foreach (var id in ids)
+        {
+            var photosaccessoire = await dataRepository.GetPhotosByIdAsync(id);
+            if (photosaccessoire.Value != null) photos.Add(id, photosaccessoire.Value);
+        }
+
+        return photos;
     }
 
     /// <summary>

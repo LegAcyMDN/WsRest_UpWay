@@ -68,6 +68,24 @@ public class VelosController : ControllerBase
         return velo;
     }
 
+    // Batch version of GetPhotosById
+    [HttpPost]
+    [Route("[action]")]
+    [ActionName("GetPhotosByIds")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Dictionary<int, IEnumerable<PhotoVelo>>>> GetPhotosById(IEnumerable<int> ids)
+    {
+        var photos = new Dictionary<int, IEnumerable<PhotoVelo>>();
+
+        foreach (var id in ids)
+        {
+            var photosvelo = await dataRepository.GetPhotosByIdAsync(id);
+            if (photosvelo.Value != null) photos.Add(id, photosvelo.Value);
+        }
+
+        return photos;
+    }
 
     /// <summary>
     /// Récupère un vélo par son identifiant.
@@ -129,7 +147,6 @@ public class VelosController : ControllerBase
     }
 
 
-
     /// <summary>
     ///     Récupère des vélos en fonction de plusieurs filtres.
     /// </summary>
@@ -155,7 +172,10 @@ public class VelosController : ControllerBase
     [ActionName("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string? taille = null,int? categorie = null,int? cara = null,int? marque = null,int? annee = null,string? kilom = null,string? posmot = null,string? motmar = null,string? couplemot = null,string? capbat = null,string? posbat = null,string? batamo = null,string? posbag = null,decimal? poids = null,int page = 0)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string? taille = null, int? categorie = null,
+        int? cara = null, int? marque = null, int? annee = null, string? kilom = null, string? posmot = null,
+        string? motmar = null, string? couplemot = null, string? capbat = null, string? posbat = null,
+        string? batamo = null, string? posbag = null, decimal? poids = null, int page = 0)
     {
         var velo = await dataRepository.GetByFiltresAsync(taille, categorie, cara, marque, annee, kilom, posmot, motmar,
             couplemot, capbat, posbat, batamo, posbag, poids, page);
