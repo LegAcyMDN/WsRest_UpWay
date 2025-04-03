@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +61,20 @@ builder.Services.AddAuthorization(config =>
     config.AddPolicy(Policies.User, Policies.UserPolicy());
 });
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
+            partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = 30,
+                QueueLimit = 10,
+                Window = TimeSpan.FromMinutes(1)
+            }));
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -69,6 +84,8 @@ else
     app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod()
         .WithOrigins(builder.Configuration["FRONTEND_URL"].Split(";"))
         .AllowCredentials());
+
+app.UseRateLimiter();
 
 using (var scope = app.Services.CreateScope())
 {
