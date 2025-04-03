@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -7,6 +8,7 @@ namespace WsRest_UpWay.Models.DataManager;
 
 public class CategorieArticleManager : IDataRepository<CategorieArticle>
 {
+    public const int PAGE_SIZE = 20;
     private readonly S215UpWayContext? s215UpWayContext;
 
     public CategorieArticleManager()
@@ -32,7 +34,7 @@ public class CategorieArticleManager : IDataRepository<CategorieArticle>
 
     public async Task<ActionResult<IEnumerable<CategorieArticle>>> GetAllAsync(int page)
     {
-        return await s215UpWayContext.CategorieArticles.ToListAsync();
+        return await s215UpWayContext.CategorieArticles.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task<ActionResult<int>> GetCountAsync()
