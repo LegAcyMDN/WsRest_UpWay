@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.DataManager;
@@ -32,6 +33,11 @@ builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<LignePanier>, LignePanierManager>();
 builder.Services.AddScoped<IDataRepository<MarquageVelo>, MarquageVeloManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
+
+builder.Services.AddSingleton<IMemoryCache>(sp => new MemoryCache(new MemoryCacheOptions
+{
+    SizeLimit = int.Parse(builder.Configuration["CACHE_SIZE"])
+}));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });

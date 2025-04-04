@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,26 +7,22 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Table("t_e_accessoire_acs", Schema = "upways")]
 [Index(nameof(CategorieId), Name = "ix_t_e_accessoire_acs_categorieid")]
 [Index(nameof(MarqueId), Name = "ix_t_e_accessoire_acs_marqueid")]
-public partial class Accessoire
+public class Accessoire
 {
-    public Accessoire() 
+    public const long APROXIMATE_SIZE = 16; // without string length, used for cache limit
+
+    public Accessoire()
     {
         ListeAjoutAccessoires = new HashSet<AjouterAccessoire>();
         ListePhotoAccessoires = new HashSet<PhotoAccessoire>();
         ListeVelos = new HashSet<Velo>();
     }
 
-    [Key]
-    [Column("acs_id")]
-    public int AccessoireId { get; set; }
+    [Key] [Column("acs_id")] public int AccessoireId { get; set; }
 
-    [Key]
-    [Column("mar_id")]
-    public int MarqueId { get; set; }
+    [Key] [Column("mar_id")] public int MarqueId { get; set; }
 
-    [Key]
-    [Column("cat_id")]
-    public int CategorieId { get; set; }
+    [Key] [Column("cat_id")] public int CategorieId { get; set; }
 
     [Column("acs_nom")]
     [StringLength(100)]

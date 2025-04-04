@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,15 +6,13 @@ namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_photoaccessoire_pha", Schema = "upways")]
 [Index(nameof(AccessoireId), Name = "ix_t_e_photoaccessoire_pha_accessoireid")]
-public partial class PhotoAccessoire
+public class PhotoAccessoire
 {
-    [Key]
-    [Column("pha_id")]
-    public int PhotoAcessoireId { get; set; }
+    public const long APROXIMATE_SIZE = 8;
 
-    [Key]
-    [Column("acs_id")]
-    public int AccessoireId { get; set; }
+    [Key] [Column("pha_id")] public int PhotoAcessoireId { get; set; }
+
+    [Key] [Column("acs_id")] public int AccessoireId { get; set; }
 
     [Column("pha_url", TypeName = "text")]
     [StringLength(4096)]

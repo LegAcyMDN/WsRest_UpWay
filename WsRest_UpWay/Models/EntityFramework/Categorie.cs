@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +6,10 @@ namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_categorie_cat", Schema = "upways")]
 [Index(nameof(LibelleCategorie), Name = "ix_t_e_categorie_cat_libellecategorie")]
-public partial class Categorie
+public class Categorie
 {
+    public const long APROXIMATE_SIZE = 4;
+
     public Categorie()
     {
         ListeAccessoires = new HashSet<Accessoire>();
@@ -18,9 +18,7 @@ public partial class Categorie
         ListeCaracteristiques = new HashSet<Caracteristique>();
     }
 
-    [Key]
-    [Column("cat_id")]
-    public int CategorieId { get; set; }
+    [Key] [Column("cat_id")] public int CategorieId { get; set; }
 
     [Column("cat_libelle")]
     [StringLength(100)]
