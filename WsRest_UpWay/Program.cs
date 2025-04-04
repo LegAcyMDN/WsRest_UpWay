@@ -32,6 +32,9 @@ builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleMa
 builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();
 builder.Services.AddScoped<IDataRepository<LignePanier>, LignePanierManager>();
 builder.Services.AddScoped<IDataRepository<MarquageVelo>, MarquageVeloManager>();
+builder.Services.AddScoped<IDataRepository<Assurance>, AssuranceManager>();
+builder.Services.AddScoped<IDataRepository<AjouterAccessoire>, AjouterAccessoireManager>();
+builder.Services.AddScoped<IDataRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
 
 builder.Services.AddSingleton<IMemoryCache>(sp => new MemoryCache(new MemoryCacheOptions

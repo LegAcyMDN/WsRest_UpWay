@@ -100,49 +100,6 @@ public class AccessoiresController : ControllerBase
     }
 
     /// <summary>
-    ///     Récupère un accessoire par sa category.
-    /// </summary>
-    /// <param name="category">La category de l'accessoire.</param>
-    /// <returns>Http response</returns>
-    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
-    /// <response code="404">Lorsque l'accessoire avec la category spécifié n'est pas trouvé.</response>
-    [HttpGet]
-    [Route("[action]/{category}")]
-    [ActionName("GetByCategory")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategory(string category, int page = 0)
-    {
-        var accessoire = await dataRepository.GetByCategoryAsync(category, page);
-        if (accessoire.Value == null)
-            return NotFound();
-
-        return accessoire;
-    }
-
-    /// <summary>
-    ///     Récupère un accessoire par son prix.
-    /// </summary>
-    /// <param name="min">Le prix min de l'accessoire.</param>
-    /// <param name="max">Le prix max de l'accessoire.</param>
-    /// <returns>Http response</returns>
-    /// <response code="200">Lorsque l'accessoire est trouvé.</response>
-    /// <response code="404">Lorsque l'accessoire avec le prix spécifié n'est pas trouvé.</response>
-    [HttpGet]
-    [Route("[action]")]
-    [ActionName("GetByPrix")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByPrix(int min, int max, int page = 0)
-    {
-        var accessoire = await dataRepository.GetByPrixAsync(min, max, page);
-        if (accessoire.Value == null)
-            return NotFound();
-
-        return accessoire;
-    }
-
-    /// <summary>
     ///     Récupère un accessoire par son prix et sa category.
     /// </summary>
     /// <param name="category">La category de l'accessoire.</param>
@@ -156,10 +113,10 @@ public class AccessoiresController : ControllerBase
     [ActionName("GetByCategoryPrix")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategoryPrix(string category, int min,
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetAccessoireByCategoryPrix(int? categoryid, int min,
         int max, int page = 0)
     {
-        var accessoire = await dataRepository.GetByCategoryPrixAsync(category, min, max, page);
+        var accessoire = await dataRepository.GetByCategoryPrixAsync(categoryid, min, max, page);
         if (accessoire.Value == null)
             return NotFound();
 

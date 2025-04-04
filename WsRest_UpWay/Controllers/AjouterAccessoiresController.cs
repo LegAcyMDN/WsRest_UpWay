@@ -17,13 +17,11 @@ namespace WsRest_UpWay.Controllers;
 public class AjouterAccessoiresController : ControllerBase
 {
     private readonly IDataRepository<AjouterAccessoire> _dataRepository;
-    private readonly IDataRepository<Accessoire> _accessoireRepository;
     private readonly IDataRepository<Panier> _panierRepository;
 
-    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository, IDataRepository<Accessoire> accessoireRepository, IDataRepository<Panier> panierRepository)
+    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository, IDataRepository<Panier> panierRepository)
     {
         _dataRepository = dataRepository;
-        _accessoireRepository = accessoireRepository;
         _panierRepository = panierRepository;
     }
 

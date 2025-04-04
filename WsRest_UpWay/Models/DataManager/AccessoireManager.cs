@@ -92,35 +92,19 @@ public class AccessoireManager : IDataAccessoire
         return await GetByIdAsync(id);
     }
 
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryAsync(string categoryName, int page)
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(int? categoryId, int min, int max,
+        int page = 0)
     {
-        var cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
-        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
-        return cat.ListeAccessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToList();
-    }
-
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(string categoryName, int min,
-        int max, int page)
-    {
-        var cat = await cache.GetOrCreateAsync("categories:" + categoryName.ToLower(), async entry =>
-        {
-            var cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(Categorie.APROXIMATE_SIZE + (cat.LibelleCategorie ?? "").Length);
-
-            return cat;
-        });
-
-        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
-
         var accessoires = await cache.GetOrCreateAsync(
-            "accessoires/filtered:" + categoryName + "/" + min + "/" + max + "/" + page, async entry =>
+            "accessoires/filtered:" + categoryId + "/" + min + "/" + max + "/" + page, async entry =>
             {
-                var accessoires =
-                    cat.ListeAccessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min)
-                        .Skip(page * PAGE_SIZE)
-                        .Take(PAGE_SIZE).ToList();
+                IQueryable<Accessoire> accessoirefilt = upwaysDbContext.Accessoires;
+                if (categoryId != null) accessoirefilt = accessoirefilt.Where(p => p.CategorieId == categoryId);
+
+                var accessoires = accessoirefilt.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min)
+                    .Skip(page * PAGE_SIZE)
+                    .Take(PAGE_SIZE).ToList();
+
                 entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
                     .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
                     .SetSize(accessoires.Sum(p =>
@@ -131,12 +115,6 @@ public class AccessoireManager : IDataAccessoire
             });
 
         return accessoires;
-    }
-
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByPrixAsync(int min, int max, int page)
-    {
-        return await upwaysDbContext.Accessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min)
-            .Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task AddAsync(Accessoire entity)
