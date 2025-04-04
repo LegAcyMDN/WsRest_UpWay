@@ -34,6 +34,8 @@ builder.Services.AddScoped<IDataRepository<MarquageVelo>, MarquageVeloManager>()
 builder.Services.AddScoped<IDataRepository<Assurance>, AssuranceManager>();
 builder.Services.AddScoped<IDataRepository<AjouterAccessoire>, AjouterAccessoireManager>();
 builder.Services.AddScoped<IDataRepository<Article>, ArticleManager>();
+builder.Services.AddScoped<IDataContenuArticles, ContenuArticlesManager>();
+builder.Services.AddScoped<IDataArticles, ArticleManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
 
 builder.Services.AddControllers()

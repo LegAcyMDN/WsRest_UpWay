@@ -48,12 +48,12 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ContenuArticle>>> GetByArticleId(int id)
         {
-            var accessoire = await _dataRepository.GetByArticleIdAsync(id);
+            var contenuArticle = await _dataRepository.GetByArticleIdAsync(id);
 
-            if (accessoire.Value == null)
+            if (contenuArticle.Value == null)
                 return NotFound();
 
-            return accessoire;
+            return contenuArticle;
         }
 
         // PUT: api/ContenuArticles/5

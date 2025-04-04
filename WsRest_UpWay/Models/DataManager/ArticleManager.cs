@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class ArticleManager : IDataRepository<Article>
+    public class ArticleManager : IDataArticles
     {
         public const int PAGE_SIZE = 20;
         private readonly S215UpWayContext upwaysDbContext;
@@ -40,7 +40,10 @@ namespace WsRest_UpWay.Models.DataManager
         {
             return await upwaysDbContext.Articles.FirstOrDefaultAsync(a => a.ArticleId == id);
         }
-
+        public async Task<ActionResult<IEnumerable<Article>>> GetByCategoryIdAsync(int id)
+        {
+            return await upwaysDbContext.Articles.Where(u => u.CategorieArticleId == id).ToListAsync();
+        }
         public async Task<ActionResult<Article>> GetByStringAsync(string str)
         {
             throw new NotImplementedException();

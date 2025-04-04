@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,30 +14,44 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class ArticlesController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataArticles _dataRepository;
 
-        public ArticlesController(S215UpWayContext context)
+        public ArticlesController(IDataArticles dataRepository)
         {
-            _context = context;
+            _dataRepository = dataRepository;
         }
 
         // GET: api/Articles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles(int page = 0)
         {
-            return await _context.Articles.ToListAsync();
+            return await _dataRepository.GetAllAsync(page);
         }
 
         // GET: api/Articles/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
+            var article = await _dataRepository.GetByIdAsync(id);
 
             if (article == null)
             {
                 return NotFound();
             }
+
+            return article;
+        }
+        [HttpGet]
+        [Route("[action]/{id}")]
+        [ActionName("GetByCategoryId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<Article>>> GetByCategoryId(int id)
+        {
+            var article = await _dataRepository.GetByCategoryIdAsync(id);
+
+            if (article.Value == null)
+                return NotFound();
 
             return article;
         }
@@ -51,25 +66,11 @@ namespace WsRest_UpWay.Controllers
             {
                 return BadRequest();
             }
+            var artToUpdate = await _dataRepository.GetByIdAsync(id);
 
-            _context.Entry(article).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ArticleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (artToUpdate.Value == null)
+                return NotFound();
+            _dataRepository.UpdateAsync(artToUpdate.Value, article);
             return NoContent();
         }
 
@@ -78,31 +79,26 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<Article>> PostArticle(Article article)
         {
-            _context.Articles.Add(article);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetArticle", new { id = article.ArticleId }, article);
+            _dataRepository.AddAsync(article);
+
+            return CreatedAtAction("Getarticle", new { id = article.ArticleId }, article);
         }
 
         // DELETE: api/Articles/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
-            if (article == null)
+            var article = await _dataRepository.GetByIdAsync(id);
+            if (article.Value == null)
             {
                 return NotFound();
             }
 
-            _context.Articles.Remove(article);
-            await _context.SaveChangesAsync();
-
+            _dataRepository.DeleteAsync(article.Value);
             return NoContent();
-        }
-
-        private bool ArticleExists(int id)
-        {
-            return _context.Articles.Any(e => e.ArticleId == id);
         }
     }
 }

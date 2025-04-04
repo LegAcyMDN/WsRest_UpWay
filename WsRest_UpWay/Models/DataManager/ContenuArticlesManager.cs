@@ -5,9 +5,10 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager
 {
-    public class ContenuArticlesManager : IDataRepository<ContenuArticle>
+    public class ContenuArticlesManager : IDataContenuArticles
     {
         public const int PAGE_SIZE = 20;
+
         private readonly S215UpWayContext? s215UpWayContext;
 
         public ContenuArticlesManager()
@@ -44,6 +45,10 @@ namespace WsRest_UpWay.Models.DataManager
         public async Task<ActionResult<ContenuArticle>> GetByIdAsync(int id)
         {
             return await s215UpWayContext.ContenuArticles.FirstOrDefaultAsync(u => u.ContenueId == id);
+        }
+        public async Task<ActionResult<IEnumerable<ContenuArticle>>> GetByArticleIdAsync(int id)
+        {
+            return await s215UpWayContext.ContenuArticles.Where(u => u.ArticleId == id).ToListAsync();
         }
 
         public async Task<ActionResult<ContenuArticle>> GetByStringAsync(string lib)
