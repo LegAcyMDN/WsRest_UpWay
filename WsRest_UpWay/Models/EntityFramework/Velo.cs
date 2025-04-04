@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_velo_vel", Schema = "upways")]
 [Index(nameof(CaracteristiqueVeloId), Name = "ix_t_e_velo_vel_caracteristiqueveloid")]
 [Index(nameof(CategorieId), Name = "ix_t_e_velo_vel_categorieid")]
-[Index(nameof( MarqueId), Name = "ix_t_e_velo_vel_marqueid")]
+[Index(nameof(MarqueId), Name = "ix_t_e_velo_vel_marqueid")]
 [Index(nameof(MoteurId), Name = "ix_t_e_velo_vel_moteurid")]
-public partial class Velo
+public class Velo
 {
+    public const long APROXIMATE_SIZE = 40;
 
-    public Velo() 
+    public Velo()
     {
         ListeAlerteVelos = new HashSet<AlerteVelo>();
         ListeEstRealises = new HashSet<EstRealise>();
@@ -28,21 +26,16 @@ public partial class Velo
         ListeAccessoires = new HashSet<Accessoire>();
         ListeUtilites = new HashSet<Utilite>();
     }
-    [Key]
-    [Column("vel_id")]
-    public int VeloId { get; set; }
 
-    [Column("mar_id")]
-    public int? MarqueId { get; set; }
+    [Key] [Column("vel_id")] public int VeloId { get; set; }
 
-    [Column("cat_id")]
-    public int CategorieId { get; set; }
+    [Column("mar_id")] public int? MarqueId { get; set; }
 
-    [Column("mot_id")]
-    public int? MoteurId { get; set; }
+    [Column("cat_id")] public int CategorieId { get; set; }
 
-    [Column("car_id")]
-    public int? CaracteristiqueVeloId { get; set; }
+    [Column("mot_id")] public int? MoteurId { get; set; }
+
+    [Column("car_id")] public int? CaracteristiqueVeloId { get; set; }
 
     [Column("vel_nom")]
     [StringLength(200)]
@@ -76,8 +69,8 @@ public partial class Velo
     [Precision(3, 0)]
     public decimal? PourcentageReduction { get; set; }
 
-    [Column("vel_descriptif", TypeName="text")]
-    [StringLength(5000) ]
+    [Column("vel_descriptif", TypeName = "text")]
+    [StringLength(5000)]
     public string? DescriptifVelo { get; set; }
 
     [Column("vel_quantite")]
