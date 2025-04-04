@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,25 +14,25 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class ContenuArticlesController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataContenuArticles _dataRepository;
 
-        public ContenuArticlesController(S215UpWayContext context)
+        public ContenuArticlesController(IDataContenuArticles dataRepository)
         {
-            _context = context;
+            _dataRepository = dataRepository;
         }
 
         // GET: api/ContenuArticles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ContenuArticle>>> GetContenuArticles()
+        public async Task<ActionResult<IEnumerable<ContenuArticle>>> GetContenuArticles(int page = 0)
         {
-            return await _context.ContenuArticles.ToListAsync();
+            return await _dataRepository.GetAllAsync(page);
         }
 
         // GET: api/ContenuArticles/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ContenuArticle>> GetContenuArticle(int id)
         {
-            var contenuArticle = await _context.ContenuArticles.FindAsync(id);
+            var contenuArticle = await _dataRepository.GetByIdAsync(id);
 
             if (contenuArticle == null)
             {
@@ -39,6 +40,20 @@ namespace WsRest_UpWay.Controllers
             }
 
             return contenuArticle;
+        }
+        [HttpGet]
+        [Route("[action]/{id}")]
+        [ActionName("GetByArticleId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<ContenuArticle>>> GetByArticleId(int id)
+        {
+            var accessoire = await _dataRepository.GetByArticleIdAsync(id);
+
+            if (accessoire.Value == null)
+                return NotFound();
+
+            return accessoire;
         }
 
         // PUT: api/ContenuArticles/5
@@ -50,25 +65,11 @@ namespace WsRest_UpWay.Controllers
             {
                 return BadRequest();
             }
+            var conToUpdate = await _dataRepository.GetByIdAsync(id);
 
-            _context.Entry(contenuArticle).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ContenuArticleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (conToUpdate.Value == null)
+                return NotFound();
+            _dataRepository.UpdateAsync(conToUpdate.Value, contenuArticle);
             return NoContent();
         }
 
@@ -77,8 +78,10 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<ContenuArticle>> PostContenuArticle(ContenuArticle contenuArticle)
         {
-            _context.ContenuArticles.Add(contenuArticle);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _dataRepository.AddAsync(contenuArticle);
 
             return CreatedAtAction("GetContenuArticle", new { id = contenuArticle.ContenueId }, contenuArticle);
         }
@@ -87,21 +90,12 @@ namespace WsRest_UpWay.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteContenuArticle(int id)
         {
-            var contenuArticle = await _context.ContenuArticles.FindAsync(id);
-            if (contenuArticle == null)
-            {
+            var contenuArticle = await _dataRepository.GetByIdAsync(id);
+            if (contenuArticle.Value == null)
                 return NotFound();
-            }
 
-            _context.ContenuArticles.Remove(contenuArticle);
-            await _context.SaveChangesAsync();
-
+            await _dataRepository.DeleteAsync(contenuArticle.Value);
             return NoContent();
-        }
-
-        private bool ContenuArticleExists(int id)
-        {
-            return _context.ContenuArticles.Any(e => e.ContenueId == id);
         }
     }
 }
