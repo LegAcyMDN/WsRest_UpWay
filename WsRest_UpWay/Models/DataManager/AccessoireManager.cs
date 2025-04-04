@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -40,26 +41,13 @@ public class AccessoireManager : IDataAccessoire
         return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.NomAccessoire.ToUpper() == nom.ToUpper());
     }
 
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryAsync(string categoryName, int page)
+    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(int? categoryId, int min,
+    int max, int page)
     {
-        var cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
-        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
-        return cat.ListeAccessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToList();
-    }
-
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(string categoryName, int min,
-        int max, int page)
-    {
-        var cat = await upwaysDbContext.Categories.FirstOrDefaultAsync(a => a.LibelleCategorie == categoryName);
-        await upwaysDbContext.Entry(cat).Collection(c => c.ListeAccessoires).LoadAsync();
-        return cat.ListeAccessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).Skip(page * PAGE_SIZE)
+        IQueryable<Accessoire> accessoirefilt = upwaysDbContext.Accessoires;
+        if (categoryId != null) accessoirefilt = accessoirefilt.Where(p => p.CategorieId == categoryId);
+        return accessoirefilt.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min).Skip(page * PAGE_SIZE)
             .Take(PAGE_SIZE).ToList();
-    }
-
-    public async Task<ActionResult<IEnumerable<Accessoire>>> GetByPrixAsync(int min, int max, int page)
-    {
-        return await upwaysDbContext.Accessoires.Where(a => a.PrixAccessoire < max && a.PrixAccessoire > min)
-            .Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task AddAsync(Accessoire entity)
