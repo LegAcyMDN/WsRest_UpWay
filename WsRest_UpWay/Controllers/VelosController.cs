@@ -73,7 +73,7 @@ public class VelosController : ControllerBase
     [ActionName("GetCaracteristiqueById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Caracteristique>> GetCaracteristiqueVelo(int id)
+    public async Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiqueVelo(int id)
     {
         var velo = await dataRepository.GetCaracteristiquesVeloAsync(id);
         if (velo.Value == null)

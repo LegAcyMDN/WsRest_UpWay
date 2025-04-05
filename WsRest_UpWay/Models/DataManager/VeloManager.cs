@@ -235,27 +235,25 @@ public class VeloManager : IDataVelo
         return size;
     }
 
-    public async Task<ActionResult<Caracteristique>> GetCaracteristiquesVeloAsync(int id)
+    public async Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiquesVeloAsync(int id)
     {
-        var caracteristique = await _cache.GetOrCreateAsync("velos/firstcaracteristique:" + id, async entry =>
+        var caracteristiques = await _cache.GetOrCreateAsync("velos/caracteristiques:" + id, async entry =>
         {
             var velo = await _upWayContext.Velos
                 .Include(v => v.ListeCaracteristiques)
                 .FirstOrDefaultAsync(v => v.VeloId == id);
 
-            if (velo == null || velo.ListeCaracteristiques == null || !velo.ListeCaracteristiques.Any())
-                return null;
-
-            var firstCara = velo.ListeCaracteristiques.First();
+            if (velo == null) return new List<Caracteristique>();
 
             entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
                 .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(Caracteristique.APROXIMATE_SIZE + (firstCara.LibelleCaracteristique?.Length ?? 0));
+                .SetSize(velo.ListeCaracteristiques.Sum(c => Caracteristique.APROXIMATE_SIZE + (c.LibelleCaracteristique?.Length ?? 0)));
 
-            return firstCara;
+            return velo.ListeCaracteristiques.ToList();
         });
 
-        return caracteristique;
+        return caracteristiques;
     }
+
 
 }
