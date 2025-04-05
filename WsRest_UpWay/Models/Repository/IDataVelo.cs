@@ -13,5 +13,5 @@ public interface IDataVelo : IDataRepository<Velo>
 
     Task<ActionResult<IEnumerable<MentionVelo>>> GetMentionByIdAsync(int id);
 
-    Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiquesVeloAsync(int id);
+    Task<ActionResult<Caracteristique>> GetCaracteristiquesVeloAsync(int id);
 }
