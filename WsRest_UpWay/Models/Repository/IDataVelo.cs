@@ -12,4 +12,6 @@ public interface IDataVelo : IDataRepository<Velo>
     Task<ActionResult<IEnumerable<PhotoVelo>>> GetPhotosByIdAsync(int id);
 
     Task<ActionResult<IEnumerable<MentionVelo>>> GetMentionByIdAsync(int id);
+
+    Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiquesVeloAsync(int id);
 }

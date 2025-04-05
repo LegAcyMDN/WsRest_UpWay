@@ -234,4 +234,24 @@ public class VeloManager : IDataVelo
 
         return size;
     }
+
+    public async Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiquesVeloAsync(int id)
+    {
+        var caracteristiques = await _cache.GetOrCreateAsync("velos/caracteristiques:" + id, async entry =>
+        {
+            var velo = await _upWayContext.Velos
+                .Include(v => v.ListeCaracteristiques)
+                .FirstOrDefaultAsync(v => v.VeloId == id);
+
+            if (velo == null) return new List<Caracteristique>();
+
+            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
+                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
+                .SetSize(velo.ListeCaracteristiques.Sum(c => Caracteristique.APROXIMATE_SIZE + (c.LibelleCaracteristique?.Length ?? 0)));
+
+            return velo.ListeCaracteristiques.ToList();
+        });
+
+        return caracteristiques;
+    }
 }

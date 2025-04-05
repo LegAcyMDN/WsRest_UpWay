@@ -68,6 +68,20 @@ public class VelosController : ControllerBase
         return velo;
     }
 
+    [HttpGet]
+    [Route("[action]/{id}")]
+    [ActionName("GetCaracteristiqueById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiqueVelo(int id)
+    {
+        var velo = await dataRepository.GetCaracteristiquesVeloAsync(id);
+        if (velo.Value == null)
+            return NotFound();
+
+        return velo;
+    }
+
     // Batch version of GetPhotosById
     [HttpPost]
     [Route("[action]")]

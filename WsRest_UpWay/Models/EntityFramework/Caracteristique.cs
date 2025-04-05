@@ -15,7 +15,9 @@ public partial class Caracteristique
         ListeCaracteristiques = new HashSet<Caracteristique>();
         ListeCategories = new HashSet<Categorie>();
         ListeVelos = new HashSet<Velo>();
+
     }
+    public const long APROXIMATE_SIZE = 20;
 
     [Key]
     [Column("car_id")]
