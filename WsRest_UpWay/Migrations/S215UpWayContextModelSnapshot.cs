@@ -17,7 +17,7 @@ namespace WsRest_UpWay.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -1530,7 +1530,7 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<string>("NombreKms")
                         .HasMaxLength(15)
-                        .HasColumnType("character(15)")
+                        .HasColumnType("char(15)")
                         .HasColumnName("vel_kms")
                         .IsFixedLength();
 
@@ -1561,13 +1561,13 @@ namespace WsRest_UpWay.Migrations
 
                     b.Property<string>("TailleMax")
                         .HasMaxLength(15)
-                        .HasColumnType("character(15)")
+                        .HasColumnType("char(15)")
                         .HasColumnName("vel_taillemax")
                         .IsFixedLength();
 
                     b.Property<string>("TailleMin")
                         .HasMaxLength(15)
-                        .HasColumnType("character(15)")
+                        .HasColumnType("char(15)")
                         .HasColumnName("vel_taillemin")
                         .IsFixedLength();
 
