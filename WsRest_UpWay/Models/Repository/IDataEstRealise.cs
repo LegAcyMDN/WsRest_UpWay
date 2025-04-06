@@ -5,6 +5,6 @@ namespace WsRest_UpWay.Models.Repository;
 
 public interface IDataEstRealise : IDataRepository<EstRealise>
 {
-    Task<ActionResult<IEnumerable<EstRealise>>> GetByIdVeloAsync(int id);
+    Task<ActionResult<IEnumerable<EstRealise>>> GetByIdVeloAsync(int id, string type);
     Task<ActionResult<EstRealise>> GetByIdsAsync(int idvelo, int idinspection, int idreparation);
 }

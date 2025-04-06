@@ -46,9 +46,9 @@ namespace WsRest_UpWay.Models.DataManager
             return await upwaysDbContext.Estrealises.FindAsync(idvelo ,idinspection, idreparation);
         }
 
-        public async Task<ActionResult<IEnumerable<EstRealise>>> GetByIdVeloAsync(int id)
+        public async Task<ActionResult<IEnumerable<EstRealise>>> GetByIdVeloAsync(int id, string type)
         {
-            return await upwaysDbContext.Estrealises.Where(u => u.VeloId == id).Include(v => v.EstRealiseRapportInspection).Include(v => v.EstRealiseReparationVelo).ToListAsync();
+            return await upwaysDbContext.Estrealises.Where(u => u.VeloId == id && u.EstRealiseRapportInspection.TypeInspection == type).Include(v => v.EstRealiseRapportInspection).Include(v => v.EstRealiseReparationVelo).ToListAsync();
         }
 
         public async Task<ActionResult<EstRealise>> GetByStringAsync(string str)

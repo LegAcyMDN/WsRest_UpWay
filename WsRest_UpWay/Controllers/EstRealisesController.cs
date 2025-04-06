@@ -41,13 +41,13 @@ namespace WsRest_UpWay.Controllers
 
 
         [HttpGet]
-        [Route("[action]/{id}")]
+        [Route("[action]/{id}/{type}")]
         [ActionName("GetByVeloId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<EstRealise>>> GetEstRealiseByVelo(int id)
+        public async Task<ActionResult<IEnumerable<EstRealise>>> GetEstRealiseByVelo(int id, string type)
         {
-            return await dataRepository.GetByIdVeloAsync(id);
+            return await dataRepository.GetByIdVeloAsync(id, type);
         }
 
 
