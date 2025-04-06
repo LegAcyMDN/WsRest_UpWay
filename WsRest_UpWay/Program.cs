@@ -38,6 +38,7 @@ builder.Services.AddScoped<IDataRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IDataContenuArticles, ContenuArticlesManager>();
 builder.Services.AddScoped<IDataArticles, ArticleManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
+builder.Services.AddScoped<IDataEstRealise, EstRealiseManager>();
 
 builder.Services.AddSingleton<IMemoryCache>(sp => new MemoryCache(new MemoryCacheOptions
 {
