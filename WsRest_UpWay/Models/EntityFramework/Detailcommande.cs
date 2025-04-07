@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -12,7 +11,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(EtatCommandeId), Name = "ix_t_e_detailcommande_detcom_etatcommandeid")]
 [Index(nameof(PanierId), Name = "ix_t_e_detailcommande_detcom_panierid")]
 [Index(nameof(RetraitMagasinId), Name = "ix_t_e_detailcommande_detcom_retraitmagasinid")]
-public partial class DetailCommande
+public class DetailCommande : ISizedEntity
 {
     public DetailCommande()
     {
@@ -20,24 +19,17 @@ public partial class DetailCommande
         ListeRetraitMagasins = new HashSet<RetraitMagasin>();
     }
 
-    [Key]
-    [Column("detcom_id")]
-    public int CommandeId { get; set; }
+    [Key] [Column("detcom_id")] public int CommandeId { get; set; }
 
-    [Column("retmag_id")]
-    public int? RetraitMagasinId { get; set; }
+    [Column("retmag_id")] public int? RetraitMagasinId { get; set; }
 
-    [Column("adf_id")]
-    public int? AdresseFactId { get; set; }
+    [Column("adf_id")] public int? AdresseFactId { get; set; }
 
-    [Column("etacom_id")]
-    public int? EtatCommandeId { get; set; }
+    [Column("etacom_id")] public int? EtatCommandeId { get; set; }
 
-    [Column("cli_id")]
-    public int ClientId { get; set; }
+    [Column("cli_id")] public int ClientId { get; set; }
 
-    [Column("pan_id")]
-    public int? PanierId { get; set; }
+    [Column("pan_id")] public int? PanierId { get; set; }
 
     [Column("detcom_moypai")]
     [StringLength(10)]
@@ -75,4 +67,9 @@ public partial class DetailCommande
 
     [InverseProperty(nameof(RetraitMagasin.RetraitMagasinDetailCom))]
     public virtual ICollection<RetraitMagasin> ListeRetraitMagasins { get; set; } = new List<RetraitMagasin>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 6 + MoyenPaiement?.Length ?? 0 + ModeExpedition?.Length ?? 0 + sizeof(long);
+    }
 }

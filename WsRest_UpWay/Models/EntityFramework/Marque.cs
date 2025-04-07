@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_marque_mar", Schema = "upways")]
 [Index(nameof(NomMarque), Name = "nommarque_unq", IsUnique = true)]
-public partial class Marque
+public class Marque : ISizedEntity
 {
     public Marque()
     {
@@ -18,9 +17,7 @@ public partial class Marque
         ListeVelos = new HashSet<Velo>();
     }
 
-    [Key]
-    [Column("mar_id")]
-    public int MarqueId { get; set; }
+    [Key] [Column("mar_id")] public int MarqueId { get; set; }
 
     [Column("mar_nom")]
     [StringLength(100)]
@@ -37,4 +34,9 @@ public partial class Marque
 
     [InverseProperty(nameof(Velo.VeloMarque))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
+
+    public long GetSize()
+    {
+        return sizeof(int) + NomMarque?.Length ?? 0;
+    }
 }

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_panier_pan", Schema = "upways")]
 [Index(nameof(CommandeId), Name = "ix_t_e_panier_pan_commandeid")]
-public partial class Panier
+public class Panier : ISizedEntity
 {
     public Panier()
     {
@@ -18,19 +17,15 @@ public partial class Panier
         ListeLignePaniers = new HashSet<LignePanier>();
     }
 
-    [Key]
-    [Column("pan_id")]
-    public int PanierId { get; set; }
+    [Key] [Column("pan_id")] public int PanierId { get; set; }
 
 
-    [Column("cli_id")]
-    public int? ClientId { get; set; }
+    [Column("cli_id")] public int? ClientId { get; set; }
 
 
-    [Column("com_id")]
-    public int? CommandeId { get; set; }
+    [Column("com_id")] public int? CommandeId { get; set; }
 
-    [Column("pan_cookie", TypeName ="text")]
+    [Column("pan_cookie", TypeName = "text")]
     [StringLength(255)]
     public string? Cookie { get; set; }
 
@@ -57,4 +52,9 @@ public partial class Panier
 
     [InverseProperty(nameof(LignePanier.LignePanierPanier))]
     public virtual ICollection<LignePanier> ListeLignePaniers { get; set; } = new List<LignePanier>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 3 + Cookie?.Length ?? 0 + sizeof(decimal);
+    }
 }

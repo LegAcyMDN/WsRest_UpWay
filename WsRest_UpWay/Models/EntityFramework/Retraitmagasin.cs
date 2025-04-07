@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -8,7 +9,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(CommandeId), Name = "ix_t_e_retraitmagasin_rem_commandeid")]
 [Index(nameof(InformationId), Name = "ix_t_e_retraitmagasin_rem_informationid")]
 [Index(nameof(MagasinId), Name = "ix_t_e_retraitmagasin_rem_magasinid")]
-public class RetraitMagasin
+public class RetraitMagasin : ISizedEntity
 {
     public RetraitMagasin()
     {
@@ -47,4 +48,9 @@ public class RetraitMagasin
 
     [InverseProperty(nameof(Information.InformationRetraitMagasin))]
     public virtual ICollection<Information> ListeInformations { get; set; } = new List<Information>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 4 + sizeof(long) * 2;
+    }
 }

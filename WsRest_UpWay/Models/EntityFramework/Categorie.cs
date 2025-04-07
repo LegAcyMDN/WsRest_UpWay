@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_categorie_cat", Schema = "upways")]
 [Index(nameof(LibelleCategorie), Name = "ix_t_e_categorie_cat_libellecategorie")]
-public class Categorie
+public class Categorie : ISizedEntity
 {
-    public const long APROXIMATE_SIZE = 4;
-
     public Categorie()
     {
         ListeAccessoires = new HashSet<Accessoire>();
@@ -36,4 +35,9 @@ public class Categorie
     [ForeignKey(nameof(CategorieId))]
     [InverseProperty(nameof(Caracteristique.ListeCategories))]
     public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
+
+    public long GetSize()
+    {
+        return sizeof(int) + LibelleCategorie?.Length ?? 0;
+    }
 }

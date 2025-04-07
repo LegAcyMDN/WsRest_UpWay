@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -11,36 +10,28 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(PanierId), Name = "ix_t_e_informations_inf_panierid")]
 [Index(nameof(ReductionId), Name = "ix_t_e_informations_inf_reductionid")]
 [Index(nameof(RetraitMagasinId), Name = "ix_t_e_informations_inf_retraitmagasinid")]
-public partial class Information
+public class Information : ISizedEntity
 {
     public Information()
     {
         ListeRetraitMagasins = new HashSet<RetraitMagasin>();
     }
 
-    [Key]
-    [Column("inf_id")]
-    public int InformationId { get; set; }
+    [Key] [Column("inf_id")] public int InformationId { get; set; }
 
-    [Column("red_id")]
-    [StringLength(20)]
-    public string? ReductionId { get; set; }
+    [Column("red_id")] [StringLength(20)] public string? ReductionId { get; set; }
 
-    [Column("retmag_id")]
-    public int? RetraitMagasinId { get; set; }
+    [Column("retmag_id")] public int? RetraitMagasinId { get; set; }
 
-    [Column("adexp_id")]
-    public int AdresseExpeId { get; set; }
+    [Column("adexp_id")] public int AdresseExpeId { get; set; }
 
-    [Column("pan_id")]
-    public int PanierId { get; set; }
+    [Column("pan_id")] public int PanierId { get; set; }
 
     [Column("inf_continf")]
     [StringLength(100)]
     public string? ContactInformations { get; set; }
 
-    [Column("inf_offmail")]
-    public bool? OffreEmail { get; set; }
+    [Column("inf_offmail")] public bool? OffreEmail { get; set; }
 
     [Column("inf_moodliv")]
     [StringLength(30)]
@@ -72,4 +63,10 @@ public partial class Information
 
     [InverseProperty(nameof(RetraitMagasin.RetraitMagasinInformation))]
     public virtual ICollection<RetraitMagasin> ListeRetraitMagasins { get; set; } = new List<RetraitMagasin>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 4 + sizeof(bool) + ReductionId?.Length ?? 0 + ContactInformations?.Length ??
+            0 + ModeLivraison?.Length ?? 0 + InformationPays?.Length ?? 0 + InformationRue?.Length ?? 0;
+    }
 }

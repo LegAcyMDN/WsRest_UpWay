@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_caracteristique_car", Schema = "upways")]
-public partial class Caracteristique
+public class Caracteristique : ISizedEntity
 {
     public Caracteristique()
     {
@@ -15,13 +13,9 @@ public partial class Caracteristique
         ListeCaracteristiques = new HashSet<Caracteristique>();
         ListeCategories = new HashSet<Categorie>();
         ListeVelos = new HashSet<Velo>();
-
     }
-    public const long APROXIMATE_SIZE = 20;
 
-    [Key]
-    [Column("car_id")]
-    public int CaracteristiqueId { get; set; }
+    [Key] [Column("car_id")] public int CaracteristiqueId { get; set; }
 
     [Column("car_libelle")]
     [StringLength(100)]
@@ -32,11 +26,11 @@ public partial class Caracteristique
     public string? ImageCaracteristique { get; set; }
 
     [ForeignKey(nameof(CaracteristiqueId))]
-    [InverseProperty(nameof(Caracteristique.ListeCaracteristiques))]
+    [InverseProperty(nameof(ListeCaracteristiques))]
     public virtual ICollection<Caracteristique> ListeSousCaracteristiques { get; set; } = new List<Caracteristique>();
 
     [ForeignKey(nameof(CaracteristiqueId))]
-    [InverseProperty(nameof(Caracteristique.ListeSousCaracteristiques))]
+    [InverseProperty(nameof(ListeSousCaracteristiques))]
     public virtual ICollection<Caracteristique> ListeCaracteristiques { get; set; } = new List<Caracteristique>();
 
     [ForeignKey(nameof(CaracteristiqueId))]
@@ -46,4 +40,9 @@ public partial class Caracteristique
     [ForeignKey(nameof(CaracteristiqueId))]
     [InverseProperty(nameof(Velo.ListeCaracteristiques))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
+
+    public long GetSize()
+    {
+        return sizeof(int) + LibelleCaracteristique?.Length ?? 0 + ImageCaracteristique?.Length ?? 0;
+    }
 }

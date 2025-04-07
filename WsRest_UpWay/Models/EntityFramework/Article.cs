@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_article_art", Schema = "upways")]
-public class Article
+public class Article : ISizedEntity
 {
     public Article()
     {
@@ -21,4 +22,9 @@ public class Article
 
     [InverseProperty(nameof(ContenuArticle.ContenuArticleArt))]
     public virtual ICollection<ContenuArticle> ListeContenuArticles { get; set; } = new List<ContenuArticle>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 2;
+    }
 }

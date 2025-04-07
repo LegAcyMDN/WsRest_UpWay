@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -9,7 +10,7 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(AssuranceId), Name = "ix_t_e_linepanier_lignpan_assuranceid")]
 [Index(nameof(PanierId), Name = "ix_t_e_linepanier_lignpan_panierid")]
 [Index(nameof(VeloId), Name = "ix_t_e_linepanier_lignpan_veloid")]
-public class LignePanier
+public class LignePanier : ISizedEntity
 {
     public LignePanier()
     {
@@ -44,4 +45,9 @@ public class LignePanier
 
     [InverseProperty(nameof(MarquageVelo.MarquageVeloLignePanier))]
     public virtual ICollection<MarquageVelo> ListeMarquageVelos { get; set; } = new List<MarquageVelo>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 3 + sizeof(decimal) * 2;
+    }
 }

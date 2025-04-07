@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_magasin_mag", Schema = "upways")]
-public partial class Magasin
+public class Magasin : ISizedEntity
 {
     public Magasin()
     {
@@ -16,13 +14,9 @@ public partial class Magasin
         ListeVelos = new HashSet<Velo>();
     }
 
-    [Key]
-    [Column("mag_id")]
-    public int MagasinId { get; set; }
+    [Key] [Column("mag_id")] public int MagasinId { get; set; }
 
-    [Column("mag_nom")]
-    [StringLength(50)]
-    public string? NomMagasin { get; set; }
+    [Column("mag_nom")] [StringLength(50)] public string? NomMagasin { get; set; }
 
     [Column("mag_horaire")]
     [StringLength(200)]
@@ -49,4 +43,10 @@ public partial class Magasin
     [ForeignKey(nameof(MagasinId))]
     [InverseProperty(nameof(Velo.ListeMagasins))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
+
+    public long GetSize()
+    {
+        return sizeof(int) + NomMagasin?.Length ?? 0 + HoraireMagasin?.Length ??
+            0 + RueMagasin?.Length ?? 0 + CPMagasin?.Length ?? 0 + VilleMagasin?.Length ?? 0;
+    }
 }

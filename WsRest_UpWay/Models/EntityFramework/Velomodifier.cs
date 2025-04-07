@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -11,26 +10,19 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(CategorieId), Name = "ix_t_e_velomodifier_vlm_categorieid")]
 [Index(nameof(MarqueId), Name = "ix_t_e_velomodifier_vlm_marqueid")]
 [Index(nameof(MoteurId), Name = "ix_t_e_velomodifier_vlm_moteurid")]
-public partial class VeloModifier
+public class VeloModifier : ISizedEntity
 {
-    [Key]
-    [Column("vlm_id")]
-    public int VelomId { get; set; }
+    [Key] [Column("vlm_id")] public int VelomId { get; set; }
 
-    [Column("vlm_idm")]
-    public int VeloModifId { get; set; }
+    [Column("vlm_idm")] public int VeloModifId { get; set; }
 
-    [Column("mar_id")]
-    public int? MarqueId { get; set; }
+    [Column("mar_id")] public int? MarqueId { get; set; }
 
-    [Column("cat_id")]
-    public int CategorieId { get; set; }
+    [Column("cat_id")] public int CategorieId { get; set; }
 
-    [Column("mot_id")]
-    public int? MoteurId { get; set; }
+    [Column("mot_id")] public int? MoteurId { get; set; }
 
-    [Column("car_id")]
-    public int? CaracteristiqueVeloId { get; set; }
+    [Column("car_id")] public int? CaracteristiqueVeloId { get; set; }
 
     [Column("vlm_nom")]
     [StringLength(200)]
@@ -48,9 +40,7 @@ public partial class VeloModifier
     [StringLength(15)]
     public string? TailleMax { get; set; }
 
-    [Column("vlm_kms")]
-    [StringLength(15)]
-    public string? NombreKms { get; set; }
+    [Column("vlm_kms")] [StringLength(15)] public string? NombreKms { get; set; }
 
     [Column("vlm_prixremise", TypeName = "numeric(5, 2")]
     [Precision(5, 2)]
@@ -102,4 +92,12 @@ public partial class VeloModifier
     [ForeignKey(nameof(MoteurId))]
     [InverseProperty(nameof(Moteur.ListeVeloModifiers))]
     public virtual Moteur? VeloModifierMoteur { get; set; }
+
+    public long GetSize()
+    {
+        return sizeof(int) * 6 + sizeof(decimal) * 6 + NomVelo?.Length ?? 0 +
+            TailleMin?.Length ?? 0 + TailleMax?.Length ?? 0 +
+            NombreKms?.Length ?? 0 + DescriptifVelo?.Length ?? 0 +
+            PositionMoteur?.Length ?? 0 + CapaciteBatterie?.Length ?? 0;
+    }
 }

@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_testvelo_tev", Schema = "upways")]
 [Index(nameof(MagasinId), Name = "ix_t_e_testvelo_tev_idmagasin")]
 [Index(nameof(VeloId), Name = "ix_t_e_testvelo_tev_idvelo")]
-public class TestVelo
+public class TestVelo : ISizedEntity
 {
     [Key] [Column("tev_id")] public int TestId { get; set; }
 
@@ -30,4 +31,9 @@ public class TestVelo
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeTestVelos))]
     public virtual Velo TestVeloVelo { get; set; } = null!;
+
+    public long GetSize()
+    {
+        return sizeof(int) * 2 + sizeof(long) * 2;
+    }
 }
