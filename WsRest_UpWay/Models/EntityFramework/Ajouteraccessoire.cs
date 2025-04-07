@@ -21,11 +21,11 @@ public class AjouterAccessoire : ISizedEntity
 
     [ForeignKey(nameof(AccessoireId))]
     [InverseProperty(nameof(Accessoire.ListeAjoutAccessoires))]
-    public virtual Accessoire AjoutDAccessoire { get; set; } = null!;
+    public virtual Accessoire? AjoutDAccessoire { get; set; } = null;
 
     [ForeignKey(nameof(PanierId))]
     [InverseProperty(nameof(Panier.ListeAjouterAccessoires))]
-    public virtual Panier AjoutDAccessoirePanier { get; set; } = null!;
+    public virtual Panier? AjoutDAccessoirePanier { get; set; } = null;
 
     public long GetSize()
     {
