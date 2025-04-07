@@ -30,7 +30,7 @@ public class PanierController : ControllerBase
     [HttpGet("[action]/{id}")]
     [ActionName("GetById")]
     [Authorize]
-    public async Task<ActionResult<Panier>> GetPanier(int id)
+    public async Task<ActionResult<Panier>> GetById(int id)
     {
         var panier = await _dataRepository.GetByIdAsync(id);
         if (panier.Value == null) return NotFound();
@@ -77,7 +77,7 @@ public class PanierController : ControllerBase
     {
         _dataRepository.AddAsync(panier);
 
-        return CreatedAtAction(nameof(GetPanier), new { id = panier.PanierId }, panier);
+        return CreatedAtAction("GetById", new { id = panier.PanierId }, panier);
     }
 
     // DELETE: api/Panier/5
