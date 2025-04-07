@@ -30,7 +30,7 @@ builder.Services.AddScoped<IDataAccessoire, AccessoireManager>();
 builder.Services.AddScoped<IDataRepository<Information>, InformationManager>();
 builder.Services.AddScoped<IDataRepository<Magasin>, MagasinManager>();
 builder.Services.AddScoped<IDataRepository<Marque>, MarqueManager>();
-builder.Services.AddScoped<IDataRepository<Panier>, PanierManager>();
+builder.Services.AddScoped<IDataPanier, PanierManager>();
 builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
 builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleManager>();
 builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();

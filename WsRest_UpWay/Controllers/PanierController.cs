@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WsRest_UpWay.Helpers;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -10,22 +11,24 @@ namespace WsRest_UpWay.Controllers;
 [ApiController]
 public class PanierController : ControllerBase
 {
-    private readonly IDataRepository<Panier> _dataRepository;
+    private readonly IDataPanier _dataRepository;
 
-    public PanierController(IDataRepository<Panier> dataRepository)
+    public PanierController(IDataPanier dataRepository)
     {
         _dataRepository = dataRepository;
     }
 
     // GET: api/Panier
     [HttpGet]
+    [Authorize(Policy = Policies.Admin)]
     public async Task<ActionResult<IEnumerable<Panier>>> GetPaniers()
     {
         return await _dataRepository.GetAllAsync();
     }
 
     // GET: api/Panier/5
-    [HttpGet("{id}")]
+    [HttpGet("[action]/{id}")]
+    [ActionName("GetById")]
     [Authorize]
     public async Task<ActionResult<Panier>> GetPanier(int id)
     {
@@ -33,6 +36,18 @@ public class PanierController : ControllerBase
         if (panier.Value == null) return NotFound();
 
         if (panier.Value.ClientId != User.GetId()) return Unauthorized();
+
+        return panier;
+    }
+
+    // GET: api/Panier/5
+    [HttpGet("[action]")]
+    [ActionName("GetMine")]
+    [Authorize]
+    public async Task<ActionResult<Panier>> GetPanier()
+    {
+        var panier = await _dataRepository.GetByUser(User.GetId());
+        if (panier.Value == null) return NotFound();
 
         return panier;
     }
