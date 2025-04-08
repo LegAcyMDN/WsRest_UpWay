@@ -83,7 +83,7 @@ public class VeloModifier : ISizedEntity
 
     [ForeignKey(nameof(CategorieId))]
     [InverseProperty(nameof(Categorie.ListeVeloModifiers))]
-    public virtual Categorie VeloModifierCategorie { get; set; } = null!;
+    public virtual Categorie? VeloModifierCategorie { get; set; } = null;
 
     [ForeignKey(nameof(VelomId))]
     [InverseProperty(nameof(Marque.ListeVeloModifiers))]

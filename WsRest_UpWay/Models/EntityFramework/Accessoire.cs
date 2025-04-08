@@ -37,7 +37,7 @@ public class Accessoire : ISizedEntity
 
     [ForeignKey(nameof(CategorieId))]
     [InverseProperty(nameof(Categorie.ListeAccessoires))]
-    public virtual Categorie AccessoireCategorie { get; set; } = null!;
+    public virtual Categorie? AccessoireCategorie { get; set; } = null;
 
     [ForeignKey(nameof(MarqueId))]
     [InverseProperty(nameof(Marque.ListeAccessoires))]
