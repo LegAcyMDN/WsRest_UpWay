@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Helpers;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
@@ -19,7 +13,8 @@ public class AjouterAccessoiresController : ControllerBase
     private readonly IDataRepository<AjouterAccessoire> _dataRepository;
     private readonly IDataRepository<Panier> _panierRepository;
 
-    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository, IDataRepository<Panier> panierRepository)
+    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository,
+        IDataRepository<Panier> panierRepository)
     {
         _dataRepository = dataRepository;
         _panierRepository = panierRepository;
@@ -45,12 +40,10 @@ public class AjouterAccessoiresController : ControllerBase
         return accessoire;
     }
 
-    [HttpPut("{id}")]
+    [HttpPut]
     [Authorize]
     public async Task<IActionResult> Put(int id, AjouterAccessoire body)
     {
-        if (id != body.PanierId) return BadRequest();
-
         var accessoire = await _dataRepository.GetByIdAsync(id);
         if (accessoire.Value == null) return NotFound();
 
