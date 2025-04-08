@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
@@ -64,6 +65,10 @@ public class PanierManager : IDataPanier
 
     public async Task<ActionResult<Panier>> GetByUser(int user_id)
     {
-        return await upwaysDbContext.Paniers.FirstOrDefaultAsync(p => p.ClientId == user_id);
+        return await upwaysDbContext.Paniers
+            .Include(p => p.ListeAjouterAccessoires)
+                .ThenInclude(a => a.AjoutDAccessoire)
+                    .ThenInclude(a => a.ListePhotoAccessoires)
+            .FirstOrDefaultAsync(p => p.ClientId == user_id);
     }
 }
