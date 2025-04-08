@@ -91,7 +91,7 @@ public class Velo
 
     [ForeignKey(nameof(CategorieId))]
     [InverseProperty(nameof(Categorie.ListeVelos))]
-    public virtual Categorie VeloCategorie { get; set; } = null!;
+    public virtual Categorie? VeloCategorie { get; set; } = null;
 
     [ForeignKey(nameof(MarqueId))]
     [InverseProperty(nameof(Marque.ListeVelos))]
