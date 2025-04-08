@@ -189,7 +189,7 @@ public class VelosController : ControllerBase
     public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(
     int? taille = null, int? categorie = null, int? cara = null, int? marque = null, int? annee = null,
     int? kilomMin = null, int? kilomMax = null, string? posmot = null, int? motmar = null,
-    string? couplemot = null, string? capbat = null, decimal? poids = null,
+    string? couplemot = null, int? capbat = null, decimal? poids = null,
     decimal? prixMin = null, decimal? prixMax = null, int page = 0)
     {
         var velo = await dataRepository.GetByFiltresAsync(taille, categorie, cara, marque, annee, 

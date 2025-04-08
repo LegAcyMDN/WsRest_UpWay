@@ -44,17 +44,14 @@ public class Velo : ISizedEntity
     [Precision(4, 0)]
     public int? AnneeVelo { get; set; }
 
-    [Column("vel_taillemin", TypeName = "char(15)")]
-    [StringLength(15)]
-    public string? TailleMin { get; set; }
+    [Column("vel_taillemin")]
+    public int? TailleMin { get; set; }
 
-    [Column("vel_taillemax", TypeName = "char(15)")]
-    [StringLength(15)]
-    public string? TailleMax { get; set; }
+    [Column("vel_taillemax")]
+    public int? TailleMax { get; set; }
 
-    [Column("vel_kms", TypeName = "char(15)")]
-    [StringLength(15)]
-    public string? NombreKms { get; set; }
+    [Column("vel_kms")]
+    public int? NombreKms { get; set; }
 
     [Column("vel_prixremise")]
     [Precision(5, 0)]
@@ -81,8 +78,7 @@ public class Velo : ISizedEntity
     public string? PositionMoteur { get; set; }
 
     [Column("vel_capacitebatterie")]
-    [StringLength(10)]
-    public string? CapaciteBatterie { get; set; }
+    public int? CapaciteBatterie { get; set; }
 
     [ForeignKey(nameof(CaracteristiqueVeloId))]
     [InverseProperty(nameof(CaracteristiqueVelo.ListeVelos))]
@@ -135,9 +131,6 @@ public class Velo : ISizedEntity
 
     public long GetSize()
     {
-        return sizeof(int) * 7 + sizeof(decimal) * 3 + NomVelo?.Length ?? 0 + TailleMin?.Length ??
-            0 + TailleMax?.Length ?? 0 +
-            NombreKms?.Length + DescriptifVelo?.Length ??
-            0 + PositionMoteur?.Length ?? 0 + CapaciteBatterie?.Length ?? 0;
+        return sizeof(int) * 11 + sizeof(decimal) * 3 + NomVelo?.Length ?? 0 + DescriptifVelo?.Length ?? 0 + PositionMoteur?.Length ?? 0;
     }
 }
