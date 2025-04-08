@@ -54,8 +54,6 @@ public class AjouterAccessoireManager : IDataRepository<AjouterAccessoire>
     public async Task UpdateAsync(AjouterAccessoire ajoAcsToUpdate, AjouterAccessoire ajoAcs)
     {
         upwaysDbContext.Entry(ajoAcsToUpdate).State = EntityState.Modified;
-        ajoAcsToUpdate.AccessoireId = ajoAcs.AccessoireId;
-        ajoAcsToUpdate.PanierId = ajoAcs.PanierId;
         ajoAcsToUpdate.QuantiteAccessoire = ajoAcs.QuantiteAccessoire;
         await upwaysDbContext.SaveChangesAsync();
     }
