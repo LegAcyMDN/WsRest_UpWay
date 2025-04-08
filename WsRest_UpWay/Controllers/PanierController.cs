@@ -21,6 +21,8 @@ public class PanierController : ControllerBase
     // GET: api/Panier
     [HttpGet]
     [Authorize(Policy = Policies.Admin)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<IEnumerable<Panier>>> GetPaniers()
     {
         return await _dataRepository.GetAllAsync();
@@ -30,6 +32,9 @@ public class PanierController : ControllerBase
     [HttpGet("[action]/{id}")]
     [ActionName("GetById")]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Panier>> GetById(int id)
     {
         var panier = await _dataRepository.GetByIdAsync(id);
@@ -44,6 +49,9 @@ public class PanierController : ControllerBase
     [HttpGet("[action]")]
     [ActionName("GetMine")]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Panier>> GetMyPanier()
     {
         var panier = await _dataRepository.GetByUser(User.GetId());
@@ -56,6 +64,9 @@ public class PanierController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> PutPanier(int id, Panier panier)
     {
         if (id != panier.PanierId) return BadRequest();
@@ -73,8 +84,14 @@ public class PanierController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Panier>> PostPanier(Panier panier)
     {
+        if (panier.ClientId != User.GetId()) return Unauthorized();
+        if ((await _dataRepository.GetByUser(User.GetId())).Value != null) return BadRequest();
+
         _dataRepository.AddAsync(panier);
 
         return CreatedAtAction("GetById", new { id = panier.PanierId }, panier);
@@ -83,6 +100,9 @@ public class PanierController : ControllerBase
     // DELETE: api/Panier/5
     [HttpDelete("{id}")]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeletePanier(int id)
     {
         var panier = await _dataRepository.GetByIdAsync(id);

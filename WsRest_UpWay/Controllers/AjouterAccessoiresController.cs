@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Helpers;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
@@ -17,9 +11,10 @@ namespace WsRest_UpWay.Controllers;
 public class AjouterAccessoiresController : ControllerBase
 {
     private readonly IDataRepository<AjouterAccessoire> _dataRepository;
-    private readonly IDataRepository<Panier> _panierRepository;
+    private readonly IDataPanier _panierRepository;
 
-    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository, IDataRepository<Panier> panierRepository)
+    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository,
+        IDataPanier panierRepository)
     {
         _dataRepository = dataRepository;
         _panierRepository = panierRepository;
@@ -45,16 +40,14 @@ public class AjouterAccessoiresController : ControllerBase
         return accessoire;
     }
 
-    [HttpPut("{id}")]
+    [HttpPut]
     [Authorize]
-    public async Task<IActionResult> Put(int id, AjouterAccessoire body)
+    public async Task<IActionResult> Put(AjouterAccessoire body)
     {
-        if (id != body.PanierId) return BadRequest();
-
-        var accessoire = await _dataRepository.GetByIdAsync(id);
+        var accessoire = await _dataRepository.GetByIdAsync(body.AccessoireId);
         if (accessoire.Value == null) return NotFound();
 
-        var panier = await _panierRepository.GetByIdAsync(accessoire.Value.PanierId);
+        var panier = await _panierRepository.GetByIdAsync(body.PanierId);
         if (panier.Value == null) return NotFound();
         if (panier.Value.ClientId != User.GetId()) return Unauthorized();
 
@@ -73,7 +66,7 @@ public class AjouterAccessoiresController : ControllerBase
 
         await _dataRepository.AddAsync(ajoutAccessoire);
 
-        return CreatedAtAction("GetAjouterAccessoire", new { id = ajoutAccessoire.AccessoireId }, panier);
+        return CreatedAtAction("Get", new { id = ajoutAccessoire.AccessoireId }, panier);
     }
 
     [HttpDelete("{id}")]
