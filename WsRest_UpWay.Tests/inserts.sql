@@ -2122,376 +2122,2005 @@ VALUES (27, 50, null, 'Gris', 'Long-tail', 'D''Origine', 7, null, null, null, nu
 
 
 
-insert INTO t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (122, 6, 1, 1, 'Stromer ST1x', 2019, '166', '180', '16973', 2349, 6190, 66, '- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 144, 'Roue arrière', '618 Wh');
+insert INTO
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        122,
+        6,
+        1,
+        1,
+        'Stromer ST1x',
+        2019,
+        166,
+        180,
+        16973,
+        2349,
+        6190,
+        66,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        144,
+        'Roue arriÃ¨re',
+        618
+    );
 
-insert INTO t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (20, 4, 2, 2, 'Brompton Electric H6L', 2019, '150', '185', '5', 2599, 3595, 28, '- Vélo électrique très léger
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 27, 'Roue arrière', '312 Wh');
+insert INTO
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        20,
+        4,
+        2,
+        2,
+        'Brompton Electric H6L',
+        2019,
+        150,
+        185,
+        5,
+        2599,
+        3595,
+        28,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        27,
+        'Roue arriÃ¨re',
+        312
+    );
 
-insert INTO t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (2, 4, 3, 3, 'Ahooga Folding Active', 2022, '155', '200', '347', 1699, 2399, 29, '- Vélo électrique très léger
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 183, 'Roue arrière', '168 Wh');
+insert INTO
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        2,
+        4,
+        3,
+        3,
+        'Ahooga Folding Active',
+        2022,
+        155,
+        200,
+        347,
+        1699,
+        2399,
+        29,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        183,
+        'Roue arriÃ¨re',
+        168
+    );
 
-insert INTO t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (2, 4, 4, 4, 'Ahooga Folding Active', 2024, '150', '190', '1702', 1899, 2799, 32, '- Vélo électrique très léger
-', 176, 'Roue arrière', '252 Wh');
+insert INTO
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        2,
+        4,
+        4,
+        4,
+        'Ahooga Folding Active',
+        2024,
+        150,
+        190,
+        1702,
+        1899,
+        2799,
+        32,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+',
+        176,
+        'Roue arriÃ¨re',
+        252
+    );
 
-insert INTO t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (43, 4, 5, 5, 'Eovolt Evening', 2024, '150', '190', '196', 1349, 2099, 36, '- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 69, 'Roue arrière', '378 Wh');
+insert INTO
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        43,
+        4,
+        5,
+        5,
+        'Eovolt Evening',
+        2024,
+        150,
+        190,
+        196,
+        1349,
+        2099,
+        36,
+        '- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        69,
+        'Roue arriÃ¨re',
+        378
+    );
 
-insert INTO t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (43, 4, 5, 6, 'Eovolt Morning', 2024, '150', '185', '2042', 1099, 1799, 39, '- Vélo électrique très léger
-- Excellent rapport qualité-prix, adapté aux petits budgets
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 139, 'Roue arrière', '250 Wh');
+insert INTO
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        43,
+        4,
+        5,
+        6,
+        'Eovolt Morning',
+        2024,
+        150,
+        185,
+        2042,
+        1099,
+        1799,
+        39,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- Excellent rapport qualitÃ©-prix, adaptÃ© aux petits budgets
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        139,
+        'Roue arriÃ¨re',
+        250
+    );
 
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        54,
+        3,
+        6,
+        7,
+        'Giant Stance E+1 Pro',
+        2022,
+        165,
+        180,
+        2786,
+        2449,
+        4899,
+        50,
+        '- cav_pneus larges garantissant une excellente stabilitÃ©
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        150,
+        'PÃ©dalier',
+        621
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (54, 3, 6, 7, 'Giant Stance E+1 Pro', 2022, '165', '180', '2786', 2449, 4899, 50, '- cav_pneus larges garantissant une excellente stabilité
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 150, 'Pédalier', '621 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        118,
+        3,
+        7,
+        8,
+        'Specialized Turbo Levo 6 Fattie',
+        2018,
+        175,
+        190,
+        2932,
+        1999,
+        5199,
+        62,
+        '- VÃ©lo Ã©lectrique lÃ©ger
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- Moteur extrÃªmement performant, offrant des accÃ©lÃ©rations puissantes et adaptÃ© aux terrains techniques les plus exigeants
+',
+        135,
+        'PÃ©dalier',
+        504
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (118, 3, 7, 8, 'Specialized Turbo Levo 6 Fattie', 2018, '175', '190', '2932', 1999, 5199, 62, '- Vélo électrique léger
-- Batterie haute capacité vous garantissant une bonne autonomie
-- Moteur extrêmement performant, offrant des accélérations puissantes et adapté aux terrains techniques les plus exigeants
-', 135, 'Pédalier', '504 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        34,
+        3,
+        8,
+        9,
+        'Cube Reaction Hybrid Performance',
+        2021,
+        175,
+        190,
+        1092,
+        1399,
+        2449,
+        43,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        62,
+        'PÃ©dalier',
+        504
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (34, 3, 8, 9, 'Cube Reaction Hybrid Performance', 2021, '175', '190', '1092', 1399, 2449, 43, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 62, 'Pédalier', '504 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        49,
+        3,
+        9,
+        10,
+        'Focus JarifaÂ² 6.8 Small Nine',
+        2023,
+        160,
+        175,
+        5,
+        2349,
+        4199,
+        44,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+',
+        36,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (49, 3, 9, 10, 'Focus Jarifa² 6.8 Small Nine', 2023, '160', '175', '<5', 2349, 4199, 44, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- Vélo électrique n''ayant pas ou très peu roulé
-', 36, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        121,
+        3,
+        8,
+        11,
+        'Stevens E-Tremalzo',
+        2021,
+        175,
+        190,
+        4997,
+        1099,
+        2599,
+        58,
+        '- VÃ©lo Ã©lectrique lÃ©ger
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        134,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (121, 3, 8, 11, 'Stevens E-Tremalzo', 2021, '175', '190', '4997', 1099, 2599, 58, '- Vélo électrique léger
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 134, 'Pédalier', '500 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        100,
+        1,
+        9,
+        12,
+        'Pegasus Premio EVO 10 Lite',
+        2021,
+        175,
+        190,
+        4195,
+        1399,
+        3949,
+        65,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- cav_pneus larges garantissant une excellente stabilitÃ©
+',
+        150,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (100, 1, 9, 12, 'Pegasus Premio EVO 10 Lite', 2021, '175', '190', '4195', 1399, 3949, 65, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_pneus larges garantissant une excellente stabilité
-', 150, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        34,
+        1,
+        9,
+        13,
+        'Cube Kathmandu Hybrid Pro',
+        2022,
+        160,
+        175,
+        718,
+        2199,
+        3469,
+        37,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- cav_pneus larges garantissant une excellente stabilitÃ©
+',
+        124,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (34, 1, 9, 13, 'Cube Kathmandu Hybrid Pro', 2022, '160', '175', '718', 2199, 3469, 37, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_pneus larges garantissant une excellente stabilité
-', 124, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        94,
+        1,
+        10,
+        14,
+        'Nakamura E-Crossover A',
+        2022,
+        170,
+        185,
+        2054,
+        949,
+        1599,
+        41,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- Excellent rapport qualitÃ©-prix, adaptÃ© aux petits budgets
+- Moteur pÃ©dalier fournissant une assistance Ã©lectrique proportionnelle, douce et sans Ã -coups
+',
+        147,
+        'PÃ©dalier',
+        460
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (94, 1, 10, 14, 'Nakamura E-Crossover A', 2022, '170', '185', '2054', 949, 1599, 41, '- Batterie haute capacité vous garantissant une bonne autonomie
-- Excellent rapport qualité-prix, adapté aux petits budgets
-- Moteur pédalier fournissant une assistance électrique proportionnelle, douce et sans à-coups
-', 147, 'Pédalier', '460 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        49,
+        1,
+        9,
+        15,
+        'Focus AventuraÂ² 6.7',
+        2023,
+        165,
+        180,
+        10,
+        2149,
+        3899,
+        45,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- cav_pneus larges garantissant une excellente stabilitÃ©
+',
+        80,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (49, 1, 9, 15, 'Focus Aventura² 6.7', 2023, '165', '180', '10', 2149, 3899, 45, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_pneus larges garantissant une excellente stabilité
-', 80, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        93,
+        1,
+        11,
+        16,
+        'Neomouv Facelia',
+        2023,
+        160,
+        175,
+        1155,
+        949,
+        1699,
+        44,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- Excellent rapport qualitÃ©-prix, adaptÃ© aux petits budgets
+',
+        189,
+        'Roue arriÃ¨re',
+        468
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (93, 1, 11, 16, 'Neomouv Facelia', 2023, '160', '175', '1155', 949, 1699, 44, '- Batterie haute capacité vous garantissant une bonne autonomie
-- Excellent rapport qualité-prix, adapté aux petits budgets
-', 189, 'Roue arrière', '468 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        49,
+        5,
+        12,
+        17,
+        'Focus ParalaneÂ² 9.5',
+        2020,
+        170,
+        180,
+        12,
+        2349,
+        5099,
+        54,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        55,
+        'PÃ©dalier',
+        250
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (49, 5, 12, 17, 'Focus Paralane² 9.5', 2020, '170', '180', '12', 2349, 5099, 54, '- Vélo électrique très léger
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 55, 'Pédalier', '250 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        49,
+        5,
+        13,
+        18,
+        'Focus ParalaneÂ² 9.7',
+        2020,
+        175,
+        190,
+        4902,
+        1949,
+        4999,
+        61,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        146,
+        'PÃ©dalier',
+        250
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (49, 5, 13, 18, 'Focus Paralane² 9.7', 2020, '175', '190', '4902', 1949, 4999, 61, '- Vélo électrique très léger
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 146, 'Pédalier', '250 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        54,
+        5,
+        14,
+        19,
+        'Giant Revolt E+ Pro',
+        2022,
+        170,
+        185,
+        5,
+        2449,
+        5299,
+        54,
+        '- VÃ©lo Ã©lectrique lÃ©ger
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+',
+        132,
+        'PÃ©dalier',
+        496
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (54, 5, 14, 19, 'Giant Revolt E+ Pro', 2022, '170', '185', '<5', 2449, 5299, 54, '- Vélo électrique léger
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-', 132, 'Pédalier', '496 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        31,
+        5,
+        15,
+        20,
+        'Corratec E-Corones Elite',
+        2023,
+        170,
+        180,
+        38,
+        2349,
+        4799,
+        51,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        25,
+        'PÃ©dalier',
+        250
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (31, 5, 15, 20, 'Corratec E-Corones Elite', 2023, '170', '180', '38', 2349, 4799, 51, '- Vélo électrique très léger
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 25, 'Pédalier', '250 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        127,
+        5,
+        15,
+        21,
+        'Trek Domane+ ALR',
+        2022,
+        180,
+        195,
+        2532,
+        2249,
+        4199,
+        46,
+        '- VÃ©lo Ã©lectrique trÃ¨s lÃ©ger
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        30,
+        'PÃ©dalier',
+        250
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (127, 5, 15, 21, 'Trek Domane+ ALR', 2022, '180', '195', '2532', 2249, 4199, 46, '- Vélo électrique très léger
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 30, 'Pédalier', '250 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        100,
+        2,
+        9,
+        22,
+        'Pegasus Premio EVO 10 Lite',
+        2021,
+        175,
+        190,
+        4195,
+        1399,
+        3949,
+        65,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- cav_pneus larges garantissant une excellente stabilitÃ©
+',
+        25,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (100, 2, 9, 22, 'Pegasus Premio EVO 10 Lite', 2021, '175', '190', '4195', 1399, 3949, 65, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_pneus larges garantissant une excellente stabilité
-', 25, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        34,
+        2,
+        9,
+        23,
+        'Cube Kathmandu Hybrid Pro',
+        2022,
+        160,
+        175,
+        718,
+        2199,
+        3469,
+        37,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- cav_pneus larges garantissant une excellente stabilitÃ©
+',
+        40,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (34, 2, 9, 23, 'Cube Kathmandu Hybrid Pro', 2022, '160', '175', '718', 2199, 3469, 37, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_pneus larges garantissant une excellente stabilité
-', 40, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        91,
+        2,
+        10,
+        24,
+        'Nakamura E-Crossover A',
+        2022,
+        170,
+        185,
+        2054,
+        949,
+        1599,
+        41,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- Excellent rapport qualitÃ©-prix, adaptÃ© aux petits budgets
+- Moteur pÃ©dalier fournissant une assistance Ã©lectrique proportionnelle, douce et sans Ã -coups
+',
+        165,
+        'PÃ©dalier',
+        460
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (91, 2, 10, 24, 'Nakamura E-Crossover A', 2022, '170', '185', '2054', 949, 1599, 41, '- Batterie haute capacité vous garantissant une bonne autonomie
-- Excellent rapport qualité-prix, adapté aux petits budgets
-- Moteur pédalier fournissant une assistance électrique proportionnelle, douce et sans à-coups
-', 165, 'Pédalier', '460 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        49,
+        2,
+        9,
+        25,
+        'Focus AventuraÂ² 6.7',
+        2023,
+        165,
+        180,
+        10,
+        2149,
+        3899,
+        45,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- cav_pneus larges garantissant une excellente stabilitÃ©
+',
+        40,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (49, 2, 9, 25, 'Focus Aventura² 6.7', 2023, '165', '180', '10', 2149, 3899, 45, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_pneus larges garantissant une excellente stabilité
-', 40, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        91,
+        2,
+        16,
+        26,
+        'Nakamura E-Crossover XA',
+        2022,
+        170,
+        185,
+        24,
+        1449,
+        1999,
+        28,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- Moteur extrÃªmement performant, offrant des accÃ©lÃ©rations puissantes et adaptÃ© aux terrains techniques les plus exigeants
+- Moteur pÃ©dalier fournissant une assistance Ã©lectrique proportionnelle, douce et sans Ã -coups
+',
+        39,
+        'PÃ©dalier',
+        460
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (91, 2, 16, 26, 'Nakamura E-Crossover XA', 2022, '170', '185', '24', 1449, 1999, 28, '- Batterie haute capacité vous garantissant une bonne autonomie
-- Moteur extrêmement performant, offrant des accélérations puissantes et adapté aux terrains techniques les plus exigeants
-- Moteur pédalier fournissant une assistance électrique proportionnelle, douce et sans à-coups
-', 39, 'Pédalier', '460 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        125,
+        7,
+        8,
+        27,
+        'Tern Quick Haul P9 Sport',
+        2022,
+        160,
+        190,
+        3461,
+        2499,
+        3500,
+        29,
+        '- VÃ©lo Ã©lectrique lÃ©ger
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        139,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (125, 7, 8, 27, 'Tern Quick Haul P9 Sport', 2022, '160', '190', '3461', 2499, 3500, 29, '- Vélo électrique léger
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 139, 'Pédalier', '500 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        95,
+        7,
+        17,
+        28,
+        'O2feel Equo Cargo Boost 3.1',
+        2024,
+        160,
+        190,
+        28,
+        2799,
+        3699,
+        24,
+        '- Batterie trÃ¨s haute capacitÃ© vous garantissant une grande autonomie
+- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+',
+        145,
+        'PÃ©dalier',
+        720
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (95, 7, 17, 28, 'O2feel Equo Cargo Boost 3.1', 2024, '160', '190', '28', 2799, 3699, 24, '- Batterie très haute capacité vous garantissant une grande autonomie
-- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-', 145, 'Pédalier', '720 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        166,
+        7,
+        18,
+        29,
+        'Veloe Multi',
+        2022,
+        160,
+        190,
+        3600,
+        2349,
+        4200,
+        44,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        2,
+        'PÃ©dalier',
+        400
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (166, 7, 18, 29, 't_e_velo_vele Multi', 2022, '160', '190', '3600', 2349, 4200, 44, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 2, 'Pédalier', '400 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        148,
+        7,
+        19,
+        30,
+        'Yuba Boda Boda',
+        2019,
+        160,
+        190,
+        8763,
+        1749,
+        2925,
+        40,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        160,
+        'PÃ©dalier',
+        418
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (148, 7, 19, 30, 'Yuba Boda Boda', 2019, '160', '190', '8763', 1749, 2925, 40, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 160, 'Pédalier', '418 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        11,
+        7,
+        20,
+        31,
+        'Bakfiets Cruiser',
+        2021,
+        160,
+        190,
+        1141,
+        2799,
+        4350,
+        36,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        30,
+        'PÃ©dalier',
+        504
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (11, 7, 20, 31, 'Bakfiets Cruiser', 2021, '160', '190', '1141', 2799, 4350, 36, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 30, 'Pédalier', '504 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        167,
+        7,
+        21,
+        32,
+        'Vogue Carry 2',
+        2022,
+        160,
+        190,
+        802,
+        2299,
+        3500,
+        34,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        56,
+        'PÃ©dalier',
+        468
+    );
 
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        168,
+        7,
+        22,
+        33,
+        'Larry VS Harry Bullit X',
+        2023,
+        160,
+        190,
+        5105,
+        4649,
+        6999,
+        34,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        147,
+        'PÃ©dalier',
+        630
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (167, 7, 21, 32, 'Vogue Carry 2', 2022, '160', '190', '802', 2299, 3500, 34, '- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 56, 'Pédalier', '468 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        70,
+        7,
+        18,
+        34,
+        'Kettler Cargoline HT600 E-CA Belt',
+        2023,
+        160,
+        190,
+        5,
+        3999,
+        7999,
+        50,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        2,
+        'PÃ©dalier',
+        400
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (168, 7, 22, 33, 'Larry VS Harry Bullit X', 2023, '160', '190', '5105', 4649, 6999, 34, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 147, 'Pédalier', '630 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        95,
+        7,
+        17,
+        35,
+        'O2feel Equo Cargo Boost 3.1',
+        2024,
+        160,
+        175,
+        3605,
+        2749,
+        3999,
+        31,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        164,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (70, 7, 18, 34, 'Kettler Cargoline HT600 E-CA Belt', 2023, '160', '190', '<5', 3999, 7999, 50, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Vélo électrique n''ayant pas ou très peu roulé
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 2, 'Pédalier', '');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        15,
+        7,
+        18,
+        36,
+        'Bergamont E-Cargoville',
+        2022,
+        160,
+        190,
+        6,
+        2999,
+        5199,
+        42,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        53,
+        'PÃ©dalier',
+        432
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (95, 7, 17, 35, 'O2feel Equo Cargo Boost 3.1', 2024, '160', '175', '3605', 2749, 3999, 31, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 164, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        169,
+        7,
+        23,
+        37,
+        'Ultima Cargos Familly',
+        2024,
+        160,
+        190,
+        22,
+        2849,
+        5900,
+        52,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        3,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (15, 7, 18, 36, 'Bergamont E-Cargoville', 2022, '160', '190', '6', 2999, 5199, 42, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Vélo électrique n''ayant pas ou très peu roulé
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 53, 'Pédalier', '432 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        14,
+        7,
+        8,
+        38,
+        'Benno Boost E 10D',
+        2022,
+        160,
+        190,
+        3535,
+        3299,
+        5199,
+        37,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        17,
+        'PÃ©dalier',
+        630
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (169, 7, 23, 37, 'Ultima Cargos Familly', 2024, '160', '190', '22', 2849, 5900, 52, '- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 3, 'Pédalier', '500 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        11,
+        7,
+        24,
+        39,
+        'Bakfiets Amsterdam Air',
+        2021,
+        160,
+        190,
+        952,
+        2549,
+        3600,
+        29,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        58,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (14, 7, 8, 38, 'Benno Boost E 10D', 2022, '160', '190', '3535', 3299, 5199, 37, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 17, 'Pédalier', '630 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        170,
+        7,
+        18,
+        40,
+        'Urban Arrow Cargo',
+        2022,
+        160,
+        190,
+        138,
+        4849,
+        8213,
+        41,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        195,
+        'PÃ©dalier',
+        612
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (11, 7, 24, 39, 'Bakfiets Amsterdam Air', 2021, '160', '190', '952', 2549, 3600, 29, '- Batterie haute capacité vous garantissant une bonne autonomie
-', 58, 'Pédalier', '500 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        108,
+        7,
+        9,
+        41,
+        'Riese & MÃ¼ller Multicharger GT family',
+        2023,
+        160,
+        190,
+        5,
+        4049,
+        5349,
+        24,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+',
+        52,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (170, 7, 18, 40, 'Urban Arrow Cargo', 2022, '160', '190', '138', 4849, 8213, 41, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 195, 'Pédalier', '612 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        95,
+        7,
+        25,
+        42,
+        'O2feel Equo Cargo Boost 3.1',
+        2023,
+        160,
+        190,
+        5,
+        2599,
+        3699,
+        30,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Top 10 des marques de vÃ©los Ã©lectriques les plus vendues sur Upway
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+',
+        6,
+        'PÃ©dalier',
+        625
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (108, 7, 9, 41, 'Riese & Müller Multicharger GT family', 2023, '160', '190', '<5', 4049, 5349, 24, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- Vélo électrique n''ayant pas ou très peu roulé
-', 52, 'Pédalier', '500 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        14,
+        7,
+        8,
+        43,
+        'Benno Boost Performance',
+        2023,
+        160,
+        190,
+        5,
+        3799,
+        5295,
+        28,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        1,
+        'PÃ©dalier',
+        504
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (95, 7, 25, 42, 'O2feel Equo Cargo Boost 3.1', 2023, '160', '190', '<5', 2599, 3699, 30, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Top 10 des marques de vélos électriques les plus vendues sur Upway
-- Vélo électrique n''ayant pas ou très peu roulé
-', 6, 'Pédalier', '625 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        14,
+        7,
+        8,
+        44,
+        'Benno Boost Performance',
+        2023,
+        160,
+        190,
+        5,
+        3749,
+        5295,
+        29,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- VÃ©lo Ã©lectrique n''ayant pas ou trÃ¨s peu roulÃ©
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+',
+        5,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (14, 7, 8, 43, 'Benno Boost Performance', 2023, '160', '190', '<5', 3799, 5295, 28, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Vélo électrique n''ayant pas ou très peu roulé
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 1, 'Pédalier', '504 Wh');
-
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (14, 7, 8, 44, 'Benno Boost Performance', 2023, '160', '190', '<5', 3749, 5295, 29, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Vélo électrique n''ayant pas ou très peu roulé
-- Batterie haute capacité vous garantissant une bonne autonomie
-', 5, 'Pédalier', '500 Wh');
-
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (11, 7, 26, 45, 'Bakfiets Cargobike Long Steps', 2020, '160', '190', '274', 2749, 3949, 30, '- Batterie haute capacité vous garantissant une bonne autonomie
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        11,
+        7,
+        26,
+        45,
+        'Bakfiets Cargobike Long Steps',
+        2020,
+        160,
+        190,
+        274,
+        2749,
+        3949,
+        30,
+        '- Batterie haute capacitÃ© vous garantissant une bonne autonomie
 - Moteur haut de gamme provenant des meilleurs constructeurs
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 10, 'Pédalier', '500 Wh');
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        10,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (11, 7, 25, 46, 'Bakfiets Biporteur Confort', 2024, '160', '190', '1146', 3599, 4523, 20, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 33, 'Pédalier', '504 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        11,
+        7,
+        25,
+        46,
+        'Bakfiets Biporteur Confort',
+        2024,
+        160,
+        190,
+        1146,
+        3599,
+        4523,
+        20,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        33,
+        'PÃ©dalier',
+        504
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (70, 7, 18, 47, 'Kettler Familiano L-N', 2023, '160', '190', '518', 3199, 5329, 40, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 190, 'Pédalier', '500 Wh');
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        70,
+        7,
+        18,
+        47,
+        'Kettler Familiano L-N',
+        2023,
+        160,
+        190,
+        518,
+        3199,
+        5329,
+        40,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        190,
+        'PÃ©dalier',
+        500
+    );
 
-insert into t_e_velo_vel(mar_id, cat_id, mot_id, car_id, vel_nom, vel_annee, vel_taillemin, vel_taillemax,
-                         vel_kms, vel_prixremise, vel_prixneuf, vel_pourcentagereduction, vel_descriptif,
-                         vel_quantite, vel_positionmoteur, vel_capacitebatterie)
-values (14, 7, 8, 48, 'Benno Boost E 10D', 2024, '160', '190', '294', 3649, 5989, 39, '- Moteur haut de gamme très performant et fiable, offrant une assistance puissante sur tout type de terrain
-- Batterie haute capacité vous garantissant une bonne autonomie
-- cav_freins à disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sécurité
-', 75, 'Pédalier', '500 Wh');
-
+insert into
+    upways.t_e_velo_vel (
+        mar_id,
+        cat_id,
+        mot_id,
+        car_id,
+        vel_nom,
+        vel_annee,
+        vel_taillemin,
+        vel_taillemax,
+        vel_kms,
+        vel_prixremise,
+        vel_prixneuf,
+        vel_pourcentagereduction,
+        vel_descriptif,
+        vel_quantite,
+        vel_positionmoteur,
+        vel_capacitebatterie
+    )
+values
+    (
+        14,
+        7,
+        8,
+        48,
+        'Benno Boost E 10D',
+        2024,
+        160,
+        190,
+        294,
+        3649,
+        5989,
+        39,
+        '- Moteur haut de gamme trÃ¨s performant et fiable, offrant une assistance puissante sur tout type de terrain
+- Batterie haute capacitÃ© vous garantissant une bonne autonomie
+- freins Ã  disque hydrauliques pour un freinage puissant et progressif sans effort et en toute sÃ©curitÃ©
+',
+        75,
+        'PÃ©dalier',
+        500
+    );
 
 
 insert into t_e_mentionvelo_mev(vel_id, mev_libelle, mev_valeur)

@@ -39,15 +39,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Macumba",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh" },
+            CapaciteBatterie = 120 },
             new() { VeloId = 2,
             MarqueId = 1,
             CategorieId = 1,
@@ -55,15 +55,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Vélo 2",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh" }
+            CapaciteBatterie = 120}
         };
         _mockDataRepository.Setup(x => x.GetAllAsync(0)).ReturnsAsync(velos);
 
@@ -87,15 +87,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Macumba",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         _mockDataRepository.Setup(x => x.GetByIdAsync(1)).ReturnsAsync(velo);
         _controller = new VelosController(_mockDataRepository.Object);
@@ -127,15 +127,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Macumba",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         var newvelo = new Velo
         {
@@ -146,15 +146,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Tribu de Dana",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         _mockDataRepository.Setup(x => x.GetByIdAsync(1)).ReturnsAsync(newvelo);
         _mockDataRepository.Setup(x => x.UpdateAsync(It.IsAny<Velo>(), It.IsAny<Velo>())).Returns(Task.CompletedTask);
@@ -176,15 +176,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Tribu de Dana",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         _mockDataRepository.Setup(x => x.GetByIdAsync(0));
         
@@ -206,15 +206,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Tribu de Dana",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         _mockDataRepository.Setup(x => x.GetByIdAsync(1)).ReturnsAsync((Velo)null);
 
@@ -236,15 +236,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Tribu de Dana",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         _mockDataRepository.Setup(x => x.AddAsync(It.IsAny<Velo>())).Returns(Task.CompletedTask);
 
@@ -281,15 +281,15 @@ public class VelosControllerTests
             CaracteristiqueVeloId = 1,
             NomVelo = "Tribu de Dana",
             AnneeVelo = 2021,
-            TailleMin = "1m50",
-            TailleMax = "1m80",
+            TailleMin = 150,
+            TailleMax = 180,
             PrixRemise = 150,
             PrixNeuf = 200,
             PourcentageReduction = 0,
             DescriptifVelo = "Ce vélo est bien mais en vrai il est pas ouf",
             QuantiteVelo = 1,
             PositionMoteur = "Avant",
-            CapaciteBatterie = "120 Wh"
+            CapaciteBatterie = 120
         };
         _mockDataRepository.Setup(repo => repo.GetByIdAsync(1)).ReturnsAsync(velo);
         _mockDataRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Velo>())).Returns(Task.CompletedTask);
