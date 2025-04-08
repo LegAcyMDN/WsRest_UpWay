@@ -73,7 +73,7 @@ public class AjouterAccessoiresController : ControllerBase
 
         await _dataRepository.AddAsync(ajoutAccessoire);
 
-        return CreatedAtAction("GetAjouterAccessoire", new { id = ajoutAccessoire.AccessoireId }, panier);
+        return CreatedAtAction("Get", new { id = ajoutAccessoire.AccessoireId }, panier);
     }
 
     [HttpDelete("{id}")]
