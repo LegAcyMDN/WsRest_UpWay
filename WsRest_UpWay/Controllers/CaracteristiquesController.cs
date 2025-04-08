@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,25 +14,25 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class CaracteristiquesController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<Caracteristique> _dataRepository;
 
-        public CaracteristiquesController(S215UpWayContext context)
+        public CaracteristiquesController(IDataRepository<Caracteristique> dataRepository)
         {
-            _context = context;
+            _dataRepository = dataRepository;
         }
 
         // GET: api/Caracteristiques
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiques()
         {
-            return await _context.Caracteristiques.ToListAsync();
+            return await _dataRepository.GetAllAsync();
         }
 
         // GET: api/Caracteristiques/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Caracteristique>> GetCaracteristique(int id)
         {
-            var caracteristique = await _context.Caracteristiques.FindAsync(id);
+            var caracteristique = await _dataRepository.GetByIdAsync(id);
 
             if (caracteristique == null)
             {
@@ -51,24 +52,11 @@ namespace WsRest_UpWay.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(caracteristique).State = EntityState.Modified;
+            var carToUpdate = await _dataRepository.GetByIdAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CaracteristiqueExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (carToUpdate.Value == null)
+                return NotFound();
+            await _dataRepository.UpdateAsync(carToUpdate.Value, caracteristique);
             return NoContent();
         }
 
@@ -77,31 +65,24 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<Caracteristique>> PostCaracteristique(Caracteristique caracteristique)
         {
-            _context.Caracteristiques.Add(caracteristique);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetCaracteristique", new { id = caracteristique.CaracteristiqueId }, caracteristique);
+            await _dataRepository.AddAsync(caracteristique);
+
+            return CreatedAtAction("GetById", new { id = caracteristique.CaracteristiqueId }, caracteristique);
         }
 
         // DELETE: api/Caracteristiques/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCaracteristique(int id)
         {
-            var caracteristique = await _context.Caracteristiques.FindAsync(id);
-            if (caracteristique == null)
-            {
+            var caracteristique = await _dataRepository.GetByIdAsync(id);
+            if (caracteristique.Value == null)
                 return NotFound();
-            }
 
-            _context.Caracteristiques.Remove(caracteristique);
-            await _context.SaveChangesAsync();
-
+            await _dataRepository.DeleteAsync(caracteristique.Value);
             return NoContent();
-        }
-
-        private bool CaracteristiqueExists(int id)
-        {
-            return _context.Caracteristiques.Any(e => e.CaracteristiqueId == id);
         }
     }
 }
