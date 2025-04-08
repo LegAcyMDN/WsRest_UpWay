@@ -45,20 +45,30 @@ public class VeloManager : IDataVelo
     }
 
     public async Task<ActionResult<IEnumerable<Velo>>> GetByFiltresAsync(
-        string? taille, int? categorie, int? cara, int? marque, int? annee,
+        int? taille, int? categorie, int? cara, int? marque, int? annee,
         int? kilomMin, int? kilomMax, string? posmot, int? motmar,
         string? couplemot, string? capbat, decimal? poids,
         decimal? prixMin, decimal? prixMax, int page = 0)
     {
         return await _cache.GetOrCreateAsync(string.Format(
-            "velos/filtered:{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}/{13}/{14}/{15}", taille ?? "null",
+            "velos/filtered:{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}/{13}/{14}/{15}", taille.ToString() ?? "null",
             categorie.ToString() ?? "null", cara.ToString() ?? "null", marque.ToString() ?? "null",
             annee.ToString() ?? "null", kilomMin.ToString() ?? "null", kilomMax.ToString() ?? "null", posmot ?? "null", motmar.ToString() ?? "null", couplemot ?? "null",
             capbat ?? "null", poids.ToString() ?? "null",
             prixMin.ToString() ?? "null", prixMax.ToString() ?? "null", page.ToString() ?? "null"), async () =>
         {
             IQueryable<Velo> velofilt = _upWayContext.Velos;
-            if (taille != null) velofilt = velofilt.Where(p => p.TailleMin.ToUpper().Equals(taille.ToUpper()));
+            if (taille != null)
+            {
+                int nombreKmsSousMin;
+                velofilt = velofilt.Where(p =>
+                    int.TryParse(p.TailleMin.Substring(0, p.TailleMin.Length), out nombreKmsSousMin) &&
+                    nombreKmsSousMin <= taille);
+                int nombreKmsSousMax;
+                velofilt = velofilt.Where(p =>
+                    int.TryParse(p.TailleMin.Substring(0, p.TailleMax.Length), out nombreKmsSousMax) &&
+                    nombreKmsSousMax >= taille);
+            }
             if (categorie != null) velofilt = velofilt.Where(p => p.CategorieId.Equals(categorie));
             if (cara != null) velofilt = velofilt.Where(p => p.CaracteristiqueVeloId == cara);
             if (marque != null) velofilt = velofilt.Where(p => p.MarqueId == marque);
@@ -69,14 +79,14 @@ public class VeloManager : IDataVelo
             {
                 int nombreKmsInt;
                 velofilt = velofilt.Where(p =>
-                    int.TryParse(p.NombreKms.Substring(0, p.NombreKms.Length - 4), out nombreKmsInt) &&
+                    int.TryParse(p.NombreKms.Substring(0, p.NombreKms.Length), out nombreKmsInt) &&
                     nombreKmsInt <= kilomMin);
             }
             if (kilomMax != null)
             {
                 int nombreKmsInt;
                 velofilt = velofilt.Where(p =>
-                    int.TryParse(p.NombreKms.Substring(0, p.NombreKms.Length - 4), out nombreKmsInt) &&
+                    int.TryParse(p.NombreKms.Substring(0, p.NombreKms.Length), out nombreKmsInt) &&
                     nombreKmsInt <= kilomMax);
             }
             if (posmot != null) velofilt = velofilt.Where(p => p.PositionMoteur.ToUpper().Equals(posmot.ToUpper()));
@@ -90,7 +100,7 @@ public class VeloManager : IDataVelo
             if (capbat != null)
             {
                 var cat = await _upWayContext.Caracteristiques.FirstOrDefaultAsync(c =>
-                    c.LibelleCaracteristique.ToUpper().Equals(capbat.ToUpper()));
+                    c.LibelleCaracteristique.ToUpper().Equals((capbat + " Wh").ToUpper()));
                 velofilt = velofilt.Where(p => p.CapaciteBatterie == cat.LibelleCaracteristique);
             }
             if (poids != null)

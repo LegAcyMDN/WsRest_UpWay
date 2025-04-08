@@ -187,7 +187,7 @@ public class VelosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(
-    string? taille = null, int? categorie = null, int? cara = null, int? marque = null, int? annee = null,
+    int? taille = null, int? categorie = null, int? cara = null, int? marque = null, int? annee = null,
     int? kilomMin = null, int? kilomMax = null, string? posmot = null, int? motmar = null,
     string? couplemot = null, string? capbat = null, decimal? poids = null,
     decimal? prixMin = null, decimal? prixMax = null, int page = 0)
