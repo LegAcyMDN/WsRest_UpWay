@@ -17,9 +17,9 @@ namespace WsRest_UpWay.Controllers;
 public class AjouterAccessoiresController : ControllerBase
 {
     private readonly IDataRepository<AjouterAccessoire> _dataRepository;
-    private readonly IDataRepository<Panier> _panierRepository;
+    private readonly IDataPanier _panierRepository;
 
-    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository, IDataRepository<Panier> panierRepository)
+    public AjouterAccessoiresController(IDataRepository<AjouterAccessoire> dataRepository, IDataPanier panierRepository)
     {
         _dataRepository = dataRepository;
         _panierRepository = panierRepository;
