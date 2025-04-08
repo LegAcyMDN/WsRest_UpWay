@@ -51,7 +51,7 @@ public class VeloManager : IDataVelo
         decimal? prixMin, decimal? prixMax, int page = 0)
     {
         return await _cache.GetOrCreateAsync(string.Format(
-            "velos/filtered:{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}/{13}/{14}/{15}", taille.ToString() ?? "null",
+            "velos/filtered:{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}/{13}/{14}", taille.ToString() ?? "null",
             categorie.ToString() ?? "null", cara.ToString() ?? "null", marque.ToString() ?? "null",
             annee.ToString() ?? "null", kilomMin.ToString() ?? "null", kilomMax.ToString() ?? "null", posmot ?? "null", motmar.ToString() ?? "null", couplemot ?? "null",
             capbat ?? "null", poids.ToString() ?? "null",
