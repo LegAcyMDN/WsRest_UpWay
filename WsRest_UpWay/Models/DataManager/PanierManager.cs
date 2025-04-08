@@ -68,6 +68,7 @@ public class PanierManager : IDataPanier
         return await upwaysDbContext.Paniers
             .Include(p => p.ListeAjouterAccessoires)
                 .ThenInclude(a => a.AjoutDAccessoire)
+                    .ThenInclude(a => a.ListePhotoAccessoires)
             .FirstOrDefaultAsync(p => p.ClientId == user_id);
     }
 }
