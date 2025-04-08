@@ -42,12 +42,12 @@ public class AjouterAccessoiresController : ControllerBase
 
     [HttpPut]
     [Authorize]
-    public async Task<IActionResult> Put(int id, AjouterAccessoire body)
+    public async Task<IActionResult> Put(AjouterAccessoire body)
     {
-        var accessoire = await _dataRepository.GetByIdAsync(id);
+        var accessoire = await _dataRepository.GetByIdAsync(body.AccessoireId);
         if (accessoire.Value == null) return NotFound();
 
-        var panier = await _panierRepository.GetByIdAsync(accessoire.Value.PanierId);
+        var panier = await _panierRepository.GetByIdAsync(body.PanierId);
         if (panier.Value == null) return NotFound();
         if (panier.Value.ClientId != User.GetId()) return Unauthorized();
 
