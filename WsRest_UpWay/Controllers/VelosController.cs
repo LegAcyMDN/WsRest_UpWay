@@ -186,13 +186,14 @@ public class VelosController : ControllerBase
     [ActionName("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(string? taille = null, int? categorie = null,
-        int? cara = null, int? marque = null, int? annee = null, string? kilom = null, string? posmot = null,
-        string? motmar = null, string? couplemot = null, string? capbat = null, string? posbat = null,
-        string? batamo = null, string? posbag = null, decimal? poids = null, int page = 0)
+    public async Task<ActionResult<IEnumerable<Velo>>> GetVeloByFiltres(
+    int? taille = null, int? categorie = null, int? cara = null, int? marque = null, int? annee = null,
+    int? kilomMin = null, int? kilomMax = null, string? posmot = null, int? motmar = null,
+    string? couplemot = null, string? capbat = null, decimal? poids = null,
+    decimal? prixMin = null, decimal? prixMax = null, int page = 0)
     {
-        var velo = await dataRepository.GetByFiltresAsync(taille, categorie, cara, marque, annee, kilom, posmot, motmar,
-            couplemot, capbat, posbat, batamo, posbag, poids, page);
+        var velo = await dataRepository.GetByFiltresAsync(taille, categorie, cara, marque, annee, 
+        kilomMin, kilomMax, posmot, motmar, couplemot, capbat, poids, prixMin, prixMax, page);
         if (velo.Value == null)
             return NotFound();
 
