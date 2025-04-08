@@ -140,4 +140,10 @@ public class MarquesController : ControllerBase
         await dataRepository.DeleteAsync(accessoire.Value);
         return NoContent();
     }
+
+    [HttpGet("count")]
+    public async Task<ActionResult<int>> GetCount()
+    {
+        return await dataRepository.GetCountAsync();
+    }
 }

@@ -62,4 +62,6 @@ public class MarqueManager : IDataRepository<Marque>
         upwaysDbContext.Marques.Remove(mar);
         await upwaysDbContext.SaveChangesAsync();
     }
+
+
 }
