@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+using WsRest_UpWay.Models.Cache;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -9,19 +9,13 @@ namespace WsRest_UpWay.Models.DataManager;
 public class VeloManager : IDataVelo
 {
     public const int PAGE_SIZE = 20;
-    private readonly IMemoryCache _cache;
-    private readonly IConfiguration _configuration;
+    private readonly ICache _cache;
     private readonly S215UpWayContext _upWayContext;
 
-    public VeloManager()
-    {
-    }
-
-    public VeloManager(S215UpWayContext context, IMemoryCache cache, IConfiguration configuration)
+    public VeloManager(S215UpWayContext context, ICache cache)
     {
         _upWayContext = context;
         _cache = cache;
-        _configuration = configuration;
     }
 
     public async Task AddAsync(Velo entity)
@@ -32,14 +26,10 @@ public class VeloManager : IDataVelo
 
     public async Task<ActionResult<Velo>> GetByStringAsync(string nom)
     {
-        var id = await _cache.GetOrCreateAsync("velos:" + nom.ToLower(), async entry =>
+        var id = await _cache.GetOrCreateAsync("velos:" + nom.ToLower(), async () =>
         {
             var velo = await _upWayContext.Velos.FirstOrDefaultAsync(u =>
                 u.NomVelo.ToLower().Equals(nom.ToLower()));
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(4);
 
             return velo == null ? -1 : velo.VeloId;
         });
@@ -59,12 +49,12 @@ public class VeloManager : IDataVelo
         int? annee, string? kilom, string? posmot, string? motmar, string? couplemot, string? capbat, string? posbat,
         string? batamo, string? posbag, decimal? poids, int page = 0)
     {
-        var velos = await _cache.GetOrCreateAsync(string.Format(
+        return await _cache.GetOrCreateAsync(string.Format(
             "velos/filtered:{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}/{12}/{13}/{14}", taille ?? "null",
             categorie.ToString() ?? "null", cara.ToString() ?? "null", marque.ToString() ?? "null",
             annee.ToString() ?? "null", kilom ?? "null", posmot ?? "null", motmar ?? "null", couplemot ?? "null",
             capbat ?? "null", posbat ?? "null", batamo ?? "null", posbag ?? "null", poids.ToString() ?? "null",
-            page.ToString() ?? "null"), async entry =>
+            page.ToString() ?? "null"), async () =>
         {
             IQueryable<Velo> velofilt = _upWayContext.Velos;
             if (taille != null) velofilt = velofilt.Where(p => p.TailleMin.ToUpper().Equals(taille.ToUpper()));
@@ -105,97 +95,51 @@ public class VeloManager : IDataVelo
                 velofilt = velofilt.Where(p => p.CaracteristiqueVeloId == catv.CaracteristiqueVeloId);
             }
 
-            var velos = await velofilt.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(velos.Sum(GetAproximateSize));
-
-            return velos;
+            return await velofilt.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
+            ;
         });
-
-        return velos;
     }
 
     public async Task<ActionResult<IEnumerable<Velo>>> GetAllAsync(int page)
     {
-        var velos = await _cache.GetOrCreateAsync("velos/all:" + page, async entry =>
+        return await _cache.GetOrCreateAsync("velos/all:" + page, async () =>
         {
-            var velos = await _upWayContext.Velos.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(velos.Sum(GetAproximateSize));
-
-            return velos;
+            return await _upWayContext.Velos.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
+            ;
         });
-
-        return velos;
     }
 
     public async Task<ActionResult<int>> GetCountAsync()
     {
-        var count = await _cache.GetOrCreateAsync("velos:count", async entry =>
+        return await _cache.GetOrCreateAsync("velos:count", async () =>
         {
-            var count = await _upWayContext.Accessoires.CountAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(4);
-
-            return count;
+            return await _upWayContext.Accessoires.CountAsync();
+            ;
         });
-
-        return count;
     }
 
     public async Task<ActionResult<Velo>> GetByIdAsync(int id)
     {
-        var velo = await _cache.GetOrCreateAsync("velos:" + id, async entry =>
-        {
-            var velo = await _upWayContext.Velos.FindAsync(id);
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(4);
-
-            return velo;
-        });
-
-        return velo;
+        return await _cache.GetOrCreateAsync("velos:" + id,
+            async () => { return await _upWayContext.Velos.FindAsync(id); });
     }
 
     public async Task<ActionResult<IEnumerable<PhotoVelo>>> GetPhotosByIdAsync(int id)
     {
-        var photos = await _cache.GetOrCreateAsync("velos/photos:" + id, async entry =>
+        return await _cache.GetOrCreateAsync("velos/photos:" + id, async () =>
         {
-            var photos = await _upWayContext.Photovelos.Where(u => u.VeloId == id).ToListAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(photos.Sum(p => PhotoVelo.APROXIMATE_SIZE + (p.UrlPhotoVelo ?? "").Length));
-
-            return photos;
+            return await _upWayContext.Photovelos.Where(u => u.VeloId == id).ToListAsync();
+            ;
         });
-
-        return photos;
     }
 
     public async Task<ActionResult<IEnumerable<MentionVelo>>> GetMentionByIdAsync(int id)
     {
-        var mentions = await _cache.GetOrCreateAsync("velos/mentions:" + id, async entry =>
+        return await _cache.GetOrCreateAsync("velos/mentions:" + id, async () =>
         {
-            var mentions = await _upWayContext.Mentionvelos.Where(u => u.VeloId == id).ToListAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(mentions.Sum(p =>
-                    PhotoVelo.APROXIMATE_SIZE + (p.LibelleMention ?? "").Length + (p.ValeurMention ?? "").Length));
-
-            return mentions;
+            return await _upWayContext.Mentionvelos.Where(u => u.VeloId == id).ToListAsync();
+            ;
         });
-
-        return mentions;
     }
 
     public async Task UpdateAsync(Velo vel, Velo entity)
@@ -221,23 +165,9 @@ public class VeloManager : IDataVelo
         await _upWayContext.SaveChangesAsync();
     }
 
-    private long GetAproximateSize(Velo velo)
-    {
-        var size = Velo.APROXIMATE_SIZE;
-        if (velo.NomVelo != null) size += velo.NomVelo.Length;
-        if (velo.TailleMin != null) size += velo.TailleMin.Length;
-        if (velo.TailleMax != null) size += velo.TailleMax.Length;
-        if (velo.NombreKms != null) size += velo.NombreKms.Length;
-        if (velo.DescriptifVelo != null) size += velo.DescriptifVelo.Length;
-        if (velo.PositionMoteur != null) size += velo.PositionMoteur.Length;
-        if (velo.CapaciteBatterie != null) size += velo.CapaciteBatterie.Length;
-
-        return size;
-    }
-
     public async Task<ActionResult<IEnumerable<Caracteristique>>> GetCaracteristiquesVeloAsync(int id)
     {
-        var caracteristiques = await _cache.GetOrCreateAsync("velos/caracteristiques:" + id, async entry =>
+        return await _cache.GetOrCreateAsync("velos/caracteristiques:" + id, async () =>
         {
             var velo = await _upWayContext.Velos
                 .Include(v => v.ListeCaracteristiques)
@@ -245,15 +175,7 @@ public class VeloManager : IDataVelo
 
             if (velo == null) return new List<Caracteristique>();
 
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(_configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(_configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(velo.ListeCaracteristiques.Sum(c => Caracteristique.APROXIMATE_SIZE + (c.LibelleCaracteristique?.Length ?? 0)));
-
             return velo.ListeCaracteristiques.ToList();
         });
-
-        return caracteristiques;
     }
-
-
 }

@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_accessoire_acs", Schema = "upways")]
 [Index(nameof(CategorieId), Name = "ix_t_e_accessoire_acs_categorieid")]
 [Index(nameof(MarqueId), Name = "ix_t_e_accessoire_acs_marqueid")]
-public class Accessoire
+public class Accessoire : ISizedEntity
 {
-    public const long APROXIMATE_SIZE = 16; // without string length, used for cache limit
-
     public Accessoire()
     {
         ListeAjoutAccessoires = new HashSet<AjouterAccessoire>();
@@ -53,4 +52,9 @@ public class Accessoire
     [ForeignKey(nameof(AccessoireId))]
     [InverseProperty(nameof(Velo.ListeAccessoires))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 3 + sizeof(decimal) + NomAccessoire?.Length ?? 0 + DescriptionAccessoire?.Length ?? 0;
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+using WsRest_UpWay.Models.Cache;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -9,81 +9,46 @@ namespace WsRest_UpWay.Models.DataManager;
 public class AccessoireManager : IDataAccessoire
 {
     public const int PAGE_SIZE = 20;
-    private readonly IMemoryCache cache;
-    private readonly IConfiguration configuration;
+    private readonly ICache cache;
 
     private readonly S215UpWayContext? upwaysDbContext;
 
-    public AccessoireManager()
-    {
-    }
-
-    public AccessoireManager(S215UpWayContext? upwaysDbContext, IMemoryCache cache, IConfiguration configuration)
+    public AccessoireManager(S215UpWayContext? upwaysDbContext, ICache cache)
     {
         this.upwaysDbContext = upwaysDbContext;
         this.cache = cache;
-        this.configuration = configuration;
     }
 
     public async Task<ActionResult<int>> GetCountAsync()
     {
-        var count = await cache.GetOrCreateAsync("accessoires:count", async entry =>
-        {
-            var count = await upwaysDbContext.Accessoires.CountAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(4);
-
-            return count;
-        });
-
-        return count;
+        return await cache.GetOrCreateAsync("accessoires:count",
+            async () => { return await upwaysDbContext.Accessoires.CountAsync(); });
     }
 
     public async Task<ActionResult<Accessoire>> GetByIdAsync(int id)
     {
-        var accessoire = await cache.GetOrCreateAsync("accessoires:" + id, async entry =>
+        return await cache.GetOrCreateAsync("accessoires:" + id, async () =>
         {
-            var accessoire = await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.AccessoireId == id);
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(Accessoire.APROXIMATE_SIZE + (accessoire.NomAccessoire ?? "").Length +
-                         (accessoire.DescriptionAccessoire ?? "").Length);
-
-            return accessoire;
+            return await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u => u.AccessoireId == id);
+            ;
         });
-
-        return accessoire;
     }
 
     public async Task<ActionResult<IEnumerable<PhotoAccessoire>>> GetPhotosByIdAsync(int id)
     {
-        var photos = await cache.GetOrCreateAsync("accessoires/photos:" + id, async entry =>
+        return await cache.GetOrCreateAsync("accessoires/photos:" + id, async () =>
         {
-            var photos = await upwaysDbContext.Photoaccessoires.Where(u => u.AccessoireId == id).ToListAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(photos.Sum(p => PhotoAccessoire.APROXIMATE_SIZE + (p.UrlPhotoAccessoire ?? "").Length));
-
-            return photos;
+            return await upwaysDbContext.Photoaccessoires.Where(u => u.AccessoireId == id).ToListAsync();
+            ;
         });
-
-        return photos;
     }
 
     public async Task<ActionResult<Accessoire>> GetByStringAsync(string nom)
     {
-        var id = await cache.GetOrCreateAsync("accessoires:" + nom.ToLower(), async entry =>
+        var id = await cache.GetOrCreateAsync("accessoires:" + nom.ToLower(), async () =>
         {
             var accessoire = await upwaysDbContext.Accessoires.FirstOrDefaultAsync(u =>
                 u.NomAccessoire.ToLower().Equals(nom.ToLower()));
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(4);
 
             return accessoire == null ? -1 : accessoire.AccessoireId;
         });
@@ -95,8 +60,8 @@ public class AccessoireManager : IDataAccessoire
     public async Task<ActionResult<IEnumerable<Accessoire>>> GetByCategoryPrixAsync(int? categoryId, int min, int max,
         int page = 0)
     {
-        var accessoires = await cache.GetOrCreateAsync(
-            "accessoires/filtered:" + categoryId + "/" + min + "/" + max + "/" + page, async entry =>
+        return await cache.GetOrCreateAsync(
+            "accessoires/filtered:" + categoryId + "/" + min + "/" + max + "/" + page, async () =>
             {
                 IQueryable<Accessoire> accessoirefilt = upwaysDbContext.Accessoires;
                 if (categoryId != null) accessoirefilt = accessoirefilt.Where(p => p.CategorieId == categoryId);
@@ -105,16 +70,8 @@ public class AccessoireManager : IDataAccessoire
                     .Skip(page * PAGE_SIZE)
                     .Take(PAGE_SIZE).ToList();
 
-                entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                    .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                    .SetSize(accessoires.Sum(p =>
-                        Accessoire.APROXIMATE_SIZE + (p.NomAccessoire ?? "").Length +
-                        (p.DescriptionAccessoire ?? "").Length));
-
                 return accessoires;
             });
-
-        return accessoires;
     }
 
     public async Task AddAsync(Accessoire entity)
@@ -143,19 +100,10 @@ public class AccessoireManager : IDataAccessoire
 
     public async Task<ActionResult<IEnumerable<Accessoire>>> GetAllAsync(int page)
     {
-        var accessoires = await cache.GetOrCreateAsync("accessoires/all:" + page, async entry =>
+        return await cache.GetOrCreateAsync("accessoires/all:" + page, async () =>
         {
-            var accessoires = await upwaysDbContext.Accessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
-
-            entry.SetSlidingExpiration(TimeUtils.PrettyParse(configuration["CACHE_SLIDING_EXPIRATION"]))
-                .SetAbsoluteExpiration(TimeUtils.PrettyParse(configuration["CACHE_ABSOLUTE_EXPIRATION"]))
-                .SetSize(accessoires.Sum(p =>
-                    Accessoire.APROXIMATE_SIZE + (p.NomAccessoire ?? "").Length +
-                    (p.DescriptionAccessoire ?? "").Length));
-
-            return accessoires;
+            return await upwaysDbContext.Accessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
+            ;
         });
-
-        return accessoires;
     }
 }

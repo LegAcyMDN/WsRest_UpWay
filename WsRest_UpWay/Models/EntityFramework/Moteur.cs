@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_moteur_mot", Schema = "upways")]
 [Index(nameof(MarqueId), Name = "ix_t_e_moteur_mot_marqueid")]
-public partial class Moteur
+public class Moteur : ISizedEntity
 {
     public Moteur()
     {
@@ -16,12 +15,9 @@ public partial class Moteur
         ListeVelos = new HashSet<Velo>();
     }
 
-    [Key]
-    [Column("mot_id")]
-    public int MoteurId { get; set; }
+    [Key] [Column("mot_id")] public int MoteurId { get; set; }
 
-    [Column("mar_id")]
-    public int MarqueId { get; set; }
+    [Column("mar_id")] public int MarqueId { get; set; }
 
     [Column("mot_modele")]
     [StringLength(50)]
@@ -44,4 +40,9 @@ public partial class Moteur
 
     [InverseProperty(nameof(Velo.VeloMoteur))]
     public virtual ICollection<Velo> ListeVelos { get; set; } = new List<Velo>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 2 + ModeleMoteur?.Length ?? 0 + CoupleMoteur?.Length ?? 0 + VitesseMaximal?.Length ?? 0;
+    }
 }

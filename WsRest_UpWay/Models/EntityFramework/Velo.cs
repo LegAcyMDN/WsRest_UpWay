@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
@@ -9,10 +10,8 @@ namespace WsRest_UpWay.Models.EntityFramework;
 [Index(nameof(CategorieId), Name = "ix_t_e_velo_vel_categorieid")]
 [Index(nameof(MarqueId), Name = "ix_t_e_velo_vel_marqueid")]
 [Index(nameof(MoteurId), Name = "ix_t_e_velo_vel_moteurid")]
-public class Velo
+public class Velo : ISizedEntity
 {
-    public const long APROXIMATE_SIZE = 40;
-
     public Velo()
     {
         ListeAlerteVelos = new HashSet<AlerteVelo>();
@@ -133,4 +132,12 @@ public class Velo
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Magasin.ListeVelos))]
     public virtual ICollection<Magasin> ListeMagasins { get; set; } = new List<Magasin>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 7 + sizeof(decimal) * 3 + NomVelo?.Length ?? 0 + TailleMin?.Length ??
+            0 + TailleMax?.Length ?? 0 +
+            NombreKms?.Length + DescriptifVelo?.Length ??
+            0 + PositionMoteur?.Length ?? 0 + CapaciteBatterie?.Length ?? 0;
+    }
 }

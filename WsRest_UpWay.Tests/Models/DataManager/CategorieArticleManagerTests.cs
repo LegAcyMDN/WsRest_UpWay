@@ -2,8 +2,11 @@
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WsRest_UpWay.Models.EntityFramework;
+using MemoryCache = WsRest_UpWay.Models.Cache.MemoryCache;
 
 namespace WsRest_UpWay.Models.DataManager.Tests;
 
@@ -24,7 +27,9 @@ public class CategorieArticleManagerTests
         ctx.Database.Migrate();
         ctx.Database.ExecuteSqlRaw(File.ReadAllText("inserts.sql"));
 
-        manager = new CategorieArticleManager(ctx);
+        manager = new CategorieArticleManager(ctx, new MemoryCache(
+            new Microsoft.Extensions.Caching.Memory.MemoryCache(new MemoryCacheOptions()),
+            new ConfigurationManager()));
     }
 
     [TestCleanup]

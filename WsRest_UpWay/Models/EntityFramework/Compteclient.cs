@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_compteclient_coc", Schema = "upways")]
 [Index(nameof(EmailClient), Name = "ix_t_e_compteclient_coc_email_unq", IsUnique = true)]
 [Index(nameof(LoginClient), Name = "ix_t_e_compteclient_coc_pseudo_unq", IsUnique = true)]
-public partial class CompteClient
+public partial class CompteClient : ISizedEntity
 {
     public CompteClient()
     {
@@ -87,4 +88,21 @@ public partial class CompteClient
 
     [InverseProperty(nameof(Panier.PanierClient))]
     public virtual ICollection<Panier> ListePaniers { get; set; } = new List<Panier>();
+
+    public long GetSize()
+    {
+        return sizeof(int) +
+            LoginClient?.Length ?? 0 +
+            MotDePasseClient?.Length ?? 0 +
+            EmailClient?.Length ?? 0 +
+            PrenomClient?.Length ?? 0 +
+            NomClient?.Length ?? 0 +
+            sizeof(long) +
+            RememberToken?.Length ?? 0 +
+            TwoFactorSecret?.Length ?? 0 +
+            TwoFactorRecoveryCodes?.Length ?? 0 +
+            sizeof(long) +
+            Usertype?.Length ?? 0 +
+            sizeof(long);
+    }
 }

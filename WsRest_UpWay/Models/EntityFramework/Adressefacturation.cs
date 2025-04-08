@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Cache;
 
 namespace WsRest_UpWay.Models.EntityFramework;
 
 [Table("t_e_adressefacturation_adf", Schema = "upways")]
 [Index(nameof(AdresseExpId), Name = "ix_t_e_adressefacturation_adf_adresseexpeid")]
 [Index(nameof(ClientId), Name = "ix_t_e_adressefacturation_adf_clientid")]
-public partial class AdresseFacturation
+public class AdresseFacturation : ISizedEntity
 {
     public AdresseFacturation()
     {
@@ -17,15 +16,11 @@ public partial class AdresseFacturation
         ListeDetailCommande = new HashSet<DetailCommande>();
     }
 
-    [Key]
-    [Column("adf_id")]
-    public int AdresseFactId { get; set; }
+    [Key] [Column("adf_id")] public int AdresseFactId { get; set; }
 
-    [Column("cli_id")]
-    public int ClientId { get; set; }
+    [Column("cli_id")] public int ClientId { get; set; }
 
-    [Column("ade_id")]
-    public int? AdresseExpId { get; set; }
+    [Column("ade_id")] public int? AdresseExpId { get; set; }
 
     [Column("adf_pays")]
     [StringLength(50)]
@@ -68,4 +63,16 @@ public partial class AdresseFacturation
 
     [InverseProperty(nameof(DetailCommande.DetailComAdresseFact))]
     public virtual ICollection<DetailCommande> ListeDetailCommande { get; set; } = new List<DetailCommande>();
+
+    public long GetSize()
+    {
+        return sizeof(int) * 3 +
+            PaysFacturation?.Length ?? 0 +
+            BatimentFacturationOpt?.Length ?? 0 +
+            RueFacturation?.Length ?? 0 +
+            CPFacturation?.Length +
+            RegionFacturation?.Length ?? 0 +
+            VilleFacturation?.Length ?? 0 +
+            TelephoneFacturation?.Length ?? 0;
+    }
 }

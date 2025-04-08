@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Printing;
+using WsRest_UpWay.Models.Cache;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -9,15 +9,13 @@ namespace WsRest_UpWay.Models.DataManager;
 public class CategorieArticleManager : IDataRepository<CategorieArticle>
 {
     public const int PAGE_SIZE = 20;
+    private readonly ICache _cache;
     private readonly S215UpWayContext? s215UpWayContext;
 
-    public CategorieArticleManager()
-    {
-    }
-
-    public CategorieArticleManager(S215UpWayContext context)
+    public CategorieArticleManager(S215UpWayContext context, ICache cache)
     {
         s215UpWayContext = context;
+        _cache = cache;
     }
 
     public async Task AddAsync(CategorieArticle catArticle)

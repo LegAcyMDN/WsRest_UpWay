@@ -3,12 +3,16 @@ using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Redis;
 using Microsoft.IdentityModel.Tokens;
 using WsRest_UpWay.Models;
+using WsRest_UpWay.Models.Cache;
 using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
+using MemoryCache = Microsoft.Extensions.Caching.Memory.MemoryCache;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +30,7 @@ builder.Services.AddScoped<IDataAccessoire, AccessoireManager>();
 builder.Services.AddScoped<IDataRepository<Information>, InformationManager>();
 builder.Services.AddScoped<IDataRepository<Magasin>, MagasinManager>();
 builder.Services.AddScoped<IDataRepository<Marque>, MarqueManager>();
-builder.Services.AddScoped<IDataRepository<Panier>, PanierManager>();
+builder.Services.AddScoped<IDataPanier, PanierManager>();
 builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
 builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleManager>();
 builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();
@@ -40,10 +44,38 @@ builder.Services.AddScoped<IDataArticles, ArticleManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
 builder.Services.AddScoped<IDataEstRealise, EstRealiseManager>();
 
-builder.Services.AddSingleton<IMemoryCache>(sp => new MemoryCache(new MemoryCacheOptions
+CacheType type;
+if (!Enum.TryParse(builder.Configuration["CACHE_TYPE"], out type))
 {
-    SizeLimit = int.Parse(builder.Configuration["CACHE_SIZE"])
-}));
+    type = CacheType.Memory;
+    Console.WriteLine("Failed to parse cache type! Defaulting to Memory.");
+}
+
+switch (type)
+{
+    case CacheType.Memory:
+    {
+        builder.Services.AddSingleton<IMemoryCache>(sp => new MemoryCache(new MemoryCacheOptions
+        {
+            SizeLimit = int.Parse(builder.Configuration["CACHE_SIZE"])
+        }));
+
+        builder.Services.AddSingleton<ICache, WsRest_UpWay.Models.Cache.MemoryCache>();
+        break;
+    }
+    case CacheType.Redis:
+    {
+        builder.Services.AddSingleton<IDistributedCache>(sp => new RedisCache(new RedisCacheOptions
+        {
+            Configuration = builder.Configuration["REDIS_CONFIGURATION"],
+            InstanceName = builder.Configuration["REDIS_INSTANCE_NAME"]
+        }));
+
+        builder.Services.AddSingleton<ICache, DistributedCache>();
+        break;
+    }
+}
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });

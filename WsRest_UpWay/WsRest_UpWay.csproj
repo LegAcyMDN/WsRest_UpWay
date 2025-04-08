@@ -8,39 +8,40 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Braintree" Version="5.31.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.14" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
+        <PackageReference Include="Braintree" Version="5.31.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.14"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
-        <PackageReference Include="Otp.NET" Version="1.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.3.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0"/>
+        <PackageReference Include="Otp.NET" Version="1.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="Views\Articles\Create.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Articles\Delete.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Articles\Details.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Articles\Edit.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Articles\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Create.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Delete.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Details.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Edit.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Index.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Assurances\Create.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Assurances\Delete.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Assurances\Details.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Assurances\Edit.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\Assurances\Index.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Articles\Create.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Articles\Delete.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Articles\Details.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Articles\Edit.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Articles\Index.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Create.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Delete.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Details.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Edit.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\AjouterAccessoires\Index.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Assurances\Create.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Assurances\Delete.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Assurances\Details.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Assurances\Edit.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Assurances\Index.cshtml"/>
     </ItemGroup>
 
 </Project>

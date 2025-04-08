@@ -3,7 +3,7 @@ Backend for SAE4A.01
 
 ## Features
 - [x] In-memory caching
-- [ ] Redis caching
+- [x] Redis caching
 - [x] Rate-limiter
 - [x] Docker build script
 

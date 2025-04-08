@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager;
 
-public class PanierManager : IDataRepository<Panier>
+public class PanierManager : IDataPanier
 {
     public const int PAGE_SIZE = 20;
     private readonly S215UpWayContext upwaysDbContext;
@@ -43,17 +44,7 @@ public class PanierManager : IDataRepository<Panier>
 
     public async Task<ActionResult<Panier>> GetByIdAsync(int id)
     {
-        return await upwaysDbContext.Paniers
-            .Where(p => p.PanierId == id)
-            .Include(p => p.ListeLignePaniers)
-                .ThenInclude(lp => lp.LignePanierVelo)
-            .Include(p => p.ListeLignePaniers)
-                .ThenInclude(lp => lp.LignePanierAssurance)
-            .Include(p => p.ListeAjouterAccessoires)
-                .ThenInclude(a => a.AjoutDAccessoire)
-            .Include(p => p.ListeLignePaniers)
-                .ThenInclude(lp => lp.ListeMarquageVelos)
-            .FirstOrDefaultAsync();
+        return await upwaysDbContext.Paniers.FindAsync(id);
     }
 
     public async Task<ActionResult<Panier>> GetByStringAsync(string str)
@@ -70,5 +61,14 @@ public class PanierManager : IDataRepository<Panier>
         panToUpdate.Cookie = pan.Cookie;
         panToUpdate.PrixPanier = pan.PrixPanier;
         await upwaysDbContext.SaveChangesAsync();
+    }
+
+    public async Task<ActionResult<Panier>> GetByUser(int user_id)
+    {
+        return await upwaysDbContext.Paniers
+            .Include(p => p.ListeAjouterAccessoires)
+                .ThenInclude(a => a.AjoutDAccessoire)
+                    .ThenInclude(a => a.ListePhotoAccessoires)
+            .FirstOrDefaultAsync(p => p.ClientId == user_id);
     }
 }
