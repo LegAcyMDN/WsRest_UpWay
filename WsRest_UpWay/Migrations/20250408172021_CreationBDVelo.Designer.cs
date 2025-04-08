@@ -12,7 +12,7 @@ using WsRest_UpWay.Models.EntityFramework;
 namespace WsRest_UpWay.Migrations
 {
     [DbContext(typeof(S215UpWayContext))]
-    [Migration("20250405093714_CreationBDVelo")]
+    [Migration("20250408172021_CreationBDVelo")]
     partial class CreationBDVelo
     {
         /// <inheritdoc />
@@ -1499,9 +1499,8 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("vel_annee");
 
-                    b.Property<string>("CapaciteBatterie")
-                        .HasMaxLength(10)
-                        .HasColumnType("character(10)")
+                    b.Property<int?>("CapaciteBatterie")
+                        .HasColumnType("integer")
                         .HasColumnName("vel_capacitebatterie")
                         .IsFixedLength();
 
@@ -1531,9 +1530,8 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("vel_nom");
 
-                    b.Property<string>("NombreKms")
-                        .HasMaxLength(15)
-                        .HasColumnType("char(15)")
+                    b.Property<int?>("NombreKms")
+                        .HasColumnType("integer")
                         .HasColumnName("vel_kms")
                         .IsFixedLength();
 
@@ -1562,15 +1560,13 @@ namespace WsRest_UpWay.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("vel_quantite");
 
-                    b.Property<string>("TailleMax")
-                        .HasMaxLength(15)
-                        .HasColumnType("char(15)")
+                    b.Property<int?>("TailleMax")
+                        .HasColumnType("integer")
                         .HasColumnName("vel_taillemax")
                         .IsFixedLength();
 
-                    b.Property<string>("TailleMin")
-                        .HasMaxLength(15)
-                        .HasColumnType("char(15)")
+                    b.Property<int?>("TailleMin")
+                        .HasColumnType("integer")
                         .HasColumnName("vel_taillemin")
                         .IsFixedLength();
 

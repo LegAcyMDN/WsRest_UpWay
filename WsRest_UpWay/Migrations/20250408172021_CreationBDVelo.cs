@@ -529,16 +529,16 @@ namespace WsRest_UpWay.Migrations
                     car_id = table.Column<int>(type: "integer", nullable: true),
                     vel_nom = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     vel_annee = table.Column<int>(type: "integer", precision: 4, scale: 0, nullable: true),
-                    vel_taillemin = table.Column<string>(type: "char(15)", fixedLength: true, maxLength: 15, nullable: true),
-                    vel_taillemax = table.Column<string>(type: "char(15)", fixedLength: true, maxLength: 15, nullable: true),
-                    vel_kms = table.Column<string>(type: "char(15)", fixedLength: true, maxLength: 15, nullable: true),
+                    vel_taillemin = table.Column<int>(type: "integer", fixedLength: true, nullable: true),
+                    vel_taillemax = table.Column<int>(type: "integer", fixedLength: true, nullable: true),
+                    vel_kms = table.Column<int>(type: "integer", fixedLength: true, nullable: true),
                     vel_prixremise = table.Column<decimal>(type: "numeric(5,0)", precision: 5, scale: 0, nullable: true),
                     vel_prixneuf = table.Column<decimal>(type: "numeric(5,0)", precision: 5, scale: 0, nullable: true),
                     vel_pourcentagereduction = table.Column<decimal>(type: "numeric(3,0)", precision: 3, scale: 0, nullable: true),
                     vel_descriptif = table.Column<string>(type: "text", maxLength: 5000, nullable: true),
                     vel_quantite = table.Column<int>(type: "integer", precision: 3, scale: 0, nullable: true),
                     vel_positionmoteur = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
-                    vel_capacitebatterie = table.Column<string>(type: "character(10)", fixedLength: true, maxLength: 10, nullable: true)
+                    vel_capacitebatterie = table.Column<int>(type: "integer", fixedLength: true, nullable: true)
                 },
                 constraints: table =>
                 {
