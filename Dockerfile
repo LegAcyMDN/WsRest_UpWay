@@ -26,6 +26,9 @@ RUN dotnet publish WsRest_UpWay -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
+# needed for quick deployment's health check
+RUN apt-get update -y && apt-get install curl -y
+
 COPY --from=build /app/out .
 
 EXPOSE 8080

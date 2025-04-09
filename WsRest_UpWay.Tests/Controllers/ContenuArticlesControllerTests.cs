@@ -54,7 +54,7 @@ public class ContenuArticlesControllerTests
         Assert.AreEqual(1, result.Value.ContenueId);
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public async Task GetContenuArticle_ReturnsNotFound_WhenNotFound()
     {
         _mockDataRepository.Setup(repo => repo.GetByIdAsync(99)).ReturnsAsync((ContenuArticle)null!);
@@ -62,7 +62,7 @@ public class ContenuArticlesControllerTests
         var result = await _controller.GetContenuArticle(99);
 
         Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod]
     public async Task GetByArticleId_ReturnsContent_WhenExists()
@@ -76,7 +76,7 @@ public class ContenuArticlesControllerTests
         Assert.AreEqual(1, result.Value.Count());
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public async Task GetByArticleId_ReturnsNotFound_WhenEmpty()
     {
         var contenuArticleId = 999;
@@ -85,7 +85,7 @@ public class ContenuArticlesControllerTests
         var result = await _controller.GetByArticleId(contenuArticleId);
 
         Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod]
     public async Task PostContenuArticle_ReturnsCreatedAtAction_WhenValid()

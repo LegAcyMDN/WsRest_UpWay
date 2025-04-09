@@ -5,7 +5,7 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Models.DataManager;
 
-public class LignePanierManager : IDataRepository<LignePanier>
+public class LignePanierManager : IDataLignePanier
 {
     private readonly S215UpWayContext _ctx;
 
@@ -24,12 +24,12 @@ public class LignePanierManager : IDataRepository<LignePanier>
         return await _ctx.Lignepaniers.CountAsync();
     }
 
-    public async Task<ActionResult<LignePanier>> GetByIdAsync(int id)
+    public Task<ActionResult<LignePanier>> GetByIdAsync(int id)
     {
-        return await _ctx.Lignepaniers.FindAsync(id);
+        throw new NotImplementedException();
     }
 
-    public async Task<ActionResult<LignePanier>> GetByStringAsync(string str)
+    public Task<ActionResult<LignePanier>> GetByStringAsync(string str)
     {
         throw new NotImplementedException();
     }
@@ -53,5 +53,11 @@ public class LignePanierManager : IDataRepository<LignePanier>
     public async Task DeleteAsync(LignePanier entity)
     {
         _ctx.Lignepaniers.Remove(entity);
+        await _ctx.SaveChangesAsync();
+    }
+
+    public async Task<ActionResult<LignePanier>> GetByIdsAsync(int panierId, int veloId)
+    {
+        return await _ctx.Lignepaniers.FirstOrDefaultAsync(l => l.PanierId == panierId && l.VeloId == veloId);
     }
 }

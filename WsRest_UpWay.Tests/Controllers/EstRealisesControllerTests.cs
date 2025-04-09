@@ -61,7 +61,7 @@ public class EstRealisesControllerTests
         Assert.AreEqual(estRealise.VeloId, returnedEstRealise.VeloId);
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public async Task GetEstRealiseByIds_ReturnsNotFound_WhenEstRealiseDoesNotExist()
     {
         // Arrange
@@ -72,7 +72,7 @@ public class EstRealisesControllerTests
 
         // Assert
         Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod]
     public async Task PostEstRealise_ReturnsCreatedResult_WhenModelIsValid()
@@ -84,19 +84,13 @@ public class EstRealisesControllerTests
             InspectionId = 1,
             ReparationId = 1
         };
-        _mockDataEstRealise.Setup(repo => repo.AddAsync(It.IsAny<EstRealise>())).Returns(Task.CompletedTask);
 
         // Act
         var result = await _controller.PostVelo(newEstRealise);
 
         // Assert
-        var createdAtActionResult = result.Result as CreatedAtActionResult;
-        Assert.IsNotNull(createdAtActionResult);
-        Assert.AreEqual("GetById", createdAtActionResult.ActionName);
-        var returnedEstRealise = createdAtActionResult.Value as EstRealise;
-        Assert.AreEqual(newEstRealise.VeloId, returnedEstRealise.VeloId);
-        Assert.AreEqual(newEstRealise.InspectionId, returnedEstRealise.InspectionId);
-        Assert.AreEqual(newEstRealise.ReparationId, returnedEstRealise.ReparationId);
+        Assert.IsInstanceOfType<CreatedAtActionResult>(result.Result);
+        Assert.AreEqual(newEstRealise, ((CreatedAtActionResult)result.Result).Value);
     }
 
     [TestMethod]
@@ -134,7 +128,7 @@ public class EstRealisesControllerTests
         Assert.IsInstanceOfType(result, typeof(NoContentResult));
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public async Task PutEstRealise_ReturnsNotFound_WhenEstRealiseDoesNotExist()
     {
         // Arrange
@@ -151,7 +145,7 @@ public class EstRealisesControllerTests
 
         // Assert
         Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod]
     public async Task DeleteEstRealise_ReturnsNoContent_WhenEstRealiseIsDeleted()
