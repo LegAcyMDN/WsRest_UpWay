@@ -33,7 +33,7 @@ public class CategorieManager : IDataRepository<Categorie>
 
     public async Task<ActionResult<IEnumerable<Categorie>>> GetAllAsync(int page)
     {
-        return await s215UpWayContext.Categories.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync());
+        return await s215UpWayContext.Categories.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task<ActionResult<int>> GetCountAsync()
