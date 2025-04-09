@@ -58,6 +58,14 @@ public class AssuranceManagerTests
         var assurance = ctx.Assurances.FirstOrDefault();
         Assert.IsNotNull(assurance);
 
+        ctx.Entry(assurance).Collection(x => x.ListeLignePaniers).Load();
+
+        foreach (var ligne in assurance.ListeLignePaniers)
+        {
+            ctx.Lignepaniers.Remove(ligne);
+        }
+
+        ctx.SaveChanges();
         manager.DeleteAsync(assurance).Wait();
         assurance = ctx.Assurances.Find(assurance.AssuranceId);
         Assert.IsNull(assurance);

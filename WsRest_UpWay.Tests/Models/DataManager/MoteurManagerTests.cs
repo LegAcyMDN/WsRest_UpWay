@@ -63,7 +63,23 @@ public class MoteurManagerTests
     {
         var moteur = ctx.Moteurs.FirstOrDefault();
         Assert.IsNotNull(moteur);
+        
+        ctx.Entry(moteur).Collection(m => m.ListeVelos).Load();
+        ctx.Entry(moteur).Collection(m => m.ListeVeloModifiers).Load();
 
+        foreach (var velo in moteur.ListeVelos)
+        {
+            ctx.Entry(velo).State = EntityState.Modified;
+            velo.MoteurId = null;
+        }
+        
+        foreach (var velo in moteur.ListeVeloModifiers)
+        {
+            ctx.Entry(velo).State = EntityState.Modified;
+            velo.MoteurId = null;
+        }
+
+        ctx.SaveChanges();
         manager.DeleteAsync(moteur).Wait();
         moteur = ctx.Moteurs.Find(moteur.MoteurId);
         Assert.IsNull(moteur);
