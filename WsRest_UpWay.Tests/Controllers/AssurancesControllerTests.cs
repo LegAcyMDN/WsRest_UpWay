@@ -15,149 +15,148 @@ namespace WsRest_UpWay.Controllers.Tests
     [TestClass()]
     public class AssurancesControllerTests
     {
-        private AssurancesController _controller;
-        private Mock<IDataRepository<Assurance>> _mockDataRepository;
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            _mockDataRepository = new Mock<IDataRepository<Assurance>>();
-            _controller = new AssurancesController(_mockDataRepository.Object);
-        }
-
         [TestMethod]
-        public async Task GetAssurances_ReturnsOkResult_WhenAssurancesExist()
+        public void GetAssuranceById_ExistingId_ReturnsAssurance()
         {
             // Arrange
-            var assurances = new List<Assurance>
-        {
-            new() { AssuranceId = 1, TitreAssurance = "Assurance 1" },
-            new() { AssuranceId = 2, TitreAssurance = "Assurance 2" }
-        };
-            _mockDataRepository.Setup(repo => repo.GetAllAsync(0)).ReturnsAsync(assurances);
+            var assurance = new Assurance { AssuranceId = 1, TitreAssurance = "Basique", PrixAssurance = 29.99M };
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByIdAsync(1).Result).Returns(assurance);
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.Gets();
+            var result = controller.GetAssuranceById(1).Result;
 
             // Assert
-            var returnedAssurances = result.Value as List<Assurance>;
-            Assert.IsNotNull(returnedAssurances);
-            CollectionAssert.AreEquivalent(assurances, returnedAssurances);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(assurance, result.Value);
         }
+
         [TestMethod]
-        public async Task Getassurance_ReturnsNotFound_WhenAssuranceDoesNotExist()
+        public void GetAssuranceById_UnknownId_ReturnsNotFound()
         {
             // Arrange
-            var assuranceId = 1;
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(assuranceId)).ReturnsAsync((Assurance)null);
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByIdAsync(0).Result).Returns((Assurance)null);
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.GetAssuranceById(assuranceId);
+            var result = controller.GetAssuranceById(0).Result;
 
             // Assert
             Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
         }
+
         [TestMethod]
-        public async Task GetAssurance_ReturnsOkResult_WhenAssuranceIdExists()
+        public void GetAssuranceByTitre_ExistingTitle_ReturnsAssurance()
         {
             // Arrange
-            var assuranceId = 1;
-            var assurance = new Assurance { AssuranceId = assuranceId, TitreAssurance = "Assurance 1" };
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(assuranceId)).ReturnsAsync(assurance);
+            var assurance = new Assurance { AssuranceId = 1, TitreAssurance = "Premium", PrixAssurance = 99.99M };
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByStringAsync("Premium").Result).Returns(assurance);
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.GetAssuranceById(assuranceId);
+            var result = controller.GetAssuranceByTitre("Premium").Result;
 
             // Assert
-            var returnedassurance = result.Value;
-            Assert.IsNotNull(returnedassurance);
-            Assert.AreEqual(assuranceId, returnedassurance.AssuranceId);
-        }
-        [TestMethod]
-        public async Task Postassurance_ReturnsCreatedResult_WhenModelIsValid()
-        {
-            // Arrange
-            var newAssurance = new Assurance { AssuranceId = 1, TitreAssurance = "Bonne Assurance" };
-            _mockDataRepository.Setup(repo => repo.AddAsync(It.IsAny<Assurance>())).Returns(Task.CompletedTask);
-
-            // Act
-            var result = await _controller.PostAssurance(newAssurance);
-
-            // Assert
-            var createdAtActionResult = result.Result as CreatedAtActionResult;
-            Assert.IsNotNull(createdAtActionResult);
-            Assert.AreEqual("GetById", createdAtActionResult.ActionName);
-            Assert.AreEqual(newAssurance.AssuranceId, createdAtActionResult.RouteValues["id"]);
-        }
-        [TestMethod]
-        public async Task PostAssurance_ReturnsBadRequest_WhenModelIsInvalid()
-        {
-            // Arrange
-            var newAssurance = new Assurance();
-            _controller.ModelState.AddModelError("TitreAssurance", "Required");
-
-            // Act
-            var result = await _controller.PostAssurance(newAssurance);
-
-            // Assert
-            var badRequestResult = result.Result as BadRequestObjectResult;
-            Assert.IsNotNull(badRequestResult);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual("Premium", result.Value.TitreAssurance);
         }
 
         [TestMethod]
-        public async Task PutAssurance_ReturnsNoContent_WhenAssuranceIsUpdated()
+        public void GetAssuranceByTitre_UnknownTitle_ReturnsNotFound()
         {
             // Arrange
-            var assuranceId = 1;
-            var updatedAssurance = new Assurance { AssuranceId = assuranceId, TitreAssurance = "Updated Assurance" };
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(assuranceId)).ReturnsAsync(updatedAssurance);
-            _mockDataRepository.Setup(repo => repo.UpdateAsync(It.IsAny<Assurance>(), It.IsAny<Assurance>()))
-                .Returns(Task.CompletedTask);
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByStringAsync("Gold").Result).Returns((Assurance)null);
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.PutAssurance(assuranceId, updatedAssurance);
+            var result = controller.GetAssuranceByTitre("Gold").Result;
+
+            // Assert
+            Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public void PutAssurance_ValidUpdate_ReturnsNoContent()
+        {
+            // Arrange
+            var assuranceBefore = new Assurance { AssuranceId = 1, TitreAssurance = "Basique" };
+            var assuranceAfter = new Assurance { AssuranceId = 1, TitreAssurance = "Premium" };
+
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByIdAsync(1).Result).Returns(assuranceBefore);
+
+            var controller = new AssurancesController(mockRepo.Object);
+
+            // Act
+            var result = controller.PutAssurance(1, assuranceAfter).Result;
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
         }
+
         [TestMethod]
-        public async Task PutAssurance_ReturnsNotFound_WhenAssuranceDoesNotExist()
+        public void PutAssurance_IdMismatch_ReturnsBadRequest()
         {
             // Arrange
-            var assuranceId = 1;
-            var updatedAssurance = new Assurance { AssuranceId = assuranceId, TitreAssurance = "Updated Assurance" };
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(assuranceId)).ReturnsAsync((Assurance)null);
+            var assurance = new Assurance { AssuranceId = 2, TitreAssurance = "Basique" };
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.PutAssurance(assuranceId, updatedAssurance);
+            var result = controller.PutAssurance(1, assurance).Result;
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
         }
+
         [TestMethod]
-        public async Task DeleteAssurance_ReturnsNoContent_WhenAssuranceIsDeleted()
+        public void PostAssurance_ValidAssurance_ReturnsCreatedResult()
         {
             // Arrange
-            var assuranceId = 1;
-            var Assurance = new Assurance { AssuranceId = assuranceId };
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(assuranceId)).ReturnsAsync(Assurance);
-            _mockDataRepository.Setup(repo => repo.DeleteAsync(It.IsAny<Assurance>())).Returns(Task.CompletedTask);
+            var assurance = new Assurance { AssuranceId = 1, TitreAssurance = "Silver", PrixAssurance = 19.99M };
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.DeleteAssurance(assuranceId);
+            var result = controller.PostAssurance(assurance).Result;
+
+            // Assert
+            Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult));
+            var created = result.Result as CreatedAtActionResult;
+            Assert.AreEqual(assurance, created.Value);
+        }
+
+        [TestMethod]
+        public void DeleteAssurance_ExistingAssurance_ReturnsNoContent()
+        {
+            // Arrange
+            var assurance = new Assurance { AssuranceId = 3, TitreAssurance = "Gold" };
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByIdAsync(3).Result).Returns(assurance);
+            var controller = new AssurancesController(mockRepo.Object);
+
+            // Act
+            var result = controller.DeleteAssurance(3).Result;
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
         }
+
         [TestMethod]
-        public async Task DeleteAssurance_ReturnsNotFound_WhenAssuranceDoesNotExist()
+        public void DeleteAssurance_UnknownId_ReturnsNotFound()
         {
             // Arrange
-            var assuranceId = 1;
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(assuranceId)).ReturnsAsync((Assurance)null);
+            var mockRepo = new Mock<IDataRepository<Assurance>>();
+            mockRepo.Setup(x => x.GetByIdAsync(0).Result).Returns((Assurance)null);
+            var controller = new AssurancesController(mockRepo.Object);
 
             // Act
-            var result = await _controller.DeleteAssurance(assuranceId);
+            var result = controller.DeleteAssurance(0).Result;
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
