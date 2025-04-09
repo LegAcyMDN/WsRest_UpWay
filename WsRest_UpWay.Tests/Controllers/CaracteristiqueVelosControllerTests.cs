@@ -102,7 +102,7 @@ namespace WsRest_UpWay.Tests.Controllers
             // Assert
             var createdAtActionResult = result.Result as CreatedAtActionResult;
             Assert.IsNotNull(createdAtActionResult);
-            Assert.AreEqual("Getarticle", createdAtActionResult.ActionName);
+            Assert.AreEqual("GetCaracteristique", createdAtActionResult.ActionName);
             Assert.AreEqual(newCaracteristiquevelo.CaracteristiqueVeloId, createdAtActionResult.RouteValues["id"]);
         }
 

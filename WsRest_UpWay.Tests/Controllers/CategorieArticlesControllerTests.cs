@@ -13,7 +13,7 @@ public class CategorieArticlesControllerTests
     public void GetCategorieArticleById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
     {
         // Arrange
-        var catArticle = new CategorieArticle
+        var catArticle = new CategorieArticle 
         {
             CategorieArticleId = 1,
             TitreCategorieArticle = "Revente vélo",
