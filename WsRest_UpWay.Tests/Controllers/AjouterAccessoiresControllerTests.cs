@@ -28,6 +28,7 @@ public class AjouterAccessoiresControllerTests
     private AjouterAccessoire _ajouterAccessoire;
     private Panier _panier;
     private IConfiguration _config;
+    private CompteClient _user;
 
     [TestInitialize]
     public void TestInitialize()
@@ -42,7 +43,7 @@ public class AjouterAccessoiresControllerTests
         _config["JWT_ISSUER"] = "http://localhost:5194/";
         _config["JWT_AUDIENCE"] = "http://localhost:5194/";
 
-        var user = new CompteClient
+        _user = new CompteClient
         {
             LoginClient = "jean.patrick",
             EmailClient = "jean.patrick@gmail.com",
@@ -52,56 +53,87 @@ public class AjouterAccessoiresControllerTests
             MotDePasseClient = new PasswordHasher<CompteClient>().HashPassword(null, "Jean@Patrick!"),
             Usertype = Policies.User
         };
+        
+        _panier = new Panier
+        {
+            PanierId = 1,
+            ClientId = _user.ClientId,
+        };
 
         _ajouterAccessoire = new AjouterAccessoire
         {
             AccessoireId = 1,
-            PanierId = 1,
+            PanierId = _panier.PanierId,
             QuantiteAccessoire = 2
         };
-
-        _panier = new Panier
-        {
-            PanierId = 1,
-            ClientId = user.ClientId,
-        };
-
-        var jwt = new JwtSecurityToken(user.GenerateJwtToken(_config));
+        
+        var jwt = new JwtSecurityToken(_user.GenerateJwtToken(_config));
         _controller.ControllerContext.HttpContext = new DefaultHttpContext
         {
             User = new ClaimsPrincipal(new ClaimsIdentity(jwt.Claims))
         };
     }
+    
+    [TestMethod]
+    public async Task GetAll_ReturnsOk()
+    {
+        _user.Usertype = Policies.Admin;
+        var jwt = new JwtSecurityToken(_user.GenerateJwtToken(_config));
+        _controller.ControllerContext.HttpContext = new DefaultHttpContext
+        {
+            User = new ClaimsPrincipal(new ClaimsIdentity(jwt.Claims))
+        };
+        
+        var list = new List<AjouterAccessoire> { _ajouterAccessoire };
+        _mockRepo.Setup(r => r.GetAllAsync(0)).ReturnsAsync(list);
 
+        var result = await _controller.Gets();
+
+        Assert.IsInstanceOfType<IEnumerable<AjouterAccessoire>>(result.Value);
+        CollectionAssert.AreEqual(list, result.Value.ToList());
+    }
+
+ /* TODO: Find a way to make the Authorize annotation works during tests
+  [TestMethod]
+    public async Task GetAll_ReturnsUnauthorized()
+    {
+        var list = new List<AjouterAccessoire> { _ajouterAccessoire };
+        _mockRepo.Setup(r => r.GetAllAsync(0)).ReturnsAsync(list);
+
+        var result = await _controller.Gets();
+        Assert.IsInstanceOfType<UnauthorizedResult>(result.Result);
+    }*/
+    
     [TestMethod]
     public async Task Get_ReturnsOk_WhenAccessoireExistsAndUserAuthorized()
     {
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(_ajouterAccessoire);
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync(_ajouterAccessoire);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
-        var result = await _controller.Get(1);
+        var result = await _controller.Get(_ajouterAccessoire.AccessoireId);
 
-        Assert.IsInstanceOfType(result.Result, typeof(OkObjectResult));
+        Assert.IsInstanceOfType<AjouterAccessoire>(result.Value);
+        Assert.AreEqual(_ajouterAccessoire, result.Value);
     }
 
     [TestMethod]
     public async Task Get_ReturnsNotFound_WhenAccessoireNotFound()
     {
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((AjouterAccessoire)null);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync((AjouterAccessoire)null);
 
-        var result = await _controller.Get(1);
+        var result = await _controller.Get(_ajouterAccessoire.AccessoireId);
 
-        Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+        Assert.IsInstanceOfType<NotFoundResult>(result.Result);
     }
 
     [TestMethod]
     public async Task Get_ReturnsUnauthorized_WhenUserIsNotOwner()
     {
         _panier.ClientId = 99;
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(_ajouterAccessoire);
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync(_ajouterAccessoire);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
-        var result = await _controller.Get(1);
+        var result = await _controller.Get(_ajouterAccessoire.AccessoireId);
 
         Assert.IsInstanceOfType(result.Result, typeof(UnauthorizedResult));
     }
@@ -109,7 +141,7 @@ public class AjouterAccessoiresControllerTests
     [TestMethod]
     public async Task PostAjouterAccessoire_ReturnsCreated_WhenValid()
     {
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
         var result = await _controller.PostAjouterAccessoire(_ajouterAccessoire);
 
@@ -120,7 +152,7 @@ public class AjouterAccessoiresControllerTests
     public async Task PostAjouterAccessoire_ReturnsUnauthorized_WhenUserNotOwner()
     {
         _panier.ClientId = 999;
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
         var result = await _controller.PostAjouterAccessoire(_ajouterAccessoire);
 
@@ -130,7 +162,7 @@ public class AjouterAccessoiresControllerTests
     [TestMethod]
     public async Task PostAjouterAccessoire_ReturnsNotFound_WhenPanierNotFound()
     {
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync((Panier)null);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync((Panier)null);
 
         var result = await _controller.PostAjouterAccessoire(_ajouterAccessoire);
 
@@ -140,8 +172,8 @@ public class AjouterAccessoiresControllerTests
     [TestMethod]
     public async Task Put_ReturnsNoContent_WhenUpdatedSuccessfully()
     {
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(_ajouterAccessoire);
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync(_ajouterAccessoire);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
         var result = await _controller.Put(_ajouterAccessoire);
 
@@ -152,8 +184,8 @@ public class AjouterAccessoiresControllerTests
     public async Task Put_ReturnsUnauthorized_WhenUserNotOwner()
     {
         _panier.ClientId = 999;
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(_ajouterAccessoire);
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync(_ajouterAccessoire);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
         var result = await _controller.Put(_ajouterAccessoire);
 
@@ -163,7 +195,7 @@ public class AjouterAccessoiresControllerTests
     [TestMethod]
     public async Task Put_ReturnsNotFound_WhenAccessoireNotFound()
     {
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((AjouterAccessoire)null);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync((AjouterAccessoire)null);
 
         var result = await _controller.Put(_ajouterAccessoire);
 
@@ -173,10 +205,10 @@ public class AjouterAccessoiresControllerTests
     [TestMethod]
     public async Task DeleteAjouterAccessoire_ReturnsNoContent_WhenDeleted()
     {
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(_ajouterAccessoire);
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync(_ajouterAccessoire);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
-        var result = await _controller.DeleteAjouterAccessoire(1);
+        var result = await _controller.DeleteAjouterAccessoire(_ajouterAccessoire.AccessoireId);
 
         Assert.IsInstanceOfType(result, typeof(NoContentResult));
     }
@@ -185,10 +217,10 @@ public class AjouterAccessoiresControllerTests
     public async Task DeleteAjouterAccessoire_ReturnsUnauthorized_WhenUserNotOwner()
     {
         _panier.ClientId = 999;
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(_ajouterAccessoire);
-        _mockPanierRepo.Setup(p => p.GetByIdAsync(1)).ReturnsAsync(_panier);
+        _mockRepo.Setup(r => r.GetByIdAsync(_ajouterAccessoire.AccessoireId)).ReturnsAsync(_ajouterAccessoire);
+        _mockPanierRepo.Setup(p => p.GetByIdAsync(_panier.PanierId)).ReturnsAsync(_panier);
 
-        var result = await _controller.DeleteAjouterAccessoire(1);
+        var result = await _controller.DeleteAjouterAccessoire(_ajouterAccessoire.AccessoireId);
 
         Assert.IsInstanceOfType(result, typeof(UnauthorizedResult));
     }
@@ -196,9 +228,9 @@ public class AjouterAccessoiresControllerTests
     [TestMethod]
     public async Task DeleteAjouterAccessoire_ReturnsNotFound_WhenAccessoireNotFound()
     {
-        _mockRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync((AjouterAccessoire)null);
+        _mockRepo.Setup(r => r.GetByIdAsync(_panier.PanierId)).ReturnsAsync((AjouterAccessoire)null);
 
-        var result = await _controller.DeleteAjouterAccessoire(1);
+        var result = await _controller.DeleteAjouterAccessoire(_ajouterAccessoire.AccessoireId);
 
         Assert.IsInstanceOfType(result, typeof(NotFoundResult));
     }

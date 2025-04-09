@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WsRest_UpWay.Helpers;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 
@@ -21,6 +22,7 @@ public class AjouterAccessoiresController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = Policies.Admin)]
     public async Task<ActionResult<IEnumerable<AjouterAccessoire>>> Gets()
     {
         return await _dataRepository.GetAllAsync();
