@@ -58,7 +58,7 @@ public class MoteursControllerTests
     {
         // Arrange
         var mockRepo = new Mock<IDataRepository<Moteur>>();
-        mockRepo.Setup(x => x.GetByIdAsync(0)).ReturnsAsync((Moteur)null);  // Utiliser `ReturnsAsync` pour retourner null
+        mockRepo.Setup(x => x.GetByIdAsync(0)).ReturnsAsync((Moteur)null);
         var controller = new MoteursController(mockRepo.Object);
 
         // Act
