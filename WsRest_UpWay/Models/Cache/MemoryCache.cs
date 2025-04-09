@@ -1,5 +1,6 @@
 using System.Collections;
 using Microsoft.Extensions.Caching.Memory;
+using Prometheus;
 
 namespace WsRest_UpWay.Models.Cache;
 
@@ -52,4 +53,6 @@ public class MemoryCache : ICache
             return item;
         });
     }
+
+    public MemoryCacheStatistics? Statistics => this._cache.GetCurrentStatistics();
 }

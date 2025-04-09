@@ -32,8 +32,7 @@ public class MoteurManager : IDataRepository<Moteur>
 
     public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync(int page = 0)
     {
-        return await _cache.GetOrCreateAsync("engine:all/" + page,
-            async () => await upwaysDbContext.Moteurs.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync());
+        return await upwaysDbContext.Moteurs.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task<ActionResult<Moteur>> GetByIdAsync(int id)

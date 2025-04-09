@@ -104,11 +104,7 @@ public class VeloManager : IDataVelo
 
     public async Task<ActionResult<IEnumerable<Velo>>> GetAllAsync(int page)
     {
-        return await _cache.GetOrCreateAsync("velos/all:" + page, async () =>
-        {
-            return await _upWayContext.Velos.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
-            ;
-        });
+       return await _upWayContext.Velos.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();    
     }
 
     public async Task<ActionResult<int>> GetCountAsync()

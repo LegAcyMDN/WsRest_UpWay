@@ -33,8 +33,7 @@ public class ArticleManager : IDataArticles
 
     public async Task<ActionResult<IEnumerable<Article>>> GetAllAsync(int page = 0)
     {
-        return await _cache.GetOrCreateAsync("articles:all/" + page,
-            async () => await upwaysDbContext.Articles.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync());
+        return await upwaysDbContext.Articles.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task<ActionResult<Article>> GetByIdAsync(int id)

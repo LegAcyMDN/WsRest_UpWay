@@ -21,8 +21,7 @@ public class MarqueManager : IDataRepository<Marque>
 
     public async Task<ActionResult<IEnumerable<Marque>>> GetAllAsync(int page)
     {
-        return await _cache.GetOrCreateAsync("brands:all/" + page,
-            async () => await upwaysDbContext.Marques.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync());
+        return await upwaysDbContext.Marques.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 
     public async Task<ActionResult<int>> GetCountAsync()
