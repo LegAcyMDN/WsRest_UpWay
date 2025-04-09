@@ -29,7 +29,7 @@ public class MoteurManager : IDataRepository<Moteur>
         await upwaysDbContext.SaveChangesAsync();
     }
 
-    public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync(int page = 0)
+    public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync(int page)
     {
         return await upwaysDbContext.Moteurs.ToListAsync();
     }
