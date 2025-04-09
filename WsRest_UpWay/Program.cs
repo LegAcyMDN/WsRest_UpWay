@@ -44,6 +44,7 @@ builder.Services.AddScoped<IDataRepository<AjouterAccessoire>, AjouterAccessoire
 builder.Services.AddScoped<IDataRepository<Article>, ArticleManager>();
 builder.Services.AddScoped<IDataCodeReduction<CodeReduction>, CodeReductionManager>();
 builder.Services.AddScoped<IDataContenuArticles, ContenuArticlesManager>();
+builder.Services.AddScoped<IDataRepository<Moteur>, MoteurManager>();
 builder.Services.AddScoped<IDataArticles, ArticleManager>();
 builder.Services.AddScoped<IDataVelo, VeloManager>();
 builder.Services.AddScoped<IDataEstRealise, EstRealiseManager>();
