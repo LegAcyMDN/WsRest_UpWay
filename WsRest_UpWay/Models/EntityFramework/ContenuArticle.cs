@@ -23,7 +23,7 @@ public class ContenuArticle : ISizedEntity
 
     [ForeignKey(nameof(ArticleId))]
     [InverseProperty(nameof(Article.ListeContenuArticles))]
-    public virtual Article ContenuArticleArt { get; set; } = null!;
+    public virtual Article? ContenuArticleArt { get; set; } = null!;
 
     public long GetSize()
     {
