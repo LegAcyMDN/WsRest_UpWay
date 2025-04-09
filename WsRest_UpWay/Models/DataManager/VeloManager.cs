@@ -85,6 +85,10 @@ public class VeloManager : IDataVelo
             {
                 var mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(cp =>
                     cp.CoupleMoteur.ToUpper().Equals(couplemot.ToUpper()));
+                if (mot == null)
+                {
+                    return new List<Velo>();
+                }
                 velofilt = velofilt.Where(p => p.MoteurId == mot.MoteurId);
             }
             if (capbat != null)
@@ -93,8 +97,15 @@ public class VeloManager : IDataVelo
             }
             if (poids != null)
             {
-                var catv = await _upWayContext.Caracteristiquevelos.FirstOrDefaultAsync(c => c.Poids == poids);
-                velofilt = velofilt.Where(p => p.CaracteristiqueVeloId == catv.CaracteristiqueVeloId);
+                var catv = await _upWayContext.Caracteristiquevelos.FirstOrDefaultAsync(c => c.Poids <= poids);
+                if (catv != null)
+                {
+                    velofilt = velofilt.Where(p => p.CaracteristiqueVeloId == catv.CaracteristiqueVeloId);
+                }
+                else
+                {
+                    return new List<Velo>(); // we return empty list cause there are no velo with the weight requested
+                }
             }
 
             return await velofilt.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
