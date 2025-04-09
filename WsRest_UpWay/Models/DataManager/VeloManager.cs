@@ -72,7 +72,7 @@ public class VeloManager : IDataVelo
             if (kilomMin != null)
             {
                 velofilt = velofilt.Where(p =>
-                    p.NombreKms <= kilomMin);
+                    p.NombreKms >= kilomMin);
             }
             if (kilomMax != null)
             {
@@ -80,7 +80,7 @@ public class VeloManager : IDataVelo
                     p.NombreKms <= kilomMax);
             }
             if (posmot != null) velofilt = velofilt.Where(p => p.PositionMoteur.ToUpper().Equals(posmot.ToUpper()));
-            if (motmar != null) velofilt = velofilt.Where(p => p.MoteurId.Equals(motmar));
+            if (motmar != null) velofilt = velofilt.Where(p => p.MoteurId == motmar);
             if (couplemot != null)
             {
                 var mot = await _upWayContext.Moteurs.FirstOrDefaultAsync(cp =>
