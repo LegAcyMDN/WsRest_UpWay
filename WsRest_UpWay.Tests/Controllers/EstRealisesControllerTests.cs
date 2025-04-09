@@ -84,19 +84,13 @@ public class EstRealisesControllerTests
             InspectionId = 1,
             ReparationId = 1
         };
-        _mockDataEstRealise.Setup(repo => repo.AddAsync(It.IsAny<EstRealise>())).Returns(Task.CompletedTask);
 
         // Act
         var result = await _controller.PostVelo(newEstRealise);
 
         // Assert
-        var createdAtActionResult = result.Result as CreatedAtActionResult;
-        Assert.IsNotNull(createdAtActionResult);
-        Assert.AreEqual("GetById", createdAtActionResult.ActionName);
-        var returnedEstRealise = createdAtActionResult.Value as EstRealise;
-        Assert.AreEqual(newEstRealise.VeloId, returnedEstRealise.VeloId);
-        Assert.AreEqual(newEstRealise.InspectionId, returnedEstRealise.InspectionId);
-        Assert.AreEqual(newEstRealise.ReparationId, returnedEstRealise.ReparationId);
+        Assert.IsInstanceOfType<CreatedAtActionResult>(result.Result);
+        Assert.AreEqual(newEstRealise, ((CreatedAtActionResult)result.Result).Value);
     }
 
     [TestMethod]

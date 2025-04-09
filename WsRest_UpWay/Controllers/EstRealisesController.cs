@@ -93,7 +93,7 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Policy = Policies.Admin)]
-        public async Task<ActionResult<Velo>> PostVelo(EstRealise realise)
+        public async Task<ActionResult<EstRealise>> PostVelo(EstRealise realise)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
