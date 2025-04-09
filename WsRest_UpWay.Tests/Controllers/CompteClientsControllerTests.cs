@@ -117,16 +117,46 @@ namespace WsRest_UpWay.Controllers.Tests
         {
             // Arrange
             var compteClientId = 1;
-            var updatedcompteClient = new compteClient
+            var updatedcompteClient = new CompteClient
             {
-                compteClientId = 1,
-                LibellecompteClient = "Véhicule volant",
-                ImagecompteClient = "nothing.png"
+                ClientId = 1,
+                LoginClient = "Jésus Christ",
             };
-            _mockDataRepository.Setup(repo => repo.GetByIdAsync(compteClientId)).ReturnsAsync((compteClient)null);
+            _mockDataRepository.Setup(repo => repo.GetByIdAsync(compteClientId)).ReturnsAsync((CompteClient)null);
 
             // Act
-            var result = await _controller.PutcompteClient(compteClientId, updatedcompteClient);
+            var result = await _controller.PutCompteClient(compteClientId, updatedcompteClient);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+        [TestMethod]
+        public async Task DeleteCompteClient_ReturnsNoContent_WhenCompteClientIsDeleted()
+        {
+            // Arrange
+            var clientId = 1;
+            var compteClient = new CompteClient
+            {
+                ClientId = 1,
+                LoginClient = "Patrick Koertig",
+            };
+            _mockDataRepository.Setup(repo => repo.GetByIdAsync(clientId)).ReturnsAsync(compteClient);
+            _mockDataRepository.Setup(repo => repo.DeleteAsync(It.IsAny<CompteClient>())).Returns(Task.CompletedTask);
+
+            // Act
+            var result = await _controller.DeleteCompteClient(clientId);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NoContentResult));
+        }
+        [TestMethod]
+        public async Task DeletecompteClient_ReturnsNotFound_WhencompteClientDoesNotExist()
+        {
+            // Arrange
+            _mockDataRepository.Setup(repo => repo.GetByIdAsync(2)).ReturnsAsync((CompteClient)null);
+
+            // Act
+            var result = await _controller.DeleteCompteClient(1);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
