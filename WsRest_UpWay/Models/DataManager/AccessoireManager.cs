@@ -100,10 +100,6 @@ public class AccessoireManager : IDataAccessoire
 
     public async Task<ActionResult<IEnumerable<Accessoire>>> GetAllAsync(int page)
     {
-        return await cache.GetOrCreateAsync("accessoires/all:" + page, async () =>
-        {
-            return await upwaysDbContext.Accessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
-            ;
-        });
+        return await upwaysDbContext.Accessoires.Skip(page * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
     }
 }
