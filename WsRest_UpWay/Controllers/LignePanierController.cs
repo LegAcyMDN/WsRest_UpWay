@@ -10,13 +10,13 @@ namespace WsRest_UpWay.Controllers;
 [ApiController]
 public class LignePanierController : ControllerBase
 {
-    private readonly IDataRepository<LignePanier> _dataRepository;
+    private readonly IDataLignePanier _dataRepository;
     private readonly IDataRepository<Panier> _panierRepository;
     private readonly IDataRepository<MarquageVelo> _marquageVeloRepository;
     private static Random random = new Random();
 
 
-    public LignePanierController(IDataRepository<LignePanier> dataRepository, IDataRepository<Panier> panierRepository, IDataRepository<MarquageVelo> marquageVeloRepository)
+    public LignePanierController(IDataLignePanier dataRepository, IDataRepository<Panier> panierRepository, IDataRepository<MarquageVelo> marquageVeloRepository)
     {
         _dataRepository = dataRepository;
         _panierRepository = panierRepository;
@@ -31,11 +31,11 @@ public class LignePanierController : ControllerBase
     }
 
     // GET: api/Panier/5
-    [HttpGet("{id}")]
+    [HttpGet("{panierId}/{veloId}")]
     [Authorize]
-    public async Task<ActionResult<LignePanier>> GetPanier(int id)
+    public async Task<ActionResult<LignePanier>> GetLignePanier(int panierId, int veloId)
     {
-        var lignepanier = await _dataRepository.GetByIdAsync(id);
+        var lignepanier = await _dataRepository.GetByIdsAsync(panierId, veloId);
         if (lignepanier.Value == null) return NotFound();
 
         var panier = await _panierRepository.GetByIdAsync(lignepanier.Value.PanierId);
@@ -47,13 +47,11 @@ public class LignePanierController : ControllerBase
 
     // PUT: api/Panier/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{id}")]
+    [HttpPut]
     [Authorize]
-    public async Task<IActionResult> PutPanier(int id, LignePanier body)
+    public async Task<IActionResult> PutPanier(LignePanier body)
     {
-        if (id != body.PanierId) return BadRequest();
-
-        var lignepanier = await _dataRepository.GetByIdAsync(id);
+        var lignepanier = await _dataRepository.GetByIdsAsync(body.PanierId, body.VeloId);
         if (lignepanier.Value == null) return NotFound();
 
         var panier = await _panierRepository.GetByIdAsync(lignepanier.Value.PanierId);
@@ -87,15 +85,15 @@ public class LignePanierController : ControllerBase
         
         await _marquageVeloRepository.AddAsync(marquageVelo);
 
-        return CreatedAtAction("GetPanier", new { id = lignepanier.PanierId }, panier);
+        return CreatedAtAction("GetLignePanier", new { panierId = lignepanier.PanierId, veloId = lignepanier.VeloId }, lignepanier);
     }
 
     // DELETE: api/Panier/5
-    [HttpDelete("{id}")]
+    [HttpDelete("{panierId}/{veloId}")]
     [Authorize]
-    public async Task<IActionResult> DeletePanier(int id)
+    public async Task<IActionResult> DeletePanier(int panierId, int veloId)
     {
-        var lignepanier = await _dataRepository.GetByIdAsync(id);
+        var lignepanier = await _dataRepository.GetByIdsAsync(panierId, veloId);
         if (lignepanier.Value == null) return NotFound();
 
         var panier = await _panierRepository.GetByIdAsync(lignepanier.Value.PanierId);

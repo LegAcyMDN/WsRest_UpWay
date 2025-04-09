@@ -37,7 +37,7 @@ builder.Services.AddScoped<IDataPanier, PanierManager>();
 builder.Services.AddScoped<IDataRepository<DetailCommande>, DetailCommandeManager>();
 builder.Services.AddScoped<IDataRepository<CategorieArticle>, CategorieArticleManager>();
 builder.Services.AddScoped<IDataRepository<Categorie>, CategorieManager>();
-builder.Services.AddScoped<IDataRepository<LignePanier>, LignePanierManager>();
+builder.Services.AddScoped<IDataLignePanier, LignePanierManager>();
 builder.Services.AddScoped<IDataRepository<MarquageVelo>, MarquageVeloManager>();
 builder.Services.AddScoped<IDataRepository<Assurance>, AssuranceManager>();
 builder.Services.AddScoped<IDataRepository<AjouterAccessoire>, AjouterAccessoireManager>();
