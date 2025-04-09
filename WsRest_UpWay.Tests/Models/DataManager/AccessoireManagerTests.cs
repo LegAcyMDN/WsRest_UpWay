@@ -155,11 +155,11 @@ public class AccessoireManagerTests
         Assert.IsNotNull(accessoire);
 
         // cascade so it doesn't break foreign keys when deleting
-        ctx.Entry(accessoire).Collection(e => e.ListeAjoutAccessoires).Load();
-        ctx.Entry(accessoire).Collection(e => e.ListePhotoAccessoires).Load();
+        //ctx.Entry(accessoire).Collection(e => e.ListeAjoutAccessoires).Load();
+        //ctx.Entry(accessoire).Collection(e => e.ListePhotoAccessoires).Load();
         ctx.Entry(accessoire).Collection(e => e.ListeVelos).Load();
 
-        foreach (var velo in accessoire.ListeAjoutAccessoires)
+        /*foreach (var velo in accessoire.ListeAjoutAccessoires)
         {
             ctx.Entry(velo).State = EntityState.Modified;
             velo.AccessoireId = null;
@@ -169,7 +169,7 @@ public class AccessoireManagerTests
         {
             ctx.Entry(velo).State = EntityState.Modified;
             velo.AccessoireId = null;
-        }
+        }*/
 
         foreach (var velo in accessoire.ListeVelos)
         {
