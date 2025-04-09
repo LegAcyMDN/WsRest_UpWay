@@ -30,15 +30,15 @@ public class EstRealise : ISizedEntity
 
     [ForeignKey(nameof(InspectionId))]
     [InverseProperty(nameof(RapportInspection.ListeEstRealises))]
-    public virtual RapportInspection EstRealiseRapportInspection { get; set; } = null!;
+    public virtual RapportInspection? EstRealiseRapportInspection { get; set; } = null!;
 
     [ForeignKey(nameof(ReparationId))]
     [InverseProperty(nameof(ReparationVelo.ListeEstRealises))]
-    public virtual ReparationVelo EstRealiseReparationVelo { get; set; } = null!;
+    public virtual ReparationVelo? EstRealiseReparationVelo { get; set; } = null!;
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeEstRealises))]
-    public virtual Velo EstRealiseVelo { get; set; } = null!;
+    public virtual Velo? EstRealiseVelo { get; set; } = null!;
 
     public long GetSize()
     {

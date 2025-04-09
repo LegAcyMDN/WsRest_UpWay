@@ -50,7 +50,14 @@ public class EstRealiseManagerTests
 
         var reparation = ctx.Reparationvelos.FirstOrDefault();
         Assert.IsNotNull(reparation);
-
+        
+        var existing = ctx.Estrealises.FirstOrDefault(x => x.VeloId == velo.VeloId && x.InspectionId == inspection.InspectionId && x.ReparationId == reparation.ReparationId);
+        if (existing != null)
+        {
+            ctx.Estrealises.Remove(existing);
+            ctx.SaveChanges();
+        }
+        
         var date = DateTime.Now.ToString();
 
         var estRealise = new EstRealise
@@ -107,15 +114,19 @@ public class EstRealiseManagerTests
     [TestMethod()]
     public void GetByIdVeloAsyncTest()
     {
-        var expected = ctx.Estrealises.FirstOrDefault();
+        var velo = ctx.Velos.FirstOrDefault();
+        Assert.IsNotNull(velo);
+        
+        var expected = ctx.Estrealises.Include(e => e.EstRealiseRapportInspection)
+            .Where(e => e.VeloId == velo.VeloId && e.EstRealiseRapportInspection.TypeInspection == "Mécanique").ToList();
         Assert.IsNotNull(expected);
+        Assert.AreNotEqual(0, expected.Count());
 
-        var result = manager.GetByIdVeloAsync(expected.VeloId, expected.EstRealiseRapportInspection.TypeInspection).Result;
+        var result = manager.GetByIdVeloAsync(expected[0].VeloId, expected[0].EstRealiseRapportInspection.TypeInspection).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);
-        //Assert.AreEqual(expected, result.Value);
-        Assert.Fail();
+        CollectionAssert.AreEquivalent(expected, result.Value.ToList());
     }
 
     [TestMethod()]
