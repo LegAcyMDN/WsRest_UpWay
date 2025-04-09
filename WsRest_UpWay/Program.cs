@@ -123,8 +123,14 @@ builder.Services.AddRateLimiter(options =>
             }));
 });
 
+var labels = new Dictionary<string, string>();
+labels.Add("instance_name", builder.Configuration["INSTANCE_NAME"] ?? "upway-backend");
+Metrics.DefaultRegistry.SetStaticLabels(labels);
+
 builder.Services.AddHostedService<MetricsService>();
 builder.Services.AddSystemMetrics();
+
+
 
 var app = builder.Build();
 
