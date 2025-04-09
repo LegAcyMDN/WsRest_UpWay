@@ -28,7 +28,8 @@ public class MoteurManager : IDataRepository<Moteur>
         upwaysDbContext.Moteurs.Remove(moteur);
         await upwaysDbContext.SaveChangesAsync();
     }
-    public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync(int page)
+
+    public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync(int page = 0)
     {
         return await upwaysDbContext.Moteurs.ToListAsync();
     }
