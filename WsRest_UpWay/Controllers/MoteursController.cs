@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,25 +16,25 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class MoteursController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<Moteur> dataRepository;
 
-        public MoteursController(S215UpWayContext context)
+        public MoteursController(IDataRepository<Moteur> dataRepo)
         {
-            _context = context;
+            dataRepository = dataRepo;
         }
 
         // GET: api/Moteurs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Moteur>>> GetMoteurs()
         {
-            return await _context.Moteurs.ToListAsync();
+            return await dataRepository.GetAllAsync();
         }
 
         // GET: api/Moteurs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Moteur>> GetMoteur(int id)
         {
-            var moteur = await _context.Moteurs.FindAsync(id);
+            var moteur = await dataRepository.GetByIdAsync(id);
 
             if (moteur == null)
             {
@@ -43,65 +46,51 @@ namespace WsRest_UpWay.Controllers
 
         // PUT: api/Moteurs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMoteur(int id, Moteur moteur)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = Policies.Admin)]
+        public async Task<IActionResult> PutMoteur(int id, Moteur catArticle)
         {
-            if (id != moteur.MoteurId)
-            {
+            if (id != catArticle.MoteurId)
                 return BadRequest();
-            }
 
-            _context.Entry(moteur).State = EntityState.Modified;
+            var comToUpdate = await dataRepository.GetByIdAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MoteurExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (comToUpdate.Value == null)
+                return NotFound();
+            await dataRepository.UpdateAsync(comToUpdate.Value, catArticle);
             return NoContent();
         }
 
-        // POST: api/Moteurs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Moteur>> PostMoteur(Moteur moteur)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = Policies.Admin)]
+        public async Task<ActionResult<CategorieArticle>> PostMoteur(Moteur catArticle)
         {
-            _context.Moteurs.Add(moteur);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetMoteur", new { id = moteur.MoteurId }, moteur);
+            await dataRepository.AddAsync(catArticle);
+
+            return CreatedAtAction("GetById", new { id = catArticle.MoteurId }, catArticle);
         }
 
-        // DELETE: api/Moteurs/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Policy = Policies.Admin)]
         public async Task<IActionResult> DeleteMoteur(int id)
         {
-            var moteur = await _context.Moteurs.FindAsync(id);
-            if (moteur == null)
-            {
+            var catArticle = await dataRepository.GetByIdAsync(id);
+            if (catArticle.Value == null)
                 return NotFound();
-            }
 
-            _context.Moteurs.Remove(moteur);
-            await _context.SaveChangesAsync();
-
+            await dataRepository.DeleteAsync(catArticle.Value);
             return NoContent();
-        }
-
-        private bool MoteurExists(int id)
-        {
-            return _context.Moteurs.Any(e => e.MoteurId == id);
         }
     }
 }
