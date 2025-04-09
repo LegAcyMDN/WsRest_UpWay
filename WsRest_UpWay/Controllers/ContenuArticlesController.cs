@@ -97,5 +97,11 @@ namespace WsRest_UpWay.Controllers
             await _dataRepository.DeleteAsync(contenuArticle.Value);
             return NoContent();
         }
+
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetCount()
+        {
+            return await _dataRepository.GetCountAsync();
+        }
     }
 }
