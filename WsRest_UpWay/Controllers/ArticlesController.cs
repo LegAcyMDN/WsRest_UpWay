@@ -70,7 +70,7 @@ namespace WsRest_UpWay.Controllers
 
             if (artToUpdate.Value == null)
                 return NotFound();
-            _dataRepository.UpdateAsync(artToUpdate.Value, article);
+            await _dataRepository.UpdateAsync(artToUpdate.Value, article);
             return NoContent();
         }
 
@@ -82,7 +82,7 @@ namespace WsRest_UpWay.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            _dataRepository.AddAsync(article);
+            await _dataRepository.AddAsync(article);
 
             return CreatedAtAction("Getarticle", new { id = article.ArticleId }, article);
         }
@@ -97,7 +97,7 @@ namespace WsRest_UpWay.Controllers
                 return NotFound();
             }
 
-            _dataRepository.DeleteAsync(article.Value);
+            await _dataRepository.DeleteAsync(article.Value);
             return NoContent();
         }
     }
