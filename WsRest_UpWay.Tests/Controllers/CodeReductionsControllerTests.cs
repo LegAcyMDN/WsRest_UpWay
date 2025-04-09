@@ -12,27 +12,28 @@ using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers.Tests
 {
-    [TestClass()]
-    public class CodeReductionsControllerTests
-    {
-        private CodeReductionsController _controller;
+[TestClass()]
+public class CodeReductionsControllerTests
+{
+    private CodeReductionsController _controller;
         private Mock<IDataRepository<CodeReduction>> _mockDataRepository;
 
-        [TestInitialize]
-        public void TestInitialize()
-        {
+    [TestInitialize]
+    public void TestInitialize()
+    {
             _mockDataRepository = new Mock<IDataRepository<CodeReduction>>();
             _controller = new CodeReductionsController(_mockDataRepository.Object);
-        }
-        [TestMethod]
+    }
+
+    [TestMethod]
         public async Task GetCodeReduction_ReturnsOkResult_WhenCodeReductionExist()
-        {
+    {
             // Arrange
             var codeReduction = new List<CodeReduction>
-        {
+            {
             new() { ReductionId = "1", ActifReduction = true, },
             new() { ReductionId = "2", ActifReduction = false, }
-        };
+            };
             _mockDataRepository.Setup(repo => repo.GetAllAsync(0)).ReturnsAsync(codeReduction);
 
             // Act
@@ -42,10 +43,11 @@ namespace WsRest_UpWay.Controllers.Tests
             var returnedCodeReduction = result.Value as List<CodeReduction>;
             Assert.IsNotNull(returnedCodeReduction);
             CollectionAssert.AreEquivalent(codeReduction, returnedCodeReduction);
-        }
-        [TestMethod]
+    }
+
+    [TestMethod]
         public async Task GetCodeReductionById_ExistingIdPassed_ReturnsRightItem_AvecMoq()
-        {
+    {
             // Arrange
             var codeReductionId = "1";
             var codeReduction = new CodeReduction { ReductionId = "1", ActifReduction = true, };
@@ -58,21 +60,23 @@ namespace WsRest_UpWay.Controllers.Tests
             var returnedCodeReduction = result.Value;
             Assert.IsNotNull(returnedCodeReduction);
             Assert.AreEqual(codeReductionId, returnedCodeReduction.ReductionId);
-        }
-        [TestMethod]
+    }
+
+    [TestMethod]
         public async Task GetCodeReduction_ReturnsNotFound_WhenCodeReductionDoesNotExist()
-        {
+    {
             var codeReductionId = "1";
             _mockDataRepository.Setup(repo => repo.GetByStringAsync(codeReductionId)).ReturnsAsync((CodeReduction)null);
 
             var result = await _controller.GetCodeReduction("J7S8Zd9");
 
             // Assert
-            Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
-        }
-        [TestMethod]
+        Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+    }
+
+    [TestMethod]
         public async Task PostCodeReduction_ReturnsCreatedResult_WhenModelIsValid()
-        {
+    {
             // Arrange
             // Arrange
             var newcodeReduction = new CodeReduction
@@ -90,10 +94,11 @@ namespace WsRest_UpWay.Controllers.Tests
             Assert.IsNotNull(createdAtActionResult);
             Assert.AreEqual("GetCodeReduction", createdAtActionResult.ActionName);
             Assert.AreEqual(newcodeReduction.ReductionId, createdAtActionResult.RouteValues["id"]);
-        }
-        [TestMethod]
+    }
+
+    [TestMethod]
         public async Task PostCodeReduction_ReturnsBadRequest_WhenModelIsInvalid()
-        {
+    {
             // Arrange
             var newCodeReduction = new CodeReduction();
             _controller.ModelState.AddModelError("ActifReduction", "Required");
@@ -104,15 +109,15 @@ namespace WsRest_UpWay.Controllers.Tests
             // Assert
             var badRequestResult = result.Result as BadRequestObjectResult;
             Assert.IsNotNull(badRequestResult);
-        }
+    }
 
-        [TestMethod]
+    [TestMethod]
         public async Task PutCodeReduction_ReturnsNoContent_WhenCodeReductionIsUpdated()
         {
             // Arrange
             var codeReductionId = "1";
             var updatedCodeReduction = new CodeReduction
-            {
+    {
                 ReductionId = "1",
                 ActifReduction = true,
             };
@@ -125,14 +130,15 @@ namespace WsRest_UpWay.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
-        }
-        [TestMethod]
+    }
+
+    [TestMethod]
         public async Task PutCodeReduction_ReturnsNotFound_WhenCodeReductionDoesNotExist()
         {
             // Arrange
             var codeReductionId = "1";
             var updatedCodeReduction = new CodeReduction
-            {
+    {
                 ReductionId = "1",
                 ActifReduction = true,
             };
@@ -143,14 +149,15 @@ namespace WsRest_UpWay.Controllers.Tests
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-        }
-        [TestMethod]
+    }
+
+    [TestMethod]
         public async Task DeleteCodeReduction_ReturnsNoContent_WhenCodeReductionIsDeleted()
         {
             // Arrange
             var codeReductionId = "1";
             var CodeReduction = new CodeReduction
-            {
+    {
                 ReductionId = "1",
                 ActifReduction = true,
             };
@@ -161,11 +168,12 @@ namespace WsRest_UpWay.Controllers.Tests
             var result = await _controller.DeleteCodeReduction(codeReductionId);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(NoContentResult));
-        }
-        [TestMethod]
+        Assert.IsInstanceOfType(result, typeof(NoContentResult));
+    }
+
+    [TestMethod]
         public async Task DeleteCodeReduction_ReturnsNotFound_WhenCodeReductionDoesNotExist()
-        {
+    {
             // Arrange
             var codeReductionId = "1";
             _mockDataRepository.Setup(repo => repo.GetByStringAsync(codeReductionId)).ReturnsAsync((CodeReduction)null);
@@ -174,7 +182,7 @@ namespace WsRest_UpWay.Controllers.Tests
             var result = await _controller.DeleteCodeReduction("D78I6Z");
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-        }
+        Assert.IsInstanceOfType(result, typeof(NotFoundResult));
     }
+}
 }
