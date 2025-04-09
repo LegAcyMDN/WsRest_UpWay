@@ -41,7 +41,7 @@ public class Accessoire : ISizedEntity
 
     [ForeignKey(nameof(MarqueId))]
     [InverseProperty(nameof(Marque.ListeAccessoires))]
-    public virtual Marque AccessoireMarque { get; set; } = null!;
+    public virtual Marque? AccessoireMarque { get; set; } = null!;
 
     [InverseProperty(nameof(AjouterAccessoire.AjoutDAccessoire))]
     public virtual ICollection<AjouterAccessoire> ListeAjoutAccessoires { get; set; } = new List<AjouterAccessoire>();
