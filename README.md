@@ -6,6 +6,7 @@ Backend for SAE4A.01
 - [x] Redis caching
 - [x] Rate-limiter
 - [x] Docker build script
+- [x] Prometheus metrics endpoint (Cache metrics are only available for memory cache)
 
 ## Configuration
 ### DB_CONNECTION_URL

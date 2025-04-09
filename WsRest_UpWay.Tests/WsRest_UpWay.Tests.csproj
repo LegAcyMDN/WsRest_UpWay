@@ -7,17 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.1.0-eap1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.14"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0"/>
-        <PackageReference Include="Moq" Version="4.20.72"/>
-        <PackageReference Include="MSTest.TestAdapter" Version="3.8.2"/>
-        <PackageReference Include="MSTest.TestFramework" Version="3.8.2"/>
-        <PackageReference Include="Otp.NET" Version="1.4.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.1.0-eap1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.14" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+        <PackageReference Include="Moq" Version="4.20.72" />
+        <PackageReference Include="MSTest.TestAdapter" Version="3.8.2" />
+        <PackageReference Include="MSTest.TestFramework" Version="3.8.2" />
+        <PackageReference Include="Otp.NET" Version="1.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\WsRest_UpWay\WsRest_UpWay.csproj"/>
+        <ProjectReference Include="..\WsRest_UpWay\WsRest_UpWay.csproj" />
     </ItemGroup>
 
     <ItemGroup>

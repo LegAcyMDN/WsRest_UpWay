@@ -13,6 +13,9 @@ using WsRest_UpWay.Models.DataManager;
 using WsRest_UpWay.Models.EntityFramework;
 using WsRest_UpWay.Models.Repository;
 using MemoryCache = Microsoft.Extensions.Caching.Memory.MemoryCache;
+using Prometheus;
+using Prometheus.SystemMetrics;
+using WsRest_UpWay;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +60,8 @@ switch (type)
     {
         builder.Services.AddSingleton<IMemoryCache>(sp => new MemoryCache(new MemoryCacheOptions
         {
-            SizeLimit = int.Parse(builder.Configuration["CACHE_SIZE"])
+            SizeLimit = int.Parse(builder.Configuration["CACHE_SIZE"]),
+            TrackStatistics = true
         }));
 
         builder.Services.AddSingleton<ICache, WsRest_UpWay.Models.Cache.MemoryCache>();
@@ -119,6 +123,15 @@ builder.Services.AddRateLimiter(options =>
             }));
 });
 
+var labels = new Dictionary<string, string>();
+labels.Add("instance_name", builder.Configuration["INSTANCE_NAME"] ?? "upway-backend");
+Metrics.DefaultRegistry.SetStaticLabels(labels);
+
+builder.Services.AddHostedService<MetricsService>();
+builder.Services.AddSystemMetrics();
+
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -156,5 +169,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapMetrics();
 
 app.Run();

@@ -20,7 +20,7 @@ public class CaracteristiqueVelo : ISizedEntity
     [Precision(5, 2)]
     [RegularExpression(@"^\d{1,4}(\.\d{2})?$",
         ErrorMessage =
-            "le prix n'est pas valide il doit avoir entre 1 et 4 chiffres avant la virgule qui est un point et 2 chiffres obligatoires après.")]
+            "le poids n'est pas valide il doit avoir entre 1 et 4 chiffres avant la virgule qui est un point et 2 chiffres obligatoires après.")]
     public decimal Poids { get; set; }
 
     [Column("cav_tubeselle")] public int TubeSelle { get; set; }

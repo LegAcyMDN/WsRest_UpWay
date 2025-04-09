@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WsRest_UpWay.Models.Cache;
 
@@ -25,4 +26,6 @@ public class DistributedCache : ICache
 
         return JsonSerializer.Deserialize<TItem>(item);
     }
+
+    public MemoryCacheStatistics? Statistics => null;
 }
