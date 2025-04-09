@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Repository;
 using WsRest_UpWay.Models.EntityFramework;
 
 namespace WsRest_UpWay.Controllers
@@ -13,9 +14,9 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class CaracteristiqueVelosController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<CaracteristiqueVelo> _context;
 
-        public CaracteristiqueVelosController(S215UpWayContext context)
+        public CaracteristiqueVelosController(IDataRepository<CaracteristiqueVelo> context)
         {
             _context = context;
         }
@@ -24,14 +25,14 @@ namespace WsRest_UpWay.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CaracteristiqueVelo>>> GetCaracteristiquevelos()
         {
-            return await _context.Caracteristiquevelos.ToListAsync();
+            return await _context.GetAllAsync();
         }
 
         // GET: api/CaracteristiqueVeloes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CaracteristiqueVelo>> GetCaracteristiqueVelo(int id)
         {
-            var caracteristiqueVelo = await _context.Caracteristiquevelos.FindAsync(id);
+            var caracteristiqueVelo = await _context.GetByIdAsync(id);
 
             if (caracteristiqueVelo == null)
             {
@@ -51,24 +52,11 @@ namespace WsRest_UpWay.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(caracteristiqueVelo).State = EntityState.Modified;
+            var cavToUpdate = await _context.GetByIdAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CaracteristiqueVeloExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (cavToUpdate.Value == null)
+                return NotFound();
+            _context.UpdateAsync(cavToUpdate.Value, caracteristiqueVelo);
             return NoContent();
         }
 
@@ -77,31 +65,26 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<CaracteristiqueVelo>> PostCaracteristiqueVelo(CaracteristiqueVelo caracteristiqueVelo)
         {
-            _context.Caracteristiquevelos.Add(caracteristiqueVelo);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetCaracteristiqueVelo", new { id = caracteristiqueVelo.CaracteristiqueVeloId }, caracteristiqueVelo);
+            _context.AddAsync(caracteristiqueVelo);
+
+            return CreatedAtAction("Getarticle", new { id = caracteristiqueVelo.CaracteristiqueVeloId }, caracteristiqueVelo);
         }
 
         // DELETE: api/CaracteristiqueVeloes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCaracteristiqueVelo(int id)
         {
-            var caracteristiqueVelo = await _context.Caracteristiquevelos.FindAsync(id);
+            var caracteristiqueVelo = await _context.GetByIdAsync(id);
             if (caracteristiqueVelo == null)
             {
                 return NotFound();
             }
 
-            _context.Caracteristiquevelos.Remove(caracteristiqueVelo);
-            await _context.SaveChangesAsync();
-
+            _context.DeleteAsync(caracteristiqueVelo.Value);
             return NoContent();
-        }
-
-        private bool CaracteristiqueVeloExists(int id)
-        {
-            return _context.Caracteristiquevelos.Any(e => e.CaracteristiqueVeloId == id);
         }
     }
 }
