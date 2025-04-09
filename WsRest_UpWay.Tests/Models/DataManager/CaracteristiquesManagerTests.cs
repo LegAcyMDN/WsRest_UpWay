@@ -41,7 +41,10 @@ public class CaracteristiquesManagerTests
     [TestMethod()]
     public void GetCountAsyncTest()
     {
-        Assert.Fail();
+        var result = manager.GetCountAsync().Result;
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        Assert.AreEqual(ctx.Caracteristiques.Count(), result.Value);
     }
 
     [TestMethod()]
@@ -109,7 +112,28 @@ public class CaracteristiquesManagerTests
 
         // cascade so it doesn't break foreign keys when deleting
         ctx.Entry(caracteristique).Collection(e => e.ListeSousCaracteristiques).Load();
+        ctx.Entry(caracteristique).Collection(e => e.ListeVelos).Load();
+        ctx.Entry(caracteristique).Collection(e => e.ListeCaracteristiques).Load();
+        ctx.Entry(caracteristique).Collection(e => e.ListeCategories).Load();
+        foreach (var car in caracteristique.ListeSousCaracteristiques)
+        {
+            ctx.Entry(car).State = EntityState.Deleted;
+            ctx.Remove(car);
+        }
+        
+        foreach (var car in caracteristique.ListeVelos)
+        {
+            ctx.Entry(car).State = EntityState.Modified;
+            car.CaracteristiqueVeloId = null;
+        }
+        
+        foreach (var car in caracteristique.ListeCaracteristiques)
+        {
+            ctx.Entry(car).State = EntityState.Deleted;
+            ctx.Remove(car);
+        }
 
+        ctx.SaveChanges();
         manager.DeleteAsync(caracteristique).Wait();
         caracteristique = ctx.Caracteristiques.Find(caracteristique.CaracteristiqueId);
         Assert.IsNull(caracteristique);

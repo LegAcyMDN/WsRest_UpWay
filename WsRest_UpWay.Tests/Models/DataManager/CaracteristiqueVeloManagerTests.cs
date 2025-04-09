@@ -75,7 +75,20 @@ public class CaracteristiqueVeloManagerTests
 
         // cascade so it doesn't break foreign keys when deleting
         ctx.Entry(caractVelo).Collection(e => e.ListeVeloModifiers).Load();
+        ctx.Entry(caractVelo).Collection(e => e.ListeVelos).Load();
+        foreach (var velo in caractVelo.ListeVeloModifiers)
+        {
+            ctx.Entry(velo).State = EntityState.Modified;
+            velo.CaracteristiqueVeloId = null;
+        }
+        
+        foreach (var velo in caractVelo.ListeVelos)
+        {
+            ctx.Entry(velo).State = EntityState.Modified;
+            velo.CaracteristiqueVeloId = null;
+        }
 
+        ctx.SaveChanges();
         manager.DeleteAsync(caractVelo).Wait();
         caractVelo = ctx.Caracteristiquevelos.Find(caractVelo.CaracteristiqueVeloId);
         Assert.IsNull(caractVelo);
@@ -108,7 +121,10 @@ public class CaracteristiqueVeloManagerTests
     [TestMethod()]
     public void GetCountAsyncTest()
     {
-        Assert.Fail();
+        var result = manager.GetCountAsync().Result;
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        Assert.AreEqual(ctx.Caracteristiquevelos.Count(), result.Value);
     }
 
     [TestMethod()]

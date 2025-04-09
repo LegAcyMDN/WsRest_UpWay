@@ -49,6 +49,8 @@ public class ArticleManagerTests
             //ArticleId = ctx.Articles.OrderBy(e => e.ArticleId).Last().ArticleId + 1,
             CategorieArticleId = catArticle.CategorieArticleId
         };
+        
+        manager.AddAsync(article).Wait();
 
         var article2 = ctx.Articles.FirstOrDefault(u => u.ArticleId == article.ArticleId);
         Assert.IsNotNull(article2);
@@ -61,6 +63,11 @@ public class ArticleManagerTests
         Assert.IsNotNull(article);
 
         ctx.Entry(article).Collection(e => e.ListeContenuArticles).Load();
+        foreach (var content in article.ListeContenuArticles)
+        {
+            ctx.ContenuArticles.Remove(content);
+        }
+        ctx.SaveChanges();
 
         manager.DeleteAsync(article).Wait();
         article = ctx.Articles.Find(article.ArticleId);
@@ -107,7 +114,10 @@ public class ArticleManagerTests
     [TestMethod()]
     public void GetCountAsyncTest()
     {
-        Assert.Fail();
+        var result = manager.GetCountAsync().Result;
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        Assert.AreEqual(ctx.Articles.Count(), result.Value);
     }
 
     [TestMethod()]
