@@ -36,7 +36,13 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EstRealise>> GetEstRealiseByIds(int idvelo, int idinspection, int idreparation)
         {
-            return await dataRepository.GetByIdsAsync(idvelo, idinspection, idreparation);
+            var res = await dataRepository.GetByIdsAsync(idvelo, idinspection, idreparation);
+            if (res.Value == null)
+            {
+                return NotFound();
+            }
+            
+            return res;
         }
 
 
@@ -47,7 +53,13 @@ namespace WsRest_UpWay.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<EstRealise>>> GetEstRealiseByVelo(int id, string type)
         {
-            return await dataRepository.GetByIdVeloAsync(id, type);
+            var res = await dataRepository.GetByIdVeloAsync(id, type);
+            if (res.Value == null)
+            {
+                return NotFound();
+            }
+            
+            return res;
         }
 
 
@@ -69,7 +81,7 @@ namespace WsRest_UpWay.Controllers
 
             var realiseToUpdate = await dataRepository.GetByIdsAsync(idvelo, idinspection, idreparation);
 
-            if (realiseToUpdate == null)
+            if (realiseToUpdate.Value == null)
                 return NotFound();
             await dataRepository.UpdateAsync(realiseToUpdate.Value, estRealise);
             return NoContent();
@@ -88,7 +100,7 @@ namespace WsRest_UpWay.Controllers
 
             await dataRepository.AddAsync(realise);
 
-            return CreatedAtAction("GetById", new { id = realise.VeloId }, realise);
+            return CreatedAtAction("GetByIds", new { idvelo = realise.VeloId, idinspection = realise.InspectionId, idreparation = realise.ReparationId }, realise);
         }
 
         // DELETE: api/Velos/5

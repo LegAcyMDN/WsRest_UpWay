@@ -34,7 +34,7 @@ namespace WsRest_UpWay.Controllers
         {
             var contenuArticle = await _dataRepository.GetByIdAsync(id);
 
-            if (contenuArticle == null)
+            if (contenuArticle.Value == null)
             {
                 return NotFound();
             }
@@ -50,7 +50,7 @@ namespace WsRest_UpWay.Controllers
         {
             var contenuArticle = await _dataRepository.GetByArticleIdAsync(id);
 
-            if (contenuArticle.Value == null)
+            if (contenuArticle.Value == null || !contenuArticle.Value.Any())
                 return NotFound();
 
             return contenuArticle;

@@ -61,7 +61,7 @@ public class EstRealisesControllerTests
         Assert.AreEqual(estRealise.VeloId, returnedEstRealise.VeloId);
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public async Task GetEstRealiseByIds_ReturnsNotFound_WhenEstRealiseDoesNotExist()
     {
         // Arrange
@@ -72,7 +72,7 @@ public class EstRealisesControllerTests
 
         // Assert
         Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod]
     public async Task PostEstRealise_ReturnsCreatedResult_WhenModelIsValid()
@@ -134,7 +134,7 @@ public class EstRealisesControllerTests
         Assert.IsInstanceOfType(result, typeof(NoContentResult));
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public async Task PutEstRealise_ReturnsNotFound_WhenEstRealiseDoesNotExist()
     {
         // Arrange
@@ -151,7 +151,7 @@ public class EstRealisesControllerTests
 
         // Assert
         Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod]
     public async Task DeleteEstRealise_ReturnsNoContent_WhenEstRealiseIsDeleted()
