@@ -49,7 +49,7 @@ public class PanierManager : IDataPanier
 
     public async Task<ActionResult<Panier>> GetByStringAsync(string str)
     {
-        return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.Cookie.ToUpper() == str.ToUpper());
+        return await upwaysDbContext.Paniers.FirstOrDefaultAsync(u => u.Cookie.ToUpper().Equals(str.ToUpper()));
     }
 
     public async Task UpdateAsync(Panier panToUpdate, Panier pan)

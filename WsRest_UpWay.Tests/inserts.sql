@@ -15751,7 +15751,8 @@ INSERT INTO t_e_adresseexpedition_ade (cli_id, adf_id, ade_pays, ade_batopt, ade
                                        ade_ville, ade_telephone, ade_donneessauv)
 VALUES (8, null, 'France', 10, '859-1040 Id, Ave', '02200', 'Haut-de-France', 'Soissons', '06 34 18 00 62', TRUE);
 
-
+INSERT INTO t_e_panier_pan(cli_id, com_id, pan_prix)
+VALUES (1, null, 649);
 
 INSERT INTO t_e_adressefacturation_adf (cli_id, ade_id, adf_pays, adf_batopt, adf_rue, adf_cp, adf_region,
                                         adf_ville, adf_telephone)
@@ -15915,8 +15916,8 @@ INSERT INTO t_e_panier_pan(com_id, pan_prix)
 VALUES (null, 75);
 INSERT INTO t_e_panier_pan(com_id, pan_prix)
 VALUES (null, 649);
-
-
+INSERT INTO t_e_panier_pan(com_id, pan_prix, pan_cookie)
+VALUES (null, 649, 'Miam les bons cookies');
 
 INSERT INTO t_e_lignepanier_lignpan(lignpan_id, vel_id, ass_id, lignpan_quantpan, lignpan_priquant)
 VALUES (1, 30, 1, 1, 1749);

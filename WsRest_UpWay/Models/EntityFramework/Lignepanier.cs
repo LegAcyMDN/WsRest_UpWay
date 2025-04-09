@@ -33,15 +33,15 @@ public class LignePanier : ISizedEntity
 
     [ForeignKey(nameof(AssuranceId))]
     [InverseProperty(nameof(Assurance.ListeLignePaniers))]
-    public virtual Assurance LignePanierAssurance { get; set; } = null!;
+    public virtual Assurance? LignePanierAssurance { get; set; } = null!;
 
     [ForeignKey(nameof(PanierId))]
     [InverseProperty(nameof(Panier.ListeLignePaniers))]
-    public virtual Panier LignePanierPanier { get; set; } = null!;
+    public virtual Panier? LignePanierPanier { get; set; } = null!;
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeLignePaniers))]
-    public virtual Velo LignePanierVelo { get; set; } = null!;
+    public virtual Velo? LignePanierVelo { get; set; } = null!;
 
     [InverseProperty(nameof(MarquageVelo.MarquageVeloLignePanier))]
     public virtual ICollection<MarquageVelo> ListeMarquageVelos { get; set; } = new List<MarquageVelo>();

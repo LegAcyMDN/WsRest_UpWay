@@ -2,6 +2,7 @@
 using WsRest_UpWay.Models.DataManager;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,14 +76,18 @@ public class PanierManagerTests
 
         foreach (var ligne in panier.ListeLignePaniers)
         {
-            ctx.Entry(ligne).State = EntityState.Modified;
-            ligne.PanierId = 0;
+            ctx.Entry(ligne).Collection(l => l.ListeMarquageVelos).Load();
+            foreach (var marquage in ligne.ListeMarquageVelos)
+            {
+                ctx.Remove(marquage);
+            }
+            
+            ctx.Lignepaniers.Remove(ligne);
         }
 
         foreach (var accessoire in panier.ListeAjouterAccessoires)
         {
-            ctx.Entry(accessoire).State = EntityState.Modified;
-            accessoire.PanierId = 0;
+            ctx.Remove(accessoire);
         }
 
         foreach (var commande in panier.ListeDetailCommandes)
@@ -94,7 +99,7 @@ public class PanierManagerTests
         foreach (var info in panier.ListeInformations)
         {
             ctx.Entry(info).State = EntityState.Modified;
-            info.PanierId = 0;
+            info.PanierId = 2;
         }
 
         ctx.SaveChanges();
@@ -139,7 +144,7 @@ public class PanierManagerTests
     [TestMethod()]
     public void GetByStringAsyncTest()
     {
-        var expected = ctx.Paniers.FirstOrDefault();
+        var expected = ctx.Paniers.FirstOrDefault(p => p.Cookie != null);
         Assert.IsNotNull(expected);
 
         var result = manager.GetByStringAsync(expected.Cookie).Result;
@@ -168,10 +173,10 @@ public class PanierManagerTests
     [TestMethod()]
     public void GetByUserTest()
     {
-        var expected = ctx.Paniers.FirstOrDefault();
+        var expected = ctx.Paniers.FirstOrDefault(p => p.ClientId != null);
         Assert.IsNotNull(expected);
 
-        var result = manager.GetByUser(expected.PanierId).Result;
+        var result = manager.GetByUser((int)expected.ClientId).Result;
 
         Assert.IsNotNull(result);
         Assert.IsNotNull(result.Value);

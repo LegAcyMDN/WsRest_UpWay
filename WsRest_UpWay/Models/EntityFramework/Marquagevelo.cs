@@ -25,7 +25,7 @@ public class MarquageVelo : ISizedEntity
 
     [ForeignKey(nameof(VeloId) + "," + nameof(PanierId))]
     [InverseProperty(nameof(LignePanier.ListeMarquageVelos))]
-    public virtual LignePanier MarquageVeloLignePanier { get; set; } = null!;
+    public virtual LignePanier? MarquageVeloLignePanier { get; set; } = null!;
 
     public long GetSize()
     {
