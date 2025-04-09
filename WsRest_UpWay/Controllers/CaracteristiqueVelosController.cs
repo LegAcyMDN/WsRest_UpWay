@@ -70,7 +70,7 @@ namespace WsRest_UpWay.Controllers
 
             _context.AddAsync(caracteristiqueVelo);
 
-            return CreatedAtAction("Getarticle", new { id = caracteristiqueVelo.CaracteristiqueVeloId }, caracteristiqueVelo);
+            return CreatedAtAction("GetCaracteristique", new { id = caracteristiqueVelo.CaracteristiqueVeloId }, caracteristiqueVelo);
         }
 
         // DELETE: api/CaracteristiqueVeloes/5

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WsRest_UpWay.Models.Repository;
 using WsRest_UpWay.Models.EntityFramework;
 
 namespace WsRest_UpWay.Controllers
@@ -13,9 +14,9 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class CodeReductionsController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly  IDataRepository<CodeReduction>_context;
 
-        public CodeReductionsController(S215UpWayContext context)
+        public CodeReductionsController(IDataRepository<CodeReduction> context)
         {
             _context = context;
         }
@@ -24,14 +25,14 @@ namespace WsRest_UpWay.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CodeReduction>>> GetCodereductions()
         {
-            return await _context.Codereductions.ToListAsync();
+            return await _context.GetAllAsync();
         }
 
         // GET: api/CodeReductions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CodeReduction>> GetCodeReduction(string id)
         {
-            var codeReduction = await _context.Codereductions.FindAsync(id);
+            var codeReduction = await _context.GetByStringAsync(id);
 
             if (codeReduction == null)
             {
@@ -51,24 +52,11 @@ namespace WsRest_UpWay.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(codeReduction).State = EntityState.Modified;
+            var codToUpdate = await _context.GetByStringAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CodeReductionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (codToUpdate.Value == null)
+                return NotFound();
+            _context.UpdateAsync(codToUpdate.Value, codeReduction);
             return NoContent();
         }
 
@@ -77,22 +65,10 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<CodeReduction>> PostCodeReduction(CodeReduction codeReduction)
         {
-            _context.Codereductions.Add(codeReduction);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CodeReductionExists(codeReduction.ReductionId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _context.AddAsync(codeReduction);
 
             return CreatedAtAction("GetCodeReduction", new { id = codeReduction.ReductionId }, codeReduction);
         }
@@ -101,21 +77,14 @@ namespace WsRest_UpWay.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCodeReduction(string id)
         {
-            var codeReduction = await _context.Codereductions.FindAsync(id);
+            var codeReduction = await _context.GetByStringAsync(id);
             if (codeReduction == null)
             {
                 return NotFound();
             }
 
-            _context.Codereductions.Remove(codeReduction);
-            await _context.SaveChangesAsync();
-
+            _context.DeleteAsync(codeReduction.Value);
             return NoContent();
-        }
-
-        private bool CodeReductionExists(string id)
-        {
-            return _context.Codereductions.Any(e => e.ReductionId == id);
         }
     }
 }
