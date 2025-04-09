@@ -36,7 +36,7 @@ namespace WsRest_UpWay.Controllers
         {
             var moteur = await dataRepository.GetByIdAsync(id);
 
-            if (moteur == null)
+            if (moteur.Value == null)
             {
                 return NotFound();
             }

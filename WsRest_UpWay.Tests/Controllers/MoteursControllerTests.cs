@@ -53,7 +53,7 @@ public class MoteursControllerTests
         Assert.AreEqual(moteur, result.Value);
     }
 
-    /*[TestMethod()]
+    [TestMethod()]
     public async Task GetMoteur_UnknownId_ReturnsNotFound()
     {
         // Arrange
@@ -66,7 +66,7 @@ public class MoteursControllerTests
 
         // Assert
         Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
-    }*/
+    }
 
     [TestMethod()]
     public async Task PutMoteur_ValidUpdate_ReturnsNoContent()
