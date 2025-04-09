@@ -14,9 +14,9 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class CodeReductionsController : ControllerBase
     {
-        private readonly  IDataRepository<CodeReduction>_context;
+        private readonly  IDataCodeReduction<CodeReduction>_context;
 
-        public CodeReductionsController(IDataRepository<CodeReduction> context)
+        public CodeReductionsController(IDataCodeReduction<CodeReduction> context)
         {
             _context = context;
         }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WsRest_UpWay.Models.EntityFramework;
+using WsRest_UpWay.Models.Repository;
 
 namespace WsRest_UpWay.Controllers
 {
@@ -13,9 +14,9 @@ namespace WsRest_UpWay.Controllers
     [ApiController]
     public class CompteClientsController : ControllerBase
     {
-        private readonly S215UpWayContext _context;
+        private readonly IDataRepository<CompteClient> _context;
 
-        public CompteClientsController(S215UpWayContext context)
+        public CompteClientsController(IDataRepository<CompteClient> context)
         {
             _context = context;
         }
@@ -24,14 +25,14 @@ namespace WsRest_UpWay.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CompteClient>>> GetCompteclients()
         {
-            return await _context.Compteclients.ToListAsync();
+            return await _context.GetAllAsync();
         }
 
         // GET: api/CompteClients/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CompteClient>> GetCompteClient(int id)
         {
-            var compteClient = await _context.Compteclients.FindAsync(id);
+            var compteClient = await _context.GetByIdAsync(id);
 
             if (compteClient == null)
             {
@@ -51,24 +52,13 @@ namespace WsRest_UpWay.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(compteClient).State = EntityState.Modified;
+            var compToUpdate = await _context.GetByIdAsync(id);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CompteClientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (compToUpdate.Value == null)
+                return NotFound();
 
+
+            await _context.UpdateAsync(compToUpdate.Value, compteClient);
             return NoContent();
         }
 
@@ -77,31 +67,27 @@ namespace WsRest_UpWay.Controllers
         [HttpPost]
         public async Task<ActionResult<CompteClient>> PostCompteClient(CompteClient compteClient)
         {
-            _context.Compteclients.Add(compteClient);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return CreatedAtAction("GetCompteClient", new { id = compteClient.ClientId }, compteClient);
+            await _context.AddAsync(compteClient);
+
+            return CreatedAtAction("GetById", new { id = compteClient.ClientId }, compteClient);
         }
 
         // DELETE: api/CompteClients/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompteClient(int id)
         {
-            var compteClient = await _context.Compteclients.FindAsync(id);
+            var compteClient = await _context.GetByIdAsync(id);
             if (compteClient == null)
             {
                 return NotFound();
             }
 
-            _context.Compteclients.Remove(compteClient);
-            await _context.SaveChangesAsync();
+            _context.DeleteAsync(compteClient.Value);
 
             return NoContent();
-        }
-
-        private bool CompteClientExists(int id)
-        {
-            return _context.Compteclients.Any(e => e.ClientId == id);
         }
     }
 }

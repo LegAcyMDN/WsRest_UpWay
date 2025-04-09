@@ -17,7 +17,6 @@ public class MoteurManager : IDataRepository<Moteur>
         upwaysDbContext = context;
         _cache = cache;
     }
-
     public async Task AddAsync(Moteur moteur)
     {
         await upwaysDbContext.Moteurs.AddAsync(moteur);
@@ -29,8 +28,7 @@ public class MoteurManager : IDataRepository<Moteur>
         upwaysDbContext.Moteurs.Remove(moteur);
         await upwaysDbContext.SaveChangesAsync();
     }
-
-    public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync()
+    public async Task<ActionResult<IEnumerable<Moteur>>> GetAllAsync(int page)
     {
         return await upwaysDbContext.Moteurs.ToListAsync();
     }

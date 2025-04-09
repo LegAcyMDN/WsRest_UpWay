@@ -12,12 +12,12 @@ namespace WsRest_UpWay.Controllers.Tests
     public class CodeReductionsControllerTests
     {
         private CodeReductionsController _controller;
-        private Mock<IDataRepository<CodeReduction>> _mockDataRepository;
+        private Mock<IDataCodeReduction<CodeReduction>> _mockDataRepository;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _mockDataRepository = new Mock<IDataRepository<CodeReduction>>();
+            _mockDataRepository = new Mock<IDataCodeReduction<CodeReduction>>();
             _controller = new CodeReductionsController(_mockDataRepository.Object);
         }
 
