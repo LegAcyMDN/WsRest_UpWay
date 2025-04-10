@@ -23,7 +23,7 @@ public class PhotoVelo : ISizedEntity
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListePhotoVelos))]
-    public virtual Velo PhotoVeloVelo { get; set; } = null!;
+    public virtual Velo? PhotoVeloVelo { get; set; } = null;
 
     public long GetSize()
     {
