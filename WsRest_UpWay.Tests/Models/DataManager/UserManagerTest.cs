@@ -122,7 +122,19 @@ public class UserManagerTest
     {
         var user = ctx.Compteclients.FirstOrDefault();
         Assert.IsNotNull(user);
+        
+        ctx.Entry(user).Collection(u => u.ListeAlerteVelos).Load();
+        ctx.Entry(user).Collection(u => u.ListePaniers).Load();
+        ctx.Entry(user).Collection(u => u.ListeAdresseExpe).Load();
+        ctx.Entry(user).Collection(u => u.ListeAdresseFact).Load();
+        ctx.Entry(user).Collection(u => u.ListeDetailCommandes).Load();
 
+        foreach (var a in user.ListeAlerteVelos)
+        {
+            ctx.Remove(a);
+        }
+
+        ctx.SaveChanges();
         manager.DeleteAsync(user).Wait();
         user = ctx.Compteclients.FirstOrDefault(u => u.EmailClient == user.EmailClient);
         Assert.IsNull(user);

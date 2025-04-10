@@ -47,6 +47,8 @@ public class PhotoVelosController : ControllerBase
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutPhotoVelo(int id, PhotoVelo photoVelo)
     {
+        if (id != photoVelo.PhotoVeloId) return BadRequest();
+        
         var existingPhoto = await _dataRepository.GetByIdAsync(id);
         if (existingPhoto.Value == null)
             return NotFound();

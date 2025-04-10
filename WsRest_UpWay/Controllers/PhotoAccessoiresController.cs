@@ -47,6 +47,8 @@ public class PhotoAccessoiresController : ControllerBase
     [Authorize(Policy = Policies.Admin)]
     public async Task<IActionResult> PutPhotoAccessoire(int id, PhotoAccessoire photoAccessoire)
     {
+        if(id != photoAccessoire.PhotoAcessoireId) return BadRequest();
+        
         var existingPhoto = await _dataRepository.GetByIdAsync(id);
         if (existingPhoto.Value == null)
             return NotFound();

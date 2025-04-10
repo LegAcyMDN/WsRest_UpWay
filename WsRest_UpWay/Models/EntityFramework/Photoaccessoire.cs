@@ -19,7 +19,7 @@ public class PhotoAccessoire : ISizedEntity
 
     [ForeignKey(nameof(AccessoireId))]
     [InverseProperty(nameof(Accessoire.ListePhotoAccessoires))]
-    public virtual Accessoire PhotoAccessoireAccessoire { get; set; } = null!;
+    public virtual Accessoire? PhotoAccessoireAccessoire { get; set; } = null!;
 
     public long GetSize()
     {

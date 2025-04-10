@@ -32,6 +32,12 @@ public class LignePanierManagerTests
 
         manager = new LignePanierManager(ctx);
     }
+    
+    [TestCleanup]
+    public void Cleanup()
+    {
+        ctx.Database.EnsureDeleted();
+    }
 
     [TestMethod()]
     public void GetAllAsyncTest()
@@ -90,7 +96,7 @@ public class LignePanierManagerTests
 
         manager.UpdateAsync(ligne, ligne).Wait();
 
-        ligne = ctx.Lignepaniers.Find(ligne.PanierId);
+        ligne = ctx.Lignepaniers.FirstOrDefault(l => l.PanierId == ligne.PanierId && l.VeloId == ligne.VeloId);
         Assert.IsNotNull(ligne);
         Assert.AreEqual(newP, ligne.PrixQuantite);
     }
@@ -111,7 +117,7 @@ public class LignePanierManagerTests
 
         ctx.SaveChanges();
         manager.DeleteAsync(ligne).Wait();
-        ligne = ctx.Lignepaniers.Find(ligne.PanierId);
+        ligne = ctx.Lignepaniers.FirstOrDefault(l => l.PanierId == ligne.PanierId && l.VeloId ==  ligne.VeloId);
         Assert.IsNull(ligne);
     }
 

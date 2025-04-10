@@ -122,7 +122,7 @@ public class VeloManager : IDataVelo
     {
         return await _cache.GetOrCreateAsync("velos:count", async () =>
         {
-            return await _upWayContext.Accessoires.CountAsync();
+            return await _upWayContext.Velos.CountAsync();
             ;
         });
     }

@@ -52,7 +52,13 @@ public class AccessoireManagerTests
     [TestMethod()]
     public void GetByIdAsyncTest()
     {
-        Assert.Fail();
+        var expected = ctx.Accessoires.FirstOrDefault();
+        Assert.IsNotNull(expected);
+        
+        var result = manager.GetByIdAsync(expected.AccessoireId).Result;
+        Assert.IsNotNull(result);
+        Assert.IsNotNull(result.Value);
+        Assert.AreEqual(expected, result.Value);
     }
 
     [TestMethod()]
@@ -155,21 +161,24 @@ public class AccessoireManagerTests
         Assert.IsNotNull(accessoire);
 
         // cascade so it doesn't break foreign keys when deleting
-        //ctx.Entry(accessoire).Collection(e => e.ListeAjoutAccessoires).Load();
-        //ctx.Entry(accessoire).Collection(e => e.ListePhotoAccessoires).Load();
+        ctx.Entry(accessoire).Collection(e => e.ListeAjoutAccessoires).Load();
+        ctx.Entry(accessoire).Collection(e => e.ListePhotoAccessoires).Load();
         ctx.Entry(accessoire).Collection(e => e.ListeVelos).Load();
 
-        /*foreach (var velo in accessoire.ListeAjoutAccessoires)
+        foreach (var velo in accessoire.ListeAjoutAccessoires)
         {
-            ctx.Entry(velo).State = EntityState.Modified;
-            velo.AccessoireId = null;
-        }
+            ctx.Entry(velo).State = EntityState.Deleted;
+            ctx.Remove(velo);
+        } 
 
         foreach (var velo in accessoire.ListePhotoAccessoires)
         {
-            ctx.Entry(velo).State = EntityState.Modified;
-            velo.AccessoireId = null;
-        }*/
+            ctx.Entry(velo).State = EntityState.Deleted;
+
+            /*ctx.Entry(velo).State = EntityState.Modified;
+            velo.AccessoireId = null;*/
+            ctx.Remove(velo);
+        }
 
         foreach (var velo in accessoire.ListeVelos)
         {

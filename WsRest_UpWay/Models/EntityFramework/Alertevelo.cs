@@ -24,11 +24,11 @@ public class AlerteVelo : ISizedEntity
 
     [ForeignKey(nameof(ClientId))]
     [InverseProperty(nameof(CompteClient.ListeAlerteVelos))]
-    public virtual CompteClient AlerteClient { get; set; } = null!;
+    public virtual CompteClient? AlerteClient { get; set; } = null!;
 
     [ForeignKey(nameof(VeloId))]
     [InverseProperty(nameof(Velo.ListeAlerteVelos))]
-    public virtual Velo AlerteVeloVelo { get; set; } = null!;
+    public virtual Velo? AlerteVeloVelo { get; set; } = null!;
 
     public long GetSize()
     {
